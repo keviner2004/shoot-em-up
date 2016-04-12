@@ -22,18 +22,20 @@ Character.new = function (params)
     character.shootLevel = 0
     character:addEventListener("collision", character)
     physics.addBody(character, "dynamic", {radius = 25, filter = {categoryBits=1, maskBits=16}})
+
     function character:shoot()
         if character.shootLevel <= 1 then  
             local bullet = Bullet.new()
             bullet.x = self.x
             bullet.y = self.y
-            transition.to(bullet,  {
+            bullet:setLinearVelocity(0, -2000)
+            --[[transition.to(bullet,  {
                 y = 0,
                 time = 500,
                 onComplete = function(obj)
                     display.remove(bullet)
                 end
-            })
+            })--]]
         elseif character.shootLevel >= 2 then
 
             local bullet = Bullet.new()

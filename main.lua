@@ -34,13 +34,16 @@ local Bullet = require("Bullet")
 local Character = require("Character")
 local Backgrounds = require("Background")
 local physics = require( "physics" )
-local backgrounds = Backgrounds.new()
 local move = require("move")
 local Level = require("Level")
 local Ufo = require("Ufo")
 local Wall = require("Wall")
-
+local GlassPanel = require("ui.GlassPanel")
+local Square = require("ui.Square")
 --backgrounds.isVisible = false
+
+
+local backgrounds = Backgrounds.new()
 print ("group w: "..backgrounds.width..", h: "..backgrounds.height..", x: "..backgrounds.x..", y: "..backgrounds.y)
 
 local level = Level.load()
@@ -55,6 +58,7 @@ backgrounds:startMoveLoop()
 physics.start()
 physics.setGravity(0, 0)
 physics.setDrawMode( "hybrid" ) 
+physics.setReportCollisionsInContentCoordinates( true )
 
 --Create global screen boundaries
 local leftWall = Wall.new(0,display.contentHeight/2,1, display.contentHeight )
@@ -63,14 +67,14 @@ local topWall = Wall.new(display.contentWidth/2, 0, display.contentWidth, 1)
 local bottomWall = Wall.new(display.contentWidth/2, display.contentHeight, display.contentWidth, 1)
 
 --main character
---[[
+----[[
 local mainCharacter = Character.new({speed = 1000, fingerSize = 50, fireRate = 500})
 mainCharacter.x = display.contentWidth / 2
-mainCharacter.y = display.contentWidth / 2
+mainCharacter.y = display.contentHeight / 2
 mainCharacter:startControl()
 mainCharacter:openShield()
 mainCharacter:autoShoot()
---]]
+----]]
 --use perform with delay method to generate level
 --[[
 for i = 1, #level do 
@@ -85,11 +89,13 @@ end
 --]]
 
 --ufo
-
+--[[
 local ufo = Ufo.new()
 ufo.x = display.contentWidth/2
 ufo.y = 300
 ufo:beam()
+--]]
+
 --[[
 local missle = Missile.new()
 missle:seek(mainCharacter)
@@ -98,18 +104,21 @@ missle.y = 50
 --]]
 
 --BOSS
---[[
-local boss = Boss.new(mainCharacter)
-boss.x = 300
-boss.y = 300
---boss:mode1()
-boss:mode4()
---]]
 
+local boss = Boss.new(mainCharacter)
+boss.x = display.contentWidth/2
+boss.y = 300
+boss:initHPBar()
+--print("Boss: "..boss.hpValue.width)
+--boss:mode1()
+--boss:mode4()
+
+--[[
 local distanceText = display.newText("0", display.contentWidth/2, 100, "kenvector_future_thin", 64)
 backgrounds.onUpdate = function(distance)
     distanceText.text = distance
 end
+--]]
 
 local runtime = 0
  

@@ -16,23 +16,24 @@ Bullet.new = function(options)
     else
         maskBits=2
     end
-    if options and not options.disablePhysic then
+    if not options or (options and not options.disablePhysic) then
         if options and options.wall then
             maskBits = maskBits + 32
         end
         physics.addBody(bullet, "dynamic", { density=1.0, friction=0, bounce=0 , filter = {categoryBits=4, maskBits=maskBits}})
     end
+    
     bullet.isBullet = true
     bullet.name = "bullet"
     bullet.type = "bullet"
     bullet.damage = 10
     bullet.preCollision = function(self, event)
-        print("before hit "..event.other.name)
+        --print("before hit "..event.other.name)
         bullet:afterHit(event)
     end
 
     bullet.collision = function(self, event)
-        print("hit "..event.other.name.." with damage: "..self.damage)
+        --print("hit "..event.other.name.." with damage: "..self.damage)
         bullet:onHit(event)
     end
     bullet:addEventListener("collision", bullet)
@@ -44,8 +45,10 @@ Bullet.new = function(options)
 
     function bullet:onHit(event)
         local destroyedBullet = display.newSprite( myImageSheet , {frames={sheetInfo:getFrameIndex("Lasers/laserGreen14")}} )
-        destroyedBullet.x = self.x
-        destroyedBullet.y = self.y 
+        --destroyedBullet.x, destroyedBullet.y = self:localToContent(event.x, event.y) 
+        destroyedBullet.x, destroyedBullet.y = event.x, event.y
+        --destroyedBullet.x = self.x
+        --destroyedBullet.y = self.y - self.height/2
         transition.to(destroyedBullet, {time = 50, alpha = 0, onComplete = function()
                 destroyedBullet:removeSelf()
             end})        
