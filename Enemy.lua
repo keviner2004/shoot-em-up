@@ -34,7 +34,7 @@ Enemy.new = function(options)
             if self.hp > 0 then
                 self:onHurt(event.other.damage) 
             end
-            if self.hp < 0 then
+            if self.hp <= 0 then
                 self:onDead()
                 if self.items then
                     --drop items

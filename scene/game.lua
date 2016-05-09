@@ -39,7 +39,7 @@ function scene:create( event )
     physics.start()
     physics.setGravity(0, 0)
     physics.setReportCollisionsInContentCoordinates( true )
-    physics.setDrawMode( "hybrid" ) 
+    --physics.setDrawMode( "hybrid" ) 
     self.first = true
     local level = Level.load()
     local backgrounds = Backgrounds.new()
@@ -128,9 +128,12 @@ function scene:fpsMesure()
     local function frameUpdate()
         -- Delta Time value
         local dt = getDeltaTime()
-        --print(dt)
+        --print("FPS mesure: "..dt)
     end
+    Runtime:addEventListener("enterFrame", frameUpdate)
 end
+
+--scene:fpsMesure()
 
 function scene:pauseGame()
     physics.pause()
@@ -171,7 +174,7 @@ function scene:startGame()
                     end
                }
             }
-            composer.showOverlay( "gameoverScene", options )  
+            composer.showOverlay( "scene.gameover", options )  
         end)
     end
     self.mainCharacter.x = display.contentWidth / 2
@@ -210,7 +213,7 @@ function scene:startGame()
                     end
                 }
             }
-            composer.showOverlay( "victoryScene", options )
+            composer.showOverlay( "scene.victory", options )
         end)
     end
 
@@ -252,7 +255,7 @@ function scene:checkScore(afterCheck)
                 end
             }
         }
-        composer.showOverlay( "newHighScoreScene", options )
+        composer.showOverlay( "scene.newHighScore", options )
     else
         self.helper:syncHighScore()
         if afterCheck then
@@ -303,7 +306,7 @@ function scene:show( event )
                   someOtherKey = 10
                }
             }
-            composer.showOverlay( "startScene", options )
+            composer.showOverlay( "scene.start", options )
             self.first = false
         else
             print("just start the game")

@@ -33,7 +33,7 @@ Character.new = function (options)
     character.maskBits = 2+4+16+64
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
-    physics.addBody(character, "static", {radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
+    physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
     --add control
     character.control = options and options.control
     if not character.control then
@@ -146,21 +146,24 @@ Character.new = function (options)
 
     function character:onItem(item)
         if item.name == "powerup" then
-            self:powerUp()
+            self:powerUp(item)
+        end
+        if item.name == "speedup" then
+            self:speedUp(item)
+        end
+        if item.name == "shield" then
+            self:openShield(item.duration)
         end
         item:got()
     end
 
     function character:openShield(duration)
-        self.shield = display.newSprite( myImageSheet , {
-            frames={
-                sheetInfo:getFrameIndex("Effects/shield3"),
-                sheetInfo:getFrameIndex("Effects/shield2"),
-                sheetInfo:getFrameIndex("Effects/shield1"), 
-                sheetInfo:getFrameIndex("Effects/shield3")
-            },
-            time = 600
-        })
+        self.shield = Sprite.new({
+                "Effects/shield3",
+                "Effects/shield2",
+                "Effects/shield1", 
+                "Effects/shield3"
+            }, {time = 600})
         self:insert(self.shield)
         self.shield:play()
 
@@ -240,8 +243,8 @@ Character.new = function (options)
     end
 
     function speedUp()
-        if character.maxSpeed < 200 then
-            character.maxSpeed = character.maxSpeed + 20 
+        if character.speed < 200 then
+            character.speed = character.speed + 20
         end
     end
 

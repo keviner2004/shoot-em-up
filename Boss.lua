@@ -169,7 +169,6 @@ Boss.new = function(player, options)
         if self.hpBar then
             self.hpBar:update(self.hp , self.maxHp)
         end
-        self:afterHurt(realDamage)
     end
 
     function boss:onDead()
@@ -182,18 +181,6 @@ Boss.new = function(player, options)
             timer.cancel(v)
         end
         self.timers = {}
-        if not util.isExist(self.ufo1) then
-            transition.to(self.ufo1, {time = 300, alpha = 0})
-        end
-        if not util.isExist(self.ufo2) then
-            transition.to(self.ufo2, {time = 300, alpha = 0})
-        end
-        if not util.isExist(self.ufo3) then
-            transition.to(self.ufo3, {time = 300, alpha = 0})
-        end
-        if not util.isExist(self.ufo4) then
-            transition.to(self.ufo4, {time = 300, alpha = 0})
-        end
 
         if self.cloneCount == 0 then
             self:onDefeated()
@@ -228,10 +215,11 @@ Boss.new = function(player, options)
     end
 
     function boss:act()
-        self:stage2()
-        --self:stage1(function()
-            --self:stage2()
-        --end)
+        self:stage1(function()
+            self:stage2(0, function ()
+                stage3()
+            end)
+        end)
 
         --self:stage3()
     end
@@ -266,11 +254,27 @@ Boss.new = function(player, options)
         end 
     end
 
+    function boss:createUfo(x1, y1, x2, y2)
+        local ufo = Ufo.new()
+        self.parent:insert(ufo)
+        ufo.x = x1
+        ufo.y = y1
+        transition.to(ufo, {time = 1200, x = x2, y = y2, onComplete = function ()
+            ufo:beam(3000)
+            self:addTimer(3100 ,function()
+                print("retreat ufo")
+                transition.to(ufo, {time = 500, y = -ufo.height, onComplete = function()
+                    ufo:removeSelf()
+                end})
+            end)
+        end})
+    end
+
     --[[
         The boss in stage 2 will shoot tracking missle and summon ufos.
     --]]
 
-    function boss:stage2(count)
+    function boss:stage2(count, onComplete)
         --pull down the ring
         local missileDelay = 300
         if not count or count == 1 then
@@ -323,67 +327,17 @@ Boss.new = function(player, options)
         end)
         --sumon laser plan
         local margin = 5
+
         self:addTimer(5000, function()
-            self.ufo1 = Ufo.new()
-            self.ufo2 = Ufo.new()
-            self.ufo3 = Ufo.new()
-            self.ufo4 = Ufo.new()
-            self.parent:insert(self.ufo1)
-            self.parent:insert(self.ufo2)
-            self.parent:insert(self.ufo3)
-            self.parent:insert(self.ufo4)
+
             local num = 4
 
             gap = display.contentWidth/5
 
-            self.ufo1.x = display.contentWidth
-            self.ufo1.y = display.contentHeight
-            ----[[
-            self.ufo2.x = gap * 2
-            self.ufo2.y = -self.ufo2.height
-
-            self.ufo3.x = gap * 3
-            self.ufo3.y = -self.ufo3.height
-
-            self.ufo4.x = 0
-            self.ufo4.y = display.contentHeight
-            print("Ufo 1s parent ")
-            print(self.ufo1.parent)
-            transition.to(self.ufo1, {time = 1200, x = gap, y = self.ufo1.height, onComplete = function ()
-                self.ufo1:beam(3000)
-                self:addTimer(3100 ,function()
-                    print("Ufo 1 leave ")
-                    transition.to(self.ufo1, {time = 500, y = -self.ufo1.height, onComplete = function()
-                        self.ufo1:removeSelf()
-                    end})
-                end)
-            end})
-            transition.to(self.ufo4, {time = 1200, x = gap*4, y = self.ufo4.height, onComplete = function ()
-                self.ufo4:beam(3000)
-                self:addTimer(3100 ,function()
-                    transition.to(self.ufo4, {time = 500, y = -self.ufo4.height, onComplete = function()
-                        self.ufo4:removeSelf()
-                    end})
-                end)
-            end})
-            transition.to(self.ufo2, {time = 1200, y = self.ufo2.height, onComplete = function ()
-                self.ufo2:beam(3000)
-                self:addTimer(3100 ,function()
-                    transition.to(self.ufo2, {time = 500, y = -self.ufo2.height, onComplete = function()
-                        self.ufo2:removeSelf()
-                    end})
-                end)                
-            end})
-            transition.to(self.ufo3, {time = 1200, y = self.ufo3.height, onComplete = function ()
-                self.ufo3:beam(3000)
-                self:addTimer(3100 ,function()
-                    transition.to(self.ufo3, {time = 500, y = -self.ufo3.height, onComplete = function()
-                        self.ufo3:removeSelf()
-                    end})
-                end)
-
-            end})
-            ----]]
+            self:createUfo(display.contentWidth, display.contentHeight, gap, 100)
+            self:createUfo(gap*2, -100, gap * 2, 100)
+            self:createUfo(gap*3, -100, gap * 3, 100)
+            self:createUfo(0, display.contentHeight, gap*4, 100)
             
             if not count then
                 count = 2
@@ -396,11 +350,16 @@ Boss.new = function(player, options)
                     self.hpBar:show()
                 end
                 self.invincible = false
-                --if self:isStage2() then
                 if self.hp > 0 then
                     boss:back({onComplete = function()
                         --self.invincible = false
-                        self:stage2(count)
+                        if self.isStage2() then
+                            self:stage2(count, onComplete)
+                        else
+                            if onComplete then
+                                onComplete()
+                            end
+                        end
                     end})
                 end
             end)
