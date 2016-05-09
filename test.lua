@@ -1,2 +1,1 @@
-
-print(math.floor(0))
+print(type({}) == "table")

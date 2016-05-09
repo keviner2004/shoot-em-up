@@ -1,14 +1,23 @@
 local Character = {}
+local Control = require("Control")
 local Bullet = require("Bullet")
-Character.new = function (params)
+local Sprite = require("Sprite")
+local move = require("move")
+local id = 0
+
+Character.new = function (options)
     local character = display.newGroup()
+    id = id + 1
+    character.id = id
     character:insert(display.newSprite( myImageSheet , {frames={sheetInfo:getFrameIndex("playerShip3_red")}}))
     character.type = "character"
     character.name = "character"
-    character.speed = params.speed
-    character.fireRate = params.fireRate
-    character.fingerSize = params.fingerSize
-    character.controlType = params.controlType or "follow"
+    character.speed = options and options.speed
+    character.fireRate = options and options.fireRate
+    character.fingerSize = options and options.fingerSize
+    character.controlType = (options and options.controlType) or "follow"
+    character.hp = (options and options.hp) or 1
+    character.score = (options and options.score) or 0
     character.collision = function(self, event)
         if event.other.type == "item" then
             self:onItem(event.other)
@@ -19,48 +28,120 @@ Character.new = function (params)
     character.touchPos = {}
     character.offsetX = 0
     character.offsetY = 0
-    character.shootLevel = 0
+    character.shootLevel = 2
+    character.boundRad = 25
+    character.maskBits = 2+4+16+64
+    character.lifes = (options and options.lifes) or 0
+    character.isDead = false
+    physics.addBody(character, "static", {radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
+    --add control
+    character.control = options and options.control
+    if not character.control then
+        character.control = Control.new(character, character.controlType, character.fingerSize)
+    end
+
+    character.preCollision = function(self, event)
+        --print("pre")
+        if event.contact then
+            --self:setLinearVelocity(0,0)
+            event.contact.isEnabled = false
+        else 
+            print("WTF")
+        end
+    end
+
+    character.collision = function(self, event)
+        --print("hit by "..event.other.name..":"..self.hp)
+        if event.other.type == "bullet" and event.other.fireTo == "character" then 
+            if self.shield then
+                return
+            end
+            timer.performWithDelay( 1, 
+                function(e)
+                    if not self.isDead then
+                        self:onHurt(event.other.damage)
+                    end
+                end
+            )
+        end
+    end
+
+    character:addEventListener("preCollision", character)
     character:addEventListener("collision", character)
-    physics.addBody(character, "dynamic", {radius = 25, filter = {categoryBits=1, maskBits=16}})
+
+    function character:onHurt(damage)
+        --print("onHurt, ch damage "..damage)
+        self.hp = self.hp - damage
+        if self.hp < 0 then
+            self.isDead = true
+            self:onDead()
+        end
+    end
+
+    function character:onLifeChanged(lifes)
+        print("remain "..lifes.." lifes")
+    end
+
+    function character:onRespawn(x, y)
+        local newCharacter = Character.new(character)
+        self.parent:insert(newCharacter)
+        newCharacter:openShield(3000)
+        newCharacter.x = x
+        newCharacter.y = y
+        newCharacter:startControl()
+        newCharacter:autoShoot()
+        newCharacter.onLifeChanged = character.onLifeChanged
+        newCharacter.onGameOver = character.onGameOver
+        newCharacter.onRespawned = character.onRespawned
+        newCharacter.control.target = newCharacter
+        self:onRespawned(newCharacter)
+    end
+
+    function character:onRespawned(newCharacter)
+
+    end
 
     function character:shoot()
         if character.shootLevel <= 1 then  
-            local bullet = Bullet.new()
+            local bullet = Bullet.new({fireTo = "enemy"})
             bullet.x = self.x
             bullet.y = self.y
             bullet:setLinearVelocity(0, -2000)
-            --[[transition.to(bullet,  {
-                y = 0,
-                time = 500,
-                onComplete = function(obj)
-                    display.remove(bullet)
-                end
-            })--]]
-        elseif character.shootLevel >= 2 then
+            self.parent:insert(bullet)
 
-            local bullet = Bullet.new()
+        elseif character.shootLevel == 2 then
+            local bullet = Bullet.new({fireTo = "enemy"})
+            self.parent:insert(bullet)
             bullet.x = self.x + 10
             bullet.y = self.y
-            transition.to(bullet,  {
-                y = 0,
-                time = 500,
-                onComplete = function(obj)
-                    display.remove(bullet)
-                end
-            })
+            bullet:setLinearVelocity(0, -2000)
 
-            local bullet2 = Bullet.new()
+            local bullet2 = Bullet.new({fireTo = "enemy"})
+            self.parent:insert(bullet)
             bullet2.x = self.x - 10
             bullet2.y = self.y
-            transition.to(bullet2,  {
-                y = 0,
-                time = 500,
-                onComplete = function(obj)
-                    display.remove(bullet2)
-                end
-            })
+            bullet2:setLinearVelocity(0, -2000)
 
+        elseif character.shootLevel >=3 then
+            local bullet = Bullet.new({fireTo = "enemy"})
+            self.parent:insert(bullet)
+            bullet.x = self.x + 10
+            bullet.y = self.y
+            bullet:setLinearVelocity(0, -2000)
+
+            local bullet2 = Bullet.new({fireTo = "enemy"})
+            self.parent:insert(bullet)
+            bullet2.x = self.x
+            bullet2.y = self.y
+            bullet2:setLinearVelocity(0, -2000)
+
+            local bullet3 = Bullet.new({fireTo = "enemy"})
+            self.parent:insert(bullet3)
+            bullet3.x = self.x - 10
+            bullet3.y = self.y
+            bullet3:setLinearVelocity(0, -2000)
         end
+        self:toFront()
     end
 
     function character:onItem(item)
@@ -70,7 +151,7 @@ Character.new = function (params)
         item:got()
     end
 
-    function character:openShield()
+    function character:openShield(duration)
         self.shield = display.newSprite( myImageSheet , {
             frames={
                 sheetInfo:getFrameIndex("Effects/shield3"),
@@ -82,11 +163,68 @@ Character.new = function (params)
         })
         self:insert(self.shield)
         self.shield:play()
+
+        physics.removeBody(character)
+        physics.addBody(character, "dynamic", {isSensor = true, radius = self.shield.width/2, filter = {categoryBits=1, maskBits=character.maskBits}})
+
+        if duration and duration > 0 then
+            timer.performWithDelay(duration, function()
+                self:closeShield()
+            end)
+        end
+
+    end
+
+    function character:closeShield()
+        physics.removeBody(character)
+        physics.addBody(character, "static", {radius = self.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
+        transition.to(self.shield, {time = 300, alpha = 0, onComplete = function()
+            self.shield:removeSelf()
+            self.shield = nil
+        end})
+    end
+
+    function character:onDead()
+        print("Character dead "..self.id)
+        self.isDead = true
+        --emit partical
+        local num = 6
+        for i = 0, num - 1 do
+            local partical = Sprite.new("Particles/particleYellow_3")
+            partical.x = self.x
+            partical.y = self.y
+            partical.xScale = 0.2
+            partical.yScale = 0.2
+            move.toward(partical, {degree = 360 / ( num ) * i})
+            transition.to(partical, {time = 300, alpha = 0})
+        end
+        self.lifes = self.lifes - 1
+        transition.to(self, {time = 500, alpha = 0, onComplete = function()
+            self:removeSelf()
+        end})
+        if self.lifes < 0 then
+            self:onGameOver()
+        else
+            local respawnX, respawnY = self.x, self.y
+            self:onLifeChanged(self.lifes)
+            timer.performWithDelay(300, function()
+                self:onRespawn(respawnX, respawnY)
+            end)
+        end
+    end
+
+    function character:onGameOver()
+
     end
 
     function character:autoShoot()
         timer.performWithDelay( self.fireRate, 
-            function()
+            function(event)
+                if self.x == nil then
+                    print("Character is dead, stop shoot")
+                    timer.cancel(event.source)
+                    return
+                end
                 self:shoot()
             end, -1)
     end
@@ -107,123 +245,12 @@ Character.new = function (params)
         end
     end
 
-    function character:getMoveAngle(obj, pos)
-        local deltaX = pos.x - obj.x
-        local deltaY = pos.y - obj.y  
-        self.moveAngle = math.atan2(deltaY, deltaX)
-        --print("move angle: "..math.deg(moveAngle))
-    end
-
     function character:startControl()
-        Runtime:addEventListener( "enterFrame", function(event)
-            if self.controlType == "follow" and self.enableMove then
-                local offsetY = 30 * math.sin(self.moveAngle)
-                local offsetX = 30 * math.cos(self.moveAngle)
-                --print("offsetX: "..offsetX)
-                --print("offsetY: "..offsetY)
-
-                if self.x ~= self.touchPos.x then
-                    if self.x < self.touchPos.x and self.x + offsetX > self.touchPos.x then
-                        self.x = self.touchPos.x
-                    elseif self.x > self.touchPos.x and self.x + offsetX < self.touchPos.x then
-                        self.x = self.touchPos.x
-                    else
-                        self.x = self.x + offsetX
-                    end
-                end
-                if self.y ~= self.touchPos.y then
-                    if self.y < self.touchPos.y and self.y + offsetY > self.touchPos.y then
-                        self.y = self.touchPos.y
-                    elseif self.y > self.touchPos.y and self.y + offsetY < self.touchPos.y then
-                        self.y = self.touchPos.y
-                    else
-                        self.y = self.y + offsetY    
-                    end 
-                end
-            elseif self.controlType == "key"  then
-                self.x = self.x + self.offsetX
-                self.y = self.y + self.offsetY
-            end
-        end)
-        local count = 0
-        if self.controlType == "follow" then
-            Runtime:addEventListener("touch", function ( event )
-                if event.phase == "began" then
-                    --followTouchPos(self, event)
-                    self.enableMove = true
-                    self.touchPos = event
-                    self:getMoveAngle(self, event)
-
-                elseif event.phase == "moved" then
-                    --cancelTouchPos()
-                    --followTouchPos(self, event)
-                    count = count + 1
-                    --print("["..count.."]".."touchPos.x: "..self.touchPos.x..", y: "..self.touchPos.y)
-                    self.touchPos = event
-                    self:getMoveAngle(self, event)
-                elseif event.phase == "ended" then
-                    self.enableMove = false
-                    --cancelTouchPos()
-                end
-            end)
-        elseif self.controlType == "key" then
-            Runtime:addEventListener( "key", function (event)
-                self:onKeyEvent(event)
-            end )
-        end
+        self.control:start()
     end
 
-    function character:onKeyEvent( event )
-        local message = "Key '" .. event.keyName .. "' was pressed " .. event.phase
-        print(message)
-        if event.keyName == "right" or event.keyName == "left" or event.keyName == "up" or event.keyName == "down" then
-            if event.phase == "down" then
-                print("enable move")
-                self.enableMove = true
-                if event.keyName == "right" then
-                    self.offsetX = 10
-                end
-                if event.keyName == "left" then
-                    self.offsetX = -10
-                end
-                if event.keyName == "up" then
-                    self.offsetY = -10
-                end
-                if event.keyName == "down" then
-                    self.offsetY = 10
-                end
-            elseif event.phase == "up" then
-                self.enableMove = false
-                if event.keyName == "right" then
-                    self.offsetX = 0
-                end
-                if event.keyName == "left" then
-                    self.offsetX = 0
-                end
-                if event.keyName == "up" then
-                    self.offsetY = 0
-                end
-                if event.keyName == "down" then
-                    self.offsetY = 0
-                end
-            end
-        end
-        return false
-    end
-
-    function followTouchPos(obj, pos)
-        local t = math.sqrt((pos.x - mainCharacter.x)^2 + (pos.y - fingerSize - mainCharacter.y)^2 ) / mainCharacter.speed * 1000
-        print ("transition.to touch pos")
-        transition.to(obj, {
-            x = pos.x, 
-            y = pos.y - fingerSize, 
-            tag = "follow",
-            time = t
-        })
-    end
-
-    function cancelTouchPos()
-        transition.cancel("follow")
+    function character:cancelControl()
+        self.control:cancel()
     end
 
     return character

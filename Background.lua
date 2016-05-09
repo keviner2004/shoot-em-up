@@ -4,7 +4,6 @@ Backgrounds.new = function()
     local tileWidth = 256
     local tileHeight = 256
     local backgrounds = display.newGroup()
-
     --generate background
     local function generateBackground()
         local cols = math.ceil((display.contentWidth + tileWidth) / tileWidth)

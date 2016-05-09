@@ -3,11 +3,12 @@ local curve = require("curve")
 local move = require("move")
 local Bullet = require("Bullet")
 local Item = require("Item")
+local GameObject = require("GameObject")
+local Sprite = require("sprite")
 
 Enemy.new = function(options)
     local count = 0 
-
-    local enemy = display.newGroup()
+    local enemy = GameObject.new()
     enemy.sheetInfo = sheetInfo
     enemy.myImageSheet = myImageSheet
     
@@ -16,37 +17,31 @@ Enemy.new = function(options)
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items)
     enemy.preCollision = function(self, event)
-        --print("before hit by "..event.other.name)
+        --print("enemy before hit by "..event.other.name)
         if event.other.name == "bullet" then 
             if event.contact then
                 event.contact.isEnabled = false
             else 
                 print("WTF")
             end
-
         end
     end
 
     enemy.collision = function(self, event)
         count = count + 1
-        --print("hit by "..event.other.name..":"..self.hp)
-        if event.other.name == "bullet" then 
-            self.hp = self.hp - event.other.damage
+        --print("enemy hit by "..event.other.name..":"..self.hp)
+        if event.other.name == "bullet" then
+            if self.hp > 0 then
+                self:onHurt(event.other.damage) 
+            end
             if self.hp < 0 then
-                --removeBody cannot be called when the world is locked and in the middle of number crunching, such as during a collision event, so we use remove the body latter
-                timer.performWithDelay( 1, 
-                    function(e) 
-                        physics.removeBody(self)
-                    end)
-                move.stop(enemy)
+                self:onDead()
                 if self.items then
                     --drop items
                     timer.performWithDelay(1, function(event)
                         self:dropItems()
                     end)
-                    
                 end
-                if self.split then self:split() end
             end
         end
     end
@@ -54,12 +49,21 @@ Enemy.new = function(options)
     enemy:addEventListener("preCollision", enemy)
     enemy:addEventListener("collision", enemy)
 
+    function enemy:onHurt(damage)
+        self.hp = self.hp - event.other.damage
+    end
+
     function enemy:addPhysic()
         physics.addBody(self, "dynamic", {filter = {categoryBits=2, maskBits=5}})
     end
 
-    function enemy:newSprite(frame)
-        return display.newSprite( self.myImageSheet , {frames={self.sheetInfo:getFrameIndex(frame)}} )
+    function enemy:onDead()
+        --removeBody cannot be called when the world is locked and in the middle of number crunching, such as during a collision event, so we use remove the body latter
+        timer.performWithDelay( 1, 
+            function(e) 
+                physics.removeBody(self)
+            end)
+        --move.stop(enemy)
     end
 
     function enemy:dropItems()

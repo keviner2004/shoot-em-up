@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:3c2855d61b62dc83a45fc41702fb497b:0aa3f57ecc5d6cb8f459ecf4e3b44177:2e31ad8fd1d77f790753c7b2e629602d$
+-- $TexturePacker:SmartUpdate:f358c280ecbf3843f42dc96e42280ee2:bd5f8d627501be40dd510da3d446d1d2:2e31ad8fd1d77f790753c7b2e629602d$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -16,8 +16,8 @@ SheetInfo.sheet =
     
         {
             -- Boss/Hatch Sequence/f1
-            x=1630,
-            y=859,
+            x=977,
+            y=1186,
             width=12,
             height=12,
 
@@ -28,8 +28,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Hatch Sequence/f2
-            x=974,
-            y=493,
+            x=803,
+            y=792,
             width=12,
             height=12,
 
@@ -40,8 +40,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Hatch Sequence/f3
-            x=974,
-            y=509,
+            x=888,
+            y=2032,
             width=12,
             height=12,
 
@@ -52,8 +52,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Hatch Sequence/f4
-            x=959,
-            y=318,
+            x=424,
+            y=1709,
             width=12,
             height=12,
 
@@ -64,8 +64,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f1
-            x=195,
-            y=412,
+            x=231,
+            y=495,
             width=124,
             height=128,
 
@@ -76,8 +76,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f2
-            x=195,
-            y=544,
+            x=258,
+            y=703,
             width=124,
             height=128,
 
@@ -88,8 +88,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f3
-            x=195,
-            y=676,
+            x=258,
+            y=835,
             width=124,
             height=128,
 
@@ -100,8 +100,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f4
-            x=323,
-            y=238,
+            x=195,
+            y=972,
             width=124,
             height=128,
 
@@ -112,8 +112,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f5
-            x=323,
-            y=370,
+            x=195,
+            y=1104,
             width=124,
             height=128,
 
@@ -124,8 +124,8 @@ SheetInfo.sheet =
         },
         {
             -- Boss/Head Sequence/f6
-            x=323,
-            y=502,
+            x=195,
+            y=1236,
             width=124,
             height=128,
 
@@ -144,552 +144,560 @@ SheetInfo.sheet =
         },
         {
             -- Damage/playerShip1_damage1
-            x=1239,
-            y=194,
+            x=737,
+            y=1056,
             width=99,
             height=76,
 
         },
         {
             -- Damage/playerShip1_damage2
-            x=894,
-            y=612,
+            x=810,
+            y=1303,
             width=99,
             height=76,
 
         },
         {
             -- Damage/playerShip1_damage3
-            x=976,
-            y=413,
+            x=706,
+            y=1303,
             width=100,
             height=76,
 
         },
         {
             -- Damage/playerShip2_damage1
-            x=779,
-            y=612,
+            x=514,
+            y=974,
             width=111,
             height=76,
 
         },
         {
             -- Damage/playerShip2_damage2
-            x=1123,
-            y=194,
+            x=924,
+            y=340,
             width=112,
             height=76,
 
         },
         {
             -- Damage/playerShip2_damage3
-            x=1393,
-            y=85,
+            x=924,
+            y=420,
             width=112,
             height=76,
 
         },
         {
             -- Damage/playerShip3_damage1
-            x=997,
-            y=671,
+            x=913,
+            y=1303,
             width=97,
             height=76,
 
         },
         {
             -- Damage/playerShip3_damage2
-            x=1177,
-            y=450,
+            x=907,
+            y=1383,
             width=97,
             height=76,
 
         },
         {
             -- Damage/playerShip3_damage3
-            x=1278,
-            y=450,
+            x=907,
+            y=1463,
             width=97,
             height=76,
 
         },
         {
             -- Damage/shipBeige_damage1
-            x=323,
-            y=765,
+            x=199,
+            y=1611,
             width=124,
             height=67,
 
         },
         {
             -- Damage/shipBeige_damage2
-            x=489,
-            y=195,
+            x=386,
+            y=911,
             width=124,
             height=67,
 
         },
         {
             -- Damage/shipBlue_damage1
-            x=451,
-            y=733,
+            x=189,
+            y=1809,
             width=124,
             height=90,
 
         },
         {
             -- Damage/shipBlue_damage2
-            x=647,
-            y=256,
+            x=513,
+            y=436,
             width=124,
             height=90,
 
         },
         {
             -- Damage/shipGreen_damage1
-            x=579,
-            y=596,
+            x=487,
+            y=624,
             width=124,
             height=68,
 
         },
         {
             -- Damage/shipGreen_damage2
-            x=795,
-            y=126,
+            x=683,
+            y=445,
             width=124,
             height=68,
 
         },
         {
             -- Damage/shipPink_damage
-            x=579,
-            y=444,
+            x=231,
+            y=627,
             width=124,
             height=72,
 
         },
         {
             -- Damage/shipPink_damage1
-            x=579,
-            y=520,
+            x=359,
+            y=621,
             width=124,
             height=72,
 
         },
         {
             -- Damage/shipYellow_damage1
-            x=195,
-            y=808,
+            x=683,
+            y=517,
             width=124,
             height=62,
 
         },
         {
             -- Damage/shipYellow_damage2
-            x=795,
-            y=198,
+            x=615,
+            y=655,
             width=124,
             height=62,
 
         },
         {
             -- Effects/fire00
-            x=1927,
-            y=661,
+            x=616,
+            y=1978,
             width=16,
             height=40,
 
         },
         {
             -- Effects/fire01
-            x=1999,
-            y=633,
+            x=851,
+            y=1838,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire02
-            x=1761,
-            y=839,
+            x=129,
+            y=2012,
             width=14,
             height=32,
 
         },
         {
             -- Effects/fire03
-            x=1850,
-            y=792,
+            x=810,
+            y=1935,
             width=14,
             height=34,
 
         },
         {
             -- Effects/fire04
-            x=2017,
-            y=633,
+            x=946,
+            y=1918,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire05
-            x=1965,
-            y=666,
+            x=964,
+            y=1918,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire06
-            x=1996,
-            y=668,
+            x=982,
+            y=1920,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire07
-            x=2014,
-            y=668,
+            x=1000,
+            y=1920,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire08
-            x=1586,
-            y=771,
+            x=636,
+            y=1978,
             width=16,
             height=40,
 
         },
         {
             -- Effects/fire09
-            x=1650,
-            y=794,
+            x=869,
+            y=1836,
             width=16,
             height=40,
 
         },
         {
             -- Effects/fire10
-            x=1929,
-            y=767,
+            x=900,
+            y=1874,
             width=16,
             height=40,
 
         },
         {
             -- Effects/fire11
-            x=1968,
-            y=831,
+            x=1027,
+            y=1829,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire12
-            x=1779,
-            y=839,
+            x=927,
+            y=1837,
             width=14,
             height=32,
 
         },
         {
             -- Effects/fire13
-            x=1947,
-            y=666,
+            x=1028,
+            y=1791,
             width=14,
             height=34,
 
         },
         {
             -- Effects/fire14
-            x=1961,
-            y=727,
+            x=1007,
+            y=1863,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire15
-            x=1966,
-            y=762,
+            x=1018,
+            y=1920,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire16
-            x=1979,
-            y=727,
+            x=1027,
+            y=1883,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire17
-            x=1997,
-            y=723,
+            x=1006,
+            y=1955,
             width=14,
             height=31,
 
         },
         {
             -- Effects/fire18
-            x=903,
-            y=264,
+            x=757,
+            y=2003,
             width=16,
             height=41,
 
         },
         {
             -- Effects/fire19
-            x=1630,
-            y=769,
+            x=860,
+            y=1880,
             width=16,
             height=41,
 
         },
         {
             -- Effects/shield1
-            x=647,
-            y=144,
+            x=195,
+            y=1368,
             width=133,
             height=108,
 
         },
         {
             -- Effects/shield2
-            x=795,
-            y=3,
+            x=383,
+            y=272,
             width=143,
             height=119,
 
         },
         {
             -- Effects/shield3
-            x=647,
-            y=3,
+            x=235,
+            y=272,
             width=144,
             height=137,
 
         },
         {
             -- Effects/speed
-            x=784,
-            y=144,
+            x=317,
+            y=1682,
             width=7,
             height=108,
 
         },
         {
             -- Effects/star1
-            x=451,
-            y=238,
+            x=811,
+            y=549,
             width=25,
             height=24,
 
         },
         {
             -- Effects/star2
-            x=1883,
-            y=765,
+            x=808,
+            y=1973,
             width=25,
             height=24,
 
         },
         {
             -- Effects/star3
-            x=1650,
-            y=766,
+            x=979,
+            y=1858,
             width=24,
             height=24,
 
         },
         {
             -- Enemies/enemyBlack1
-            x=997,
-            y=583,
+            x=323,
+            y=1279,
             width=93,
             height=84,
 
         },
         {
             -- Enemies/enemyBlack2
-            x=779,
-            y=436,
+            x=609,
+            y=792,
             width=104,
             height=84,
 
         },
         {
             -- Enemies/enemyBlack3
-            x=1725,
-            y=164,
+            x=514,
+            y=886,
             width=103,
             height=84,
 
         },
         {
             -- Enemies/enemyBlack4
-            x=1071,
-            y=314,
+            x=717,
+            y=792,
             width=82,
             height=84,
 
         },
         {
             -- Enemies/enemyBlack5
-            x=1614,
-            y=340,
+            x=621,
+            y=880,
             width=97,
             height=84,
 
         },
         {
             -- Enemies/enemyBlue1
-            x=1080,
-            y=402,
+            x=629,
+            y=968,
             width=93,
             height=84,
 
         },
         {
             -- Enemies/enemyBlue2
-            x=779,
-            y=524,
+            x=722,
+            y=880,
             width=104,
             height=84,
 
         },
         {
             -- Enemies/enemyBlue3
-            x=1908,
-            y=184,
+            x=726,
+            y=968,
             width=103,
             height=84,
 
         },
         {
             -- Enemies/enemyBlue4
-            x=1094,
-            y=578,
+            x=520,
+            y=1384,
             width=82,
             height=84,
 
         },
         {
             -- Enemies/enemyBlue5
-            x=1715,
-            y=340,
+            x=419,
+            y=1384,
             width=97,
             height=84,
 
         },
         {
             -- Enemies/enemyGreen1
-            x=1080,
-            y=490,
+            x=606,
+            y=1381,
             width=93,
             height=84,
 
         },
         {
             -- Enemies/enemyGreen2
-            x=1509,
-            y=164,
+            x=490,
+            y=1120,
             width=104,
             height=84,
 
         },
         {
             -- Enemies/enemyGreen3
-            x=1509,
-            y=252,
+            x=492,
+            y=1296,
             width=103,
             height=84,
 
         },
         {
             -- Enemies/enemyGreen4
-            x=1098,
-            y=666,
+            x=821,
+            y=1215,
             width=82,
             height=84,
 
         },
         {
             -- Enemies/enemyGreen5
-            x=1157,
-            y=274,
+            x=703,
+            y=1383,
             width=97,
             height=84,
 
         },
         {
             -- Enemies/enemyRed1
-            x=1258,
-            y=274,
+            x=606,
+            y=1469,
             width=93,
             height=84,
 
         },
         {
             -- Enemies/enemyRed2
-            x=1617,
-            y=164,
+            x=713,
+            y=1215,
             width=104,
             height=84,
 
         },
         {
             -- Enemies/enemyRed3
-            x=1616,
-            y=252,
+            x=599,
+            y=1293,
             width=103,
             height=84,
 
         },
         {
             -- Enemies/enemyRed4
-            x=1278,
-            y=362,
+            x=907,
+            y=1215,
             width=82,
             height=84,
 
         },
         {
             -- Enemies/enemyRed5
-            x=1177,
-            y=362,
+            x=703,
+            y=1471,
             width=97,
             height=84,
 
         },
         {
+            -- Enemies/spikeBall1
+            x=3,
+            y=1860,
+            width=142,
+            height=148,
+
+        },
+        {
             -- Lasers/laserBeige1
-            x=681,
-            y=728,
+            x=882,
+            y=281,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/laserBeige2
-            x=707,
-            y=350,
+            x=273,
+            y=1903,
             width=68,
             height=100,
 
         },
         {
             -- Lasers/laserBeige3
-            x=323,
-            y=836,
+            x=149,
+            y=2005,
             width=93,
             height=35,
 
@@ -697,174 +705,174 @@ SheetInfo.sheet =
         {
             -- Lasers/laserBeige_burst
             x=3,
-            y=263,
+            y=719,
             width=188,
             height=188,
 
         },
         {
             -- Lasers/laserBeige_groundBurst
-            x=1168,
-            y=46,
+            x=530,
+            y=272,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/laserBlue01
-            x=1999,
-            y=500,
+            x=834,
+            y=1873,
             width=9,
             height=54,
 
         },
         {
             -- Lasers/laserBlue02
-            x=1912,
-            y=765,
+            x=513,
+            y=395,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserBlue03
-            x=1837,
-            y=746,
+            x=920,
+            y=1874,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserBlue04
-            x=1949,
-            y=767,
+            x=995,
+            y=1683,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserBlue05
-            x=1868,
-            y=792,
+            x=933,
+            y=1873,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserBlue06
-            x=1833,
-            y=787,
+            x=835,
+            y=2001,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserBlue07
-            x=1899,
-            y=793,
+            x=1007,
+            y=1758,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserBlue08
-            x=1201,
-            y=820,
+            x=754,
+            y=1709,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserBlue09
-            x=1561,
-            y=540,
+            x=806,
+            y=1707,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserBlue1
-            x=723,
-            y=695,
+            x=323,
+            y=967,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/laserBlue10
-            x=1520,
-            y=555,
+            x=529,
+            y=1936,
             width=37,
             height=37,
 
         },
         {
             -- Lasers/laserBlue11
-            x=681,
-            y=832,
+            x=343,
+            y=2007,
             width=38,
             height=37,
 
         },
         {
             -- Lasers/laserBlue12
-            x=1834,
-            y=651,
+            x=910,
+            y=1709,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserBlue13
-            x=1887,
-            y=570,
+            x=927,
+            y=1709,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserBlue14
-            x=1853,
-            y=570,
+            x=506,
+            y=1978,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserBlue15
-            x=1935,
-            y=503,
+            x=982,
+            y=1636,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserBlue16
-            x=1965,
-            y=500,
+            x=924,
+            y=281,
             width=13,
             height=54,
 
         },
         {
             -- Lasers/laserBlue2
-            x=707,
-            y=454,
+            x=323,
+            y=1071,
             width=68,
             height=100,
 
         },
         {
             -- Lasers/laserBlue3
-            x=420,
-            y=836,
+            x=246,
+            y=2007,
             width=93,
             height=35,
 
         },
         {
             -- Lasers/laserBlue_burst
-            x=263,
+            x=718,
             y=3,
             width=188,
             height=188,
@@ -872,160 +880,160 @@ SheetInfo.sheet =
         },
         {
             -- Lasers/laserBlue_groundBurst
-            x=1394,
-            y=3,
+            x=235,
+            y=413,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/laserGreen01
-            x=1116,
-            y=833,
+            x=617,
+            y=1916,
             width=37,
             height=38,
 
         },
         {
             -- Lasers/laserGreen02
-            x=1870,
-            y=570,
+            x=698,
+            y=1766,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserGreen03
-            x=1934,
-            y=570,
+            x=800,
+            y=1759,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserGreen04
-            x=1840,
-            y=834,
+            x=852,
+            y=1999,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserGreen05
-            x=1942,
-            y=834,
+            x=920,
+            y=1982,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserGreen06
-            x=1900,
-            y=570,
+            x=715,
+            y=1757,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserGreen07
-            x=1947,
-            y=564,
+            x=804,
+            y=1874,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserGreen08
-            x=1857,
-            y=834,
+            x=869,
+            y=1991,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserGreen09
-            x=1955,
-            y=834,
+            x=922,
+            y=1915,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserGreen1
-            x=765,
-            y=695,
+            x=882,
+            y=385,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/laserGreen10
-            x=1982,
-            y=500,
+            x=385,
+            y=1990,
             width=13,
             height=54,
 
         },
         {
             -- Lasers/laserGreen11
-            x=1990,
-            y=558,
+            x=847,
+            y=1873,
             width=9,
             height=54,
 
         },
         {
             -- Lasers/laserGreen12
-            x=1874,
-            y=834,
+            x=886,
+            y=1991,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserGreen13
-            x=1960,
-            y=622,
+            x=1014,
+            y=1822,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserGreen14
-            x=1626,
-            y=651,
+            x=499,
+            y=1633,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserGreen15
-            x=1678,
-            y=651,
+            x=402,
+            y=1978,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserGreen16
-            x=1722,
-            y=701,
+            x=813,
+            y=1757,
             width=37,
             height=37,
 
         },
         {
             -- Lasers/laserGreen2
-            x=707,
-            y=558,
+            x=323,
+            y=1175,
             width=68,
             height=100,
 
         },
         {
             -- Lasers/laserGreen3
-            x=1295,
-            y=128,
+            x=893,
+            y=821,
             width=93,
             height=35,
 
@@ -1033,207 +1041,207 @@ SheetInfo.sheet =
         {
             -- Lasers/laserGreen_burst
             x=3,
-            y=455,
+            y=911,
             width=188,
             height=188,
 
         },
         {
             -- Lasers/laserGreen_groundBurst
-            x=1570,
-            y=3,
+            x=706,
+            y=281,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/laserPink1
-            x=807,
-            y=692,
+            x=641,
+            y=436,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/laserPink2
-            x=1051,
-            y=171,
+            x=420,
+            y=1248,
             width=68,
             height=100,
 
         },
         {
             -- Lasers/laserPink3
-            x=1051,
-            y=275,
+            x=912,
+            y=939,
             width=93,
             height=35,
 
         },
         {
             -- Lasers/laserPink_burst
-            x=455,
-            y=3,
+            x=3,
+            y=1103,
             width=188,
             height=188,
 
         },
         {
             -- Lasers/laserPink_groundBurst
-            x=1746,
-            y=3,
+            x=530,
+            y=354,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/laserRed01
-            x=1590,
-            y=815,
+            x=720,
+            y=1973,
             width=9,
             height=54,
 
         },
         {
             -- Lasers/laserRed02
-            x=1891,
-            y=834,
+            x=903,
+            y=1982,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserRed03
-            x=1947,
-            y=625,
+            x=967,
+            y=1976,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserRed04
-            x=1908,
-            y=834,
+            x=933,
+            y=1979,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserRed05
-            x=1983,
-            y=666,
+            x=980,
+            y=1955,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserRed06
-            x=1925,
-            y=834,
+            x=950,
+            y=1976,
             width=13,
             height=37,
 
         },
         {
             -- Lasers/laserRed07
-            x=2032,
-            y=673,
+            x=993,
+            y=1955,
             width=9,
             height=37,
 
         },
         {
             -- Lasers/laserRed08
-            x=1730,
-            y=651,
+            x=454,
+            y=1978,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserRed09
-            x=1782,
-            y=651,
+            x=858,
+            y=1710,
             width=48,
             height=46,
 
         },
         {
             -- Lasers/laserRed10
-            x=1856,
-            y=503,
+            x=813,
+            y=1798,
             width=37,
             height=36,
 
         },
         {
             -- Lasers/laserRed11
-            x=1763,
-            y=701,
+            x=854,
+            y=1795,
             width=37,
             height=37,
 
         },
         {
             -- Lasers/laserRed12
-            x=1917,
-            y=570,
+            x=995,
+            y=1622,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserRed13
-            x=1960,
-            y=561,
+            x=694,
+            y=1973,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserRed14
-            x=1948,
-            y=500,
+            x=787,
+            y=1874,
             width=13,
             height=57,
 
         },
         {
             -- Lasers/laserRed15
-            x=1617,
-            y=814,
+            x=707,
+            y=1973,
             width=9,
             height=57,
 
         },
         {
             -- Lasers/laserRed16
-            x=1973,
-            y=558,
+            x=817,
+            y=1873,
             width=13,
             height=54,
 
         },
         {
             -- Lasers/laserYellow1
-            x=849,
-            y=692,
+            x=811,
+            y=445,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/laserYellow2
-            x=1342,
-            y=167,
+            x=743,
+            y=583,
             width=68,
             height=100,
 
         },
         {
             -- Lasers/laserYellow3
-            x=1177,
-            y=530,
+            x=909,
+            y=978,
             width=93,
             height=35,
 
@@ -1241,22 +1249,22 @@ SheetInfo.sheet =
         {
             -- Lasers/laserYellow_burst
             x=3,
-            y=647,
+            y=1295,
             width=188,
             height=188,
 
         },
         {
             -- Lasers/laserYellow_groundBurst
-            x=942,
-            y=89,
+            x=706,
+            y=363,
             width=172,
             height=78,
 
         },
         {
             -- Meteors/meteorBrown_big1
-            x=1723,
+            x=941,
             y=252,
             width=101,
             height=84,
@@ -1264,1184 +1272,1240 @@ SheetInfo.sheet =
         },
         {
             -- Meteors/meteorBrown_big2
-            x=1922,
-            y=3,
+            x=386,
+            y=809,
             width=120,
             height=98,
 
         },
         {
             -- Meteors/meteorBrown_big3
-            x=1180,
-            y=569,
+            x=840,
+            y=549,
             width=89,
             height=82,
 
         },
         {
             -- Meteors/meteorBrown_big4
-            x=579,
-            y=730,
+            x=944,
+            y=152,
             width=98,
             height=96,
 
         },
         {
             -- Meteors/meteorBrown_med1
-            x=517,
-            y=827,
+            x=940,
+            y=1707,
             width=43,
             height=43,
 
         },
         {
             -- Meteors/meteorBrown_med3
-            x=632,
-            y=830,
+            x=940,
+            y=1754,
             width=45,
             height=40,
 
         },
         {
             -- Meteors/meteorBrown_small1
-            x=1929,
-            y=735,
+            x=837,
+            y=1967,
             width=28,
             height=28,
 
         },
         {
             -- Meteors/meteorBrown_small2
-            x=1926,
-            y=705,
+            x=945,
+            y=1828,
             width=29,
             height=26,
 
         },
         {
             -- Meteors/meteorBrown_tiny1
-            x=1367,
-            y=767,
+            x=1005,
+            y=1898,
             width=18,
             height=18,
 
         },
         {
             -- Meteors/meteorBrown_tiny2
-            x=903,
-            y=309,
+            x=555,
+            y=1680,
             width=16,
             height=15,
 
         },
         {
             -- Meteors/meteorGrey_big1
-            x=1509,
-            y=340,
+            x=492,
+            y=1208,
             width=101,
             height=84,
 
         },
         {
             -- Meteors/meteorGrey_big2
-            x=451,
-            y=631,
+            x=149,
+            y=1903,
             width=120,
             height=98,
 
         },
         {
             -- Meteors/meteorGrey_big3
-            x=1184,
-            y=655,
+            x=840,
+            y=635,
             width=89,
             height=82,
 
         },
         {
             -- Meteors/meteorGrey_big4
-            x=779,
-            y=336,
+            x=411,
+            y=395,
             width=98,
             height=96,
 
         },
         {
             -- Meteors/meteorGrey_med1
-            x=1484,
-            y=776,
+            x=570,
+            y=1931,
             width=43,
             height=43,
 
         },
         {
             -- Meteors/meteorGrey_med2
-            x=1541,
-            y=727,
+            x=567,
+            y=1978,
             width=45,
             height=40,
 
         },
         {
             -- Meteors/meteorGrey_small1
-            x=1797,
-            y=839,
+            x=869,
+            y=1959,
             width=28,
             height=28,
 
         },
         {
             -- Meteors/meteorGrey_small2
-            x=1850,
-            y=762,
+            x=946,
+            y=1858,
             width=29,
             height=26,
 
         },
         {
             -- Meteors/meteorGrey_tiny1
-            x=1981,
-            y=808,
+            x=1024,
+            y=1958,
             width=18,
             height=18,
 
         },
         {
             -- Meteors/meteorGrey_tiny2
-            x=1986,
-            y=830,
+            x=1025,
+            y=1864,
             width=16,
             height=15,
 
         },
         {
+            -- Particles/particleYellow_1
+            x=263,
+            y=3,
+            width=224,
+            height=222,
+
+        },
+        {
+            -- Particles/particleYellow_2
+            x=491,
+            y=3,
+            width=223,
+            height=222,
+
+        },
+        {
+            -- Particles/particleYellow_3
+            x=3,
+            y=1487,
+            width=192,
+            height=183,
+
+        },
+        {
+            -- Particles/particleYellow_4
+            x=3,
+            y=1674,
+            width=182,
+            height=182,
+
+        },
+        {
+            -- Particles/particleYellow_5
+            x=195,
+            y=719,
+            width=59,
+            height=249,
+
+        },
+        {
+            -- Particles/particleYellow_6
+            x=3,
+            y=263,
+            width=228,
+            height=226,
+
+        },
+        {
+            -- Particles/particleYellow_7
+            x=3,
+            y=493,
+            width=224,
+            height=222,
+
+        },
+        {
             -- Parts/beam0
-            x=1484,
-            y=823,
+            x=854,
+            y=1760,
             width=43,
             height=31,
 
         },
         {
             -- Parts/beam1
-            x=1391,
-            y=851,
+            x=523,
+            y=2021,
             width=40,
             height=20,
 
         },
         {
             -- Parts/beam2
-            x=1724,
-            y=742,
+            x=809,
+            y=1838,
             width=38,
             height=31,
 
         },
         {
             -- Parts/beam3
-            x=1804,
-            y=746,
+            x=776,
+            y=1841,
             width=29,
             height=29,
 
         },
         {
             -- Parts/beam4
-            x=1626,
-            y=701,
+            x=484,
+            y=1939,
             width=41,
             height=17,
 
         },
         {
             -- Parts/beam5
-            x=1157,
-            y=833,
+            x=933,
+            y=1186,
             width=40,
             height=25,
 
         },
         {
             -- Parts/beam6
-            x=1295,
-            y=167,
+            x=576,
+            y=1758,
             width=43,
             height=23,
 
         },
         {
             -- Parts/beamLong1
-            x=1466,
-            y=355,
+            x=627,
+            y=1687,
             width=15,
             height=67,
 
         },
         {
             -- Parts/beamLong2
-            x=579,
-            y=266,
+            x=853,
+            y=445,
             width=25,
             height=64,
 
         },
         {
             -- Parts/cockpitBlue_0
-            x=1857,
-            y=85,
+            x=840,
+            y=1027,
             width=51,
             height=75,
 
         },
         {
             -- Parts/cockpitBlue_1
-            x=1590,
-            y=725,
+            x=889,
+            y=500,
             width=40,
             height=40,
 
         },
         {
             -- Parts/cockpitBlue_2
-            x=665,
-            y=668,
+            x=993,
+            y=1235,
             width=42,
             height=56,
 
         },
         {
             -- Parts/cockpitBlue_3
-            x=1883,
-            y=272,
+            x=597,
+            y=1557,
             width=60,
             height=61,
 
         },
         {
             -- Parts/cockpitBlue_4
-            x=1469,
-            y=525,
+            x=737,
+            y=721,
             width=47,
             height=67,
 
         },
         {
             -- Parts/cockpitBlue_5
-            x=1097,
-            y=754,
+            x=788,
+            y=687,
             width=48,
             height=75,
 
         },
         {
             -- Parts/cockpitBlue_6
-            x=1522,
-            y=596,
+            x=661,
+            y=1633,
             width=42,
             height=67,
 
         },
         {
             -- Parts/cockpitBlue_7
-            x=1380,
-            y=686,
+            x=516,
+            y=1786,
             width=41,
             height=71,
 
         },
         {
             -- Parts/cockpitGreen_0
-            x=1355,
-            y=271,
+            x=912,
+            y=860,
             width=51,
             height=75,
 
         },
         {
             -- Parts/cockpitGreen_1
-            x=1542,
-            y=771,
+            x=1002,
+            y=1017,
             width=40,
             height=40,
 
         },
         {
             -- Parts/cockpitGreen_2
-            x=1488,
-            y=667,
+            x=616,
+            y=1856,
             width=42,
             height=56,
 
         },
         {
             -- Parts/cockpitGreen_3
-            x=1947,
-            y=272,
+            x=702,
+            y=1559,
             width=60,
             height=61,
 
         },
         {
             -- Parts/cockpitGreen_4
-            x=1471,
-            y=596,
+            x=931,
+            y=1636,
             width=47,
             height=67,
 
         },
         {
             -- Parts/cockpitGreen_5
-            x=1715,
-            y=580,
+            x=570,
+            y=1860,
             width=42,
             height=67,
 
         },
         {
             -- Parts/cockpitGreen_6
-            x=1426,
-            y=605,
+            x=525,
+            y=1861,
             width=41,
             height=71,
 
         },
         {
             -- Parts/cockpitGreen_7
-            x=1149,
-            y=754,
+            x=967,
+            y=860,
             width=48,
             height=75,
 
         },
         {
             -- Parts/cockpitRed_0
-            x=1685,
-            y=428,
+            x=895,
+            y=1028,
             width=51,
             height=75,
 
         },
         {
             -- Parts/cockpitRed_1
-            x=1634,
-            y=722,
+            x=1002,
+            y=1061,
             width=40,
             height=40,
 
         },
         {
             -- Parts/cockpitRed_2
-            x=1534,
-            y=667,
+            x=662,
+            y=1846,
             width=42,
             height=56,
 
         },
         {
             -- Parts/cockpitRed_3
-            x=1944,
-            y=337,
+            x=424,
+            y=1644,
             width=60,
             height=61,
 
         },
         {
             -- Parts/cockpitRed_4
-            x=1613,
-            y=580,
+            x=576,
+            y=1687,
             width=47,
             height=67,
 
         },
         {
             -- Parts/cockpitRed_5
-            x=1201,
-            y=741,
+            x=950,
+            y=1028,
             width=48,
             height=75,
 
         },
         {
             -- Parts/cockpitRed_6
-            x=1761,
-            y=580,
+            x=606,
+            y=1785,
             width=42,
             height=67,
 
         },
         {
             -- Parts/cockpitRed_7
-            x=1425,
-            y=686,
+            x=531,
+            y=1710,
             width=41,
             height=71,
 
         },
         {
             -- Parts/cockpitYellow_0
-            x=1678,
-            y=701,
+            x=523,
+            y=1977,
             width=40,
             height=40,
 
         },
         {
             -- Parts/cockpitYellow_1
-            x=1944,
-            y=402,
+            x=597,
+            y=1622,
             width=60,
             height=61,
 
         },
         {
             -- Parts/cockpitYellow_2
-            x=1664,
-            y=580,
+            x=646,
+            y=1704,
             width=47,
             height=67,
 
         },
         {
             -- Parts/cockpitYellow_3
-            x=1795,
-            y=428,
+            x=988,
+            y=1107,
             width=48,
             height=75,
 
         },
         {
             -- Parts/cockpitYellow_4
-            x=1807,
-            y=580,
+            x=652,
+            y=1775,
             width=42,
             height=67,
 
         },
         {
             -- Parts/cockpitYellow_5
-            x=1568,
-            y=590,
+            x=561,
+            y=1785,
             width=41,
             height=71,
 
         },
         {
             -- Parts/cockpitYellow_6
-            x=1580,
-            y=665,
+            x=708,
+            y=1697,
             width=42,
             height=56,
 
         },
         {
             -- Parts/cockpitYellow_7
-            x=1740,
-            y=428,
+            x=933,
+            y=1107,
             width=51,
             height=75,
 
         },
         {
             -- Parts/dome
-            x=887,
-            y=431,
+            x=332,
+            y=1367,
             width=83,
             height=98,
 
         },
         {
             -- Parts/engine1
-            x=1856,
-            y=543,
+            x=513,
+            y=1683,
             width=38,
             height=23,
 
         },
         {
             -- Parts/engine2
-            x=1678,
-            y=745,
+            x=420,
+            y=1352,
             width=42,
             height=28,
 
         },
         {
             -- Parts/engine3
-            x=1730,
-            y=849,
+            x=788,
+            y=766,
             width=27,
             height=22,
 
         },
         {
             -- Parts/engine4
-            x=1488,
-            y=727,
+            x=993,
+            y=1186,
             width=49,
             height=45,
 
         },
         {
             -- Parts/engine5
-            x=1853,
-            y=631,
+            x=881,
+            y=1107,
             width=44,
             height=24,
 
         },
         {
             -- Parts/gun00
-            x=1157,
-            y=362,
+            x=815,
+            y=2001,
             width=16,
             height=36,
 
         },
         {
             -- Parts/gun01
-            x=1569,
-            y=838,
+            x=819,
+            y=766,
             width=17,
             height=33,
 
         },
         {
             -- Parts/gun02
-            x=1881,
-            y=793,
+            x=989,
+            y=1758,
             width=14,
             height=36,
 
         },
         {
             -- Parts/gun03
-            x=1606,
-            y=769,
+            x=733,
+            y=2003,
             width=20,
             height=41,
 
         },
         {
             -- Parts/gun04
-            x=1630,
-            y=814,
+            x=880,
+            y=1880,
             width=16,
             height=41,
 
         },
         {
             -- Parts/gun05
-            x=1804,
-            y=701,
+            x=815,
+            y=577,
             width=21,
             height=41,
 
         },
         {
             -- Parts/gun06
-            x=1739,
-            y=807,
+            x=493,
+            y=982,
             width=17,
             height=38,
 
         },
         {
             -- Parts/gun07
-            x=923,
-            y=126,
+            x=1028,
+            y=815,
             width=14,
             height=41,
 
         },
         {
             -- Parts/gun08
-            x=1603,
-            y=815,
+            x=1031,
+            y=758,
             width=10,
             height=47,
 
         },
         {
             -- Parts/gun09
-            x=1253,
-            y=741,
+            x=815,
+            y=622,
             width=20,
             height=52,
 
         },
         {
             -- Parts/gun10
-            x=1485,
-            y=355,
+            x=1019,
+            y=860,
             width=20,
             height=52,
 
         },
         {
             -- Parts/scratch1
-            x=1996,
-            y=703,
+            x=395,
+            y=1248,
             width=21,
             height=16,
 
         },
         {
             -- Parts/scratch2
-            x=2021,
-            y=714,
+            x=617,
+            y=1958,
             width=21,
             height=16,
 
         },
         {
             -- Parts/scratch3
-            x=579,
-            y=334,
+            x=231,
+            y=703,
             width=16,
             height=12,
 
         },
         {
             -- Parts/shipBeige
-            x=923,
-            y=247,
+            x=609,
+            y=721,
             width=124,
             height=67,
 
         },
         {
             -- Parts/shipBlue
-            x=579,
-            y=350,
+            x=487,
+            y=530,
             width=124,
             height=90,
 
         },
         {
             -- Parts/shipGreen
-            x=775,
-            y=264,
+            x=615,
+            y=583,
             width=124,
             height=68,
 
         },
         {
             -- Parts/shipPink
-            x=923,
-            y=171,
+            x=365,
+            y=982,
             width=124,
             height=72,
 
         },
         {
             -- Parts/shipYellow
-            x=1167,
-            y=128,
+            x=493,
+            y=1054,
             width=124,
             height=62,
 
         },
         {
             -- Parts/turretBase_big
-            x=995,
-            y=830,
+            x=551,
+            y=1635,
             width=41,
             height=41,
 
         },
         {
             -- Parts/turretBase_small
-            x=165,
-            y=839,
+            x=975,
+            y=1798,
             width=26,
             height=26,
 
         },
         {
             -- Parts/wingBlue_0
-            x=1118,
-            y=89,
+            x=404,
+            y=1551,
             width=45,
             height=78,
 
         },
         {
             -- Parts/wingBlue_1
-            x=723,
-            y=799,
+            x=661,
+            y=1557,
             width=37,
             height=72,
 
         },
         {
             -- Parts/wingBlue_2
-            x=617,
-            y=195,
+            x=1008,
+            y=1383,
             width=26,
             height=84,
 
         },
         {
             -- Parts/wingBlue_3
-            x=1828,
-            y=258,
+            x=357,
+            y=1469,
             width=51,
             height=75,
 
         },
         {
             -- Parts/wingBlue_4
-            x=1847,
-            y=419,
+            x=551,
+            y=1551,
             width=42,
             height=80,
 
         },
         {
             -- Parts/wingBlue_5
-            x=1625,
-            y=507,
+            x=328,
+            y=1830,
             width=51,
             height=69,
 
         },
         {
             -- Parts/wingBlue_6
-            x=1253,
-            y=797,
+            x=421,
+            y=1726,
             width=42,
             height=74,
 
         },
         {
             -- Parts/wingBlue_7
-            x=891,
-            y=692,
+            x=357,
+            y=1548,
             width=43,
             height=83,
 
         },
         {
             -- Parts/wingGreen_0
-            x=1344,
-            y=46,
+            x=453,
+            y=1551,
             width=45,
             height=78,
 
         },
         {
             -- Parts/wingGreen_1
-            x=764,
-            y=799,
+            x=762,
+            y=1633,
             width=37,
             height=72,
 
         },
         {
             -- Parts/wingGreen_2
-            x=2015,
-            y=184,
+            x=1014,
+            y=1295,
             width=26,
             height=84,
 
         },
         {
             -- Parts/wingGreen_3
-            x=938,
-            y=692,
+            x=412,
+            y=1472,
             width=51,
             height=75,
 
         },
         {
             -- Parts/wingGreen_4
-            x=1893,
-            y=419,
+            x=375,
+            y=1726,
             width=42,
             height=80,
 
         },
         {
             -- Parts/wingGreen_5
-            x=1680,
-            y=507,
+            x=707,
+            y=1624,
             width=51,
             height=69,
 
         },
         {
             -- Parts/wingGreen_6
-            x=1377,
-            y=530,
+            x=429,
+            y=1804,
             width=42,
             height=74,
 
         },
         {
             -- Parts/wingGreen_7
-            x=901,
-            y=779,
+            x=328,
+            y=1656,
             width=43,
             height=83,
 
         },
         {
             -- Parts/wingRed_0
-            x=1816,
-            y=340,
+            x=327,
+            y=1480,
             width=26,
             height=84,
 
         },
         {
             -- Parts/wingRed_1
-            x=805,
-            y=799,
+            x=475,
+            y=1787,
             width=37,
             height=72,
 
         },
         {
             -- Parts/wingRed_2
-            x=846,
-            y=796,
+            x=467,
+            y=1472,
             width=51,
             height=75,
 
         },
         {
             -- Parts/wingRed_3
-            x=1299,
-            y=789,
+            x=383,
+            y=1810,
             width=42,
             height=80,
 
         },
         {
             -- Parts/wingRed_4
-            x=1735,
-            y=507,
+            x=803,
+            y=1634,
             width=51,
             height=69,
 
         },
         {
             -- Parts/wingRed_5
-            x=1423,
-            y=527,
+            x=438,
+            y=1882,
             width=42,
             height=74,
 
         },
         {
             -- Parts/wingRed_6
-            x=948,
-            y=771,
+            x=328,
+            y=1743,
             width=43,
             height=83,
 
         },
         {
             -- Parts/wingRed_7
-            x=1846,
-            y=337,
+            x=502,
+            y=1551,
             width=45,
             height=78,
 
         },
         {
             -- Parts/wingYellow_0
-            x=1895,
-            y=337,
+            x=375,
+            y=1644,
             width=45,
             height=78,
 
         },
         {
             -- Parts/wingYellow_1
-            x=1432,
-            y=761,
+            x=484,
+            y=1863,
             width=37,
             height=72,
 
         },
         {
             -- Parts/wingYellow_2
-            x=1391,
-            y=761,
+            x=327,
+            y=1568,
             width=26,
             height=84,
 
         },
         {
             -- Parts/wingYellow_3
-            x=995,
-            y=751,
+            x=522,
+            y=1472,
             width=51,
             height=75,
 
         },
         {
             -- Parts/wingYellow_4
-            x=1345,
-            y=789,
+            x=392,
+            y=1894,
             width=42,
             height=80,
 
         },
         {
             -- Parts/wingYellow_5
-            x=1790,
-            y=507,
+            x=876,
+            y=1636,
             width=51,
             height=69,
 
         },
         {
             -- Parts/wingYellow_6
-            x=1380,
-            y=608,
+            x=467,
+            y=1709,
             width=42,
             height=74,
 
         },
         {
             -- Parts/wingYellow_7
-            x=1050,
-            y=751,
+            x=345,
+            y=1903,
             width=43,
             height=83,
 
         },
         {
             -- Power-ups/bold_silver
-            x=1829,
-            y=712,
+            x=982,
+            y=1886,
             width=19,
             height=30,
 
         },
         {
             -- Power-ups/bolt_bronze
-            x=1684,
-            y=841,
+            x=989,
+            y=1724,
             width=19,
             height=30,
 
         },
         {
             -- Power-ups/bolt_gold
-            x=1707,
-            y=841,
+            x=899,
+            y=1925,
             width=19,
             height=30,
 
         },
         {
             -- Power-ups/pill_blue
-            x=263,
-            y=238,
+            x=487,
+            y=495,
             width=22,
             height=21,
 
         },
         {
             -- Power-ups/pill_green
-            x=289,
-            y=238,
+            x=466,
+            y=1352,
             width=22,
             height=21,
 
         },
         {
             -- Power-ups/pill_red
-            x=1973,
-            y=616,
+            x=1020,
+            y=1741,
             width=22,
             height=21,
 
         },
         {
             -- Power-ups/pill_yellow
-            x=1973,
-            y=641,
+            x=1020,
+            y=1766,
             width=22,
             height=21,
 
         },
         {
             -- Power-ups/powerupBlue
-            x=1040,
-            y=838,
+            x=1008,
+            y=1471,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupBlue_bolt
-            x=2008,
-            y=340,
+            x=766,
+            y=1559,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupBlue_shield
-            x=2008,
-            y=377,
+            x=766,
+            y=1596,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupBlue_star
-            x=1078,
-            y=838,
+            x=149,
+            y=1860,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupGreen
-            x=2008,
-            y=414,
+            x=990,
+            y=821,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupGreen_bolt
-            x=2008,
-            y=451,
+            x=749,
+            y=1892,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupGreen_shield
-            x=1435,
-            y=837,
+            x=901,
+            y=1770,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupGreen_star
-            x=1531,
-            y=838,
+            x=658,
+            y=1936,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupRed
-            x=608,
-            y=283,
+            x=656,
+            y=1973,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupRed_bolt
-            x=1766,
-            y=742,
+            x=656,
+            y=2010,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupRed_shield
-            x=1897,
-            y=503,
+            x=696,
+            y=1936,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupRed_star
-            x=1851,
-            y=659,
+            x=734,
+            y=1929,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupYellow
-            x=1889,
-            y=661,
+            x=772,
+            y=1935,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupYellow_bolt
-            x=2003,
-            y=559,
+            x=734,
+            y=1966,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupYellow_shield
-            x=2003,
-            y=596,
+            x=777,
+            y=2002,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/powerupYellow_star
-            x=1888,
-            y=698,
+            x=889,
+            y=1837,
             width=34,
             height=33,
 
         },
         {
             -- Power-ups/shield_bronze
-            x=2012,
-            y=525,
+            x=1012,
+            y=1639,
             width=30,
             height=30,
 
         },
         {
             -- Power-ups/shield_gold
-            x=1705,
-            y=807,
+            x=1012,
+            y=1673,
             width=30,
             height=30,
 
         },
         {
             -- Power-ups/shield_silver
-            x=1650,
-            y=841,
+            x=1012,
+            y=1707,
             width=30,
             height=30,
 
         },
         {
             -- Power-ups/star_bronze
-            x=2011,
-            y=272,
+            x=743,
+            y=687,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/star_gold
-            x=2011,
-            y=306,
+            x=1008,
+            y=1508,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/star_silver
-            x=1670,
-            y=807,
+            x=864,
+            y=1925,
             width=31,
             height=30,
 
@@ -2449,207 +2513,351 @@ SheetInfo.sheet =
         {
             -- Power-ups/things_bronze
             x=93,
-            y=839,
+            y=2012,
             width=32,
             height=32,
 
         },
         {
             -- Power-ups/things_gold
-            x=129,
-            y=839,
+            x=853,
+            y=513,
             width=32,
             height=32,
 
         },
         {
             -- Power-ups/things_silver
-            x=1852,
-            y=696,
+            x=828,
+            y=1931,
             width=32,
             height=32,
 
         },
         {
             -- Rocket/f1
-            x=711,
-            y=662,
+            x=615,
+            y=540,
             width=64,
             height=29,
 
         },
         {
             -- Rocket/f2
-            x=1939,
-            y=467,
+            x=732,
+            y=1759,
             width=64,
             height=29,
 
         },
         {
             -- Rocket/f3
-            x=564,
-            y=830,
+            x=732,
+            y=1792,
             width=64,
             height=29,
 
         },
         {
             -- Rocket/f4
-            x=1557,
-            y=507,
+            x=708,
+            y=1841,
             width=64,
             height=29,
 
         },
         {
             -- UI/Parts/glassPanel_0_0
-            x=2021,
-            y=703,
+            x=332,
+            y=1469,
             width=7,
             height=7,
 
         },
         {
             -- UI/Parts/glassPanel_0_1
-            x=1277,
-            y=767,
+            x=909,
+            y=1017,
             width=86,
             height=7,
 
         },
         {
             -- UI/Parts/glassPanel_0_2
-            x=1966,
-            y=797,
+            x=395,
+            y=1268,
             width=7,
             height=7,
 
         },
         {
             -- UI/Parts/glassPanel_1_0
-            x=1421,
-            y=761,
+            x=317,
+            y=1794,
             width=7,
             height=86,
 
         },
         {
             -- UI/Parts/glassPanel_1_1
-            x=990,
-            y=493,
+            x=840,
+            y=721,
             width=86,
             height=86,
 
         },
         {
             -- UI/Parts/glassPanel_1_2
-            x=1473,
-            y=756,
+            x=1035,
+            y=500,
             width=7,
             height=86,
 
         },
         {
             -- UI/Parts/glassPanel_2_0
-            x=2035,
-            y=757,
+            x=555,
+            y=1699,
             width=7,
             height=7,
 
         },
         {
             -- UI/Parts/glassPanel_2_1
-            x=1277,
-            y=778,
+            x=404,
+            y=1633,
             width=86,
             height=7,
 
         },
         {
             -- UI/Parts/glassPanel_2_2
-            x=1364,
-            y=434,
+            x=343,
+            y=1469,
             width=7,
             height=7,
 
         },
         {
+            -- UI/Parts/glassPanel_cornerTL_0_0
+            x=383,
+            y=395,
+            width=15,
+            height=14,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_0_1
+            x=438,
+            y=1960,
+            width=78,
+            height=14,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_0_2
+            x=317,
+            y=1884,
+            width=7,
+            height=14,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_1_0
+            x=577,
+            y=1472,
+            width=15,
+            height=74,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_1_1
+            x=830,
+            y=873,
+            width=78,
+            height=74,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_1_2
+            x=1020,
+            y=737,
+            width=7,
+            height=74,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_2_0
+            x=869,
+            y=2032,
+            width=15,
+            height=12,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_2_1
+            x=715,
+            y=1825,
+            width=78,
+            height=12,
+
+        },
+        {
+            -- UI/Parts/glassPanel_cornerTL_2_2
+            x=797,
+            y=1825,
+            width=7,
+            height=12,
+
+        },
+        {
             -- UI/Parts/glassPanel_corners_0_0
-            x=923,
-            y=318,
+            x=1006,
+            y=999,
             width=14,
             height=14,
 
         },
         {
             -- UI/Parts/glassPanel_corners_0_1
-            x=1832,
-            y=240,
+            x=567,
+            y=2022,
             width=72,
             height=14,
 
         },
         {
             -- UI/Parts/glassPanel_corners_0_2
-            x=941,
-            y=318,
+            x=1024,
+            y=999,
             width=14,
             height=14,
 
         },
         {
             -- UI/Parts/glassPanel_corners_1_0
-            x=2028,
-            y=105,
+            x=858,
+            y=1634,
             width=14,
             height=72,
 
         },
         {
             -- UI/Parts/glassPanel_corners_1_1
-            x=1832,
-            y=164,
+            x=833,
+            y=951,
             width=72,
             height=72,
 
         },
         {
             -- UI/Parts/glassPanel_corners_1_2
-            x=1470,
-            y=680,
+            x=513,
+            y=1710,
             width=14,
             height=72,
 
         },
         {
             -- UI/Parts/glassPanel_corners_2_0
-            x=1986,
-            y=849,
+            x=357,
+            y=1635,
             width=14,
             height=14,
 
         },
         {
             -- UI/Parts/glassPanel_corners_2_1
-            x=1481,
-            y=507,
+            x=708,
+            y=1874,
             width=72,
             height=14,
 
         },
         {
             -- UI/Parts/glassPanel_corners_2_2
-            x=2017,
-            y=757,
+            x=973,
+            y=2019,
             width=14,
             height=14,
 
         },
         {
+            -- UI/Parts/glassPanel_projection_0_0
+            x=984,
+            y=1622,
+            width=7,
+            height=10,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_0_1
+            x=804,
+            y=1620,
+            width=86,
+            height=10,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_0_2
+            x=694,
+            y=2034,
+            width=7,
+            height=10,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_1_0
+            x=1035,
+            y=590,
+            width=7,
+            height=80,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_1_1
+            x=930,
+            y=737,
+            width=86,
+            height=80,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_1_2
+            x=1035,
+            y=674,
+            width=7,
+            height=80,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_2_0
+            x=705,
+            y=2034,
+            width=7,
+            height=10,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_2_1
+            x=894,
+            y=1622,
+            width=86,
+            height=10,
+
+        },
+        {
+            -- UI/Parts/glassPanel_projection_2_2
+            x=703,
+            y=1922,
+            width=7,
+            height=10,
+
+        },
+        {
             -- UI/Parts/metalPanel_0_0
-            x=1613,
-            y=540,
+            x=935,
+            y=1914,
             width=7,
             height=32,
 
@@ -2657,423 +2865,423 @@ SheetInfo.sheet =
         {
             -- UI/Parts/metalPanel_0_1
             x=3,
-            y=839,
+            y=2012,
             width=86,
             height=32,
 
         },
         {
             -- UI/Parts/metalPanel_0_2
-            x=1829,
-            y=839,
+            x=1003,
+            y=1996,
             width=7,
             height=32,
 
         },
         {
             -- UI/Parts/metalPanel_1_0
-            x=1531,
-            y=776,
+            x=697,
+            y=1704,
             width=7,
             height=58,
 
         },
         {
             -- UI/Parts/metalPanel_1_1
-            x=575,
-            y=668,
+            x=803,
+            y=811,
             width=86,
             height=58,
 
         },
         {
             -- UI/Parts/metalPanel_1_2
-            x=1845,
-            y=507,
+            x=488,
+            y=1644,
             width=7,
             height=58,
 
         },
         {
             -- UI/Parts/metalPanel_2_0
-            x=1883,
-            y=258,
+            x=714,
+            y=1922,
             width=7,
             height=10,
 
         },
         {
             -- UI/Parts/metalPanel_2_1
-            x=1379,
-            y=513,
+            x=402,
+            y=2028,
             width=86,
             height=10,
 
         },
         {
             -- UI/Parts/metalPanel_2_2
-            x=1613,
-            y=651,
+            x=716,
+            y=2034,
             width=7,
             height=10,
 
         },
         {
             -- UI/Parts/squareGreen_0_0
-            x=506,
-            y=827,
+            x=504,
+            y=1045,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareGreen_0_1
-            x=901,
-            y=866,
+            x=235,
+            y=263,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareGreen_0_2
-            x=891,
-            y=779,
+            x=386,
+            y=1635,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareGreen_1_0
-            x=1912,
-            y=85,
+            x=778,
+            y=687,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareGreen_1_1
-            x=1473,
-            y=846,
+            x=642,
+            y=1958,
             width=7,
             height=16,
 
         },
         {
             -- UI/Parts/squareGreen_1_2
-            x=2007,
-            y=758,
+            x=596,
+            y=1472,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareGreen_2_0
-            x=1473,
-            y=866,
+            x=788,
+            y=2039,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareGreen_2_1
-            x=451,
-            y=827,
+            x=683,
+            y=436,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareGreen_2_2
-            x=1968,
-            y=866,
+            x=798,
+            y=2039,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_0_0
-            x=1603,
-            y=866,
+            x=652,
+            y=1846,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_0_1
-            x=912,
-            y=866,
+            x=815,
+            y=678,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_0_2
-            x=945,
-            y=866,
+            x=392,
+            y=1978,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_1_0
-            x=2007,
-            y=778,
+            x=596,
+            y=1492,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareRed_1_1
-            x=2035,
-            y=633,
+            x=492,
+            y=2028,
             width=7,
             height=16,
 
         },
         {
             -- UI/Parts/squareRed_1_2
-            x=2017,
-            y=775,
+            x=596,
+            y=1512,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareRed_2_0
-            x=1483,
-            y=866,
+            x=778,
+            y=707,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_2_1
-            x=462,
-            y=827,
+            x=493,
+            y=1045,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareRed_2_2
-            x=1184,
-            y=741,
+            x=596,
+            y=1532,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_0_0
-            x=1157,
-            y=862,
+            x=596,
+            y=1541,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_0_1
-            x=923,
-            y=866,
+            x=375,
+            y=1635,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_0_2
-            x=1485,
-            y=411,
+            x=566,
+            y=1699,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_1_0
-            x=2027,
-            y=775,
+            x=1036,
+            y=1918,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareShadow_1_1
-            x=2035,
-            y=653,
+            x=499,
+            y=1683,
             width=7,
             height=16,
 
         },
         {
             -- UI/Parts/squareShadow_1_2
-            x=2027,
-            y=775,
+            x=1036,
+            y=1918,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareShadow_2_0
-            x=564,
-            y=863,
+            x=503,
+            y=2039,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_2_1
-            x=923,
-            y=866,
+            x=375,
+            y=1635,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareShadow_2_2
-            x=1469,
-            y=513,
+            x=513,
+            y=2039,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_0_0
-            x=1471,
-            y=667,
+            x=365,
+            y=967,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_0_1
-            x=473,
-            y=827,
+            x=777,
+            y=2039,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_0_2
-            x=1894,
-            y=258,
+            x=365,
+            y=1058,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_1_0
-            x=2003,
-            y=808,
+            x=1036,
+            y=1938,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareWhite_1_1
-            x=711,
-            y=695,
+            x=643,
+            y=2022,
             width=7,
             height=16,
 
         },
         {
             -- UI/Parts/squareWhite_1_2
-            x=2006,
-            y=828,
+            x=970,
+            y=1953,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareWhite_2_0
-            x=711,
-            y=715,
+            x=598,
+            y=1120,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_2_1
-            x=934,
-            y=866,
+            x=246,
+            y=263,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareWhite_2_2
-            x=2007,
-            y=798,
+            x=615,
+            y=530,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_0_0
-            x=2017,
-            y=795,
+            x=615,
+            y=573,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_0_1
-            x=484,
-            y=827,
+            x=694,
+            y=436,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_0_2
-            x=1167,
-            y=862,
+            x=893,
+            y=811,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_1_0
-            x=2004,
-            y=849,
+            x=1014,
+            y=1990,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareYellow_1_1
-            x=1982,
-            y=707,
+            x=991,
+            y=2019,
             width=7,
             height=16,
 
         },
         {
             -- UI/Parts/squareYellow_1_2
-            x=2014,
-            y=848,
+            x=1024,
+            y=1980,
             width=6,
             height=16,
 
         },
         {
             -- UI/Parts/squareYellow_2_0
-            x=1495,
-            y=411,
+            x=893,
+            y=860,
             width=6,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_2_1
-            x=495,
-            y=827,
+            x=826,
+            y=678,
             width=7,
             height=5,
 
         },
         {
             -- UI/Parts/squareYellow_2_2
-            x=574,
-            y=863,
+            x=882,
+            y=489,
             width=6,
             height=5,
 
@@ -3081,399 +3289,411 @@ SheetInfo.sheet =
         {
             -- UI/buttonBlue
             x=263,
-            y=195,
+            y=229,
             width=222,
             height=39,
 
         },
         {
             -- UI/buttonGreen
-            x=942,
-            y=3,
+            x=489,
+            y=229,
             width=222,
             height=39,
 
         },
         {
             -- UI/buttonRed
-            x=942,
-            y=46,
+            x=718,
+            y=195,
             width=222,
             height=39,
 
         },
         {
             -- UI/buttonYellow
-            x=1168,
-            y=3,
+            x=715,
+            y=238,
             width=222,
             height=39,
 
         },
         {
             -- UI/cursor
-            x=2012,
-            y=488,
+            x=1012,
+            y=1602,
             width=30,
             height=33,
 
         },
         {
             -- UI/numeral0
-            x=1123,
-            y=171,
+            x=1019,
+            y=916,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral1
-            x=1542,
-            y=815,
+            x=623,
+            y=1758,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral2
-            x=1565,
-            y=815,
+            x=901,
+            y=1959,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral3
-            x=1912,
-            y=811,
+            x=904,
+            y=2023,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral4
-            x=1935,
-            y=811,
+            x=1005,
+            y=1799,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral5
-            x=1958,
-            y=808,
+            x=924,
+            y=1956,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral6
-            x=1959,
-            y=704,
+            x=947,
+            y=1953,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral7
-            x=2015,
-            y=734,
+            x=980,
+            y=1996,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral8
-            x=1984,
-            y=762,
+            x=927,
+            y=2023,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeral9
-            x=1984,
-            y=785,
+            x=950,
+            y=2017,
             width=19,
             height=19,
 
         },
         {
             -- UI/numeralX
-            x=1146,
-            y=171,
+            x=493,
+            y=1024,
             width=17,
             height=17,
 
         },
         {
+            -- UI/pause
+            x=910,
+            y=152,
+            width=30,
+            height=34,
+
+            sourceX = 10,
+            sourceY = 7,
+            sourceWidth = 50,
+            sourceHeight = 50
+        },
+        {
             -- UI/playerLife1_blue
-            x=1520,
-            y=525,
+            x=1009,
+            y=939,
             width=33,
             height=26,
 
         },
         {
             -- UI/playerLife1_green
-            x=608,
-            y=320,
+            x=1009,
+            y=969,
             width=33,
             height=26,
 
         },
         {
             -- UI/playerLife1_orange
-            x=1898,
-            y=540,
+            x=1009,
+            y=1542,
             width=33,
             height=26,
 
         },
         {
             -- UI/playerLife1_red
-            x=1760,
-            y=779,
+            x=1009,
+            y=1572,
             width=33,
             height=26,
 
         },
         {
             -- UI/playerLife2_blue
-            x=1901,
-            y=631,
+            x=840,
+            y=1106,
             width=37,
             height=26,
 
         },
         {
             -- UI/playerLife2_green
-            x=1888,
-            y=735,
+            x=708,
+            y=1892,
             width=37,
             height=26,
 
         },
         {
             -- UI/playerLife2_orange
-            x=1678,
-            y=777,
+            x=895,
+            y=1807,
             width=37,
             height=26,
 
         },
         {
             -- UI/playerLife2_red
-            x=1719,
-            y=777,
+            x=662,
+            y=1906,
             width=37,
             height=26,
 
         },
         {
             -- UI/playerLife3_blue
-            x=1852,
-            y=732,
+            x=772,
+            y=1972,
             width=32,
             height=26,
 
         },
         {
             -- UI/playerLife3_green
-            x=1797,
-            y=779,
+            x=939,
+            y=1798,
             width=32,
             height=26,
 
         },
         {
             -- UI/playerLife3_orange
-            x=1760,
-            y=809,
+            x=946,
+            y=1888,
             width=32,
             height=26,
 
         },
         {
             -- UI/playerLife3_red
-            x=1796,
-            y=809,
+            x=978,
+            y=1828,
             width=32,
             height=26,
 
         },
         {
             -- playerShip1_blue
-            x=887,
-            y=533,
+            x=804,
+            y=1383,
             width=99,
             height=75,
 
         },
         {
             -- playerShip1_green
-            x=1274,
-            y=530,
+            x=804,
+            y=1462,
             width=99,
             height=75,
 
         },
         {
             -- playerShip1_orange
-            x=1277,
-            y=609,
+            x=830,
+            y=1136,
             width=99,
             height=75,
 
         },
         {
             -- playerShip1_red
-            x=1277,
-            y=688,
+            x=804,
+            y=1541,
             width=99,
             height=75,
 
         },
         {
             -- playerShip2_blue
-            x=1509,
-            y=85,
+            x=621,
+            y=1056,
             width=112,
             height=75,
 
         },
         {
             -- playerShip2_green
-            x=1625,
-            y=85,
+            x=598,
+            y=1135,
             width=112,
             height=75,
 
         },
         {
             -- playerShip2_orange
-            x=1741,
-            y=85,
+            x=714,
+            y=1136,
             width=112,
             height=75,
 
         },
         {
             -- playerShip2_red
-            x=1912,
-            y=105,
+            x=597,
+            y=1214,
             width=112,
             height=75,
 
         },
         {
             -- playerShip3_blue
-            x=1364,
-            y=355,
+            x=907,
+            y=1543,
             width=98,
             height=75,
 
         },
         {
             -- playerShip3_green
-            x=1379,
-            y=434,
+            x=933,
+            y=500,
             width=98,
             height=75,
 
         },
         {
             -- playerShip3_orange
-            x=1481,
-            y=428,
+            x=933,
+            y=579,
             width=98,
             height=75,
 
         },
         {
             -- playerShip3_red
-            x=1583,
-            y=428,
+            x=933,
+            y=658,
             width=98,
             height=75,
 
         },
         {
             -- shipBeige_manned
-            x=451,
-            y=393,
+            x=359,
+            y=495,
             width=124,
             height=122,
 
         },
         {
             -- shipBlue_manned
-            x=195,
-            y=263,
+            x=910,
+            y=3,
             width=124,
             height=145,
 
         },
         {
             -- shipGreen_manned
-            x=451,
-            y=266,
+            x=189,
+            y=1682,
             width=124,
             height=123,
 
         },
         {
             -- shipPink_manned
-            x=323,
-            y=634,
+            x=199,
+            y=1480,
             width=124,
             height=127,
 
         },
         {
             -- shipYellow_manned
-            x=451,
-            y=519,
+            x=386,
+            y=697,
             width=124,
             height=108,
 
         },
         {
             -- ufoBlue
-            x=1414,
-            y=165,
+            x=514,
+            y=696,
             width=91,
             height=91,
 
         },
         {
             -- ufoGreen
-            x=881,
-            y=336,
+            x=395,
+            y=1058,
             width=91,
             height=91,
 
         },
         {
             -- ufoRed
-            x=976,
-            y=318,
+            x=395,
+            y=1153,
             width=91,
             height=91,
 
         },
         {
             -- ufoYellow
-            x=1414,
-            y=260,
+            x=514,
+            y=791,
             width=91,
             height=91,
 
         },
     },
     
-    sheetContentWidth = 2045,
-    sheetContentHeight = 874
+    sheetContentWidth = 1045,
+    sheetContentHeight = 2047
 }
 
 SheetInfo.frameIndex =
@@ -3556,356 +3776,383 @@ SheetInfo.frameIndex =
     ["Enemies/enemyRed3"] = 75,
     ["Enemies/enemyRed4"] = 76,
     ["Enemies/enemyRed5"] = 77,
-    ["Lasers/laserBeige1"] = 78,
-    ["Lasers/laserBeige2"] = 79,
-    ["Lasers/laserBeige3"] = 80,
-    ["Lasers/laserBeige_burst"] = 81,
-    ["Lasers/laserBeige_groundBurst"] = 82,
-    ["Lasers/laserBlue01"] = 83,
-    ["Lasers/laserBlue02"] = 84,
-    ["Lasers/laserBlue03"] = 85,
-    ["Lasers/laserBlue04"] = 86,
-    ["Lasers/laserBlue05"] = 87,
-    ["Lasers/laserBlue06"] = 88,
-    ["Lasers/laserBlue07"] = 89,
-    ["Lasers/laserBlue08"] = 90,
-    ["Lasers/laserBlue09"] = 91,
-    ["Lasers/laserBlue1"] = 92,
-    ["Lasers/laserBlue10"] = 93,
-    ["Lasers/laserBlue11"] = 94,
-    ["Lasers/laserBlue12"] = 95,
-    ["Lasers/laserBlue13"] = 96,
-    ["Lasers/laserBlue14"] = 97,
-    ["Lasers/laserBlue15"] = 98,
-    ["Lasers/laserBlue16"] = 99,
-    ["Lasers/laserBlue2"] = 100,
-    ["Lasers/laserBlue3"] = 101,
-    ["Lasers/laserBlue_burst"] = 102,
-    ["Lasers/laserBlue_groundBurst"] = 103,
-    ["Lasers/laserGreen01"] = 104,
-    ["Lasers/laserGreen02"] = 105,
-    ["Lasers/laserGreen03"] = 106,
-    ["Lasers/laserGreen04"] = 107,
-    ["Lasers/laserGreen05"] = 108,
-    ["Lasers/laserGreen06"] = 109,
-    ["Lasers/laserGreen07"] = 110,
-    ["Lasers/laserGreen08"] = 111,
-    ["Lasers/laserGreen09"] = 112,
-    ["Lasers/laserGreen1"] = 113,
-    ["Lasers/laserGreen10"] = 114,
-    ["Lasers/laserGreen11"] = 115,
-    ["Lasers/laserGreen12"] = 116,
-    ["Lasers/laserGreen13"] = 117,
-    ["Lasers/laserGreen14"] = 118,
-    ["Lasers/laserGreen15"] = 119,
-    ["Lasers/laserGreen16"] = 120,
-    ["Lasers/laserGreen2"] = 121,
-    ["Lasers/laserGreen3"] = 122,
-    ["Lasers/laserGreen_burst"] = 123,
-    ["Lasers/laserGreen_groundBurst"] = 124,
-    ["Lasers/laserPink1"] = 125,
-    ["Lasers/laserPink2"] = 126,
-    ["Lasers/laserPink3"] = 127,
-    ["Lasers/laserPink_burst"] = 128,
-    ["Lasers/laserPink_groundBurst"] = 129,
-    ["Lasers/laserRed01"] = 130,
-    ["Lasers/laserRed02"] = 131,
-    ["Lasers/laserRed03"] = 132,
-    ["Lasers/laserRed04"] = 133,
-    ["Lasers/laserRed05"] = 134,
-    ["Lasers/laserRed06"] = 135,
-    ["Lasers/laserRed07"] = 136,
-    ["Lasers/laserRed08"] = 137,
-    ["Lasers/laserRed09"] = 138,
-    ["Lasers/laserRed10"] = 139,
-    ["Lasers/laserRed11"] = 140,
-    ["Lasers/laserRed12"] = 141,
-    ["Lasers/laserRed13"] = 142,
-    ["Lasers/laserRed14"] = 143,
-    ["Lasers/laserRed15"] = 144,
-    ["Lasers/laserRed16"] = 145,
-    ["Lasers/laserYellow1"] = 146,
-    ["Lasers/laserYellow2"] = 147,
-    ["Lasers/laserYellow3"] = 148,
-    ["Lasers/laserYellow_burst"] = 149,
-    ["Lasers/laserYellow_groundBurst"] = 150,
-    ["Meteors/meteorBrown_big1"] = 151,
-    ["Meteors/meteorBrown_big2"] = 152,
-    ["Meteors/meteorBrown_big3"] = 153,
-    ["Meteors/meteorBrown_big4"] = 154,
-    ["Meteors/meteorBrown_med1"] = 155,
-    ["Meteors/meteorBrown_med3"] = 156,
-    ["Meteors/meteorBrown_small1"] = 157,
-    ["Meteors/meteorBrown_small2"] = 158,
-    ["Meteors/meteorBrown_tiny1"] = 159,
-    ["Meteors/meteorBrown_tiny2"] = 160,
-    ["Meteors/meteorGrey_big1"] = 161,
-    ["Meteors/meteorGrey_big2"] = 162,
-    ["Meteors/meteorGrey_big3"] = 163,
-    ["Meteors/meteorGrey_big4"] = 164,
-    ["Meteors/meteorGrey_med1"] = 165,
-    ["Meteors/meteorGrey_med2"] = 166,
-    ["Meteors/meteorGrey_small1"] = 167,
-    ["Meteors/meteorGrey_small2"] = 168,
-    ["Meteors/meteorGrey_tiny1"] = 169,
-    ["Meteors/meteorGrey_tiny2"] = 170,
-    ["Parts/beam0"] = 171,
-    ["Parts/beam1"] = 172,
-    ["Parts/beam2"] = 173,
-    ["Parts/beam3"] = 174,
-    ["Parts/beam4"] = 175,
-    ["Parts/beam5"] = 176,
-    ["Parts/beam6"] = 177,
-    ["Parts/beamLong1"] = 178,
-    ["Parts/beamLong2"] = 179,
-    ["Parts/cockpitBlue_0"] = 180,
-    ["Parts/cockpitBlue_1"] = 181,
-    ["Parts/cockpitBlue_2"] = 182,
-    ["Parts/cockpitBlue_3"] = 183,
-    ["Parts/cockpitBlue_4"] = 184,
-    ["Parts/cockpitBlue_5"] = 185,
-    ["Parts/cockpitBlue_6"] = 186,
-    ["Parts/cockpitBlue_7"] = 187,
-    ["Parts/cockpitGreen_0"] = 188,
-    ["Parts/cockpitGreen_1"] = 189,
-    ["Parts/cockpitGreen_2"] = 190,
-    ["Parts/cockpitGreen_3"] = 191,
-    ["Parts/cockpitGreen_4"] = 192,
-    ["Parts/cockpitGreen_5"] = 193,
-    ["Parts/cockpitGreen_6"] = 194,
-    ["Parts/cockpitGreen_7"] = 195,
-    ["Parts/cockpitRed_0"] = 196,
-    ["Parts/cockpitRed_1"] = 197,
-    ["Parts/cockpitRed_2"] = 198,
-    ["Parts/cockpitRed_3"] = 199,
-    ["Parts/cockpitRed_4"] = 200,
-    ["Parts/cockpitRed_5"] = 201,
-    ["Parts/cockpitRed_6"] = 202,
-    ["Parts/cockpitRed_7"] = 203,
-    ["Parts/cockpitYellow_0"] = 204,
-    ["Parts/cockpitYellow_1"] = 205,
-    ["Parts/cockpitYellow_2"] = 206,
-    ["Parts/cockpitYellow_3"] = 207,
-    ["Parts/cockpitYellow_4"] = 208,
-    ["Parts/cockpitYellow_5"] = 209,
-    ["Parts/cockpitYellow_6"] = 210,
-    ["Parts/cockpitYellow_7"] = 211,
-    ["Parts/dome"] = 212,
-    ["Parts/engine1"] = 213,
-    ["Parts/engine2"] = 214,
-    ["Parts/engine3"] = 215,
-    ["Parts/engine4"] = 216,
-    ["Parts/engine5"] = 217,
-    ["Parts/gun00"] = 218,
-    ["Parts/gun01"] = 219,
-    ["Parts/gun02"] = 220,
-    ["Parts/gun03"] = 221,
-    ["Parts/gun04"] = 222,
-    ["Parts/gun05"] = 223,
-    ["Parts/gun06"] = 224,
-    ["Parts/gun07"] = 225,
-    ["Parts/gun08"] = 226,
-    ["Parts/gun09"] = 227,
-    ["Parts/gun10"] = 228,
-    ["Parts/scratch1"] = 229,
-    ["Parts/scratch2"] = 230,
-    ["Parts/scratch3"] = 231,
-    ["Parts/shipBeige"] = 232,
-    ["Parts/shipBlue"] = 233,
-    ["Parts/shipGreen"] = 234,
-    ["Parts/shipPink"] = 235,
-    ["Parts/shipYellow"] = 236,
-    ["Parts/turretBase_big"] = 237,
-    ["Parts/turretBase_small"] = 238,
-    ["Parts/wingBlue_0"] = 239,
-    ["Parts/wingBlue_1"] = 240,
-    ["Parts/wingBlue_2"] = 241,
-    ["Parts/wingBlue_3"] = 242,
-    ["Parts/wingBlue_4"] = 243,
-    ["Parts/wingBlue_5"] = 244,
-    ["Parts/wingBlue_6"] = 245,
-    ["Parts/wingBlue_7"] = 246,
-    ["Parts/wingGreen_0"] = 247,
-    ["Parts/wingGreen_1"] = 248,
-    ["Parts/wingGreen_2"] = 249,
-    ["Parts/wingGreen_3"] = 250,
-    ["Parts/wingGreen_4"] = 251,
-    ["Parts/wingGreen_5"] = 252,
-    ["Parts/wingGreen_6"] = 253,
-    ["Parts/wingGreen_7"] = 254,
-    ["Parts/wingRed_0"] = 255,
-    ["Parts/wingRed_1"] = 256,
-    ["Parts/wingRed_2"] = 257,
-    ["Parts/wingRed_3"] = 258,
-    ["Parts/wingRed_4"] = 259,
-    ["Parts/wingRed_5"] = 260,
-    ["Parts/wingRed_6"] = 261,
-    ["Parts/wingRed_7"] = 262,
-    ["Parts/wingYellow_0"] = 263,
-    ["Parts/wingYellow_1"] = 264,
-    ["Parts/wingYellow_2"] = 265,
-    ["Parts/wingYellow_3"] = 266,
-    ["Parts/wingYellow_4"] = 267,
-    ["Parts/wingYellow_5"] = 268,
-    ["Parts/wingYellow_6"] = 269,
-    ["Parts/wingYellow_7"] = 270,
-    ["Power-ups/bold_silver"] = 271,
-    ["Power-ups/bolt_bronze"] = 272,
-    ["Power-ups/bolt_gold"] = 273,
-    ["Power-ups/pill_blue"] = 274,
-    ["Power-ups/pill_green"] = 275,
-    ["Power-ups/pill_red"] = 276,
-    ["Power-ups/pill_yellow"] = 277,
-    ["Power-ups/powerupBlue"] = 278,
-    ["Power-ups/powerupBlue_bolt"] = 279,
-    ["Power-ups/powerupBlue_shield"] = 280,
-    ["Power-ups/powerupBlue_star"] = 281,
-    ["Power-ups/powerupGreen"] = 282,
-    ["Power-ups/powerupGreen_bolt"] = 283,
-    ["Power-ups/powerupGreen_shield"] = 284,
-    ["Power-ups/powerupGreen_star"] = 285,
-    ["Power-ups/powerupRed"] = 286,
-    ["Power-ups/powerupRed_bolt"] = 287,
-    ["Power-ups/powerupRed_shield"] = 288,
-    ["Power-ups/powerupRed_star"] = 289,
-    ["Power-ups/powerupYellow"] = 290,
-    ["Power-ups/powerupYellow_bolt"] = 291,
-    ["Power-ups/powerupYellow_shield"] = 292,
-    ["Power-ups/powerupYellow_star"] = 293,
-    ["Power-ups/shield_bronze"] = 294,
-    ["Power-ups/shield_gold"] = 295,
-    ["Power-ups/shield_silver"] = 296,
-    ["Power-ups/star_bronze"] = 297,
-    ["Power-ups/star_gold"] = 298,
-    ["Power-ups/star_silver"] = 299,
-    ["Power-ups/things_bronze"] = 300,
-    ["Power-ups/things_gold"] = 301,
-    ["Power-ups/things_silver"] = 302,
-    ["Rocket/f1"] = 303,
-    ["Rocket/f2"] = 304,
-    ["Rocket/f3"] = 305,
-    ["Rocket/f4"] = 306,
-    ["UI/Parts/glassPanel_0_0"] = 307,
-    ["UI/Parts/glassPanel_0_1"] = 308,
-    ["UI/Parts/glassPanel_0_2"] = 309,
-    ["UI/Parts/glassPanel_1_0"] = 310,
-    ["UI/Parts/glassPanel_1_1"] = 311,
-    ["UI/Parts/glassPanel_1_2"] = 312,
-    ["UI/Parts/glassPanel_2_0"] = 313,
-    ["UI/Parts/glassPanel_2_1"] = 314,
-    ["UI/Parts/glassPanel_2_2"] = 315,
-    ["UI/Parts/glassPanel_corners_0_0"] = 316,
-    ["UI/Parts/glassPanel_corners_0_1"] = 317,
-    ["UI/Parts/glassPanel_corners_0_2"] = 318,
-    ["UI/Parts/glassPanel_corners_1_0"] = 319,
-    ["UI/Parts/glassPanel_corners_1_1"] = 320,
-    ["UI/Parts/glassPanel_corners_1_2"] = 321,
-    ["UI/Parts/glassPanel_corners_2_0"] = 322,
-    ["UI/Parts/glassPanel_corners_2_1"] = 323,
-    ["UI/Parts/glassPanel_corners_2_2"] = 324,
-    ["UI/Parts/metalPanel_0_0"] = 325,
-    ["UI/Parts/metalPanel_0_1"] = 326,
-    ["UI/Parts/metalPanel_0_2"] = 327,
-    ["UI/Parts/metalPanel_1_0"] = 328,
-    ["UI/Parts/metalPanel_1_1"] = 329,
-    ["UI/Parts/metalPanel_1_2"] = 330,
-    ["UI/Parts/metalPanel_2_0"] = 331,
-    ["UI/Parts/metalPanel_2_1"] = 332,
-    ["UI/Parts/metalPanel_2_2"] = 333,
-    ["UI/Parts/squareGreen_0_0"] = 334,
-    ["UI/Parts/squareGreen_0_1"] = 335,
-    ["UI/Parts/squareGreen_0_2"] = 336,
-    ["UI/Parts/squareGreen_1_0"] = 337,
-    ["UI/Parts/squareGreen_1_1"] = 338,
-    ["UI/Parts/squareGreen_1_2"] = 339,
-    ["UI/Parts/squareGreen_2_0"] = 340,
-    ["UI/Parts/squareGreen_2_1"] = 341,
-    ["UI/Parts/squareGreen_2_2"] = 342,
-    ["UI/Parts/squareRed_0_0"] = 343,
-    ["UI/Parts/squareRed_0_1"] = 344,
-    ["UI/Parts/squareRed_0_2"] = 345,
-    ["UI/Parts/squareRed_1_0"] = 346,
-    ["UI/Parts/squareRed_1_1"] = 347,
-    ["UI/Parts/squareRed_1_2"] = 348,
-    ["UI/Parts/squareRed_2_0"] = 349,
-    ["UI/Parts/squareRed_2_1"] = 350,
-    ["UI/Parts/squareRed_2_2"] = 351,
-    ["UI/Parts/squareShadow_0_0"] = 352,
-    ["UI/Parts/squareShadow_0_1"] = 353,
-    ["UI/Parts/squareShadow_0_2"] = 354,
-    ["UI/Parts/squareShadow_1_0"] = 355,
-    ["UI/Parts/squareShadow_1_1"] = 356,
-    ["UI/Parts/squareShadow_1_2"] = 357,
-    ["UI/Parts/squareShadow_2_0"] = 358,
-    ["UI/Parts/squareShadow_2_1"] = 359,
-    ["UI/Parts/squareShadow_2_2"] = 360,
-    ["UI/Parts/squareWhite_0_0"] = 361,
-    ["UI/Parts/squareWhite_0_1"] = 362,
-    ["UI/Parts/squareWhite_0_2"] = 363,
-    ["UI/Parts/squareWhite_1_0"] = 364,
-    ["UI/Parts/squareWhite_1_1"] = 365,
-    ["UI/Parts/squareWhite_1_2"] = 366,
-    ["UI/Parts/squareWhite_2_0"] = 367,
-    ["UI/Parts/squareWhite_2_1"] = 368,
-    ["UI/Parts/squareWhite_2_2"] = 369,
-    ["UI/Parts/squareYellow_0_0"] = 370,
-    ["UI/Parts/squareYellow_0_1"] = 371,
-    ["UI/Parts/squareYellow_0_2"] = 372,
-    ["UI/Parts/squareYellow_1_0"] = 373,
-    ["UI/Parts/squareYellow_1_1"] = 374,
-    ["UI/Parts/squareYellow_1_2"] = 375,
-    ["UI/Parts/squareYellow_2_0"] = 376,
-    ["UI/Parts/squareYellow_2_1"] = 377,
-    ["UI/Parts/squareYellow_2_2"] = 378,
-    ["UI/buttonBlue"] = 379,
-    ["UI/buttonGreen"] = 380,
-    ["UI/buttonRed"] = 381,
-    ["UI/buttonYellow"] = 382,
-    ["UI/cursor"] = 383,
-    ["UI/numeral0"] = 384,
-    ["UI/numeral1"] = 385,
-    ["UI/numeral2"] = 386,
-    ["UI/numeral3"] = 387,
-    ["UI/numeral4"] = 388,
-    ["UI/numeral5"] = 389,
-    ["UI/numeral6"] = 390,
-    ["UI/numeral7"] = 391,
-    ["UI/numeral8"] = 392,
-    ["UI/numeral9"] = 393,
-    ["UI/numeralX"] = 394,
-    ["UI/playerLife1_blue"] = 395,
-    ["UI/playerLife1_green"] = 396,
-    ["UI/playerLife1_orange"] = 397,
-    ["UI/playerLife1_red"] = 398,
-    ["UI/playerLife2_blue"] = 399,
-    ["UI/playerLife2_green"] = 400,
-    ["UI/playerLife2_orange"] = 401,
-    ["UI/playerLife2_red"] = 402,
-    ["UI/playerLife3_blue"] = 403,
-    ["UI/playerLife3_green"] = 404,
-    ["UI/playerLife3_orange"] = 405,
-    ["UI/playerLife3_red"] = 406,
-    ["playerShip1_blue"] = 407,
-    ["playerShip1_green"] = 408,
-    ["playerShip1_orange"] = 409,
-    ["playerShip1_red"] = 410,
-    ["playerShip2_blue"] = 411,
-    ["playerShip2_green"] = 412,
-    ["playerShip2_orange"] = 413,
-    ["playerShip2_red"] = 414,
-    ["playerShip3_blue"] = 415,
-    ["playerShip3_green"] = 416,
-    ["playerShip3_orange"] = 417,
-    ["playerShip3_red"] = 418,
-    ["shipBeige_manned"] = 419,
-    ["shipBlue_manned"] = 420,
-    ["shipGreen_manned"] = 421,
-    ["shipPink_manned"] = 422,
-    ["shipYellow_manned"] = 423,
-    ["ufoBlue"] = 424,
-    ["ufoGreen"] = 425,
-    ["ufoRed"] = 426,
-    ["ufoYellow"] = 427,
+    ["Enemies/spikeBall1"] = 78,
+    ["Lasers/laserBeige1"] = 79,
+    ["Lasers/laserBeige2"] = 80,
+    ["Lasers/laserBeige3"] = 81,
+    ["Lasers/laserBeige_burst"] = 82,
+    ["Lasers/laserBeige_groundBurst"] = 83,
+    ["Lasers/laserBlue01"] = 84,
+    ["Lasers/laserBlue02"] = 85,
+    ["Lasers/laserBlue03"] = 86,
+    ["Lasers/laserBlue04"] = 87,
+    ["Lasers/laserBlue05"] = 88,
+    ["Lasers/laserBlue06"] = 89,
+    ["Lasers/laserBlue07"] = 90,
+    ["Lasers/laserBlue08"] = 91,
+    ["Lasers/laserBlue09"] = 92,
+    ["Lasers/laserBlue1"] = 93,
+    ["Lasers/laserBlue10"] = 94,
+    ["Lasers/laserBlue11"] = 95,
+    ["Lasers/laserBlue12"] = 96,
+    ["Lasers/laserBlue13"] = 97,
+    ["Lasers/laserBlue14"] = 98,
+    ["Lasers/laserBlue15"] = 99,
+    ["Lasers/laserBlue16"] = 100,
+    ["Lasers/laserBlue2"] = 101,
+    ["Lasers/laserBlue3"] = 102,
+    ["Lasers/laserBlue_burst"] = 103,
+    ["Lasers/laserBlue_groundBurst"] = 104,
+    ["Lasers/laserGreen01"] = 105,
+    ["Lasers/laserGreen02"] = 106,
+    ["Lasers/laserGreen03"] = 107,
+    ["Lasers/laserGreen04"] = 108,
+    ["Lasers/laserGreen05"] = 109,
+    ["Lasers/laserGreen06"] = 110,
+    ["Lasers/laserGreen07"] = 111,
+    ["Lasers/laserGreen08"] = 112,
+    ["Lasers/laserGreen09"] = 113,
+    ["Lasers/laserGreen1"] = 114,
+    ["Lasers/laserGreen10"] = 115,
+    ["Lasers/laserGreen11"] = 116,
+    ["Lasers/laserGreen12"] = 117,
+    ["Lasers/laserGreen13"] = 118,
+    ["Lasers/laserGreen14"] = 119,
+    ["Lasers/laserGreen15"] = 120,
+    ["Lasers/laserGreen16"] = 121,
+    ["Lasers/laserGreen2"] = 122,
+    ["Lasers/laserGreen3"] = 123,
+    ["Lasers/laserGreen_burst"] = 124,
+    ["Lasers/laserGreen_groundBurst"] = 125,
+    ["Lasers/laserPink1"] = 126,
+    ["Lasers/laserPink2"] = 127,
+    ["Lasers/laserPink3"] = 128,
+    ["Lasers/laserPink_burst"] = 129,
+    ["Lasers/laserPink_groundBurst"] = 130,
+    ["Lasers/laserRed01"] = 131,
+    ["Lasers/laserRed02"] = 132,
+    ["Lasers/laserRed03"] = 133,
+    ["Lasers/laserRed04"] = 134,
+    ["Lasers/laserRed05"] = 135,
+    ["Lasers/laserRed06"] = 136,
+    ["Lasers/laserRed07"] = 137,
+    ["Lasers/laserRed08"] = 138,
+    ["Lasers/laserRed09"] = 139,
+    ["Lasers/laserRed10"] = 140,
+    ["Lasers/laserRed11"] = 141,
+    ["Lasers/laserRed12"] = 142,
+    ["Lasers/laserRed13"] = 143,
+    ["Lasers/laserRed14"] = 144,
+    ["Lasers/laserRed15"] = 145,
+    ["Lasers/laserRed16"] = 146,
+    ["Lasers/laserYellow1"] = 147,
+    ["Lasers/laserYellow2"] = 148,
+    ["Lasers/laserYellow3"] = 149,
+    ["Lasers/laserYellow_burst"] = 150,
+    ["Lasers/laserYellow_groundBurst"] = 151,
+    ["Meteors/meteorBrown_big1"] = 152,
+    ["Meteors/meteorBrown_big2"] = 153,
+    ["Meteors/meteorBrown_big3"] = 154,
+    ["Meteors/meteorBrown_big4"] = 155,
+    ["Meteors/meteorBrown_med1"] = 156,
+    ["Meteors/meteorBrown_med3"] = 157,
+    ["Meteors/meteorBrown_small1"] = 158,
+    ["Meteors/meteorBrown_small2"] = 159,
+    ["Meteors/meteorBrown_tiny1"] = 160,
+    ["Meteors/meteorBrown_tiny2"] = 161,
+    ["Meteors/meteorGrey_big1"] = 162,
+    ["Meteors/meteorGrey_big2"] = 163,
+    ["Meteors/meteorGrey_big3"] = 164,
+    ["Meteors/meteorGrey_big4"] = 165,
+    ["Meteors/meteorGrey_med1"] = 166,
+    ["Meteors/meteorGrey_med2"] = 167,
+    ["Meteors/meteorGrey_small1"] = 168,
+    ["Meteors/meteorGrey_small2"] = 169,
+    ["Meteors/meteorGrey_tiny1"] = 170,
+    ["Meteors/meteorGrey_tiny2"] = 171,
+    ["Particles/particleYellow_1"] = 172,
+    ["Particles/particleYellow_2"] = 173,
+    ["Particles/particleYellow_3"] = 174,
+    ["Particles/particleYellow_4"] = 175,
+    ["Particles/particleYellow_5"] = 176,
+    ["Particles/particleYellow_6"] = 177,
+    ["Particles/particleYellow_7"] = 178,
+    ["Parts/beam0"] = 179,
+    ["Parts/beam1"] = 180,
+    ["Parts/beam2"] = 181,
+    ["Parts/beam3"] = 182,
+    ["Parts/beam4"] = 183,
+    ["Parts/beam5"] = 184,
+    ["Parts/beam6"] = 185,
+    ["Parts/beamLong1"] = 186,
+    ["Parts/beamLong2"] = 187,
+    ["Parts/cockpitBlue_0"] = 188,
+    ["Parts/cockpitBlue_1"] = 189,
+    ["Parts/cockpitBlue_2"] = 190,
+    ["Parts/cockpitBlue_3"] = 191,
+    ["Parts/cockpitBlue_4"] = 192,
+    ["Parts/cockpitBlue_5"] = 193,
+    ["Parts/cockpitBlue_6"] = 194,
+    ["Parts/cockpitBlue_7"] = 195,
+    ["Parts/cockpitGreen_0"] = 196,
+    ["Parts/cockpitGreen_1"] = 197,
+    ["Parts/cockpitGreen_2"] = 198,
+    ["Parts/cockpitGreen_3"] = 199,
+    ["Parts/cockpitGreen_4"] = 200,
+    ["Parts/cockpitGreen_5"] = 201,
+    ["Parts/cockpitGreen_6"] = 202,
+    ["Parts/cockpitGreen_7"] = 203,
+    ["Parts/cockpitRed_0"] = 204,
+    ["Parts/cockpitRed_1"] = 205,
+    ["Parts/cockpitRed_2"] = 206,
+    ["Parts/cockpitRed_3"] = 207,
+    ["Parts/cockpitRed_4"] = 208,
+    ["Parts/cockpitRed_5"] = 209,
+    ["Parts/cockpitRed_6"] = 210,
+    ["Parts/cockpitRed_7"] = 211,
+    ["Parts/cockpitYellow_0"] = 212,
+    ["Parts/cockpitYellow_1"] = 213,
+    ["Parts/cockpitYellow_2"] = 214,
+    ["Parts/cockpitYellow_3"] = 215,
+    ["Parts/cockpitYellow_4"] = 216,
+    ["Parts/cockpitYellow_5"] = 217,
+    ["Parts/cockpitYellow_6"] = 218,
+    ["Parts/cockpitYellow_7"] = 219,
+    ["Parts/dome"] = 220,
+    ["Parts/engine1"] = 221,
+    ["Parts/engine2"] = 222,
+    ["Parts/engine3"] = 223,
+    ["Parts/engine4"] = 224,
+    ["Parts/engine5"] = 225,
+    ["Parts/gun00"] = 226,
+    ["Parts/gun01"] = 227,
+    ["Parts/gun02"] = 228,
+    ["Parts/gun03"] = 229,
+    ["Parts/gun04"] = 230,
+    ["Parts/gun05"] = 231,
+    ["Parts/gun06"] = 232,
+    ["Parts/gun07"] = 233,
+    ["Parts/gun08"] = 234,
+    ["Parts/gun09"] = 235,
+    ["Parts/gun10"] = 236,
+    ["Parts/scratch1"] = 237,
+    ["Parts/scratch2"] = 238,
+    ["Parts/scratch3"] = 239,
+    ["Parts/shipBeige"] = 240,
+    ["Parts/shipBlue"] = 241,
+    ["Parts/shipGreen"] = 242,
+    ["Parts/shipPink"] = 243,
+    ["Parts/shipYellow"] = 244,
+    ["Parts/turretBase_big"] = 245,
+    ["Parts/turretBase_small"] = 246,
+    ["Parts/wingBlue_0"] = 247,
+    ["Parts/wingBlue_1"] = 248,
+    ["Parts/wingBlue_2"] = 249,
+    ["Parts/wingBlue_3"] = 250,
+    ["Parts/wingBlue_4"] = 251,
+    ["Parts/wingBlue_5"] = 252,
+    ["Parts/wingBlue_6"] = 253,
+    ["Parts/wingBlue_7"] = 254,
+    ["Parts/wingGreen_0"] = 255,
+    ["Parts/wingGreen_1"] = 256,
+    ["Parts/wingGreen_2"] = 257,
+    ["Parts/wingGreen_3"] = 258,
+    ["Parts/wingGreen_4"] = 259,
+    ["Parts/wingGreen_5"] = 260,
+    ["Parts/wingGreen_6"] = 261,
+    ["Parts/wingGreen_7"] = 262,
+    ["Parts/wingRed_0"] = 263,
+    ["Parts/wingRed_1"] = 264,
+    ["Parts/wingRed_2"] = 265,
+    ["Parts/wingRed_3"] = 266,
+    ["Parts/wingRed_4"] = 267,
+    ["Parts/wingRed_5"] = 268,
+    ["Parts/wingRed_6"] = 269,
+    ["Parts/wingRed_7"] = 270,
+    ["Parts/wingYellow_0"] = 271,
+    ["Parts/wingYellow_1"] = 272,
+    ["Parts/wingYellow_2"] = 273,
+    ["Parts/wingYellow_3"] = 274,
+    ["Parts/wingYellow_4"] = 275,
+    ["Parts/wingYellow_5"] = 276,
+    ["Parts/wingYellow_6"] = 277,
+    ["Parts/wingYellow_7"] = 278,
+    ["Power-ups/bold_silver"] = 279,
+    ["Power-ups/bolt_bronze"] = 280,
+    ["Power-ups/bolt_gold"] = 281,
+    ["Power-ups/pill_blue"] = 282,
+    ["Power-ups/pill_green"] = 283,
+    ["Power-ups/pill_red"] = 284,
+    ["Power-ups/pill_yellow"] = 285,
+    ["Power-ups/powerupBlue"] = 286,
+    ["Power-ups/powerupBlue_bolt"] = 287,
+    ["Power-ups/powerupBlue_shield"] = 288,
+    ["Power-ups/powerupBlue_star"] = 289,
+    ["Power-ups/powerupGreen"] = 290,
+    ["Power-ups/powerupGreen_bolt"] = 291,
+    ["Power-ups/powerupGreen_shield"] = 292,
+    ["Power-ups/powerupGreen_star"] = 293,
+    ["Power-ups/powerupRed"] = 294,
+    ["Power-ups/powerupRed_bolt"] = 295,
+    ["Power-ups/powerupRed_shield"] = 296,
+    ["Power-ups/powerupRed_star"] = 297,
+    ["Power-ups/powerupYellow"] = 298,
+    ["Power-ups/powerupYellow_bolt"] = 299,
+    ["Power-ups/powerupYellow_shield"] = 300,
+    ["Power-ups/powerupYellow_star"] = 301,
+    ["Power-ups/shield_bronze"] = 302,
+    ["Power-ups/shield_gold"] = 303,
+    ["Power-ups/shield_silver"] = 304,
+    ["Power-ups/star_bronze"] = 305,
+    ["Power-ups/star_gold"] = 306,
+    ["Power-ups/star_silver"] = 307,
+    ["Power-ups/things_bronze"] = 308,
+    ["Power-ups/things_gold"] = 309,
+    ["Power-ups/things_silver"] = 310,
+    ["Rocket/f1"] = 311,
+    ["Rocket/f2"] = 312,
+    ["Rocket/f3"] = 313,
+    ["Rocket/f4"] = 314,
+    ["UI/Parts/glassPanel_0_0"] = 315,
+    ["UI/Parts/glassPanel_0_1"] = 316,
+    ["UI/Parts/glassPanel_0_2"] = 317,
+    ["UI/Parts/glassPanel_1_0"] = 318,
+    ["UI/Parts/glassPanel_1_1"] = 319,
+    ["UI/Parts/glassPanel_1_2"] = 320,
+    ["UI/Parts/glassPanel_2_0"] = 321,
+    ["UI/Parts/glassPanel_2_1"] = 322,
+    ["UI/Parts/glassPanel_2_2"] = 323,
+    ["UI/Parts/glassPanel_cornerTL_0_0"] = 324,
+    ["UI/Parts/glassPanel_cornerTL_0_1"] = 325,
+    ["UI/Parts/glassPanel_cornerTL_0_2"] = 326,
+    ["UI/Parts/glassPanel_cornerTL_1_0"] = 327,
+    ["UI/Parts/glassPanel_cornerTL_1_1"] = 328,
+    ["UI/Parts/glassPanel_cornerTL_1_2"] = 329,
+    ["UI/Parts/glassPanel_cornerTL_2_0"] = 330,
+    ["UI/Parts/glassPanel_cornerTL_2_1"] = 331,
+    ["UI/Parts/glassPanel_cornerTL_2_2"] = 332,
+    ["UI/Parts/glassPanel_corners_0_0"] = 333,
+    ["UI/Parts/glassPanel_corners_0_1"] = 334,
+    ["UI/Parts/glassPanel_corners_0_2"] = 335,
+    ["UI/Parts/glassPanel_corners_1_0"] = 336,
+    ["UI/Parts/glassPanel_corners_1_1"] = 337,
+    ["UI/Parts/glassPanel_corners_1_2"] = 338,
+    ["UI/Parts/glassPanel_corners_2_0"] = 339,
+    ["UI/Parts/glassPanel_corners_2_1"] = 340,
+    ["UI/Parts/glassPanel_corners_2_2"] = 341,
+    ["UI/Parts/glassPanel_projection_0_0"] = 342,
+    ["UI/Parts/glassPanel_projection_0_1"] = 343,
+    ["UI/Parts/glassPanel_projection_0_2"] = 344,
+    ["UI/Parts/glassPanel_projection_1_0"] = 345,
+    ["UI/Parts/glassPanel_projection_1_1"] = 346,
+    ["UI/Parts/glassPanel_projection_1_2"] = 347,
+    ["UI/Parts/glassPanel_projection_2_0"] = 348,
+    ["UI/Parts/glassPanel_projection_2_1"] = 349,
+    ["UI/Parts/glassPanel_projection_2_2"] = 350,
+    ["UI/Parts/metalPanel_0_0"] = 351,
+    ["UI/Parts/metalPanel_0_1"] = 352,
+    ["UI/Parts/metalPanel_0_2"] = 353,
+    ["UI/Parts/metalPanel_1_0"] = 354,
+    ["UI/Parts/metalPanel_1_1"] = 355,
+    ["UI/Parts/metalPanel_1_2"] = 356,
+    ["UI/Parts/metalPanel_2_0"] = 357,
+    ["UI/Parts/metalPanel_2_1"] = 358,
+    ["UI/Parts/metalPanel_2_2"] = 359,
+    ["UI/Parts/squareGreen_0_0"] = 360,
+    ["UI/Parts/squareGreen_0_1"] = 361,
+    ["UI/Parts/squareGreen_0_2"] = 362,
+    ["UI/Parts/squareGreen_1_0"] = 363,
+    ["UI/Parts/squareGreen_1_1"] = 364,
+    ["UI/Parts/squareGreen_1_2"] = 365,
+    ["UI/Parts/squareGreen_2_0"] = 366,
+    ["UI/Parts/squareGreen_2_1"] = 367,
+    ["UI/Parts/squareGreen_2_2"] = 368,
+    ["UI/Parts/squareRed_0_0"] = 369,
+    ["UI/Parts/squareRed_0_1"] = 370,
+    ["UI/Parts/squareRed_0_2"] = 371,
+    ["UI/Parts/squareRed_1_0"] = 372,
+    ["UI/Parts/squareRed_1_1"] = 373,
+    ["UI/Parts/squareRed_1_2"] = 374,
+    ["UI/Parts/squareRed_2_0"] = 375,
+    ["UI/Parts/squareRed_2_1"] = 376,
+    ["UI/Parts/squareRed_2_2"] = 377,
+    ["UI/Parts/squareShadow_0_0"] = 378,
+    ["UI/Parts/squareShadow_0_1"] = 379,
+    ["UI/Parts/squareShadow_0_2"] = 380,
+    ["UI/Parts/squareShadow_1_0"] = 381,
+    ["UI/Parts/squareShadow_1_1"] = 382,
+    ["UI/Parts/squareShadow_1_2"] = 383,
+    ["UI/Parts/squareShadow_2_0"] = 384,
+    ["UI/Parts/squareShadow_2_1"] = 385,
+    ["UI/Parts/squareShadow_2_2"] = 386,
+    ["UI/Parts/squareWhite_0_0"] = 387,
+    ["UI/Parts/squareWhite_0_1"] = 388,
+    ["UI/Parts/squareWhite_0_2"] = 389,
+    ["UI/Parts/squareWhite_1_0"] = 390,
+    ["UI/Parts/squareWhite_1_1"] = 391,
+    ["UI/Parts/squareWhite_1_2"] = 392,
+    ["UI/Parts/squareWhite_2_0"] = 393,
+    ["UI/Parts/squareWhite_2_1"] = 394,
+    ["UI/Parts/squareWhite_2_2"] = 395,
+    ["UI/Parts/squareYellow_0_0"] = 396,
+    ["UI/Parts/squareYellow_0_1"] = 397,
+    ["UI/Parts/squareYellow_0_2"] = 398,
+    ["UI/Parts/squareYellow_1_0"] = 399,
+    ["UI/Parts/squareYellow_1_1"] = 400,
+    ["UI/Parts/squareYellow_1_2"] = 401,
+    ["UI/Parts/squareYellow_2_0"] = 402,
+    ["UI/Parts/squareYellow_2_1"] = 403,
+    ["UI/Parts/squareYellow_2_2"] = 404,
+    ["UI/buttonBlue"] = 405,
+    ["UI/buttonGreen"] = 406,
+    ["UI/buttonRed"] = 407,
+    ["UI/buttonYellow"] = 408,
+    ["UI/cursor"] = 409,
+    ["UI/numeral0"] = 410,
+    ["UI/numeral1"] = 411,
+    ["UI/numeral2"] = 412,
+    ["UI/numeral3"] = 413,
+    ["UI/numeral4"] = 414,
+    ["UI/numeral5"] = 415,
+    ["UI/numeral6"] = 416,
+    ["UI/numeral7"] = 417,
+    ["UI/numeral8"] = 418,
+    ["UI/numeral9"] = 419,
+    ["UI/numeralX"] = 420,
+    ["UI/pause"] = 421,
+    ["UI/playerLife1_blue"] = 422,
+    ["UI/playerLife1_green"] = 423,
+    ["UI/playerLife1_orange"] = 424,
+    ["UI/playerLife1_red"] = 425,
+    ["UI/playerLife2_blue"] = 426,
+    ["UI/playerLife2_green"] = 427,
+    ["UI/playerLife2_orange"] = 428,
+    ["UI/playerLife2_red"] = 429,
+    ["UI/playerLife3_blue"] = 430,
+    ["UI/playerLife3_green"] = 431,
+    ["UI/playerLife3_orange"] = 432,
+    ["UI/playerLife3_red"] = 433,
+    ["playerShip1_blue"] = 434,
+    ["playerShip1_green"] = 435,
+    ["playerShip1_orange"] = 436,
+    ["playerShip1_red"] = 437,
+    ["playerShip2_blue"] = 438,
+    ["playerShip2_green"] = 439,
+    ["playerShip2_orange"] = 440,
+    ["playerShip2_red"] = 441,
+    ["playerShip3_blue"] = 442,
+    ["playerShip3_green"] = 443,
+    ["playerShip3_orange"] = 444,
+    ["playerShip3_red"] = 445,
+    ["shipBeige_manned"] = 446,
+    ["shipBlue_manned"] = 447,
+    ["shipGreen_manned"] = 448,
+    ["shipPink_manned"] = 449,
+    ["shipYellow_manned"] = 450,
+    ["ufoBlue"] = 451,
+    ["ufoGreen"] = 452,
+    ["ufoRed"] = 453,
+    ["ufoYellow"] = 454,
 }
 
 function SheetInfo:getSheet()

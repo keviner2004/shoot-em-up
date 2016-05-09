@@ -5,9 +5,9 @@ EnemyPlane.new = function(options)
     print("new plane")
     local plane = Enemy.new(options)
 
-    plane.centerPart = plane:newSprite("Parts/cockpitBlue_5")
-    plane.rightPart = plane:newSprite("Parts/wingBlue_4")
-    plane.leftPart = plane:newSprite("Parts/wingBlue_4")
+    plane.centerPart = Sprite.new("Parts/cockpitBlue_5")
+    plane.rightPart = Sprite.new("Parts/wingBlue_4")
+    plane.leftPart = plane.new("Parts/wingBlue_4")
     
     plane.centerPart.yScale = -1;
     plane.rightPart.yScale = -1;
@@ -47,7 +47,11 @@ EnemyPlane.new = function(options)
         })
     end
 
-   function plane:onMovePoint(event)
+    function plane:onDead()
+        self:split() 
+    end
+
+    function plane:onMovePoint(event)
         print("onMovePoint")
         local bullet = Bullet.new("character")
         bullet.x = enemy.x

@@ -1,9 +1,21 @@
+-- The library can only use for GameObject
+
 
 local M = {}
 local curve = require("curve")
-local function angleBetween( srcX, srcY, dstX, dstY )
-    local angle = ( math.deg( math.atan2( dstY-srcY, dstX-srcX ) )+90 )
+
+local function angleBetween( srcX, srcY, dstX, dstY , degree)
+    local _degree = 90
+    if degree then
+        _degree = degree
+    end
+    local angle = ( math.deg( math.atan2( dstY-srcY, dstX-srcX ) ) + _degree )
     return angle % 360
+end
+
+local function radiusBetween( srcX, srcY, dstX, dstY , degree)
+    local radius = math.atan2( dstY-srcY, dstX-srcX )
+    return radius
 end
 
 local function distBetween( x1, y1, x2, y2 )
@@ -34,6 +46,9 @@ function M.isOut2(x, y)
 end
 
 function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
+    if not obj.dir then
+        obj.dir = 0
+    end
     moveTag = moveTag + 1
     obj.moveTag = ""..moveTag
     print("num of path points "..#pathPoints)
@@ -101,7 +116,7 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
                 Runtime:addEventListener( "enterFrame", obj )
             elseif obj.nextPoint <= #pathPoints then
                 --rotation = angleBetween( pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y, pathPoints[obj.next2Point].x, pathPoints[obj.next2Point].y )
-                rotation = angleBetween(obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y)
+                rotation = angleBetween(obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y) - obj.dir
                 obj.lastRotation = rotation
             end
             
@@ -291,16 +306,77 @@ function M.goCurve(obj)
 end
 
 function M.toward(obj, options)
-    local dx = (options.offsetX or 5) * math.sin(math.rad(options.degree))
-    local dy = (options.offsetY or 5) * math.cos(math.rad(options.degree))
+    --print("M.toward")
+    local dx = (options.offsetX or 5) * math.cos(options.radius or math.rad(options.degree))
+    local dy = (options.offsetY or 5) * math.sin(options.radius or math.rad(options.degree))
+    local rRad = math.atan2(-dy, -dx)
+    obj.m_defaultX = obj.x
+    obj.m_defaultY = obj.y
     --print("dx: "..dx..", dy: "..dy)
-    obj.enterFrame = function()
-        --print("!!!!!")
+    obj.m_enterFrame = function()
+        if obj.paused then
+            return
+        end
+        if obj.x == nil then
+            --object is removed, stop moving
+            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+            return
+        end
         obj.x = obj.x + dx
         obj.y = obj.y + dy
-        if obj.x > display.contentWidth or obj.y > display.contentHeight or obj.x < 0 or obj.y < 0 then
+        if M.isOut(obj) then
             M.stop(obj)
-            if options.onComplete then
+            if options.back then
+                print("back mode enabled")
+                local rx = math.cos(rRad)
+                local ry = math.sin(rRad)
+                local rxd = 0 
+                local ryd = 0 
+                local startX = 0
+                local startY = 0
+                print("rDegree "..math.deg(rRad), rx, ry)
+
+                if rx < 0 then
+                    rxd = obj.m_defaultX
+                else
+                    rxd = display.contentWidth - obj.m_defaultX
+                end   
+                if ry < 0 then
+                    ryd = obj.m_defaultY
+                else
+                    ryd = display.contentHeight - obj.m_defaultY
+                end
+
+                startX = obj.m_defaultX + rx * math.abs(ryd / ry)
+                startY = obj.m_defaultY + ry * math.abs(rxd / rx)
+
+                if startX > display.contentWidth then
+                    startX = display.contentWidth
+                elseif startX < 0 then
+                    startX = 0
+                end
+
+                if startY > display.contentHeight then
+                    startY = display.contentHeight
+                elseif startY < 0 then
+                    startY = 0
+                end
+
+                print("back pos is "..startX, startY)
+                M.move(obj, {
+                        mode = "straight",
+                        startPos = {x = startX, y = startY},
+                        endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
+                        time = 2000,
+                        onComplete = function()
+                            if options.onComplete then
+                                options.onComplete()
+                            end
+                        end
+                })
+
+            elseif options.onComplete then
+                print("toward complete")
                 options.onComplete()
             else
                 --print("toward obj remove")
@@ -309,7 +385,7 @@ function M.toward(obj, options)
             end
         end
     end
-    Runtime:addEventListener("enterFrame", obj)
+    Runtime:addEventListener("enterFrame", obj.m_enterFrame)
 end
 
 function M.goLoop(obj, pointTo, moves, idx)
@@ -346,15 +422,55 @@ function M.go(obj, pointTo, moves)
     M.goLoop(obj, pointTo, moves, 1)
 end
 
+function M.rotatAround(obj, options)
+    local angle = options.startDegree or 0
+    local function rotation()
+        if options.target.x == nil or obj.x == nil then
+            print("rotatAround failed because of object disapear")
+            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+            return
+        end
+        obj.rotation = 360 - ((angle + 90 )%360)
+        obj.x = options.target.x + options.distance * math.cos(math.rad(angle))
+        obj.y = options.target.y - options.distance * math.sin(math.rad(angle))
+    end
+    rotation()
+    print("start at "..angle)
+    obj.m_enterFrame = function()
+        if obj.paused then
+            return
+        end
+        rotation()
+        angle = (angle + options.speed)%360
+    end
+
+    Runtime:addEventListener("enterFrame", obj.m_enterFrame)
+end
 
 function M.stop(obj)
     obj.moveCanceled = true
-    if obj.moveTag then
-        --print("Cancel move tag: " ..obj.moveTag)
-        transition.cancel(obj.moveTag)
+    if obj then
+        transition.cancel(obj)
     end
     --print("remove enter frame listener")
+    if obj.m_enterFrame then
+        Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+    end
     Runtime:removeEventListener("enterFrame", obj)
+end
+
+function M.pause(obj)
+    obj.paused = true
+    if obj then
+        transition.pause(obj)
+    end
+end
+
+function M.resume(obj)
+    obj.paused = false
+    if obj then
+        transition.resume(obj)
+    end 
 end
 
 return M

@@ -1,52 +1,75 @@
 local BeamSeg = require("BeamSeg")
+local Bullet = require("Bullet")
+local GameObject = require("GameObject")
 local move = require("move")
 local Beam = {}
 Beam.new = function (options)
     print("beam")
-    local beam = display.newGroup()
+    --local beam = GameObject.new()
+    local beam = Bullet.new({
+        disablePhysic = true, 
+        fireTo = options and options.fireTo, 
+        gtype = "group"
+    })
     beam.stacking = false
-    beam.offset = 10
-    beam.range = options and options.range or 365
+    beam.offset = 50
+    beam.range = options and options.range or 0
     beam.rotation = options and options.rotation or 0
     beam.myCircle = display.newCircle( 3, 3, 3 )
+    beam.myCircle.isVisible = false
     beam.myCircle:setFillColor( 0.5 )
     beam.myCircle.strokeWidth = 5
     beam.myCircle:setStrokeColor( 1, 0, 0 )
+    beam.segs = display.newGroup()
+    beam:insert(beam.segs)
+    beam.damage = 999999
+    beam.name = "beam"
+
+    print("beam fireTo "..beam.fireTo)
+
+    function beam:afterHit(event)
+        --do nothing
+    end
+
+    function beam:onHit(event)
+        --do nothing
+    end
+    
     function beam:stack(offset)
         local beamSeg = BeamSeg.new()
-        beamSeg.x = self[self.numChildren].x
-        beamSeg.y = self[self.numChildren].y
-        self:insert(beamSeg)
+        beamSeg.x = self:last().x
+        beamSeg.y = self:last().y
+        self.segs:insert(beamSeg)
         self:moveOrStack(beamSeg, offset)
     end
 
     function beam:getLength()
-        if self.numChildren == 0 then
+        if self.segs.numChildren == 0 then
             return 0
         end 
-        if self.numChildren > 1 then
+        if self.segs.numChildren > 1 then
             --print("")
-            return self[self.numChildren].y -  self[1].y + self[1].height
+            return self:last().y -  self.segs[1].y + self.segs[1].height
         end
-        return self[1].height
+        return self.segs[1].height
     end
 
     function beam:resize()
-        if not self[1] then
+        if not self.segs[1] then
             return
         end
         local l = self:getLength()
         --print("resize with len "..l)
-        self.x = self.defaultX - (l/2 - self[1].height/2) * math.sin(math.rad(self.rotation)) 
-        self.y = self.defaultY + (l/2 - self[1].height/2) * math.cos(math.rad(self.rotation))
+        self.x = self.defaultX - (l/2 - self.segs[1].height/2) * math.sin(math.rad(self.rotation)) 
+        self.y = self.defaultY + (l/2 - self.segs[1].height/2) * math.cos(math.rad(self.rotation))
         self.myCircle.x = self.x
         self.myCircle.y = self.y
     end
 
     function beam:moveOrStack(beamSeg, offset)
-        local remain = beamSeg.y + offset - (self[self.numChildren-1].y + self[1].height)
+        local remain = beamSeg.y + offset - (self:last(2).y + self.segs[1].height)
         if remain > 0 then
-            beamSeg.y = self[self.numChildren-1].y + beamSeg.height
+            beamSeg.y = self:last(2).y + beamSeg.height
             self:stack(remain)
         else
             --local l1 = self:getLength()
@@ -54,8 +77,8 @@ Beam.new = function (options)
             beamSeg.y = beamSeg.y  + offset
             --self.y = self.y + offset /2
 
-            for i = 1, self.numChildren do
-                self[i].y = self[i].y - offset/2
+            for i = 1, self.segs.numChildren do
+                self.segs[i].y = self.segs[i].y - offset/2
             end
             self:rayCast()
             self:resize()
@@ -66,33 +89,58 @@ Beam.new = function (options)
     end
 
     function beam:reinitPhysicBody()
-        physics.removeBody(self)
-        physics.addBody(self, "dynamic", { density=1.0, friction=0, bounce=0 , filter = {categoryBits=4, maskBits=0}})
+        if self.bodyInited then
+            physics.removeBody(self)
+            self:addPhysicBody()
+        else
+            self:addPhysicBody()
+            self.bodyInited = true
+        end
+    end
+
+    function beam:addPhysicBody(btype)
+        if not btype then
+            btype = "dynamic"
+        end
+        physics.addBody(self, btype, {
+            box = { 
+                halfWidth =self.segs.width/2,
+                halfHeight = self.segs.height/2,
+            }, 
+            density=1.0, 
+            friction=0, 
+            bounce=0,
+            isSensor = true, 
+            filter = {categoryBits = 4, maskBits = self.maskBits}})
+        self.isSleepingAllowed = false
     end
 
     function beam:last(offset)
         local offset = offset or 1
-        return self[self.numChildren - offset + 1]
+        --print("self.segs.numChildren ", self.segs.numChildren)
+        return self.segs[self.segs.numChildren - offset + 1]
     end
 
     function beam:first()
-        return self[1]
-    end
-
-    function beam:newSeg()
-        return self[self.numChildren] 
+        return self.segs[1]
     end
 
     function beam:shoot()
         print("shoot")
-
         local max =  self.rotation + self.range
         local min =  self.rotation - self.range
         self.defaultX = self.x
         self.defaultY = self.y
         --transition.to(beam, {time = 10000, rotation = 350})
         local count = 1
-        Runtime:addEventListener("enterFrame", function()
+        self.beamHandler = function()
+            if self.paused then
+                return
+            end
+            if not self.x then
+                Runtime:removeEventListener("enterFrame", self.beamHandler)
+                return
+            end
             count = count + 1
             local rotated = false
             if self.burst and self.burst.rotation then
@@ -106,44 +154,44 @@ Beam.new = function (options)
                 self:rayCast()
             end
 
-            if self.numChildren == 0 then
-                print("do 1")
+            if self.segs.numChildren == 0 then
+                --print("do 1")
                 local beamSeg = BeamSeg.new()
                 beamSeg.x = 0
                 beamSeg.y = 0
-                self:insert(beamSeg)
+                self.segs:insert(beamSeg)
                 --local numOfSegs = math.ceil(self.offset / beamSeg.height)
                 --numOfSegs = numOfSegs - 1
-            elseif self.numChildren == 1 and not self:isOut(self:last()) then
+            elseif self.segs.numChildren == 1 and not self:isOut(self:last()) then
                 --print("do 2")
                 self:stack(self.offset)
-            elseif self.numChildren > 1 and not self:isOut(self:last()) then
+            elseif self.segs.numChildren > 1 and not self:isOut(self:last()) then
                 --print("do 3")
                 beam:moveOrStack(self:last(), self.offset)
-            elseif self.numChildren > 1 and self:isOut(self:last(2)) then
-                print("do 4 1: "..self.numChildren)
+            elseif self.segs.numChildren > 1 and self:isOut(self:last(2)) then
+                --print("do 4 1: "..self.segs.numChildren)
                 --print("R1 "..count)
                 --self:resize()
-                for i = 1, self.numChildren do
-                    print("Before: "..i..":"..self[i].y)
+                for i = 1, self.segs.numChildren do
+                    --print("Before: "..i..":"..self.segs[i].y)
                 end
                 local offset = self:last().y-self:last(2).y
-                self[self.numChildren]:removeSelf()
+                self:last():removeSelf()
 
-                --for i = 1, self.numChildren do
-                --    print("After: "..i..":"..self[i].y)
+                --for i = 1, self.segs.numChildren do
+                --    print("After: "..i..":"..self.segs[i].y)
                 --end
 
-                for i = 1, self.numChildren do
-                    self[i].y = self[i].y + offset/2
+                for i = 1, self.segs.numChildren do
+                    self.segs[i].y = self.segs[i].y + offset/2
                 end
 
-                --for i = 1, self.numChildren do
-                --    print("Modified: "..i..":"..self[i].y)
+                --for i = 1, self.segs.numChildren do
+                --    print("Modified: "..i..":"..self.segs[i].y)
                 --end
 
-                --print("Idea top y "..self:getLength()/2 - self[1].height/2)
-                --print("do 4 2: "..self.numChildren)
+                --print("Idea top y "..self:getLength()/2 - self.segs[1].height/2)
+                --print("do 4 2: "..self.segs.numChildren)
                 --print("R2 "..count)
                 self:resize()
                 self:reinitPhysicBody()
@@ -152,7 +200,8 @@ Beam.new = function (options)
                 --print("do nothing")
             end
 
-        end)
+        end
+        Runtime:addEventListener("enterFrame", self.beamHandler)
     end
 
     function beam:newBurst()
@@ -164,7 +213,9 @@ Beam.new = function (options)
     end
 
     function beam:stop()
-        Runtime:removeEventListener("enterFrame", self)
+        --print("beam is stopped")
+        Runtime:removeEventListener("enterFrame", self.beamHandler)
+
     end
     
     function beam:rayCast()
@@ -204,16 +255,20 @@ Beam.new = function (options)
                 if v.object.type == "wall" then
                     if not self.burst then
                         self.burst = self:newBurst()
+                        self:insert(self.burst)
                     end
-                    self.burst.x = v.position.x
-                    self.burst.y = v.position.y
+                    --self.burst.isVisible = true
+                    self.burst.x, self.burst.y = self:contentToLocal( v.position.x, v.position.y )
+                    --print("local point:", self.burst.x, self.burst.y)
+                    --self.burst.x, self.burst.y = v.position.x, v.position.y
                     hitWall = true
                 end
             end
         elseif not hit or not hitWall then
             if self.burst then
                 print("not hit wall")
-                self.burst:removeSelf() 
+                self.burst:removeSelf()
+                --self.burst.isVisible = false
                 self.burst = nil
             end
         end
