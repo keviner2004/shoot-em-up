@@ -30,7 +30,7 @@ Character.new = function (options)
     character.offsetY = 0
     character.shootLevel = 2
     character.boundRad = 25
-    character.maskBits = 2+4+16+64
+    character.maskBits = PHYSIC_CATEGORY_ENEMY+PHYSIC_CATEGORY_BULLET+PHYSIC_CATEGORY_ITEM+PHYSIC_CATEGORY_MISSILE
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
     physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
@@ -51,9 +51,11 @@ Character.new = function (options)
     end
 
     character.collision = function(self, event)
-        --print("hit by "..event.other.name..":"..self.hp)
-        if event.other.type == "bullet" and event.other.fireTo == "character" then 
+        print("hit by "..event.other.name.."/"..event.other.type..":"..self.hp)
+        if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy" then 
+            print("hit2 by "..event.other.name..":"..self.hp)
             if self.shield then
+                print("shield is open, ignore")
                 return
             end
             timer.performWithDelay( 1, 

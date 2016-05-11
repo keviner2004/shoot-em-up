@@ -201,6 +201,7 @@ function scene:startGame()
     sceneGroup:insert(hpBar)
     self.boss:act()
     self.boss.onDefeated = function()
+        print("Boss is defeated, show victory window")
         self:checkScore(function()
             local options = {
                 effect = "fade",
@@ -236,6 +237,7 @@ function scene:startGame()
 end
 
 function scene:checkScore(afterCheck)
+    print("scene:checkScore")
     local localHeighScore = self.helper:getHighScore("local")
     if localHeighScore < self.mainCharacter.score then
         local options = {

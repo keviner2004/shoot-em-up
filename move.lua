@@ -58,7 +58,7 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
     local count = 0
     if params.pointTo then
         obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, params.pointTo.x, params.pointTo.y )
-    else
+    elseif autoRotation then
         obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y )
     end
     if ( pathPrecision == 0 ) then
@@ -130,7 +130,9 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
                     onComplete = nextTransition
                 })
             else
-                obj.rotation = rotation
+                if params.autoRotation then
+                    obj.rotation = rotation
+                end
                 transition.to( obj, {
                     tag = obj.moveTag,
                     time = transTime,
@@ -159,10 +161,10 @@ function M.move(obj, options)
     local followParams = {}
     if options.mode == "straight" then
         pathPoints = {options.startPos, options.endPos}
-        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo}
+        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation}
     elseif options.mode == "curve" then
         pathPoints = curve.getCurve(options.anchorPoints, options.samples)
-        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo}
+        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation}
     end
     M.follow( obj, followParams, pathPoints, 0,
         function()
@@ -368,6 +370,7 @@ function M.toward(obj, options)
                         startPos = {x = startX, y = startY},
                         endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
                         time = 2000,
+                        autoRotation = options.autoRotation,
                         onComplete = function()
                             if options.onComplete then
                                 options.onComplete()

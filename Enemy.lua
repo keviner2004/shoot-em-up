@@ -12,8 +12,9 @@ Enemy.new = function(options)
     enemy.sheetInfo = sheetInfo
     enemy.myImageSheet = myImageSheet
     
-    enemy.name = "Enemy"
-    enemy.type = "Enemy"
+    enemy.damage = 10
+    enemy.name = "enemy"
+    enemy.type = "enemy"
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items)
     enemy.preCollision = function(self, event)
@@ -29,11 +30,18 @@ Enemy.new = function(options)
 
     enemy.collision = function(self, event)
         count = count + 1
-        --print("enemy hit by "..event.other.name..":"..self.hp)
+        --print("enemy hit by "..event.other.name..":"..self.hp..", x:"..event.x..",y:"..event.y)
         if event.other.name == "bullet" then
-            if self.hp > 0 then
-                self:onHurt(event.other.damage) 
-            end
+            self:hurt(event.other.damage)
+        end
+    end
+
+    enemy:addEventListener("preCollision", enemy)
+    enemy:addEventListener("collision", enemy)
+
+    function enemy:hurt(damage)
+        if self.hp > 0 then
+            self:onHurt(damage)
             if self.hp <= 0 then
                 self:onDead()
                 if self.items then
@@ -46,9 +54,6 @@ Enemy.new = function(options)
         end
     end
 
-    enemy:addEventListener("preCollision", enemy)
-    enemy:addEventListener("collision", enemy)
-
     function enemy:onHurt(damage)
         self.hp = self.hp - event.other.damage
     end
@@ -58,6 +63,7 @@ Enemy.new = function(options)
     end
 
     function enemy:onDead()
+        print("Enemy onDead")
         --removeBody cannot be called when the world is locked and in the middle of number crunching, such as during a collision event, so we use remove the body latter
         timer.performWithDelay( 1, 
             function(e) 

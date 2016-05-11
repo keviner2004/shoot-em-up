@@ -16,10 +16,9 @@ Boss.new = function(player, options)
     boss.bossId = bossId
     boss.player = player
     boss.master = (options and options.master) or boss
-    boss.type = "boss"
     boss.name = (options and options.name) or "boss"
-    boss.hp = (options and options.hp) or 50
-    boss.maxHp = (options and options.maxHp) or 50
+    boss.hp = (options and options.hp) or 1500
+    boss.maxHp = (options and options.maxHp) or 1500
     boss.dir = 180
     boss.isDead = false
     boss.ignoreWall = false
@@ -42,13 +41,13 @@ Boss.new = function(player, options)
     boss:insert(boss.head)
     boss:insert(boss.ring)
     boss.head:play()
-    boss.maskBits = 39
+    boss.maskBits = PHYSIC_CATEGORY_CHARACTER + PHYSIC_CATEGORY_ENEMY + PHYSIC_CATEGORY_BULLET + PHYSIC_CATEGORY_WALL
     --timer.performWithDelay(1, function()
     
     --end)
 
     boss.preCollision = function(self, event)
-        print("boss before hit by "..event.other.name)
+        --print("boss before hit by "..event.other.name)
         if event.other.name == "bullet" then 
             if event.contact then
                 event.contact.isEnabled = false
@@ -65,7 +64,7 @@ Boss.new = function(player, options)
         end
     end
 
-    physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=2, maskBits=boss.maskBits}})
+    physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=boss.maskBits}})
 
     function boss:initHPBar()
         print("initHPBar")
@@ -157,7 +156,7 @@ Boss.new = function(player, options)
             print("Boss is invincible")
             return
         end
-        --print("Hurt on "..self.bossId..", damage:"..damage..", "..self.hp.."/"..self.maxHp)
+        print("Hurt on "..self.bossId..", damage:"..damage..", "..self.hp.."/"..self.maxHp)
         if self.isDead then
             return
         end
@@ -165,14 +164,16 @@ Boss.new = function(player, options)
         if damage > self.hp then
             realDamage = self.hp
         end
-        self.hp = self.hp - damage
+        self.hp = self.hp - realDamage
+        print("Hurted on "..self.bossId..":"..self.hp)
         if self.hpBar then
             self.hpBar:update(self.hp , self.maxHp)
         end
+        self:afterHurt(realDamage)
     end
 
     function boss:onDead()
-        print("onDead")
+        print("onDead "..self.cloneCount.."."..self.bossId)
         self.hp = 0
         self.isDead = true
         self.player.score = self.player.score + self.maxHp
@@ -216,11 +217,11 @@ Boss.new = function(player, options)
 
     function boss:act()
         self:stage1(function()
-            self:stage2(0, function ()
-                stage3()
+            print("stage 1 complete, start stage2")
+            self:stage2(1, function ()
+                self:stage3()
             end)
         end)
-
         --self:stage3()
     end
 
@@ -242,12 +243,13 @@ Boss.new = function(player, options)
         print("mode 1_2 start")
 
         if self:isStage1()then
-            self:mode2(function()
-                self:mode1_2(function()
-                    self:stage1()
+            self:rotateBullet(function()
+                self:bashToCharacter(function()
+                    self:stage1(onComplete)
                 end)
             end)
         else
+            print("stage 1 complete")
             if onComplete then
                 onComplete()
             end
@@ -280,7 +282,7 @@ Boss.new = function(player, options)
         if not count or count == 1 then
             boss:stopRotation()
             physics.removeBody(boss)
-            physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.head.width / 2, filter = {categoryBits=2, maskBits=boss.maskBits}})
+            physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.head.width / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=self.maskBits}})
             transition.to(boss.ring, {time = 300, alpha = 0, onComplete = function()
                 boss.ring:removeSelf()
             end})
@@ -353,7 +355,7 @@ Boss.new = function(player, options)
                 if self.hp > 0 then
                     boss:back({onComplete = function()
                         --self.invincible = false
-                        if self.isStage2() then
+                        if self:isStage2() then
                             self:stage2(count, onComplete)
                         else
                             if onComplete then
@@ -396,15 +398,17 @@ Boss.new = function(player, options)
     end
     function boss:clone()
         local total = self:getTotalClones()
-
-        local hp = self.master.maxHp / total
-        local maxHp = hp
-        print("Clone boss with hp "..hp)
+        --local hp = self.master.maxHp  / total
+        --get cloned bosses hp
+        if not self.master.cloneHp then
+            self.cloneHp = self.hp / total
+        end
+        print("Clone boss with hp "..self.cloneHp)
         local newBoss = Boss.new(
             self.player,
             {
-                hp = hp,
-                maxHp = hp,
+                hp = self.cloneHp,
+                maxHp = self.cloneHp,
                 cloneAfterDead = true,
                 maxClones = self.maxClones,
                 cloneCount = self.cloneCount + 1,
@@ -419,7 +423,7 @@ Boss.new = function(player, options)
         newBoss.y = self.y
 
         function newBoss:afterHurt(damage)
-            self.master:onHurt(damage)
+            self.master:hurt(damage)
         end
 
         return newBoss
@@ -455,13 +459,14 @@ Boss.new = function(player, options)
         end})
     end
 
-    function boss:mode1_2(onComplete)
+    function boss:bashToCharacter(onComplete)
         self.ignoreWall = true
         move.toward(self, {
             radius = math.atan2(self.player.y - self.y, self.player.x - self.x), 
             offsetX = 15,
             offsetY = 15, 
             back = true,
+            autoRotation = false,
             onComplete = function()
                 if onComplete then
                     onComplete()
@@ -469,8 +474,8 @@ Boss.new = function(player, options)
         end})
     end
 
-    function boss:mode2(onComplete)
-        print("mode2")
+    function boss:rotateBullet(onComplete)
+        print("rotateBullet")
         --rotated and bullet
         local startDegree = 0
         local devision = 15

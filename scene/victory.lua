@@ -63,14 +63,14 @@ function scene:create( event )
    function restartButton:onTouch(event)
       --print("custom: "..event.phase.."/"..event.phase)
       if event.phase == "ended" then
-         composer.gotoScene("gameScene")
+         composer.gotoScene("scene.game")
       end
    end
 
    function giveupButton:onTouch(event)
       --print("custom: "..event.phase.."/"..event.phase)
       if event.phase == "ended" then
-         composer.gotoScene("gameScene", {params = {giveup = true}})
+         composer.gotoScene("scene.game", {params = {giveup = true}})
       end
    end
 
