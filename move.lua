@@ -4,12 +4,8 @@
 local M = {}
 local curve = require("curve")
 
-local function angleBetween( srcX, srcY, dstX, dstY , degree)
-    local _degree = 90
-    if degree then
-        _degree = degree
-    end
-    local angle = ( math.deg( math.atan2( dstY-srcY, dstX-srcX ) ) + _degree )
+local function angleBetween( srcX, srcY, dstX, dstY)
+    local angle = math.deg( math.atan2( dstY-srcY, dstX-srcX ) )
     return angle % 360
 end
 
@@ -57,9 +53,9 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
     local pathPointsGroup = display.newGroup();
     local count = 0
     if params.pointTo then
-        obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, params.pointTo.x, params.pointTo.y )
+        obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, params.pointTo.x, params.pointTo.y ) + 90
     elseif autoRotation then
-        obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y )
+        obj.rotation = angleBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y ) + 90
     end
     if ( pathPrecision == 0 ) then
         pathPrecision = distBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y )
@@ -107,7 +103,7 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
                 obj.enterFrame = function()
                     --print("t")
                     if not obj.stopRotation then
-                        obj.rotation = angleBetween( obj.x, obj.y, params.pointTo.x, params.pointTo.y )
+                        obj.rotation = angleBetween( obj.x, obj.y, params.pointTo.x, params.pointTo.y ) + 90
                         --print("rotation not locked: "..obj.rotation)
                     else
                         --print("rotation locked: "..obj.rotation)
@@ -116,7 +112,7 @@ function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
                 Runtime:addEventListener( "enterFrame", obj )
             elseif obj.nextPoint <= #pathPoints then
                 --rotation = angleBetween( pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y, pathPoints[obj.next2Point].x, pathPoints[obj.next2Point].y )
-                rotation = angleBetween(obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y) - obj.dir
+                rotation = angleBetween(obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y) - obj.dir + 90
                 obj.lastRotation = rotation
             end
             
@@ -474,6 +470,82 @@ function M.resume(obj)
     if obj then
         transition.resume(obj)
     end 
+end
+
+function M.seek(obj, target, options)
+    if obj.x == nil or not obj.setLinearVelocity then
+        print("The object is missing")
+        return
+    end
+    --math.randomseed(os.time())
+    local maxForce = options.maxForce or 60 - math.random(-30, 30) 
+    local maxSpeed = options.maxSpeed or 60 - math.random(-30, 30) 
+    
+    if options and options.degree then
+        --print("["..os.time().."]seek "..options.degree.." "..maxForce.." "..maxSpeed)
+        obj:setLinearVelocity(
+            options.magnitude * math.sin(math.rad(options.degree)), 
+            - options.magnitude * math.cos(math.rad(options.degree)))
+    end
+    --self:applyForce(-1000, 1000, self.x , self.y)
+    
+    obj.m_enterFrame = function()
+        if obj.x == target.x and obj.y == target.y then
+            if options.onComplete then
+                options.onComplete()
+                Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+                return
+            end
+        end
+        if obj.paused then
+            return
+        end
+        if obj.x == nil then
+            --print("missile is destroyed, remove enterFrame listeners")
+            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+            return
+        end
+        M.steer(obj, target, maxSpeed, maxForce)
+    end
+
+    Runtime:addEventListener( "enterFrame", obj.m_enterFrame )
+end
+
+local function normalize(vector)
+    local r = (vector.x ^ 2 + vector.y ^ 2) ^ 0.5
+    vector.x = vector.x * r
+    vector.y = vector.y * r
+    return vector
+end
+
+local function limit(vector, limitValue)
+    local r = (vector.x ^ 2 + vector.y ^ 2) ^ 0.5
+    if r > limitValue then
+        normalize(vector)
+        vector.x = vector.x * r
+        vector.y = vector.y * r
+    end
+    return vector
+end
+
+function M.steer(obj, target, maxSpeed, maxForce)
+    if not target.x then
+        return
+    end
+    local vx, vy = obj:getLinearVelocity()
+    local rotation = M.angleBetween(0, 0, vx, vy)
+    --print("velocity: x: "..vx..",y: "..vy)
+    obj.rotation = rotation + (obj.dir or 0)
+
+    local desired = normalize({ x = target.x - obj.x, y = target.y - obj.y })
+    desired.x = desired.x * maxSpeed
+    desired.y = desired.y * maxSpeed
+
+    local steering = { x = (desired.x - vx), y = (desired.y - vy)}
+    limit(steering, maxForce)
+
+    obj.steering = steering
+    obj:applyForce(obj.steering.x, obj.steering.y, obj.x , obj.y)
 end
 
 return M

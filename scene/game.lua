@@ -1,6 +1,5 @@
 require("constant")
 local Enemy = require("EnemyPlane")
-local Boss = require("Boss")
 local Missile = require("Missile")
 local Bullet = require("Bullet")
 local Character = require("Character")
@@ -41,7 +40,7 @@ function scene:create( event )
     physics.setReportCollisionsInContentCoordinates( true )
     --physics.setDrawMode( "hybrid" ) 
     self.first = true
-    local level = Level.load()
+    self.level = Level.load()
     local backgrounds = Backgrounds.new()
     backgrounds:startMoveLoop()   
     
@@ -191,8 +190,12 @@ function scene:startGame()
     --leaderboard helper
     self.helper = leaderBoardHelper.new()
     self.helper:init()
+
+    --start level
+    --level.start()
+    self.level:init(self.view, {self.mainCharacter})
     --boss
-    ----[[
+    --[[
     self.boss = Boss.new(self.mainCharacter)
     sceneGroup:insert(self.boss)
     self.boss.x = display.contentWidth/2
@@ -223,17 +226,20 @@ function scene:startGame()
         self.boss.player = newCharacter
     end
 
-    ----]]
+    --]]
     --update ui according the player
+
     self.playerLifeText.text = self.mainCharacter.lifes
     -- Called when the scene is still off screen (but is about to come on screen).
-    print("total object in scene: "..sceneGroup.numChildren)
+    --[[print("total object in scene: "..sceneGroup.numChildren)
     for i = 1, sceneGroup.numChildren do
         local v = sceneGroup[i]
         if v and v.type then
             print("check "..v.type.."/"..v.name)
         end
-    end  
+    end 
+    --]] 
+    self.level:start()
 end
 
 function scene:checkScore(afterCheck)

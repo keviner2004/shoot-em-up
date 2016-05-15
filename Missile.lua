@@ -13,11 +13,10 @@ Missile.new = function (options)
         fireTo = options and options.fireTo,
         --selfCollision = true
     })
-
+    missile.dir = 0
     missile:play()    
     missile.type = "bullet"
     missile.name = "missile"
-    missile.rotation = - 90
     --print ("Missle mass: ".. missile.mass)
     local count = 0
     
@@ -61,8 +60,8 @@ Missile.new = function (options)
         end
         local vx, vy = self:getLinearVelocity()
         local rotation = move.angleBetween(0, 0, vx, vy)
+        self.rotation = rotation
         --print("velocity: x: "..vx..",y: "..vy)
-        self.rotation = rotation - 90
         local desired = { x = target.x - self.x, y = target.y - self.y }
         local d2=desired.x*desired.x+desired.y*desired.y
         local invMag = maxSpeed/ (d2^0.5)

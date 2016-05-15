@@ -11,4 +11,8 @@ function util.isExist(obj)
     end
 end
 
+function util.addTimerUtil(obj)
+    
+end
+
 return util
