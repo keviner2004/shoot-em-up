@@ -30,7 +30,8 @@ Level.load = function()
     level.currentSublevel = nil
 
     --Reqire all file in levels' folder
-    local subLevel = require("levels.bossLevel")
+    --local subLevel = require("levels.bossLevel")
+    local subLevel = require("levels.level_1")
     print("Author: "..subLevel.author)
     print("Sub level name: "..subLevel.name)
     level.levels[#level.levels+1] = subLevel
@@ -42,9 +43,10 @@ Level.load = function()
         end
     end
 
-    function level:init(view, players)
+    function level:init(scene, view, players)
         self.players = players
         self.view = view
+        self.scene = scene
     end
 
     function level:startLevel(idx)
@@ -59,12 +61,17 @@ Level.load = function()
             table.remove(self.levelCandidates, r)
         end
         self.currentSublevel = self.levels[idx]
-        self.levels[idx]:init(self.view, self.players)
-        self.levels[idx]:show({
+        self.levels[idx]:init(self.scene, self.view, self.players, {
             onComplete = function()
                 self:startLevel()
             end
         })
+        --show the level name
+        local authorTxt = display.newText("Start", 0, 0, "kenvector_future_thin", 35)
+        authorTxt.x = 0
+        authorTxt.y = 0
+        self.view:insert(authorTxt)
+        self.levels[idx]:start()
     end
 
     function level:pause()
@@ -86,7 +93,5 @@ Level.load = function()
     return level
 
 end
-
-
 
 return Level

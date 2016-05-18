@@ -1,4 +1,5 @@
 local Enemy = require("Enemy")
+local Sprite = require("Sprite")
 
 local EnemyPlane = {}
 EnemyPlane.new = function(options)
@@ -7,23 +8,19 @@ EnemyPlane.new = function(options)
 
     plane.centerPart = Sprite.new("Parts/cockpitBlue_5")
     plane.rightPart = Sprite.new("Parts/wingBlue_4")
-    plane.leftPart = plane.new("Parts/wingBlue_4")
-    
-    plane.centerPart.yScale = -1;
-    plane.rightPart.yScale = -1;
-    plane.leftPart.yScale = -1;
+    plane.leftPart = Sprite.new("Parts/wingBlue_4")
     
     plane:insert(plane.centerPart)
     plane:insert(plane.rightPart)
     plane:insert(plane.leftPart)
     
     plane.leftPart.xScale = - plane.leftPart.xScale;
-    plane.leftPart.x = -20
-    plane.rightPart.x = 20
+    plane.leftPart.x = -25
+    plane.rightPart.x = 25
     plane.rightPart.y = 8
     plane.leftPart.y = 8
     plane.name = "enemyPlane"
-
+    plane.dir = 270
     plane:addPhysic()
 
     function plane:split()

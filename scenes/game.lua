@@ -1,13 +1,9 @@
 require("constant")
-local Enemy = require("EnemyPlane")
-local Missile = require("Missile")
-local Bullet = require("Bullet")
 local Character = require("Character")
 local Backgrounds = require("Background")
 local physics = require( "physics" )
 local move = require("move")
 local Level = require("Level")
-local Ufo = require("Ufo")
 local Wall = require("Wall")
 local GlassPanel = require("ui.GlassPanel")
 local Square = require("ui.Square")
@@ -72,7 +68,7 @@ function scene:create( event )
         onEvent = function ( event )
             if ( "ended" == event.phase ) then
                 self:pauseGame()
-                composer.showOverlay( "scene.menu", {
+                composer.showOverlay( "scenes.menu", {
                     effect = "fade",
                     time = 500,
                     isModal = true,
@@ -193,7 +189,7 @@ function scene:startGame()
 
     --start level
     --level.start()
-    self.level:init(self.view, {self.mainCharacter})
+    self.level:init(self, self.view, {self.mainCharacter})
     --boss
     --[[
     self.boss = Boss.new(self.mainCharacter)
@@ -314,7 +310,7 @@ function scene:show( event )
                   someOtherKey = 10
                }
             }
-            composer.showOverlay( "scene.start", options )
+            composer.showOverlay( "scenes.start", options )
             self.first = false
         else
             print("just start the game")

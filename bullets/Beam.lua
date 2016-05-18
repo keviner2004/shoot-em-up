@@ -1,8 +1,9 @@
-local BeamSeg = require("BeamSeg")
+local BeamSeg = require("bullets.BeamSeg")
 local Bullet = require("Bullet")
 local GameObject = require("GameObject")
 local move = require("move")
 local Beam = {}
+
 Beam.new = function (options)
     print("beam")
     --local beam = GameObject.new()

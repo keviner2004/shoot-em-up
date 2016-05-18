@@ -41,7 +41,7 @@ function scene:create( event )
    function exitButton:onTouch(event)
       --print("custom: "..event.phase.."/"..event.phase)
       if event.phase == "ended" then
-         composer.gotoScene((event.params and event.params.back or "gameScene"), {params = {giveup = true}})
+         composer.gotoScene((event.params and event.params.back or "gamesScene"), {params = {giveup = true}})
       end
    end
 

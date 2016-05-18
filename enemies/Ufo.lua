@@ -1,5 +1,5 @@
 local Enemy = require("Enemy")
-local Beam = require("Beam")
+local Beam = require("bullets.Beam")
 local Sprite = require("Sprite")
 local Ufo = {}
 

@@ -522,7 +522,6 @@ local function map(distance, rangeStart, rangeEnd, minSpeed, maxSpeed)
     return minSpeed + (distance / (rangeEnd - rangeStart) * (maxSpeed - minSpeed))
 end
 
---seek
 function M.seek(obj, target, options)
     if obj.x == nil or not obj.setLinearVelocity then
         print("The object is missing")
@@ -594,8 +593,7 @@ function M.steer(obj, target, maxSpeed, minForce, maxForce)
     obj:setLinearVelocity(vx + obj.steering.x, vy + obj.steering.y)
 end
 
---modified transition
-function M._transition(obj, params)
+function M.to(obj, params)
     if not params.time then
         params.time = 500
     end
@@ -604,18 +602,10 @@ function M._transition(obj, params)
     obj.m_params = params
     obj.m_method = "to"
     obj.m_type = "transition"
-    obj.m_slow = 1
-    transition.to(obj, params)
-end
-
-function M.to(obj, params)
-    M._transition(obj)
-    obj.m_method = "to"
     transition.to(obj, params)
 end
 
 function M.slow(obj, slow)
-    obj.m_slow = slow
     if obj.m_type == "transition" then
         local currentTime = system.getTimer()
         local deltaTime = currentTime - obj.m_startTime

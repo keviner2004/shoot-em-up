@@ -27,6 +27,10 @@ TimerUtil.new = function(options)
         return nil
     end
 
+    function timerUtil:getTimer(id)
+        return self.timers[id].t
+    end
+
     function timerUtil:addTimer(delay, func, count)
         if not count then
             count = 1
@@ -43,12 +47,19 @@ TimerUtil.new = function(options)
         --print("add timer "..tid)
         local t = timer.performWithDelay(self.baseTime + delay, function(evnet)
             --print("timer count: "..count.." / " ..evnet.count)
+            if self.timers[tid].c and self.timers[tid].c ~= -1 then
+                self.timers[tid].c = self.timers[tid].c - count
+            end
             func(evnet)
             if evnet.count == count then
                 self:removeTimer(tid)
             end
         end, count)
-        self.timers[tid] = t
+        self.timers[tid] = {}
+        self.timers[tid].t = t
+        self.timers[tid].f = func
+        self.timers[tid].d = delay
+        self.timers[tid].c = count
         self.numOfTimers = self.numOfTimers + 1
         return tid
     end
@@ -59,31 +70,46 @@ TimerUtil.new = function(options)
         self.timers[id] = nil
     end
 
-    function timerUtil:pause()
-        local expiredTimers = {}
-        for i, v in pairs(self.timers) do
-            if timer.pause(v) <= 0 then
-                --print("Pause timer "..i.."fail")
-                expiredTimers[#expiredTimers+1] = i
-            end            
-        end
-        for i, v in pairs(expiredTimers) do
-            --print("Cleanup!")
-            self:removeTimer(v)
+    function timerUtil:cancel(id)
+        if id ~= nil then
+            timer.cancel(self:getTimer(id))
+            self:removeTimer(id)
         end
     end
 
-    function timerUtil:resume()
-        local expiredTimers = {}
-        for i, v in pairs(self.timers) do
-            if timer.resume(v) <= 0 then
-                --print("Resume timer "..i.."fail")
-                expiredTimers[#expiredTimers+1] = i
+    function timerUtil:pause(id)
+        if id ~= nil then
+            timer.pause(self:getTimer(id))
+        else
+            for i, v in pairs(self.timers) do
+                timer.pause(v.t)
             end
         end
-        for i, v in pairs(expiredTimers) do
-            --print("Cleanup!")
-            self:removeTimer(v)
+    end
+
+    function timerUtil:resume(id)
+        if id ~= nil then
+            timer.resume(self:getTimer(id))
+        else
+            for i, v in pairs(self.timers) do
+                timer.resume(v.t)
+            end
+        end
+    end
+
+    function timerUtil:slow(id, slow)
+        local expiredTimers = {}
+        for i, v in pairs(self.timers) do
+            local remaingTime = self:cancel(id)
+            if remaingTime > 0 then
+                if v.c and v.c ~= -1 then
+                    v.c = v.c - 1
+                end
+                self:addTimer(remaingTime * slow, v.f, v.c)
+            end
+            if v.c > 0 or v.c == -1 then
+                self:addTimer(v.d * slow, v.f, v.c)
+            end
         end
     end
 

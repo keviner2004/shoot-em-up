@@ -1,7 +1,9 @@
 local Sublevel = require("Sublevel")
 
 local sublevel = Sublevel.new("boss level", "keviner2004")
-local Boss = require("Boss")
+local Boss = require("enemies.Boss")
+local composer = require("composer")
+
 function sublevel:show(options)
     --boss
     ----[[
@@ -14,13 +16,13 @@ function sublevel:show(options)
     self.boss:act()
     self.boss.onDefeated = function()
         print("Boss is defeated, show victory window")
-        self:checkScore(function()
+        self.scene:checkScore(function()
             local options = {
                 effect = "fade",
                 time = 500,
                 isModal = true,
                 params = {
-                    score = self.mainCharacter.score,
+                    score = self.player.score,
                     onClose = function()
                         
                     end

@@ -2,9 +2,14 @@ settings =
 {
    android =
    {
-      usesPermissions =
-      {
+        usesPermissions =
+        {
          "android.permission.INTERNET",
-      },
+        },
+        orientation =
+        {
+            default = "portrait",
+            supported = { "portrait", "portraitUpsideDown" }
+        },
    },
 }

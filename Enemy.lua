@@ -1,5 +1,4 @@
 local Enemy = {}
-local curve = require("curve")
 local move = require("move")
 local Bullet = require("Bullet")
 local Item = require("Item")
@@ -55,11 +54,11 @@ Enemy.new = function(options)
     end
 
     function enemy:onHurt(damage)
-        self.hp = self.hp - event.other.damage
+        self.hp = self.hp - damage
     end
 
     function enemy:addPhysic()
-        physics.addBody(self, "dynamic", {filter = {categoryBits=2, maskBits=5}})
+        physics.addBody(self, "dynamic", {friction = 0, mass = 1, filter = {categoryBits=2, maskBits=5}})
     end
 
     function enemy:onDead()

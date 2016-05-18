@@ -22,7 +22,7 @@ function scene:create( event )
    function startButton:onTouch(event)
         --print("custom: "..event.phase.."/"..event.phase)
         if event.phase == "ended" then
-            composer.gotoScene("scene.game")
+            composer.gotoScene("scenes.game")
         end
    end
    -- Initialize the scene here.

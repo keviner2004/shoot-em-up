@@ -1,21 +1,30 @@
 local TimerUtil = require("TimerUtil")
 local Sublevel = {}
 
-Sublevel.new = function (name, author, duration)
+Sublevel.new = function (name, author, options)
     local sublevel = {}
     sublevel.name = name
     sublevel.author = author
-    sublevel.duration = duration
+    sublevel.duration = options and options.duration or 30000
 
-    function sublevel:init(view, players, baseTime, onComplete)
-        self.timerUtil = TimerUtil.new({baseTime = baseTime})
-        self.onComplete = onComplete
+    function sublevel:init(scene, view, players, options)
+        self.timerUtil = TimerUtil.new()
+        self.onComplete = options and options.onComplete
         self.players = players
         self.player = players[1]
         self.firstPlayer = players[1]
         self.secondPlayer = players[2]
         self.view = view        
-        --self:addTimer()
+        self.scene = scene
+    end
+
+    function sublevel:start()
+        self:addTimer(self.duration, function()
+            if options and options.onComplete then
+                options.onComplete()
+            end
+        end)
+        self:show()        
     end
 
     function sublevel:show(options)
@@ -31,18 +40,12 @@ Sublevel.new = function (name, author, duration)
     end
 
     function sublevel:addTimer(delay, func, count)
-        if delay > self.duration then
-            print("Warning, you can't add timer because the delay time exceeds the sublevel duration")
-            return
-        end
         self.timerUtil:addTimer(delay, func, count)
     end
 
     function sublevel:removeTimer(id)
        self.timerUtil:removeTimer(id) 
     end
-
-    
     return sublevel
 end
 

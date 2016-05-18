@@ -1,12 +1,12 @@
 local Boss = {}
-local BossBullet = require("BossBullet")
-local Missile = require("Missile")
+local BossBullet = require("bullets.BossBullet")
+local Missile = require("bullets.Missile")
 local move = require("move")
 local Enemy = require("Enemy")
 local Square = require("ui.square")
 local GlassPanel = require("ui.GlassPanel")
 local Sprite = require("Sprite")
-local Ufo = require("Ufo")
+local Ufo = require("enemies.Ufo")
 local util = require("util")
 local bossId = 0
 
@@ -66,7 +66,8 @@ Boss.new = function(player, options)
 
     physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=boss.maskBits}})
 
-    function boss:initHPBar()
+    function 
+        ()
         print("initHPBar")
         local hpBar = display.newGroup()
         local glassPanel = GlassPanel.new(display.contentWidth - 100, 80)
@@ -177,11 +178,6 @@ Boss.new = function(player, options)
         self.hp = 0
         self.isDead = true
         self.player.score = self.player.score + self.maxHp
-        --clear timers
-        for k, v in pairs(self.timers) do
-            timer.cancel(v)
-        end
-        self.timers = {}
 
         if self.cloneCount == 0 then
             self:onDefeated()
