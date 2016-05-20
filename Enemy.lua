@@ -15,7 +15,7 @@ Enemy.new = function(options)
     enemy.name = "enemy"
     enemy.type = "enemy"
     enemy.hp = (options and options.hp) or 50
-    enemy.items = (options and options.items)
+    enemy.items = (options and options.items) or {}
     enemy.preCollision = function(self, event)
         --print("enemy before hit by "..event.other.name)
         if event.other.name == "bullet" then 
@@ -38,13 +38,24 @@ Enemy.new = function(options)
     enemy:addEventListener("preCollision", enemy)
     enemy:addEventListener("collision", enemy)
 
+    function enemy:addItem(class, ...)
+        print("Add item "..class.." to enemy")
+        local item = {}
+        item.class = class
+        item.params = {...}
+        self.items[#self.items+1] = item
+    end
+
     function enemy:hurt(damage)
+        print("Hurt enemy: "..damage..":"..self.hp)
         if self.hp > 0 then
             self:onHurt(damage)
             if self.hp <= 0 then
                 self:onDead()
+                print("Enemy dead, drop items if needed")
                 if self.items then
                     --drop items
+                    print("drop items")
                     timer.performWithDelay(1, function(event)
                         self:dropItems()
                     end)
@@ -73,10 +84,14 @@ Enemy.new = function(options)
 
     function enemy:dropItems()
         if self.items then
-            for i =0, #self.items do
-                local item = Item.new()
-                item.x = self.x 
+            for i, v in ipairs(self.items) do
+                print("Enemy drops item "..v.class)
+                local ItemClass = require(v.class)
+                local item = ItemClass.new(unpack(v.params))
+                item.x = self.x
                 item.y = self.y
+                item._iclass = v.class
+                item._iparams = v.params
             end
         end
     end

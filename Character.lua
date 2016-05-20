@@ -2,9 +2,11 @@ local Character = {}
 local Control = require("Control")
 local Bullet = require("Bullet")
 local Sprite = require("Sprite")
+local PowerUp = require("items.PowerUp")
+local SpeedUp = require("items.SpeedUp")
+local ShieldUp = require("items.ShieldUp")
 local move = require("move")
 local id = 0
-
 Character.new = function (options)
     local character = display.newGroup()
     id = id + 1
@@ -13,23 +15,21 @@ Character.new = function (options)
     character.type = "character"
     character.name = "character"
     character.speed = options and options.speed
+    character.maxSpeed = 3
     character.fireRate = options and options.fireRate
     character.fingerSize = options and options.fingerSize
     character.controlType = (options and options.controlType) or "follow"
     character.hp = (options and options.hp) or 1
     character.score = (options and options.score) or 0
-    character.collision = function(self, event)
-        if event.other.type == "item" then
-            self:onItem(event.other)
-        end
-    end
     character.moveAngle = 0
     character.enableMove = false
     character.touchPos = {}
     character.offsetX = 0
     character.offsetY = 0
-    character.shootLevel = 2
+    character.power = 2
+    character.maxPower = 3
     character.boundRad = 25
+    character.items = (options and options.items) or {}
     character.maskBits = PHYSIC_CATEGORY_ENEMY+PHYSIC_CATEGORY_BULLET+PHYSIC_CATEGORY_ITEM+PHYSIC_CATEGORY_MISSILE
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
@@ -65,6 +65,10 @@ Character.new = function (options)
                     end
                 end
             )
+        elseif event.other.type == "item" and event.other.enabled then
+            timer.performWithDelay( 1, function(e)
+                self:onItem(event.other)
+            end)
         end
     end
 
@@ -104,14 +108,14 @@ Character.new = function (options)
     end
 
     function character:shoot()
-        if character.shootLevel <= 1 then  
+        if character.power <= 1 then  
             local bullet = Bullet.new({fireTo = "enemy"})
             bullet.x = self.x
             bullet.y = self.y
             bullet:setLinearVelocity(0, -2000)
             self.parent:insert(bullet)
 
-        elseif character.shootLevel == 2 then
+        elseif character.power == 2 then
             local bullet = Bullet.new({fireTo = "enemy"})
             self.parent:insert(bullet)
             bullet.x = self.x + 10
@@ -119,12 +123,12 @@ Character.new = function (options)
             bullet:setLinearVelocity(0, -2000)
 
             local bullet2 = Bullet.new({fireTo = "enemy"})
-            self.parent:insert(bullet)
+            self.parent:insert(bullet2)
             bullet2.x = self.x - 10
             bullet2.y = self.y
             bullet2:setLinearVelocity(0, -2000)
 
-        elseif character.shootLevel >=3 then
+        elseif character.power >=3 then
             local bullet = Bullet.new({fireTo = "enemy"})
             self.parent:insert(bullet)
             bullet.x = self.x + 10
@@ -132,7 +136,7 @@ Character.new = function (options)
             bullet:setLinearVelocity(0, -2000)
 
             local bullet2 = Bullet.new({fireTo = "enemy"})
-            self.parent:insert(bullet)
+            self.parent:insert(bullet2)
             bullet2.x = self.x
             bullet2.y = self.y
             bullet2:setLinearVelocity(0, -2000)
@@ -146,17 +150,79 @@ Character.new = function (options)
         self:toFront()
     end
 
+    function character:dropItems()
+        for i, v in ipairs(self.items) do
+            --local ItemClass = require(v.class)
+            --local item = ItemClass.new(unpack(v.params))
+            local item = v
+            if item.droppable then
+                item.enabled = true
+                --drop items, move them to the center
+                item.x = display.contentWidth / 2
+                item.y = display.contentHeight / 2
+                math.randomseed(os.time())
+                local degree = math.random(0, 360)
+                local vx = math.cos(math.rad(degree))*10
+                local vy = math.cos(math.rad(degree))*10
+                print("random move items ", vx, vy)
+                item:setLinearVelocity(vx , vy)
+                item:addTimer(5000, function()
+                    transition.to(item, {
+                        time = 500,
+                        alpha = 0, 
+                        onComplete = function()
+                            item:removeSelf()
+                        end
+                    })
+                end)
+            end
+        end
+        self.items = {}
+    end
+
+    function character:limitAttr()
+        if self.power > self.maxPower then
+            self.power = self.maxPower
+        end
+        if self.speed > self.maxSpeed then
+            self.speed = self.maxSpeed
+        end
+    end
+
+    function character:eatItem(item)
+        print("eat item "..item.name)
+        item.enabled = false
+        transition.cancel(item)
+        self.items[#self.items +1] = item
+        self._oldPower = self.power
+        self._oldSpeed = self.speed
+        self:updateAttr()
+        item:effect(self)
+        self:limitAttr()
+        if self._oldPower == self.power and self._oldSpeed == self.speed then
+            print("unuseful item, popup")
+            self.items[#self.items +1] = nil
+            item:removeSelf()
+        else
+            --move them out of the screen, not destroy them directly
+            --item:removeSelf()
+            item.x = -500
+            item.y = -500            
+        end
+        print("Updated attr: "..self.power)
+    end
+
+    function character:updateAttr()
+        for i, v in ipairs(self.items) do
+            print("Update attr by item: "..v.name)
+            print("attr: "..self.power..", "..self.speed)
+            self.power = self.power + v.power
+            self.speed = self.speed + v.speed
+        end
+    end
+
     function character:onItem(item)
-        if item.name == "powerup" then
-            self:powerUp(item)
-        end
-        if item.name == "speedup" then
-            self:speedUp(item)
-        end
-        if item.name == "shield" then
-            self:openShield(item.duration)
-        end
-        item:got()
+        self:eatItem(item)
     end
 
     function character:openShield(duration)
@@ -191,6 +257,7 @@ Character.new = function (options)
 
     function character:onDead()
         print("Character dead "..self.id)
+        self:dropItems()
         self.isDead = true
         --emit partical
         local num = 6

@@ -1,4 +1,7 @@
 To do:
 1. Add asteroid
 2. Add victims
-3. Add sample sublevel
+3. Add items:
+    a. powup
+    b.
+4. Add sample sublevel

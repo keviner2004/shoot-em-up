@@ -1,2 +1,5 @@
-local launchArgs = ... 
-print(launchArgs)
+print(...)
+local degree = math.random(0, 360)
+print(degree)
+degree = math.random(0, 360)print()
+print(degree)

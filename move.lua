@@ -545,7 +545,7 @@ function M.seek(obj, target, options)
     M.addEnterFrameListener(obj, function()
         local vx, vy = obj:getLinearVelocity()
         if vx == 0 and vy == 0 then
-            print("seek to the end")
+            --print("seek to the end")
             if options and options.onComplete then
                 options.onComplete()
                 return
@@ -596,6 +596,9 @@ end
 
 --modified transition
 function M._transition(obj, params)
+    if not params then
+        params = {}
+    end
     if not params.time then
         params.time = 500
     end
@@ -609,7 +612,7 @@ function M._transition(obj, params)
 end
 
 function M.to(obj, params)
-    M._transition(obj)
+    M._transition(obj, params)
     obj.m_method = "to"
     transition.to(obj, params)
 end
@@ -619,6 +622,7 @@ function M.slow(obj, slow)
     if obj.m_type == "transition" then
         local currentTime = system.getTimer()
         local deltaTime = currentTime - obj.m_startTime
+        print(deltaTime)
         if deltaTime > 0 then
             obj.m_params.time = deltaTime * slow
             transition.cancel(obj)

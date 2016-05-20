@@ -4,19 +4,35 @@ local EnemyPlane = require("enemies.EnemyPlane")
 local sublevel = Sublevel.new("1-st level", "keviner2004")
 
 function sublevel:show(options)
+    --New enemy
     local enemy = EnemyPlane.new()
     enemy.x = enemy.width
     enemy.y = -50    
-
-    --enemy.linearDamping = 100
-
+    --Move enemy
     enemy:setLinearVelocity(0, 300)
-    move.seek(enemy, {y = display.contentHeight - 100, x = enemy.width}, {
+    move.seek(enemy, {y = display.contentHeight/2, x = enemy.x}, {
         onComplete = function()
-           enemy:removeSelf() 
+           enemy:setLinearVelocity(0,0)
         end
     })
-    local speed = 600
+    --set item drop by the enemy
+    enemy:addItem("items.PowerUp", {level = 5})
+
+    --New enemy
+    local enemy = EnemyPlane.new()
+    enemy.x = enemy.width + 400
+    enemy.y = -50    
+    --Move enemy
+    enemy:setLinearVelocity(0, 300)
+    move.seek(enemy, {y = display.contentHeight/2, x = enemy.x}, {
+        onComplete = function()
+           enemy:setLinearVelocity(0,0)
+        end
+    })
+    --set item drop by the enemy
+    enemy:addItem("items.PowerUp", {level = 5})
+
+
     --enemy:applyForce(0, 20, enemy.x, enemy.y)
     --[[local first = true
     Runtime:addEventListener("enterFrame", function ()

@@ -1,6 +1,6 @@
 local composer = require( "composer" )
 --composer.gotoScene( "leaderBoardScene" , {params = {stype = "local"}})
---composer.gotoScene( "scenes.game")
+composer.gotoScene( "scenes.game")
 --composer.gotoScene( "newHighScoreScene")
 
 local lfs = require "lfs"
@@ -14,6 +14,9 @@ end
 
 print( "Screen Ratio: "..display.pixelWidth .."/" ..display.actualContentWidth..":".. display.contentWidth)
 
+
+--slow demo
+--[[
 local move = require("move")
 local myRectangle = display.newRect( 0, 0, 50, 50 )
 myRectangle.strokeWidth = 3
@@ -26,3 +29,4 @@ end)
 timer.performWithDelay(2500, function()
     move.slow(myRectangle, 1/3)
 end)
+--]]
