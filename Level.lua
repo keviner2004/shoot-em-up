@@ -67,10 +67,24 @@ Level.load = function()
             end
         })
         --show the level name
-        local authorTxt = display.newText("Start", 0, 0, "kenvector_future_thin", 35)
+        local levelTitle = display.newGroup() 
+        local levelNameTxt = display.newText(string.format("%s", self.currentSublevel.name), 0, 0, "kenvector_future_thin", 35)
+        local authorTxt = display.newText(string.format("%s", self.currentSublevel.author), 0, 0, "kenvector_future_thin", 35)
+        levelNameTxt.x = 0
+        levelNameTxt.y = -30
         authorTxt.x = 0
-        authorTxt.y = 0
-        self.view:insert(authorTxt)
+        authorTxt.y = 30
+        levelTitle:insert(levelNameTxt)
+        levelTitle:insert(authorTxt)
+        levelTitle.x = display.contentWidth/2
+        levelTitle.y = display.contentHeight/2
+        self.view:insert(levelTitle)
+        levelTitle.alpha = 0
+        transition.to(levelTitle, {time = 500, alpha = 1, onComplete = function ()
+            transition.to(levelTitle, {time = 800, alpha = 0, onComplete = function ()
+                levelTitle:removeSelf()
+            end})
+        end})
         self.levels[idx]:start()
     end
 

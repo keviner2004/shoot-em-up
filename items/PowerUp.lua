@@ -13,15 +13,15 @@ PowerUp.new = function(options)
         end
     end
     local spriteName = sprites[level]
-    local powerup = Item.new(spriteName)
-    powerup.level = level
-    powerup.name = "powerup"
-    powerup.power = level
+    local item = Item.new(spriteName)
+    item.level = level
+    item.name = "powerup"
+    item.power = level
 
-    function powerup:effect(receiver)
-        --receiver.power = receiver.power + self.level
+    function item:effect(receiver)
+        
     end
 
-    return powerup
+    return item
 end
 return PowerUp

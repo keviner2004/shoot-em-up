@@ -1,5 +1,7 @@
-print(...)
-local degree = math.random(0, 360)
-print(degree)
-degree = math.random(0, 360)print()
-print(degree)
+local a = {}
+a[1]=2
+a[3]=5
+
+for i = 1, 5 do
+    print(i)
+end

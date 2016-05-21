@@ -6,6 +6,7 @@ local PowerUp = require("items.PowerUp")
 local SpeedUp = require("items.SpeedUp")
 local ShieldUp = require("items.ShieldUp")
 local move = require("move")
+local Backpack = require("Backpack")
 local id = 0
 Character.new = function (options)
     local character = display.newGroup()
@@ -29,7 +30,7 @@ Character.new = function (options)
     character.power = 2
     character.maxPower = 3
     character.boundRad = 25
-    character.items = (options and options.items) or {}
+    character.backpack = Backpack.new()
     character.maskBits = PHYSIC_CATEGORY_ENEMY+PHYSIC_CATEGORY_BULLET+PHYSIC_CATEGORY_ITEM+PHYSIC_CATEGORY_MISSILE
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
@@ -151,7 +152,7 @@ Character.new = function (options)
     end
 
     function character:dropItems()
-        for i, v in ipairs(self.items) do
+        for i, v in pairs(self.backpack:getItems()) do
             --local ItemClass = require(v.class)
             --local item = ItemClass.new(unpack(v.params))
             local item = v
@@ -177,7 +178,7 @@ Character.new = function (options)
                 end)
             end
         end
-        self.items = {}
+        self.backpack:clear()
     end
 
     function character:limitAttr()
@@ -193,7 +194,7 @@ Character.new = function (options)
         print("eat item "..item.name)
         item.enabled = false
         transition.cancel(item)
-        self.items[#self.items +1] = item
+        self.backpack:add(item)
         self._oldPower = self.power
         self._oldSpeed = self.speed
         self:updateAttr()
@@ -201,7 +202,7 @@ Character.new = function (options)
         self:limitAttr()
         if self._oldPower == self.power and self._oldSpeed == self.speed then
             print("unuseful item, popup")
-            self.items[#self.items +1] = nil
+            self.backpack:remove(item)
             item:removeSelf()
         else
             --move them out of the screen, not destroy them directly
@@ -213,7 +214,7 @@ Character.new = function (options)
     end
 
     function character:updateAttr()
-        for i, v in ipairs(self.items) do
+        for i, v in pairs(self.backpack:getItems()) do
             print("Update attr by item: "..v.name)
             print("attr: "..self.power..", "..self.speed)
             self.power = self.power + v.power
