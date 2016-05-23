@@ -10,12 +10,15 @@ local Backpack = require("Backpack")
 local id = 0
 Character.new = function (options)
     local character = display.newGroup()
+    character.gear = display.newGroup()
     id = id + 1
     character.id = id
+    character.gearLevel = 0
     character:insert(display.newSprite( myImageSheet , {frames={sheetInfo:getFrameIndex("playerShip3_red")}}))
     character.type = "character"
     character.name = "character"
-    character.speed = options and options.speed
+    character.speed = (options and options.speed) or 0
+    print("Character speed "..character.speed)
     character.maxSpeed = 3
     character.fireRate = options and options.fireRate
     character.fingerSize = options and options.fingerSize
@@ -46,20 +49,20 @@ Character.new = function (options)
         if event.contact then
             --self:setLinearVelocity(0,0)
             event.contact.isEnabled = false
-        else 
+        else
             print("WTF")
         end
     end
 
     character.collision = function(self, event)
         print("hit by "..event.other.name.."/"..event.other.type..":"..self.hp)
-        if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy" then 
+        if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy" then
             print("hit2 by "..event.other.name..":"..self.hp)
             if self.shield then
                 print("shield is open, ignore")
                 return
             end
-            timer.performWithDelay( 1, 
+            timer.performWithDelay( 1,
                 function(e)
                     if not self.isDead then
                         self:onHurt(event.other.damage)
@@ -108,8 +111,32 @@ Character.new = function (options)
 
     end
 
+    function character:equipGear()
+        local gearlevel = {1,2,3}
+        if self.gearLevel ~= self.power and self.power < self.maxPower then
+            self:unEquipGear()
+            if self.power == 1 then
+
+
+            elseif self.power == 2 then
+
+
+            elseif self.power == 3 then
+
+
+            end
+            self.gearLevel = self.power
+        end
+    end
+
+    function character:unEquipGear()
+        for i = 1, self.gear.numChildren do
+            self.gear[i]:removeSelf()
+        end
+    end
+
     function character:shoot()
-        if character.power <= 1 then  
+        if character.power <= 1 then
             local bullet = Bullet.new({fireTo = "enemy"})
             bullet.x = self.x
             bullet.y = self.y
@@ -170,7 +197,7 @@ Character.new = function (options)
                 item:addTimer(5000, function()
                     transition.to(item, {
                         time = 500,
-                        alpha = 0, 
+                        alpha = 0,
                         onComplete = function()
                             item:removeSelf()
                         end
@@ -208,7 +235,7 @@ Character.new = function (options)
             --move them out of the screen, not destroy them directly
             --item:removeSelf()
             item.x = -500
-            item.y = -500            
+            item.y = -500
         end
         print("Updated attr: "..self.power)
     end
@@ -230,7 +257,7 @@ Character.new = function (options)
         self.shield = Sprite.new({
                 "Effects/shield3",
                 "Effects/shield2",
-                "Effects/shield1", 
+                "Effects/shield1",
                 "Effects/shield3"
             }, {time = 600})
         self:insert(self.shield)
@@ -291,7 +318,7 @@ Character.new = function (options)
     end
 
     function character:autoShoot()
-        timer.performWithDelay( self.fireRate, 
+        timer.performWithDelay( self.fireRate,
             function(event)
                 if self.x == nil then
                     print("Character is dead, stop shoot")

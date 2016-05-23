@@ -3,7 +3,6 @@ local Sublevel = require("Sublevel")
 local sublevel = Sublevel.new("boss level", "keviner2004")
 local Boss = require("enemies.Boss")
 local composer = require("composer")
-
 function sublevel:show(options)
     --boss
     ----[[

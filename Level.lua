@@ -80,6 +80,7 @@ Level.load = function()
         levelTitle.y = display.contentHeight/2
         self.view:insert(levelTitle)
         levelTitle.alpha = 0
+        --Show sublevel's infomation at start
         transition.to(levelTitle, {time = 500, alpha = 1, onComplete = function ()
             transition.to(levelTitle, {time = 800, alpha = 0, onComplete = function ()
                 levelTitle:removeSelf()

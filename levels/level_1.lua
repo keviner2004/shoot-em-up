@@ -9,12 +9,17 @@ function sublevel:show(options)
     enemy.x = enemy.width
     enemy.y = -50    
     --Move enemy
-    enemy:setLinearVelocity(0, 300)
-    move.seek(enemy, {y = display.contentHeight/2, x = enemy.x}, {
-        onComplete = function()
-           enemy:setLinearVelocity(0,0)
-        end
-    })
+    enemy:setLinearVelocity(0, 400)
+    enemy:addTimer((display.contentHeight / 2)/300*1000, function ()
+        move.seek(enemy, {y = 100, x = display.contentWidth-100}, {
+            maxForce = 15,
+            maxSpeed = 400,
+            onComplete = function()
+               enemy:setLinearVelocity(0,0)
+            end
+        })
+    end)
+
     --set item drop by the enemy
     enemy:addItem("items.PowerUp", {level = 5})
 
@@ -30,9 +35,7 @@ function sublevel:show(options)
         end
     })
     --set item drop by the enemy
-    enemy:addItem("items.PowerUp", {level = 5})
-
-
+    enemy:addItem("items.PowerUp", {level = 3})
     --enemy:applyForce(0, 20, enemy.x, enemy.y)
     --[[local first = true
     Runtime:addEventListener("enterFrame", function ()

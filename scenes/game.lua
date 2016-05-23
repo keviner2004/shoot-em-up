@@ -131,6 +131,7 @@ end
 --scene:fpsMesure()
 
 function scene:pauseGame()
+    self.level:pause()
     physics.pause()
     for i = 1, self.view.numChildren do
         local v = self.view[i]
@@ -142,6 +143,7 @@ function scene:pauseGame()
 end
 
 function scene:resumeGame()
+    self.level:resume()
     physics.start()
     for i = 1, self.view.numChildren do
         local v = self.view[i]
@@ -154,7 +156,7 @@ end
 function scene:startGame()
     local sceneGroup = self.view
     --main character
-    self.mainCharacter = Character.new({lifes = 99, speed = 1000, fingerSize = 50, fireRate = 500, controlType = "follow"})
+    self.mainCharacter = Character.new({lifes = 99, fingerSize = 50, fireRate = 500, controlType = "follow"})
     self.mainCharacter.onGameOver = function (obj)
         self:checkScore(function()
             --show gameover overlay

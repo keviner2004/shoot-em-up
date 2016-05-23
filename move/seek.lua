@@ -1,53 +1,24 @@
-local function normalize(vector)
-    local r = (vector.x ^ 2 + vector.y ^ 2) ^ 0.5
-    --print("normalize: "..r..", "..vector.x..", "..vector.y)
-    vector.x = vector.x / r
-    vector.y = vector.y / r
-    return vector
-end
+local PVector = require("move.PVector")
+local util = require("move.util")
+local M = {}
 
-local function limit(vector, limitValue)
-    local r = (vector.x ^ 2 + vector.y ^ 2) ^ 0.5
-    if r > limitValue then
-        normalize(vector)
-        vector.x = vector.x * limitValue
-        vector.y = vector.y * limitValue
+local function map(distance, rangeStart, rangeEnd, minSpeed, maxSpeed)
+    if distance < 1 then
+        return 0
     end
-    return vector
+    return minSpeed + (distance / (rangeEnd - rangeStart) * (maxSpeed - minSpeed))
 end
 
-local function steer(obj, target, maxSpeed, maxForce)
-    if not target.x then
-        return
-    end
-    local vx, vy = obj:getLinearVelocity()
-    local rotation = M.angleBetween(0, 0, vx, vy)
-    --print("velocity: x: "..vx..",y: "..vy)
-    obj.rotation = rotation + (obj.dir or 0)
-    obj.rotation = 45
-    local desired = normalize({ x = target.x - obj.x, y = target.y - obj.y })
-    --print("desired 1: x: "..desired.x..",y: "..desired.y..", maxSpeed:"..maxSpeed)
-    desired.x = desired.x * maxSpeed
-    desired.y = desired.y * maxSpeed
-    --print("desired 2: x: "..desired.x..",y: "..desired.y..", maxSpeed:"..maxSpeed)
-
-    local steering = { x = (desired.x - vx), y = (desired.y - vy)}
-    --print("steering 1: x: "..steering.x..",y: "..steering.y)
-    limit(steering, maxForce)
-    --print("steering 2: x: "..steering.x..",y: "..steering.y)
-    obj.steering = steering
-    obj:applyForce(obj.steering.x, obj.steering.y, obj.x , obj.y)
-end
-
-function seek(obj, target, options)
+function M.seek(obj, target, options)
     if obj.x == nil or not obj.setLinearVelocity then
         print("The object is missing")
         return
     end
 
     math.randomseed(os.time())
-    local maxForce = options.maxForce or 5
-    local maxSpeed = options.maxSpeed or 600
+    local maxForce = (options and options.maxForce) or 50
+    local minForce = (options and options.minForce) or 1
+    local maxSpeed = (options and options.maxSpeed) or 400
     
     if options and options.degree then
         --print("["..os.time().."]seek "..options.degree.." "..maxForce.." "..maxSpeed)
@@ -56,28 +27,57 @@ function seek(obj, target, options)
             - options.magnitude * math.cos(math.rad(options.degree)))
     end
     --self:applyForce(-1000, 1000, self.x , self.y)
-    
-    obj.m_enterFrame = function()
-        if obj.x == target.x and obj.y == target.y then
-            if options.onComplete then
+
+    util.addEnterFrameListener(obj, function()
+        local vx, vy = obj:getLinearVelocity()
+        if vx == 0 and vy == 0 then
+            --print("seek to the end")
+            if options and options.onComplete then
                 options.onComplete()
-                Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
                 return
             end
+            M.removeEnterFrameListener(obj)
         end
-        if obj.paused then
-            return
-        end
-        if obj.x == nil then
-            --print("missile is destroyed, remove enterFrame listeners")
-            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
-            return
-        end
-        print("steer")
-        M.steer(obj, target, maxSpeed, maxForce)
-    end
-
-    Runtime:addEventListener( "enterFrame", obj.m_enterFrame )
+        M.steer(obj, target, maxSpeed, minForce, maxForce)
+    end)
 end
 
-return 
+function M.steer(obj, target, maxSpeed, minForce, maxForce)
+    if not target.x then
+        return
+    end
+    local vx, vy = obj:getLinearVelocity()
+    local rotation = util.angleBetween(0, 0, vx, vy)
+    --print("velocity: x: "..vx..",y: "..vy)
+    if vx ~= 0 and vy ~= 0 then 
+        obj.rotation = rotation + (obj.dir or 0)
+    end
+    --obj.rotation = 45
+    local desired = PVector.new({ x = target.x - obj.x, y = target.y - obj.y })
+    local d = desired:meg()
+    --limit(desired, maxSpeed)
+    --print("d: "..d)
+    desired:normalize()
+    if d <= 100 then
+        desiredSpeed = map(d, 0, 100, 0, maxSpeed)
+        --print("distance: "..d..", desiredSpeed: "..desiredSpeed)
+    else
+        desiredSpeed = maxSpeed
+        --print("desired 1: x: "..desired.x..",y: "..desired.y..", maxSpeed:"..maxSpeed)
+    end
+
+    --print("desired 1: x: "..desired.x..",y: "..desired.y..", maxSpeed:"..maxSpeed)
+    desired.x = desired.x * desiredSpeed
+    desired.y = desired.y * desiredSpeed
+    --print("desired 2: x: "..desired.x..",y: "..desired.y..", maxSpeed:"..maxSpeed)       
+    --v = f/m*t
+    local steering = PVector.new({ x = (desired.x - vx), y = (desired.y - vy)})
+    --print("steering 1: x: "..steering.x..",y: "..steering.y)
+    steering:limit(minForce, maxForce)
+    --print("steering 2: x: "..steering.x..",y: "..steering.y)
+    obj.steering = steering
+    --obj:applyForce(obj.steering.x, obj.steering.y, obj.x , obj.y)
+    obj:setLinearVelocity(vx + obj.steering.x, vy + obj.steering.y)
+end
+
+return M

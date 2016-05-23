@@ -79,8 +79,8 @@ Control.new = function(target, controlType, fingerSize)
             return
         end
         if self.controlType == "follow" and self.enableMove then
-            local offsetY = 30 * math.sin(self.moveAngle)
-            local offsetX = 30 * math.cos(self.moveAngle)
+            local offsetY = 30 * math.sin(self.moveAngle) * (1 + (self.target.speed or 0))
+            local offsetX = 30 * math.cos(self.moveAngle) * (1 + (self.target.speed or 0))
             local targetY = self.touchPos.y - self.fingerSize
             --print("offsetX: "..offsetX)
             --print("offsetY: "..offsetY.."/"..targetY.."/"..self.y.."/"..math.deg(self.moveAngle))
@@ -106,8 +106,8 @@ Control.new = function(target, controlType, fingerSize)
                 end 
             end
         elseif self.controlType == "key"  then
-            self.target.x = self.target.x + self.offsetX
-            self.target.y = self.target.y + self.offsetY
+            self.target.x = self.target.x + self.offsetX * (1 + (self.target.speed or 0))
+            self.target.y = self.target.y + self.offsetY * (1 + (self.target.speed or 0))
         end
         if self.target.x > display.contentWidth then
             self.target.x = display.contentWidth
