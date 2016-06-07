@@ -1,6 +1,6 @@
 local Sublevel = require("Sublevel")
 
-local sublevel = Sublevel.new("boss level", "keviner2004")
+local sublevel = Sublevel.new("boss level", "keviner2004", {isBossFight = true})
 local Boss = require("enemies.Boss")
 local composer = require("composer")
 function sublevel:show(options)
@@ -13,7 +13,9 @@ function sublevel:show(options)
     local hpBar = self.boss:initHPBar()
     self.view:insert(hpBar)
     self.boss:act()
+    self.game:showScore(false)
     self.boss.onDefeated = function()
+        self.game:showScore(true)
         print("Boss is defeated, show victory window")
         self.scene:checkScore(function()
             local options = {
@@ -27,7 +29,7 @@ function sublevel:show(options)
                     end
                 }
             }
-            composer.showOverlay( "scene.victory", options )
+            composer.showOverlay( "scenes.victory", options )
         end)
     end
 

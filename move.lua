@@ -3,48 +3,35 @@
 
 local M = {}
 local curve = require("move.curve")
+local follow = require("move.follow")
 local seek = require("move.seek")
 local util = require("move.util")
 
-function M.addEnterFrameListener(obj, func)
-    obj.m_enterFrame = function()
-        if obj.x == nil then
-            print("The object is missing")
-            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
-            return
-        end
-        if obj.paused then
-            return
-        end
-        func()
-    end
-    Runtime:addEventListener("enterFrame", obj.m_enterFrame)
-end
-
-function M.removeEnterFrameListener(obj)
-    Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
-end
+M.angleBetween = util.angleBetween
+M.distBetween = util.distBetween
+M.follow = follow.follow
+M.getCurve = curve.getCurve
 
 local function radiusBetween( srcX, srcY, dstX, dstY , degree)
     local radius = math.atan2( dstY-srcY, dstX-srcX )
     return radius
 end
 
-local function distBetween( x1, y1, x2, y2 )
-    local xFactor = x2 - x1
-    local yFactor = y2 - y1
-    local dist = math.sqrt( (xFactor*xFactor) + (yFactor*yFactor) )
-    return dist
-end
-
 local moveTag = 0
 
-M.angleBetween = util.angleBetween
-
-M.distBetween = distBetween
-
 function M.isOut(obj)
-    if obj.x < 0 or obj.x > display.contentWidth or obj.y < 0 or obj.y > display.contentHeight then
+    local x = obj.x
+    local y = obj.y
+    if not x or not y then
+        return true
+    end
+    if obj.localToContent then
+        x, y = obj:localToContent(0, 0)
+    end
+    if  x < -(obj.width or 0)/2 or
+        x > display.contentWidth + (obj.width or 0)/2 or
+        y < -(obj.height or 0)/2 or
+        y > display.contentHeight + (obj.height or 0)/2 then
         return true
     end 
     return false
@@ -57,136 +44,25 @@ function M.isOut2(x, y)
     return false
 end
 
-function M.follow( obj, params, pathPoints, pathPrecision, onComplete)
-    if not obj.dir then
-        obj.dir = 0
-    end
-    moveTag = moveTag + 1
-    obj.moveTag = ""..moveTag
-    print("num of path points "..#pathPoints)
-    obj.x = pathPoints[1].x
-    obj.y = pathPoints[1].y
-    local pathPointsGroup = display.newGroup();
-    local count = 0
-    if params.pointTo then
-        obj.rotation = util.angleBetween( pathPoints[1].x, pathPoints[1].y, params.pointTo.x, params.pointTo.y ) + 90
-    elseif autoRotation then
-        obj.rotation = util.angleBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y ) + 90
-    end
-    if ( pathPrecision == 0 ) then
-        pathPrecision = distBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y )
-    end
-    
-    --if "showPoints" is true, plot points along path
-    if ( params.showPoints == true ) then
-        for p = 1,#pathPoints do
-            local dot = display.newCircle( pathPointsGroup, 0, 0, 8 )
-            dot:setFillColor( 1, 1, 1, 0.4 )
-            dot.x = pathPoints[p].x
-            dot.y = pathPoints[p].y
-        end
-    end
-    local start_time = system.getTimer()
-    local ts_time = system.getTimer()
-    local te_time = system.getTimer()
-    local function onCancel()
-        print("onCancel moves")
-        pathPointsGroup:removeSelf()
-    end
-    local function nextTransition()
-        te_time = system.getTimer()
-        --print("transTime: "..te_time - ts_time)
-        if ( obj.nextPoint > #pathPoints ) then
-            print( "FINISHED "..(system.getTimer()-start_time)) 
-            if ( params.showPoints == true ) then
-                (pathPointsGroup):removeSelf()
-            end
-            if onComplete then
-                onComplete(obj)
-            end
-        else
-            --set variable for time of transition on this segment
-            local transTime = params.segmentTime
-            --if "params.constantRate" is true, adjust time according to segment distance
-            if ( params.constantRate == true ) then
-                local dist = distBetween( obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y )
-                transTime = (dist/pathPrecision) * params.segmentTime
-            end
-            
-            --transition along segment
-            local rotation = obj.lastRotation
-            if params.pointTo then
-                obj.enterFrame = function()
-                    --print("t")
-                    if not obj.stopRotation then
-                        obj.rotation = util.angleBetween( obj.x, obj.y, params.pointTo.x, params.pointTo.y ) + 90
-                        --print("rotation not locked: "..obj.rotation)
-                    else
-                        --print("rotation locked: "..obj.rotation)
-                    end
-                end
-                Runtime:addEventListener( "enterFrame", obj )
-            elseif obj.nextPoint <= #pathPoints then
-                --rotation = angleBetween( pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y, pathPoints[obj.next2Point].x, pathPoints[obj.next2Point].y )
-                rotation = util.angleBetween(obj.x, obj.y, pathPoints[obj.nextPoint].x, pathPoints[obj.nextPoint].y) - obj.dir + 90
-                obj.lastRotation = rotation
-            end
-            
-            ts_time = system.getTimer()
-            if params.pointTo then
-                transition.to( obj, {
-                    tag = obj.moveTag,
-                    time = transTime,
-                    x = pathPoints[obj.nextPoint].x,
-                    y = pathPoints[obj.nextPoint].y,
-                    onComplete = nextTransition
-                })
-            else
-                if params.autoRotation then
-                    obj.rotation = rotation
-                end
-                transition.to( obj, {
-                    tag = obj.moveTag,
-                    time = transTime,
-                    x = pathPoints[obj.nextPoint].x,
-                    y = pathPoints[obj.nextPoint].y,
-                    --rotation = rotation,
-                    onComplete = nextTransition,
-                    onCancel = onCancel
-                })
-            end
-            obj.nextPoint = obj.nextPoint+1
-            obj.next2Point = obj.nextPoint+1
-            count = count + 1
-        end
-    end
-    
-    obj.nextPoint = 2
-    obj.next2Point = 3
-    obj.lastRotation = obj.rotation
-    nextTransition()
-end
-
 function M.move(obj, options)
     --option.type: straight, curve
+    local function complete()
+        if not options.onComplete then
+            obj:removeSelf()
+        else
+            options.onComplete()
+        end
+    end
     local pathPoints = {}
     local followParams = {}
     if options.mode == "straight" then
         pathPoints = {options.startPos, options.endPos}
-        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation}
     elseif options.mode == "curve" then
         pathPoints = curve.getCurve(options.anchorPoints, options.samples)
-        followParams = { segmentTime=options.time, constantRate=true, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation}
     end
-    M.follow( obj, followParams, pathPoints, 0,
-        function()
-            if not options.onComplete then
-                obj:removeSelf()
-            else
-                options.onComplete()
-            end
-        end
-    )
+
+    followParams = { speed=options.speed, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation, onComplete = complete}
+    M.follow( obj, pathPoints, followParams)
 end
 
 function M.goStraightAndFollow(obj, startPos, endPos, pointTo, dx, dy)
@@ -198,7 +74,6 @@ function M.goStraightAndFollow(obj, startPos, endPos, pointTo, dx, dy)
             time = 500,
             onComplete = function()
                 -- body
-                --M.stop(obj)
                 print("stop follow me!")
                 
             end
@@ -300,141 +175,81 @@ function M.track(obj, pointTo)
     })
 end
 
-function M.goStrait(obj, startPos, endPos, time, onComplete)
-    M.move(obj, {
-            mode = "straight",
-            startPos = startPos,
-            endPos = endPos,
-            time = time,
-            onComplete = onComplete
-        })
-end
-
-function M.goCurve(obj)
-    M.move(obj, {
-            mode = "curve",
-            anchorPoints = {{x = 0, y = 0}, {x = 0, y = 0}, {x = 0, y = 1400}, {x = 1200, y = 1400}},
-            samples = 20, 
-            time = 50
-        })
-end
-
 function M.toward(obj, options)
     --print("M.toward")
     local dx = (options.offsetX or 5) * math.cos(options.radius or math.rad(options.degree))
-    local dy = (options.offsetY or 5) * math.sin(options.radius or math.rad(options.degree))
+    local dy = (options.offsetY or 5) * math.sin((options.radius or math.rad(options.degree) * -1))
     local rRad = math.atan2(-dy, -dx)
     obj.m_defaultX = obj.x
     obj.m_defaultY = obj.y
     --print("dx: "..dx..", dy: "..dy)
-    obj.m_enterFrame = function()
-        if obj.paused then
-            return
-        end
-        if obj.x == nil then
-            --object is removed, stop moving
-            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
-            return
-        end
-        obj.x = obj.x + dx
-        obj.y = obj.y + dy
-        if M.isOut(obj) then
-            M.stop(obj)
-            if options.back then
-                print("back mode enabled")
-                local rx = math.cos(rRad)
-                local ry = math.sin(rRad)
-                local rxd = 0 
-                local ryd = 0 
-                local startX = 0
-                local startY = 0
-                print("rDegree "..math.deg(rRad), rx, ry)
+    util.addEnterFrameListener(obj, 
+        function()
+            obj.x = obj.x + dx
+            obj.y = obj.y + dy
+            if M.isOut(obj) then
+                M.stop(obj)
+                if options.back then
+                    print("back mode enabled")
+                    local rx = math.cos(rRad)
+                    local ry = math.sin(rRad)
+                    local rxd = 0 
+                    local ryd = 0 
+                    local startX = 0
+                    local startY = 0
+                    print("rDegree "..math.deg(rRad), rx, ry)
 
-                if rx < 0 then
-                    rxd = obj.m_defaultX
-                else
-                    rxd = display.contentWidth - obj.m_defaultX
-                end   
-                if ry < 0 then
-                    ryd = obj.m_defaultY
-                else
-                    ryd = display.contentHeight - obj.m_defaultY
-                end
+                    if rx < 0 then
+                        rxd = obj.m_defaultX
+                    else
+                        rxd = display.contentWidth - obj.m_defaultX
+                    end   
+                    if ry < 0 then
+                        ryd = obj.m_defaultY
+                    else
+                        ryd = display.contentHeight - obj.m_defaultY
+                    end
 
-                startX = obj.m_defaultX + rx * math.abs(ryd / ry)
-                startY = obj.m_defaultY + ry * math.abs(rxd / rx)
+                    startX = obj.m_defaultX + rx * math.abs(ryd / ry)
+                    startY = obj.m_defaultY + ry * math.abs(rxd / rx)
 
-                if startX > display.contentWidth then
-                    startX = display.contentWidth
-                elseif startX < 0 then
-                    startX = 0
-                end
+                    if startX > display.contentWidth then
+                        startX = display.contentWidth
+                    elseif startX < 0 then
+                        startX = 0
+                    end
 
-                if startY > display.contentHeight then
-                    startY = display.contentHeight
-                elseif startY < 0 then
-                    startY = 0
-                end
+                    if startY > display.contentHeight then
+                        startY = display.contentHeight
+                    elseif startY < 0 then
+                        startY = 0
+                    end
 
-                print("back pos is "..startX, startY)
-                M.move(obj, {
-                        mode = "straight",
-                        startPos = {x = startX, y = startY},
-                        endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
-                        time = 2000,
-                        autoRotation = options.autoRotation,
-                        onComplete = function()
-                            if options.onComplete then
-                                options.onComplete()
+                    print("back pos is "..startX, startY)
+                    M.move(obj, {
+                            mode = "straight",
+                            startPos = {x = startX, y = startY},
+                            endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
+                            time = 2000,
+                            autoRotation = options.autoRotation,
+                            onComplete = function()
+                                if options.onComplete then
+                                    options.onComplete()
+                                end
                             end
-                        end
-                })
+                    })
 
-            elseif options.onComplete then
-                print("toward complete")
-                options.onComplete()
-            else
-                --print("toward obj remove")
-                --physics.removeBody(obj)
-                obj:removeSelf()
+                elseif options.onComplete then
+                    print("toward complete")
+                    options.onComplete()
+                else
+                    --print("toward obj remove")
+                    --physics.removeBody(obj)
+                    obj:removeSelf()
+                end
             end
         end
-    end
-    Runtime:addEventListener("enterFrame", obj.m_enterFrame)
-end
-
-function M.goLoop(obj, pointTo, moves, idx)
-    if idx > #moves then
-        obj:removeSelf()
-        return
-    end
-    local move  = moves[idx]
-    local pointToObj = nil
-    if move.pointTo then
-        pointToObj = pointTo
-    end
-    if move.mode == "straight" then
-        M.move(obj, {
-                mode = "straight",
-                startPos = move.startPos,
-                endPos = move.endPos,
-                time = move.time,
-                pointTo = pointToObj,
-                onComplete = function()
-                    M.goLoop(obj, pointTo, moves, idx + 1)
-                end
-            })
-    elseif move.mode == "track" then
-        if not M.pointTo then
-            print("You must specific an object you want to track when you use track method")
-        end
-        M.track(obj, pointTo)
-    end
-
-end
-
-function M.go(obj, pointTo, moves)
-    M.goLoop(obj, pointTo, moves, 1)
+    )
 end
 
 function M.rotatAround(obj, options)
@@ -445,21 +260,18 @@ function M.rotatAround(obj, options)
             Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
             return
         end
-        obj.rotation = 360 - ((angle + 90 )%360)
+        obj.rotation = 360 - ((angle + 90 - obj.dir )%360)
         obj.x = options.target.x + options.distance * math.cos(math.rad(angle))
         obj.y = options.target.y - options.distance * math.sin(math.rad(angle))
     end
     rotation()
     print("start at "..angle)
-    obj.m_enterFrame = function()
-        if obj.paused then
-            return
+    util.addEnterFrameListener(obj, 
+        function()
+            rotation()
+            angle = (angle + options.speed)%360
         end
-        rotation()
-        angle = (angle + options.speed)%360
-    end
-
-    Runtime:addEventListener("enterFrame", obj.m_enterFrame)
+    )
 end
 
 function M.stop(obj)

@@ -18,7 +18,7 @@ ShieldUp.new = function(options)
     item.name = "sheildup"
     item.duration = level * 8000
 
-    function item:effect(receiver)
+    function item:mentalEffect(receiver)
         receiver.openShield(self.duration)
     end
 

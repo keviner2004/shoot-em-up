@@ -5,11 +5,18 @@ BossBullet.new = function()
     local bullet = Bullet.new({
         fireTo = "character",
         frames = {
-            "Boss/Hatch Sequence/f1",
-        }
+            "Lasers/29",
+        },
+        body = function (self)
+            return {
+                radius = self.contentWidth * 0.5 * 0.5 ,
+            }
+        end
     })
     bullet.name = "bossBullet"
+    bullet:enablePhysic(true)
     return bullet
 end
+
 
 return BossBullet

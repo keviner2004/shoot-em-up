@@ -28,7 +28,10 @@ TimerUtil.new = function(options)
     end
 
     function timerUtil:getTimer(id)
-        return self.timers[id].t
+        if self.timers[id] then
+            return self.timers[id].t
+        end
+        return nil
     end
 
     function timerUtil:addTimer(delay, func, count)
@@ -71,9 +74,21 @@ TimerUtil.new = function(options)
     end
 
     function timerUtil:cancel(id)
-        if id ~= nil then
-            timer.cancel(self:getTimer(id))
-            self:removeTimer(id)
+        if id == nil then
+            return
+        end
+        if not self:getTimer(id) then
+            print("The timer is removed, id is "..id)
+            return
+        end
+        timer.cancel(self:getTimer(id))
+        self:removeTimer(id)
+    end
+
+    function timerUtil:clear()
+        for i, v in pairs(self.timers) do
+            --print("clear timer "..i)
+            self:cancel(i)
         end
     end
 
@@ -99,17 +114,16 @@ TimerUtil.new = function(options)
 
     function timerUtil:slow(id, slow)
         local expiredTimers = {}
-        for i, v in pairs(self.timers) do
-            local remaingTime = self:cancel(id)
-            if remaingTime > 0 then
-                if v.c and v.c ~= -1 then
-                    v.c = v.c - 1
-                end
-                self:addTimer(remaingTime * slow, v.f, v.c)
+        local v = self.timers[id]
+        local remaingTime = self:cancel(id)
+        if remaingTime > 0 then
+            if v.c and v.c ~= -1 then
+                v.c = v.c - 1
             end
-            if v.c > 0 or v.c == -1 then
-                self:addTimer(v.d * slow, v.f, v.c)
-            end
+            self:addTimer(remaingTime * slow, v.f, v.c)
+        end
+        if v.c > 0 or v.c == -1 then
+            self:addTimer(v.d * slow, v.f, v.c)
         end
     end
 

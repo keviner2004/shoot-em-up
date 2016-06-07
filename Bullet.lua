@@ -1,52 +1,46 @@
 local GameObject = require("GameObject")
+local move = require("move")
 local Bullet = {}
 Bullet.new = function(options)
-    
-    local bullet = nil
-
-    if options and options.gtype == "group" then
-        print("new group bullet")
-        bullet = GameObject.new()
-    else
-        bullet = GameObject.new({gtype = "sprite", frames = (options and options.frames) or {"Lasers/laserGreen09"}})
-    end
+    local bullet = GameObject.new(options)
+    bullet:addTag("bullet")
     bullet.isSensor = true
     bullet.categoryBits = PHYSIC_CATEGORY_BULLET
-
-    local maskBits = 0
+    bullet.autoDestroy = true
+    bullet.maskBits = 0
 
     if options and options.isRocket then
         bullet.categoryBits = PHYSIC_CATEGORY_MISSILE
-        maskBits = maskBits + PHYSIC_CATEGORY_BULLET
+        bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_BULLET
     else
-        maskBits = maskBits + PHYSIC_CATEGORY_MISSILE
+        bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_MISSILE
     end
 
-    bullet.fireTo = options.fireTo
+    bullet.fireTo = options and options.fireTo
     if options and options.fireTo == "character" then
         --print("fire to ch")
-        maskBits = maskBits + PHYSIC_CATEGORY_CHARACTER
+        bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_CHARACTER
     elseif options and options.fireTo == "enemy" then
-        maskBits = maskBits + PHYSIC_CATEGORY_ENEMY
+        bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_ENEMY
     end
 
     if options and options.selfCollision then
         print("collisionSelf bullet")
-        maskBits = maskBits + bullet.categoryBits
+        bullet.maskBits = bullet.maskBits + bullet.categoryBits
     end
 
     if options and options.wall then
-        maskBits = maskBits + PHYSIC_CATEGORY_WALL
+        bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_WALL
     end
 
-    if not options or (options and not options.disablePhysic) then
-        physics.addBody(bullet, "dynamic", { density=1.0, friction=0, bounce=0, isSensor = bullet.isSensor, filter = {categoryBits = bullet.categoryBits, maskBits = maskBits}})
-    end
-    
+    bullet.maskBits = bullet.maskBits + PHYSIC_CATEGORY_ASTEROID
     bullet.isBullet = true
-    bullet.name = "bullet"
+    
     bullet.type = "bullet"
+    bullet.name = "bullet"
     bullet.damage = 10
+    bullet.owner = options and options.owner
+    bullet:enableAutoDestroy()
 
     bullet.preCollision = function(self, event)
         if event.contact then
@@ -58,9 +52,10 @@ Bullet.new = function(options)
 
     bullet.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
-        --print("bullet hit "..event.other.name.." with damage: "..self.damage)
+        print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
         if event.phase == "began" then
             bullet:onHit(event)
+            print("isSensor ?", bullet.isSensor, bullet.name)
             if bullet.isSensor then
                 bullet:afterHit(event)
             end
@@ -69,10 +64,40 @@ Bullet.new = function(options)
 
     bullet:addEventListener("collision", bullet)
     bullet:addEventListener("preCollision", bullet)
+    
+    function bullet:enablePhysic(enable)
+        --print("enablePhysic ", enable, self.maskBits)
+        if enable or enable == nil then
+            self:addPhysic()
+        else
+            physics.removeBody(self)
+        end
+    end
+
+    function bullet:addPhysic()
+        local body = { density=1.0, friction=0, bounce=0, isSensor = self.isSensor, filter = {categoryBits = self.categoryBits, maskBits = self.maskBits}}
+        if options and options.body then
+            local b = {}
+            if type(options.body) == "function" then
+                b = options.body(self)
+            else
+                b = options.body
+            end
+            for k, v in pairs(b) do
+                body[k] = v
+            end
+        end
+        physics.addBody(self, "dynamic", body)
+    end
+
+    function bullet:reInitPhysic()
+        bullet:enablePhysic(false)
+        bullet:enablePhysic(true)
+    end
 
     function bullet:afterHit(event)
-        print("remove self: "..self.name)
-        self:removeSelf() 
+        print(self.name.." after hit")
+        self:clear()
     end
 
     function bullet:onHit(event)

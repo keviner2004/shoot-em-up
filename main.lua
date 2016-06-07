@@ -1,18 +1,24 @@
+sheetInfo = require "sprites.spaceshooterHelper"
+myImageSheet = graphics.newImageSheet( "sprites/spaceshooter.png", sheetInfo:getSheet() )
+display.setStatusBar( display.HiddenStatusBar )
 local composer = require( "composer" )
 --composer.gotoScene( "leaderBoardScene" , {params = {stype = "local"}})
 composer.gotoScene( "scenes.game")
 --composer.gotoScene( "newHighScoreScene")
-
 local lfs = require "lfs"
 
-local doc_path = system.pathForFile( "", system.ResourceDirectory ).."/levels"
+local doc_path = system.pathForFile( "", system.ResourceDirectory ).."levels"
 
+--[[
 for file in lfs.dir(doc_path) do
     -- file is the current file or directory name
     print( "Test found files: " .. file )
 end
+--]]
 
-print( "Screen Ratio: "..display.pixelWidth .."/" ..display.actualContentWidth..":".. display.contentWidth)
+print("Current dir " .. lfs.currentdir())
+
+print( "Screen Ratio: "..display.pixelWidth .."/" ..display.actualContentWidth..":".. display.contentWidth..":")
 
 
 --slow demo

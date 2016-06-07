@@ -4,11 +4,11 @@ local NineSlice = {}
 
 NineSlice.new = function(name, w, h, l)
 
-    local topLeftFrame = Sprite.new(string.format("%s_0_0", name))
-    local topMiddleFrame = Sprite.new(string.format("%s_0_1", name))
-    local topRightFrame = Sprite.new(string.format("%s_0_2", name))
-    local middleLeftFrame = Sprite.new(string.format("%s_1_0", name))
-    local middleFrame = Sprite.new(string.format("%s_1_1", name))
+    local topLeftFrame = Sprite.new(string.format("UI/%s/1", name))
+    local topMiddleFrame = Sprite.new(string.format("UI/%s/2", name))
+    local topRightFrame = Sprite.new(string.format("UI/%s_0_2", name))
+    local middleLeftFrame = Sprite.new(string.format("UI/%s_1_0", name))
+    local middleFrame = Sprite.new(string.format("UI/%s_1_1", name))
     local middleRightFrame = Sprite.new(string.format("%s_1_2", name))
     local bottomLeftFrame = Sprite.new(string.format("%s_2_0", name))
     local bottomMiddleFrame = Sprite.new(string.format("%s_2_1", name))

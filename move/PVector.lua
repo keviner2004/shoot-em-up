@@ -14,6 +14,11 @@ PVector.new = function(x, y)
         return (self.x ^ 2 + self.y ^ 2) ^ 0.5
     end
 
+    function vector:multi(len)
+        self.x = self.x * len
+        self.y = self.y * len
+    end
+
     function vector:normalize()
         local r = (self.x ^ 2 + self.y ^ 2) ^ 0.5
         --print("normalize: "..r..", "..vector.x..", "..vector.y)

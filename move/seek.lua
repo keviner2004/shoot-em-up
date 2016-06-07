@@ -19,13 +19,12 @@ function M.seek(obj, target, options)
     local maxForce = (options and options.maxForce) or 50
     local minForce = (options and options.minForce) or 1
     local maxSpeed = (options and options.maxSpeed) or 400
-    
-    if options and options.degree then
+    local magnitude = (options and options.magnitude) or 450
+    local degree = (options and options.degree) or obj.dir
         --print("["..os.time().."]seek "..options.degree.." "..maxForce.." "..maxSpeed)
-        obj:setLinearVelocity(
-            options.magnitude * math.sin(math.rad(options.degree)), 
-            - options.magnitude * math.cos(math.rad(options.degree)))
-    end
+    obj:setLinearVelocity(
+        magnitude * math.sin(math.rad(degree)), 
+        - magnitude * math.cos(math.rad(degree)))
     --self:applyForce(-1000, 1000, self.x , self.y)
 
     util.addEnterFrameListener(obj, function()
@@ -36,7 +35,7 @@ function M.seek(obj, target, options)
                 options.onComplete()
                 return
             end
-            M.removeEnterFrameListener(obj)
+            util.removeEnterFrameListener(obj)
         end
         M.steer(obj, target, maxSpeed, minForce, maxForce)
     end)

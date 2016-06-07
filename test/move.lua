@@ -8,7 +8,7 @@ local curve = require("move.curve")
 function M.addEnterFrameListener(obj, func)
     obj.m_enterFrame = function()
         if obj.x == nil then
-            print("The object is missing")
+--            print("The object is missing")
             Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
             return
         end
@@ -524,7 +524,7 @@ end
 
 function M.seek(obj, target, options)
     if obj.x == nil or not obj.setLinearVelocity then
-        print("The object is missing")
+--        print("The object is missing")
         return
     end
 

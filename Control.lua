@@ -15,20 +15,20 @@ Control.new = function(target, controlType, fingerSize)
     function control:touch( event )
         if self.target.x == nil then
             print(self.target.name.." is removed")
-            --Runtime:removeEventListener("touch", self.target)
+            self:cancel()
             return
         end
         if event.phase == "began" then
             --followTouchPos(self, event)
             self.enableMove = true
             self.touchPos = event
-            self:getMoveAngle(self.target, event)
+            --self:getMoveAngle(self.target, event)
         elseif event.phase == "moved" then
             --cancelTouchPos()
             --followTouchPos(self, event)
             --print("["..count.."]".."touchPos.x: "..self.touchPos.x..", y: "..self.touchPos.y)
             self.touchPos = event
-            self:getMoveAngle(self.target, event)
+            --self:getMoveAngle(self.target, event)
         elseif event.phase == "ended" then
             self.enableMove = false
             --cancelTouchPos()
@@ -73,18 +73,38 @@ Control.new = function(target, controlType, fingerSize)
         return false
     end
 
+
+
     function control:enterFrame(event)
         --character is removed
         if self.target.x == nil or self.target.isDead then
             return
         end
         if self.controlType == "follow" and self.enableMove then
+            self:getMoveAngle(self.target, self.touchPos)
             local offsetY = 30 * math.sin(self.moveAngle) * (1 + (self.target.speed or 0))
             local offsetX = 30 * math.cos(self.moveAngle) * (1 + (self.target.speed or 0))
-            local targetY = self.touchPos.y - self.fingerSize
-            --print("offsetX: "..offsetX)
-            --print("offsetY: "..offsetY.."/"..targetY.."/"..self.y.."/"..math.deg(self.moveAngle))
 
+            local targetY = self.touchPos.y - self.fingerSize
+
+            if self.lastTouchX then
+                self.touchDiffX = self.touchPos.x - self.lastTouchX
+                self.mouseDiffX = self.mousePos.x - self.lastMouseX
+            end
+            if self.lastTouchY then
+                self.touchDiffY = self.touchPos.y - self.lastTouchY
+                self.mouseDiffY = self.mousePos.y - self.lastMouseY
+            end
+            self.lastTouchX = self.touchPos.x
+            self.lastTouchY = self.touchPos.y
+            self.lastMouseX = self.mousePos.x
+            self.lastMouseY = self.mousePos.y
+            
+            --print("Diff test: ", self.touchDiffX, self.mouseDiffX)
+            if self.touchDiffX ~= self.mouseDiffX then
+                
+            end
+            --print("pos test x: ", self.target.x, self.touchPos.x, ", y:", self.target.y, self.touchPos.y, "deg:", math.deg(self.moveAngle))
             if self.target.x ~= self.touchPos.x then
                 if self.target.x < self.touchPos.x and self.target.x + offsetX > self.touchPos.x then
                     self.target.x = self.touchPos.x
@@ -121,12 +141,18 @@ Control.new = function(target, controlType, fingerSize)
         end
     end
 
+    function control:mouse(event)
+        --print("mouse:", event.x)
+        self.mousePos = event
+    end
+
     function control:start()
         if self.status == "started" then
            return 
         end
         if self.controlType == "follow" then
             Runtime:addEventListener("touch", self)
+            Runtime:addEventListener("mouse", self)
         elseif self.controlType == "key" then
             Runtime:addEventListener( "key", self)
         end
@@ -137,6 +163,7 @@ Control.new = function(target, controlType, fingerSize)
     function control:cancel()
         if self.controlType == "follow" then
             Runtime:removeEventListener("touch", self)
+            Runtime:removeEventListener("mouse", self)
         elseif self.controlType == "key" then
             Runtime:removeEventListener( "key", self)
         end

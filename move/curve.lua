@@ -7,11 +7,11 @@
 -- Copyright (C) 2014 Corona Labs Inc. All Rights Reserved.
 ------------------------------------------------------------
 
-local CurveDrawing = {}
+local Curve = {}
 
 --adjust this number to effect the "smoothness" of the curve (total number of segments)
 print("require curve")
-function CurveDrawing.getCurve( anchorPoints, segNum)
+function Curve.getCurve( anchorPoints, segNum)
     print("render curve")
     local pathPoints = {}
     for j = 1,segNum do
@@ -19,18 +19,17 @@ function CurveDrawing.getCurve( anchorPoints, segNum)
     end
 
     for i = 1,#anchorPoints do
-        print("Anchor point "..i..": "..anchorPoints[i].x.." ,"..anchorPoints[i].y)
+--        print("Anchor point "..i..": "..anchorPoints[i].x.." ,"..anchorPoints[i].y)
     end
     local inc = ( 1.0 / segNum )
 
     for i = 1,#anchorPoints,4 do
-        print("render cuve "..i)
+--        print("render cuve "..i)
         local t = 0
         local t1 = 0
         local i = 1
 
         for j = 1,segNum do 
-
             t1 = 1.0 - t
             local t1_3 = t1 * t1 * t1
             local t1_3a = (3*t) * (t1*t1)
@@ -60,4 +59,4 @@ function CurveDrawing.getCurve( anchorPoints, segNum)
     return pathPoints
 end
 
-return CurveDrawing
+return Curve

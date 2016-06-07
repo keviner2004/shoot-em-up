@@ -7,11 +7,11 @@ local Level = require("Level")
 local Wall = require("Wall")
 local GlassPanel = require("ui.GlassPanel")
 local Square = require("ui.Square")
-local Sprite = require("sprite")
+local Sprite = require("Sprite")
 local leaderBoardHelper = require("leaderBoardHelper")
 local composer = require( "composer" )
-local widge
 local scene = composer.newScene()
+local Score = require("ui.Score")
 local widget = require("widget")
 system.setIdleTimer( false )
 ---------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ system.setIdleTimer( false )
 -- local forward references should go here
  
 ---------------------------------------------------------------------------------
- 
+
 -- "scene:create()"
 function scene:create( event )
     print("scene:create()")
@@ -34,10 +34,13 @@ function scene:create( event )
     physics.start()
     physics.setGravity(0, 0)
     physics.setReportCollisionsInContentCoordinates( true )
-    --physics.setDrawMode( "hybrid" ) 
+    if DEBUG_PHYSIC then
+        physics.setDrawMode( "hybrid" ) 
+    end
     self.first = true
+    self.stageSpeed = 200
     self.level = Level.load()
-    local backgrounds = Backgrounds.new()
+    local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
     
     --Create global screen boundaries
@@ -51,7 +54,7 @@ function scene:create( event )
     local playerLife = display.newGroup()
     playerLife.x = 65
     playerLife.y = display.contentHeight - 35
-    local lifeIcon = Sprite.new("UI/playerLife3_red")
+    local lifeIcon = Sprite.new("UI/Player-lifes/2")
     self.playerLifeText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
     local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
     lifeIcon.x = - totalL/2 + lifeIcon.width/2
@@ -62,8 +65,8 @@ function scene:create( event )
     
     self.pauseButton = widget.newButton({
         sheet = myImageSheet,
-        defaultFrame = sheetInfo:getFrameIndex("UI/pause"),
-        overFrame = sheetInfo:getFrameIndex("UI/pause"),
+        defaultFrame = Sprite.getFrameIndex("UI/Icons/pause"),
+        overFrame = Sprite.getFrameIndex("UI/Icons/pause"),
         label = "",
         onEvent = function ( event )
             if ( "ended" == event.phase ) then
@@ -131,33 +134,113 @@ end
 --scene:fpsMesure()
 
 function scene:pauseGame()
+    print("Pause game")
+    if self.status == "paused" then
+        print("The game is paused")
+        return 
+    end
     self.level:pause()
     physics.pause()
-    for i = 1, self.view.numChildren do
-        local v = self.view[i]
-        print(v.name)
-        if v.freeze then
-            v:freeze()
+    --pause objets in main group
+    if self.mainGroup and self.mainGroup.numChildren then
+        for i = 1, self.mainGroup.numChildren do
+            local v = self.mainGroup[i]
+            if v.name then
+                print("pause obj: "..v.name)
+            end
+            if v.freeze then
+                v:freeze()
+            end
         end
-    end  
+    end
+    self.status = "paused"
+end
+
+function scene:clearGame()
+    if self.mainGroup and self.mainGroup.numChildren then
+        local i = 1
+        while i <= self.mainGroup.numChildren do
+            local v = self.mainGroup[i]
+            if v.name then
+                print("pause obj: "..v.name)
+            end
+            if v.clear then
+                v:clear()
+            else
+                i = i + 1
+            end
+        end
+        self.mainGroup:removeSelf()
+    end
+    if self.hudGroup then
+        print("gamescene:hide() did")
+        self.hudGroup:removeSelf()
+    end
+    self.level:stop()
 end
 
 function scene:resumeGame()
+    if self.status ~= "paused" then
+        print("The game work fine")
+    end
     self.level:resume()
     physics.start()
-    for i = 1, self.view.numChildren do
-        local v = self.view[i]
-        if v.unfreeze then
-            v:unfreeze()
+    if self.mainGroup  and self.mainGroup.numChildren then
+        for i = 1, self.mainGroup.numChildren do
+            local v = self.mainGroup[i]
+            if v.unfreeze then
+                v:unfreeze()
+            end
         end
-    end  
+    end
+    self.status = "started"
+end
+
+function scene:showScore(show)
+    if not self.score then
+        print("Score bar not set")
+        return
+    end
+    if show then
+        transition.to(self.score, {alpha = 1})
+    else
+        transition.to(self.score, {alpha = 0})
+    end
 end
 
 function scene:startGame()
+
     local sceneGroup = self.view
+    self.hudGroup = display.newGroup()
+    self.mainGroup = display.newGroup()
+
+    self.score = Score.new()
+    self.score.x = display.contentWidth/2
+    self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = 99, fingerSize = 50, fireRate = 500, controlType = "follow"})
+    self.mainCharacter = Character.new({lifes = 0, fingerSize = 50, fireRate = 500, controlType = "follow"})
+    
+
+    self.mainCharacter.x = display.contentWidth / 2
+    self.mainCharacter.y = display.contentHeight / 5 * 4
+    self.mainCharacter:startControl()
+    self.mainCharacter:openShield(3000)
+    --self.mainCharacter:openShield()
+    self.mainCharacter:autoShoot()   
+
+
+    self.mainCharacter.onScoreChanged = function(character, score)
+        print("Set score "..score)
+        self.score:setScore(score)
+    end
+
+    self.mainCharacter.onLifeChanged = function (character, lifes)
+        print("Update life bar "..lifes)
+        self.playerLifeText.text = lifes
+    end
+
     self.mainCharacter.onGameOver = function (obj)
+        print("on gameover")
         self:checkScore(function()
             --show gameover overlay
             local options = {
@@ -171,27 +254,17 @@ function scene:startGame()
                     end
                }
             }
-            composer.showOverlay( "scene.gameover", options )  
+            print("show gamover overlay")
+            composer.showOverlay( "scenes.gameover", options )  
         end)
     end
-    self.mainCharacter.x = display.contentWidth / 2
-    self.mainCharacter.y = display.contentHeight / 2
-    sceneGroup:insert(self.mainCharacter)
-    self.mainCharacter:startControl()
-    self.mainCharacter:openShield(3000)
-    --self.mainCharacter:openShield()
-    self.mainCharacter:autoShoot()    
-    self.mainCharacter.onLifeChanged = function (character, lifes)
-        print("Update life bar "..lifes)
-        self.playerLifeText.text = lifes
-    end
+
     --leaderboard helper
     self.helper = leaderBoardHelper.new()
     self.helper:init()
-
     --start level
     --level.start()
-    self.level:init(self, self.view, {self.mainCharacter})
+    self.level:init(self, self.mainGroup, {self.mainCharacter}, self.stageSpeed, self)
     --boss
     --[[
     self.boss = Boss.new(self.mainCharacter)
@@ -238,6 +311,13 @@ function scene:startGame()
     end 
     --]] 
     self.level:start()
+    --add to group
+
+    sceneGroup:insert(self.mainGroup)
+    sceneGroup:insert(self.hudGroup)
+    self.mainGroup:insert(self.mainCharacter)
+    self.hudGroup:insert(self.score)
+    self.status = "started"
 end
 
 function scene:checkScore(afterCheck)
@@ -268,20 +348,6 @@ function scene:checkScore(afterCheck)
             afterCheck()
         end
     end
-end
-
-function scene:isWin()
-    --callback
-    --bruteforce
-    local isAllDead = true
-    for i, v in ipairs(self.view) do
-        if v and v.type then
-            if v.type == "boss" or v.type == "enemy" then
-                isAllDead = false
-            end
-        end
-    end
-    return false
 end
 
 -- "scene:show()"
@@ -323,33 +389,14 @@ end
 
 -- "scene:hide()"
 function scene:hide( event )
-    print("gamescene:hide()")
-    local sceneGroup = self.view
+    --local sceneGroup = self.mainGroup
     local phase = event.phase
     
     if ( phase == "will" ) then
-       -- Called when the scene is on screen (but is about to go off screen).
-       -- Insert code here to "pause" the scene.
-       -- Example: stop timers, stop animation, stop audio, etc.
-       --cleanup
-       --print("total object in scene: "..sceneGroup.numChildren)
-       local idx = 1
-       while idx <= sceneGroup.numChildren do
-            local v = sceneGroup[idx]
-            print("total object in scene: "..sceneGroup.numChildren)
-            if v and v.type then
-                print("check "..idx..":"..v.type.."/"..v.name)
-                if v.type == "bullet" or v.type == "character" or v.type == "boss" or v.type == "enemy" or v.type == "hpBar" then
-                    --v:removeSelf()
-                    sceneGroup:remove(idx)
-                else
-                    idx = idx + 1
-                end
-            else
-                idx = idx + 1
-            end
-       end
-       --self.mainCharacter:removeSelf()
+        print("gamescene:hide() will")
+        --self:pauseGame()
+        self:clearGame()
+        --self:resumeGame()
     elseif ( phase == "did" ) then
       -- Called immediately after scene goes off screen.
    end

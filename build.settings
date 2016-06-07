@@ -1,7 +1,7 @@
 settings =
 {
-   android =
-   {
+    android =
+    {
         usesPermissions =
         {
          "android.permission.INTERNET",
@@ -11,5 +11,13 @@ settings =
             default = "portrait",
             supported = { "portrait", "portraitUpsideDown" }
         },
-   },
+    },
+    window = {
+      defaultViewWidth = 640,
+      defaultViewHeight = 960 
+    },
+    excludeFiles = 
+     {
+        all = { "doc"},
+     },
 }

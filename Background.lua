@@ -1,9 +1,11 @@
 local Backgrounds = {}
 
-Backgrounds.new = function()
+Backgrounds.new = function(speed)
     local tileWidth = 256
     local tileHeight = 256
     local backgrounds = display.newGroup()
+    backgrounds.speed = speed or 50
+    backgrounds.offset = (1000 / display.fps) * (speed / 1000)
     --generate background
     local function generateBackground()
         local cols = math.ceil((display.contentWidth + tileWidth) / tileWidth)
@@ -29,8 +31,8 @@ Backgrounds.new = function()
     local backgroundMoves = 0
 
     function backgrounds:enterFrame(event)
-        backgroundMoves = backgroundMoves + 5
-        backgrounds.y = backgrounds.y + 5
+        backgroundMoves = backgroundMoves + self.offset
+        backgrounds.y = backgrounds.y + self.offset
         if backgrounds.y - backgrounds.pageHeight >= 0 then
             backgrounds.y = backgrounds.y - backgrounds.pageHeight
         end

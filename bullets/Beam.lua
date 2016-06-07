@@ -3,14 +3,14 @@ local Bullet = require("Bullet")
 local GameObject = require("GameObject")
 local move = require("move")
 local Beam = {}
+local Sprite = require("Sprite")
 
 Beam.new = function (options)
     print("beam")
     --local beam = GameObject.new()
     local beam = Bullet.new({
-        disablePhysic = true, 
-        fireTo = options and options.fireTo, 
-        gtype = "group"
+        --disablePhysic = true, 
+        fireTo = options and options.fireTo,
     })
     beam.stacking = false
     beam.offset = 50
@@ -206,7 +206,7 @@ Beam.new = function (options)
     end
 
     function beam:newBurst()
-        return display.newSprite( myImageSheet , {frames={sheetInfo:getFrameIndex("Lasers/laserGreen_burst")}})
+        return Sprite.new("Lasers/Burst/1")
     end
 
     function beam:isOut(beamSeg)

@@ -1,14 +1,14 @@
 local Enemy = require("Enemy")
 local Sprite = require("Sprite")
-
+local Effect = require("effects.StarExplosion2")
 local EnemyPlane = {}
 EnemyPlane.new = function(options)
-    print("new plane")
+--    print("new plane")
     local plane = Enemy.new(options)
 
-    plane.centerPart = Sprite.new("Parts/cockpitBlue_5")
-    plane.rightPart = Sprite.new("Parts/wingBlue_4")
-    plane.leftPart = Sprite.new("Parts/wingBlue_4")
+    plane.centerPart = Sprite.new("Ships/Parts/Cockpits/21")
+    plane.rightPart = Sprite.new("Ships/Parts/Wings/35")
+    plane.leftPart = Sprite.new("Ships/Parts/Wings/35")
     
     plane:insert(plane.centerPart)
     plane:insert(plane.rightPart)
@@ -22,29 +22,21 @@ EnemyPlane.new = function(options)
     plane.name = "enemyPlane"
     plane.dir = 270
     plane:addPhysic()
+    plane.hp = 1
 
     function plane:split()
-        print("split")
-        --choose a random angle
-        local angle = math.random(360)
-        local distance = 50 
-        --transition
-        transition.to(self.leftPart, {
-            time = 1000, 
-            x = self.leftPart.x - distance
-        })
-        transition.to(self.rightPart, {
-            time = 1000,
-            x = self.rightPart.x + distance
-        })
-        transition.to(self, {time = 1000, alpha = 0, onComplete = 
+        transition.to(self, {time = 50, alpha = 0, onComplete = 
             function()
                 self:removeSelf()
             end
         })
+        local effect = Effect.new({time=1000})
+        effect.x = self.x
+        effect.y = self.y
     end
 
-    function plane:onDead()
+    function plane:onDead(crime)
+        self:removePhysic()
         self:split() 
     end
 

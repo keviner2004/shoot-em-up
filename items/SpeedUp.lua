@@ -18,10 +18,6 @@ SpeedUp.new = function(options)
     item.name = "speedup"
     item.speed = level
 
-    function item:effect(receiver)
-        
-    end
-
     return item
 end
 return SpeedUp

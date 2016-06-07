@@ -3,8 +3,8 @@ local BossBullet = require("bullets.BossBullet")
 local Missile = require("bullets.Missile")
 local move = require("move")
 local Enemy = require("Enemy")
-local Square = require("ui.square")
-local GlassPanel = require("ui.GlassPanel")
+local Square = require("ui.Square")
+local GlassPanel = require("ui.GlassPanelEmpty")
 local Sprite = require("Sprite")
 local Ufo = require("enemies.Ufo")
 local util = require("util")
@@ -13,12 +13,13 @@ local bossId = 0
 Boss.new = function(player, options)
     bossId = bossId + 1
     local boss = Enemy.new()
+    boss:addTag("boss")
     boss.bossId = bossId
     boss.player = player
     boss.master = (options and options.master) or boss
     boss.name = (options and options.name) or "boss"
-    boss.hp = (options and options.hp) or 1500
-    boss.maxHp = (options and options.maxHp) or 1500
+    boss.hp = (options and options.hp) or 90
+    boss.maxHp = (options and options.maxHp) or 90
     boss.dir = 180
     boss.isDead = false
     boss.ignoreWall = false
@@ -29,19 +30,17 @@ Boss.new = function(player, options)
     boss.yScale = (options and options.yScale) or 1
     boss.invincible = false
     boss.head = Sprite.new({
-                    "Boss/Head Sequence/f1",
-                    "Boss/Head Sequence/f2",
-                    "Boss/Head Sequence/f3",
-                    "Boss/Head Sequence/f4",
-                }, {time = 800})
+                    "AlienUFOs/Ships/2"
+                })
 
-    boss.ring = Sprite.new("Boss/ring")
+    --boss.ring = Sprite.new("Boss/ring")
     boss.defaultX = display.contentWidth / 2
     boss.defaultY = 300
     boss:insert(boss.head)
-    boss:insert(boss.ring)
-    boss.head:play()
+    --boss:insert(boss.ring)
+    --boss.head:play()
     boss.maskBits = PHYSIC_CATEGORY_CHARACTER + PHYSIC_CATEGORY_ENEMY + PHYSIC_CATEGORY_BULLET + PHYSIC_CATEGORY_WALL
+    boss.autoDestroy = false
     --timer.performWithDelay(1, function()
     
     --end)
@@ -66,16 +65,14 @@ Boss.new = function(player, options)
 
     physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=boss.maskBits}})
 
-    function 
-        ()
+    function boss:initHPBar()
         print("initHPBar")
         local hpBar = display.newGroup()
-        local glassPanel = GlassPanel.new(display.contentWidth - 100, 80)
-        local base = Square.new(display.contentWidth - 150, 50, "shadow")
-
-        local hpValue = Square.new(display.contentWidth - 150, 50, "red")
-        local hpValue2 = Square.new(display.contentWidth - 150, 50, "yellow")
-        local hpValue3 = Square.new(display.contentWidth - 150, 50, "green")
+        local glassPanel = GlassPanel.new(display.contentWidth*0.88, 80)
+        local base = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "shadow")
+        local hpValue = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "red")
+        local hpValue2 = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "yellow")
+        local hpValue3 = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "green")
 
         base.x = 0
         glassPanel.x = 0
@@ -83,11 +80,12 @@ Boss.new = function(player, options)
         glassPanel.y = 0
         hpBar.type = "hpBar"
         hpBar.name = "hpBar"
-        hpBar:insert(glassPanel)
+        
         hpBar:insert(base)
         hpBar:insert(hpValue)
         hpBar:insert(hpValue2)
         hpBar:insert(hpValue3)
+        hpBar:insert(glassPanel)
         hpBar.lifes = {hpValue, hpValue2, hpValue3}
         hpBar.x = display.contentWidth / 2
         hpBar.y = 100
@@ -105,27 +103,33 @@ Boss.new = function(player, options)
             --print("Update HP Bar: "..cur.."/"..max)
             local ratio = cur/max
             self.hpText.text = string.format("%d/%d", cur, max)
-            local megnitude = ratio * 100 / (100/#self.lifes) * base.width
+            local megnitude = ratio * #self.lifes * base.width
             local count = 1
             --print ("R:", cur, max, ratio * 100 / (100/#self.lifes))
-            while megnitude >= 0 do
+            while megnitude >= 0 and count <= #self.lifes do
                 --print("megnitude: "..megnitude)
                 local remain = megnitude - base.width
                 
                 if remain > 0 then
+                    --print("set h w", count, base.width)
                     self.lifes[count]:setWidth(base.width)
                 else
+                    --print("set h w", count, megnitude)
                     self.lifes[count]:setWidth(megnitude)
                     --print("M: "..megnitude..", "..count.." / "..#self.lifes, self.lifes[count].contentWidth)
                 end
                 self.lifes[count].x = (self.lifes[count].contentWidth - base.width)/2
                 self.lifes[count].y = 0
                 megnitude = remain
-                if remain > 0 then count = count + 1 end
+                --print("hp remain ", remain)
+                if remain >= 0 then 
+                    count = count + 1 
+                end
+                --count = count + 1
             end
             if count < #self.lifes then
                 for i = count+1, #self.lifes do
-                    --print("set "..i.."th life to zero")
+                    print("set "..i.."th life to zero")
                     self.lifes[i]:setWidth(0)
                     self.lifes[i].x = (self.lifes[i].contentWidth - base.width)/2
                     self.lifes[i].y = 0
@@ -133,12 +137,12 @@ Boss.new = function(player, options)
             end
         end
 
-        function hpBar:hide()
-            transition.to(self, {alpha = 0})
+        function hpBar:hide(onComplete)
+            transition.to(self, {alpha = 0, onComplete = onComplete})
         end
 
-        function hpBar:show()
-            transition.to(self, {alpha = 1})
+        function hpBar:show(onComplete)
+            transition.to(self, {alpha = 1, onComplete = onComplete})
         end
 
         hpBar:update(self.hp , self.maxHp)
@@ -180,6 +184,12 @@ Boss.new = function(player, options)
         self.player.score = self.player.score + self.maxHp
 
         if self.cloneCount == 0 then
+            self.hpBar:hide(
+                function()
+                    print("Destroy hp bar")
+                    self.hpBar:removeSelf()
+                end
+            )
             self:onDefeated()
         end
 
@@ -187,7 +197,12 @@ Boss.new = function(player, options)
             self:split()
         end
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
-            self:removeSelf()
+            if self.cloneCount == 0 then
+                print("Clear boss self")
+                self:clear()
+            else
+                self:removeSelf()
+            end
         end})
     end
 
@@ -198,14 +213,6 @@ Boss.new = function(player, options)
     function boss:afterHurt(damage)
         print("boss afterHurt")
     end
-
-    function boss:rotateRing()
-        if not self.isDead then
-            transition.to(boss.ring, {tag = "bossrotation", rotation = boss.ring.rotation+30, time = 1000, onComplete = rotateRing})
-        end
-    end
-
-    boss:rotateRing()
 
     function boss:stopRotation()
         transition.cancel("bossrotation")
@@ -257,14 +264,17 @@ Boss.new = function(player, options)
         self.parent:insert(ufo)
         ufo.x = x1
         ufo.y = y1
-        transition.to(ufo, {time = 1200, x = x2, y = y2, onComplete = function ()
-            ufo:beam(3000)
-            self:addTimer(3100 ,function()
-                print("retreat ufo")
-                transition.to(ufo, {time = 500, y = -ufo.height, onComplete = function()
-                    ufo:removeSelf()
-                end})
-            end)
+        transition.to(ufo, {time = 1200, x = x2, y = y2, onComplete = 
+            function ()
+                ufo:beam(3000)
+                self:addTimer(3100 ,function()
+                    print("retreat ufo")
+                    transition.to(ufo, {time = 500, y = -ufo.height, onComplete = 
+                        function()
+                            ufo:removeSelf()
+                        end
+                    })
+                end)
         end})
     end
 
@@ -279,9 +289,9 @@ Boss.new = function(player, options)
             boss:stopRotation()
             physics.removeBody(boss)
             physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.head.width / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=self.maskBits}})
-            transition.to(boss.ring, {time = 300, alpha = 0, onComplete = function()
-                boss.ring:removeSelf()
-            end})
+            --transition.to(boss.ring, {time = 300, alpha = 0, onComplete = function()
+            --    boss.ring:removeSelf()
+            --end})
         else
             missileDelay = 0
         end
@@ -330,12 +340,12 @@ Boss.new = function(player, options)
 
             local num = 4
 
-            gap = display.contentWidth/5
+            local gap = display.contentWidth / (num+1)
 
             self:createUfo(display.contentWidth, display.contentHeight, gap, 100)
             self:createUfo(gap*2, -100, gap * 2, 100)
             self:createUfo(gap*3, -100, gap * 3, 100)
-            self:createUfo(0, display.contentHeight, gap*4, 100)
+            self:createUfo(0, display.contentHeight, gap * 4, 100)
             
             if not count then
                 count = 2
@@ -456,6 +466,9 @@ Boss.new = function(player, options)
     end
 
     function boss:bashToCharacter(onComplete)
+        if not util.isExist(self.player) then
+            return
+        end
         self.ignoreWall = true
         move.toward(self, {
             radius = math.atan2(self.player.y - self.y, self.player.x - self.x), 
@@ -482,7 +495,7 @@ Boss.new = function(player, options)
             y = display.contentHeight / 2,
             time = 1000, 
             onComplete = function()
-                self:addTimer(200, function ()
+                local i = self:addTimer(200, function ()
                     local bullet = BossBullet.new()
                     self.parent:insert(bullet)
                     bullet.onDestroy = function()
@@ -494,7 +507,7 @@ Boss.new = function(player, options)
                     move.toward(bullet, {degree = startDegree})
                     startDegree = startDegree + devision
                 end, count)
-                
+                print("use timer ", i)
                 self:addTimer(200*count, function ()
                     self:addTimer(200, function ()
                         local bullet = BossBullet.new()

@@ -1,7 +1,14 @@
-local a = {}
-a[1]=2
-a[3]=5
+local a = {
+    k1 = 1,
+    k2 = 2
 
-for i = 1, 5 do
-    print(i)
+}
+
+function b()
 end
+
+for k, v in pairs(a) do
+    print(k, v)
+end
+
+print(type(b))
