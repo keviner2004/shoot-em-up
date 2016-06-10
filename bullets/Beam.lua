@@ -60,7 +60,7 @@ Beam.new = function (options)
             return
         end
         local l = self:getLength()
-        --print("resize with len "..l)
+        print("resize with len "..l)
         self.x = self.defaultX - (l/2 - self.segs[1].height/2) * math.sin(math.rad(self.rotation)) 
         self.y = self.defaultY + (l/2 - self.segs[1].height/2) * math.cos(math.rad(self.rotation))
         self.myCircle.x = self.x
@@ -83,37 +83,11 @@ Beam.new = function (options)
             end
             self:rayCast()
             self:resize()
+            self:resizeBody()
             --self.x = self.defaultX
             --self.y = self.defaultY
-            self:reinitPhysicBody()
+            
         end
-    end
-
-    function beam:reinitPhysicBody()
-        if self.bodyInited then
-            physics.removeBody(self)
-            self:addPhysicBody()
-        else
-            self:addPhysicBody()
-            self.bodyInited = true
-        end
-    end
-
-    function beam:addPhysicBody(btype)
-        if not btype then
-            btype = "dynamic"
-        end
-        physics.addBody(self, btype, {
-            box = { 
-                halfWidth =self.segs.width/2,
-                halfHeight = self.segs.height/2,
-            }, 
-            density=1.0, 
-            friction=0, 
-            bounce=0,
-            isSensor = true, 
-            filter = {categoryBits = 4, maskBits = self.maskBits}})
-        self.isSleepingAllowed = false
     end
 
     function beam:last(offset)
@@ -152,6 +126,7 @@ Beam.new = function (options)
                 rotated = true
                 --print("R1 "..count)
                 self:resize()
+                self:resizeBody()
                 self:rayCast()
             end
 
@@ -195,14 +170,24 @@ Beam.new = function (options)
                 --print("do 4 2: "..self.segs.numChildren)
                 --print("R2 "..count)
                 self:resize()
-                self:reinitPhysicBody()
-
+                self:resizeBody()
             else
                 --print("do nothing")
             end
 
         end
         Runtime:addEventListener("enterFrame", self.beamHandler)
+    end
+
+    function beam:resizeBody()
+        print("resize with body "..self.segs.height/2)
+        self:setBody({
+            box = {
+                halfWidth =self.segs.width/2,
+                halfHeight = self.segs.height/2,
+            }
+        })
+        self:reInitPhysics()
     end
 
     function beam:newBurst()

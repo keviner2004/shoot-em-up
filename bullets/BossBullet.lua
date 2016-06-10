@@ -7,14 +7,10 @@ BossBullet.new = function()
         frames = {
             "Lasers/29",
         },
-        body = function (self)
-            return {
-                radius = self.contentWidth * 0.5 * 0.5 ,
-            }
-        end
     })
     bullet.name = "bossBullet"
-    bullet:enablePhysic(true)
+    bullet:setBody({radius = bullet.contentWidth * 0.5 * 0.5})
+    bullet:enablePhysics()
     return bullet
 end
 

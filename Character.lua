@@ -7,10 +7,12 @@ local PowerUp = require("items.PowerUp")
 local SpeedUp = require("items.SpeedUp")
 local ShieldUp = require("items.ShieldUp")
 local GameObject = require("GameObject")
+local Shield = require("Shield")
 local move = require("move")
 local util = require("util")
 local Backpack = require("Backpack")
 local id = 0
+
 local CircleExplosion = require("effects.CircleExplosion")
 Character.new = function (options)
     local character = GameObject.new()
@@ -44,15 +46,27 @@ Character.new = function (options)
     character.maxPower = 3
     character.boundRad = 25
     character.damage = 10
+    character.shield = Shield.new()
+    character.shield.x = -500
+    character.shield.y = -500
+    character.parent:insert(character.shield)
     character.backpack = Backpack.new()
-    character.maskBits = PHYSIC_CATEGORY_ENEMY + PHYSIC_CATEGORY_BULLET + PHYSIC_CATEGORY_ITEM + PHYSIC_CATEGORY_MISSILE + PHYSIC_CATEGORY_ASTEROID
+    character:belongTo(PHYSIC_CATEGORY_CHARACTER)
+    character:collideWith(PHYSIC_CATEGORY_ENEMY, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ITEM, PHYSIC_CATEGORY_MISSILE, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_VICTIM)
+    character:setBody({type = "dynamic", isSensor = true, radius = character.boundRad})
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
     --physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
     --add control
     character.control = options and options.control
     if not character.control then
-        character.control = Control.new(character, character.controlType, character.fingerSize)
+        character.control = Control.new(character, character.controlType, character.fingerSize, {
+            func = function(target)
+                --target.shield.x = target.x
+                --target.shield.y = target.y
+            end
+        })
+
     end
 
 
@@ -70,7 +84,7 @@ Character.new = function (options)
         print("hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
         if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy"then
             print("hit2 by "..event.other.name..":"..self.hp)
-            if self.shield then
+            if self.shield.opened then
                 print("shield is open, ignore")
                 return
             end
@@ -125,6 +139,7 @@ Character.new = function (options)
         newCharacter.onGameOver = character.onGameOver
         newCharacter.onRespawned = character.onRespawned
         newCharacter.control.target = newCharacter
+
         self:onRespawned(newCharacter)
     end
 
@@ -241,6 +256,9 @@ Character.new = function (options)
         self:updateAttr()
         item:effect(self)
         self:limitAttr()
+        if item.score then
+            self:addScore(item.score)
+        end
         if self._oldPower == self.power and self._oldSpeed == self.speed then
             print("unuseful item, popup")
             self.backpack:remove(item)
@@ -268,24 +286,7 @@ Character.new = function (options)
     end
 
     function character:openShield(duration)
-        self.shield = Sprite.new({
-                "Effects/Shield/3",
-                "Effects/Shield/2",
-                "Effects/Shield/1",
-                "Effects/Shield/3"
-            }, {time = 600})
-        self:insert(self.shield)
-        self.shield:play()
-
-        physics.removeBody(self)
-        physics.addBody(self, "dynamic", {isSensor = true, radius = self.shield.width/2, filter = {categoryBits=1, maskBits=character.maskBits}})
-
-        if duration and duration > 0 then
-            self:addTimer(duration, function()
-                self:closeShield()
-            end)
-        end
-
+        self.shield:open(duration)
     end
 
     function character:addScore(score)
@@ -297,12 +298,7 @@ Character.new = function (options)
     end
 
     function character:closeShield()
-        physics.removeBody(self)
-        physics.addBody(self, "dynamic", {isSensor = true, radius = self.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
-        transition.to(self.shield, {time = 300, alpha = 0, onComplete = function()
-            self.shield:removeSelf()
-            self.shield = nil
-        end})
+        self.shield:close()
     end
 
     function character:onDead()
@@ -335,15 +331,16 @@ Character.new = function (options)
     end
 
     function character:autoShoot()
-        self:addTimer(self.fireRate,
+        local tid = self:addTimer(self.fireRate,
             function(event)
                 if self.x == nil then
-                    print("Character is dead, stop shoot")
-                    timer.cancel(event.source)
+                    print("Character is dead, stop shoot timer "..event.tid)
+                    self:cancelTimer(event.tid)
                     return
                 end
                 self:shoot()
             end, -1)
+        print("Shooting timer "..tid)
     end
 
     function character:explode()
@@ -364,11 +361,15 @@ Character.new = function (options)
 
     function character:startControl()
         self.control:start()
+        move.stick(self.shield, self)
+        
     end
 
     function character:cancelControl()
         self.control:cancel()
     end
+
+    character:enablePhysics()
 
     return character
 

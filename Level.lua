@@ -110,8 +110,9 @@ Level.load = function()
             self.currentSublevel = warningLevel
             warningLevel:start({author = self.levels[idx].author, name = self.levels[idx].name})
         else
-            self:showInfo()
+            print("Normal level ", idx)
             self.currentSublevel = self.levels[idx]
+            self:showInfo()
             self.levels[idx]:start()
         end
     end

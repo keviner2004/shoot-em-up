@@ -87,19 +87,8 @@ function M.follow( obj, pathPoints, params)
     obj.y = pathPoints[1].y
     local pathPointsGroup = display.newGroup();
     local count = 0
-    if params.pointTo then
-        obj.rotation = util.angleBetween( pathPoints[1].x, pathPoints[1].y, params.pointTo.x, params.pointTo.y )
-        obj.enterFrame = function()
-            --print("t")
-            if not obj.stopRotation then
-                obj.rotation = util.angleBetween( obj.x, obj.y, params.pointTo.x, params.pointTo.y ) + obj.dir
-                --print("rotation not locked: "..obj.rotation)
-            else
-                --print("rotation locked: "..obj.rotation)
-            end
-        end
-        Runtime:addEventListener( "enterFrame", obj )
-    elseif params.autoRotation then
+    
+    if params.autoRotation then
         obj.rotation = util.angleBetween( pathPoints[1].x, pathPoints[1].y, pathPoints[2].x, pathPoints[2].y )
     end
     

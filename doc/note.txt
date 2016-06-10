@@ -1,7 +1,20 @@
 To do:
-1. Add asteroid
+1. Add Bosses
+    a. chained boss
 2. Add victims
-3. Add items:
-    a. powup
-    b.
-4. Add sample sublevel
+    a. circle progress bar
+3. Add sample sublevels
+    a. 
+4. Add enemies
+    a. more plans
+    b. ufos
+    c. astronauts
+5. Add upgraded weapon/bullet
+    a. level1 ~ level3
+        1) equipe guns
+    b. level4
+        1 homming laser
+    c. level5
+        2 homming laser
+    d. level6
+        guard

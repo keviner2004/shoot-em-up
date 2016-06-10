@@ -1,9 +1,9 @@
 local Backpack = {}
 
-Backpack.new = function()
+Backpack.new = function(options)
     local backpack = {}
     backpack.items = {}
-    backpack.maxItems = 300
+    backpack.maxItems = options and options.maxItems or 300
     backpack.counter = 0
     backpack.numOfItems = 0
 
@@ -48,7 +48,6 @@ Backpack.new = function()
     function backpack:clear()
         self.items = {}
     end
-
 
     return backpack
 end

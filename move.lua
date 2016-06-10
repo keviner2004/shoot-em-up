@@ -60,72 +60,48 @@ function M.move(obj, options)
     elseif options.mode == "curve" then
         pathPoints = curve.getCurve(options.anchorPoints, options.samples)
     end
-
-    followParams = { speed=options.speed, showPoints=true, pointTo = options.pointTo, autoRotation = options.autoRotation, onComplete = complete}
+    if options.pointTo then
+        M.pointTo(options.pointTo)
+    end
+    followParams = { speed=options.speed, showPoints=true, autoRotation = options.autoRotation, onComplete = complete}
     M.follow( obj, pathPoints, followParams)
 end
 
-function M.goStraightAndFollow(obj, startPos, endPos, pointTo, dx, dy)
-    M.move(obj, {
-            mode = "straight",
-            pointTo = pointTo,
-            startPos = startPos,
-            endPos = endPos,
-            time = 500,
-            onComplete = function()
-                -- body
-                print("stop follow me!")
-                
-            end
-    })
-
-    local function _follow()
-        local moveTo = {x = 0, y = 0}
-        if pointTo.x < obj.x then
-            moveTo.x = pointTo.x + dx
-        else
-            moveTo.x = pointTo.x - dx
+function M.stick(target, obj)
+    util.addEnterFrameListener(target, 
+        function(event)
+            target.x = obj.x
+            target.y = obj.y
+            --print("Set x y M:", event.time, obj.x)
         end
+    )
+end
 
-        if pointTo.y < obj.y then
-            moveTo.y = pointTo.y + dy
-        else
-            moveTo.y = pointTo.y - dy
-        end
-
-        if moveTo.x < 0 then
-            moveTo.x = pointTo.x + dx
-        end
-
-        if moveTo.x > display.contentWidth then
-            moveTo.x = display.contentWidth
-        end
-
-        if moveTo.y < 0 then
-            moveTo.y = pointTo.y + dy
-        end
-
-        if moveTo.y > display.contentHeight then
-            moveTo.y = display.contentHeight
-        end
-
-        transition.to(obj, {tag = obj.moveTag, delay = 1500, time = 500, x = moveTo.x, y = moveTo.y, 
-            onComplete = function ()
-                if obj.moveCanceled then
-                    return
-                end 
-                print("move to next point")
-                obj:onMovePoint({pointTo = pointTo, rotation = obj.rotation})
-                --wait
-                obj.stopRotation = true
-                timer.performWithDelay(1000, function()
-                    obj.stopRotation = false
-                    _follow()
-                end)
-            end
-        })
+function M.pointTo(obj, target)
+    if not target or not target.x or not target.y then
+        print("You need to pass a target when you use pointTo")
+        return 
     end
-    _follow()
+    if not obj.dir then
+        obj.dir = 0
+    end
+    util.addEnterFrameListener(obj,
+        function(event)
+            local srcX = obj.x
+            local srcY = obj.y
+            local dstX = target.x
+            local dstY = target.y
+            if obj.localToContent then
+                srcX, srcY = obj:localToContent(0, 0)
+            end
+            if obj.localToContent then
+                dstX, dstY = target:localToContent(0, 0)
+            end
+            
+            obj.rotation = util.angleBetween( srcX, srcY, dstX, dstY) + obj.dir
+            --print(obj.x, obj.y, target.x, target.y, obj.rotation)
+        end
+    )
 end
 
 function M.track(obj, pointTo)
@@ -182,71 +158,62 @@ function M.toward(obj, options)
     local rRad = math.atan2(-dy, -dx)
     obj.m_defaultX = obj.x
     obj.m_defaultY = obj.y
-    --print("dx: "..dx..", dy: "..dy)
+    
     util.addEnterFrameListener(obj, 
         function()
+            --print("dx: "..dx..", dy: "..dy)
             obj.x = obj.x + dx
             obj.y = obj.y + dy
-            if M.isOut(obj) then
+            if options.back and M.isOut(obj) then
                 M.stop(obj)
-                if options.back then
-                    print("back mode enabled")
-                    local rx = math.cos(rRad)
-                    local ry = math.sin(rRad)
-                    local rxd = 0 
-                    local ryd = 0 
-                    local startX = 0
-                    local startY = 0
-                    print("rDegree "..math.deg(rRad), rx, ry)
+                print("back mode enabled")
+                local rx = math.cos(rRad)
+                local ry = math.sin(rRad)
+                local rxd = 0 
+                local ryd = 0 
+                local startX = 0
+                local startY = 0
+                print("rDegree "..math.deg(rRad), rx, ry)
 
-                    if rx < 0 then
-                        rxd = obj.m_defaultX
-                    else
-                        rxd = display.contentWidth - obj.m_defaultX
-                    end   
-                    if ry < 0 then
-                        ryd = obj.m_defaultY
-                    else
-                        ryd = display.contentHeight - obj.m_defaultY
-                    end
-
-                    startX = obj.m_defaultX + rx * math.abs(ryd / ry)
-                    startY = obj.m_defaultY + ry * math.abs(rxd / rx)
-
-                    if startX > display.contentWidth then
-                        startX = display.contentWidth
-                    elseif startX < 0 then
-                        startX = 0
-                    end
-
-                    if startY > display.contentHeight then
-                        startY = display.contentHeight
-                    elseif startY < 0 then
-                        startY = 0
-                    end
-
-                    print("back pos is "..startX, startY)
-                    M.move(obj, {
-                            mode = "straight",
-                            startPos = {x = startX, y = startY},
-                            endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
-                            time = 2000,
-                            autoRotation = options.autoRotation,
-                            onComplete = function()
-                                if options.onComplete then
-                                    options.onComplete()
-                                end
-                            end
-                    })
-
-                elseif options.onComplete then
-                    print("toward complete")
-                    options.onComplete()
+                if rx < 0 then
+                    rxd = obj.m_defaultX
                 else
-                    --print("toward obj remove")
-                    --physics.removeBody(obj)
-                    obj:removeSelf()
+                    rxd = display.contentWidth - obj.m_defaultX
+                end   
+                if ry < 0 then
+                    ryd = obj.m_defaultY
+                else
+                    ryd = display.contentHeight - obj.m_defaultY
                 end
+
+                startX = obj.m_defaultX + rx * math.abs(ryd / ry)
+                startY = obj.m_defaultY + ry * math.abs(rxd / rx)
+
+                if startX > display.contentWidth then
+                    startX = display.contentWidth
+                elseif startX < 0 then
+                    startX = 0
+                end
+
+                if startY > display.contentHeight then
+                    startY = display.contentHeight
+                elseif startY < 0 then
+                    startY = 0
+                end
+
+                print("back pos is "..startX, startY)
+                M.move(obj, {
+                        mode = "straight",
+                        startPos = {x = startX, y = startY},
+                        endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
+                        time = 2000,
+                        autoRotation = options.autoRotation,
+                        onComplete = function()
+                            if options.onComplete then
+                                options.onComplete()
+                            end
+                        end
+                })
             end
         end
     )
@@ -257,7 +224,7 @@ function M.rotatAround(obj, options)
     local function rotation()
         if options.target.x == nil or obj.x == nil then
             print("rotatAround failed because of object disapear")
-            Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+            M.stop(obj)
             return
         end
         obj.rotation = 360 - ((angle + 90 - obj.dir )%360)
@@ -279,11 +246,11 @@ function M.stop(obj)
     if obj then
         transition.cancel(obj)
     end
-    --print("remove enter frame listener")
+    
     if obj.m_enterFrame then
-        Runtime:removeEventListener("enterFrame", obj.m_enterFrame)
+        --print("remove enter frame listener")
+        util.removeEnterFrameListener(obj)
     end
-    Runtime:removeEventListener("enterFrame", obj)
 end
 
 function M.pause(obj)

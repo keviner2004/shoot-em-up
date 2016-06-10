@@ -16,6 +16,10 @@ GameObject.new = function (options)
     object.shifting = 1
     object.autoDestroy = false
     object._tags = {}
+    object.body = {}
+    object.categoryBits = 0
+    object.maskBits = 0
+    object.bodyInited = false
 
     function object:hasTag(tag)
         for i, v in ipairs(self._tags) do
@@ -42,7 +46,12 @@ GameObject.new = function (options)
 
     --destroy object when it is out of the screen
     function object:enableAutoDestroy()
-        self.autoDestroy =true
+        --print("enableAutoDestroy")
+        if self.autoDestroy then
+            print("auto destroy was already on")
+            return
+        end
+        self.autoDestroy = true
         self._b_enterFrame = function(event)
             if not self.x then
                 --print("Game object removed")
@@ -53,9 +62,11 @@ GameObject.new = function (options)
                 return
             end
             --print("Check is out???")
-            if self.autoDestroy and move.isOut(self) then
+            if move.isOut(self) then
                 --print("Gameobject auto destroy: "..self.name)
+                --print("before2", self.m_enterFrame)
                 Runtime:removeEventListener( "enterFrame", self._b_enterFrame )
+                --print("after2", self.m_enterFrame)
                 self:clear()
             end
         end
@@ -76,7 +87,7 @@ GameObject.new = function (options)
     end
 
     function object:clear()
-       self.timerUtil:clear() 
+       self.timerUtil:clear()
        transition.cancel(self)
        self:removeSelf()
     end
@@ -109,6 +120,79 @@ GameObject.new = function (options)
 
     function object:slow()
         self.shifting = 0.5
+    end
+
+    function object:setBody(body)
+        if body.type then
+            self.bodyType = body.type
+        end
+        local _b = {}
+        if type(body) == "function" then
+            _b = body(self)
+        else
+            _b = body
+        end
+        for k, v in pairs(_b) do
+            --print("body "..k)
+            self.body[k] = v
+        end
+    end
+
+    function object:belongTo(what)
+        self.categoryBits = what
+    end
+
+    function object:collideWith(...)
+        local collides = {...}
+        for i, v in ipairs(collides) do
+            if type(v) == "table" then
+                self.maskBits = self.maskBits + v.categoryBits
+            else
+                self.maskBits = self.maskBits + v
+            end
+        end
+    end
+
+    function object:addPhysics()
+        if self.bodyInited then
+            print("Physics body is already enaled")
+            return
+        end
+
+        --print("addPhysics")
+        self.body.filter = {
+            categoryBits = self.categoryBits,
+            maskBits = self.maskBits
+        }
+        physics.addBody( self, self.bodyType, self.body )
+        self:addEventListener( "collision", self )
+        self:addEventListener( "preCollision", self )
+        self.bodyInited = true
+    end
+
+    function object:removePhysics()
+        if not self.bodyInited then
+            print("Physics body is already removed")
+            return 
+        end
+        print("remove physics")
+        physics.removeBody(self)
+        self:removeEventListener( "collision", self )
+        self:removeEventListener( "preCollision", self )
+        self.bodyInited = false
+    end
+
+    function object:enablePhysics(enable)
+        if enable or enable == nil then
+            self:addPhysics()
+        else
+            self:removePhysics()
+        end
+    end
+
+    function object:reInitPhysics()
+        self:enablePhysics(false)
+        self:enablePhysics(true)
     end
 
     object:addTag("gameobject")

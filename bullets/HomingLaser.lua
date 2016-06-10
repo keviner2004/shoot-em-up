@@ -6,7 +6,7 @@ Laser.new = function(options)
     local sprite = display.newRect(0, 0, 15, 50)
     sprite.fill = {1}
     laser:insert(sprite)
-    laser:enablePhysic(true)
+    laser:enablePhysics()
 
     function laser:seek(target, options)
         move.seek(self, target, options)

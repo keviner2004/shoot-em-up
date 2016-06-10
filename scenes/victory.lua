@@ -11,7 +11,6 @@ function scene:insertButtons()
    local restartButton = self:newButton("Restart")
    local giveupButton = self:newButton("Exit")
 
-
    self.buttons:insert(restartButton)
    self.buttons:insert(giveupButton)
    self.buttons:insert(rankButton)

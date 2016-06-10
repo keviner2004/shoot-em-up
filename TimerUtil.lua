@@ -53,6 +53,7 @@ TimerUtil.new = function(options)
             if self.timers[tid].c and self.timers[tid].c ~= -1 then
                 self.timers[tid].c = self.timers[tid].c - count
             end
+            evnet.tid = tid
             func(evnet)
             if evnet.count == count then
                 self:removeTimer(tid)

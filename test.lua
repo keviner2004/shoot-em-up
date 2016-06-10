@@ -1,14 +1,11 @@
-local a = {
-    k1 = 1,
-    k2 = 2
+local a = {}
 
-}
+a[1] = 1
+a[2] = 2
+a[3] = 3
+a[4] = 4
 
-function b()
-end
+a[2] = nil
+a[3] = nil
 
-for k, v in pairs(a) do
-    print(k, v)
-end
-
-print(type(b))
+print(#a)

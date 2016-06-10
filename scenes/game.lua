@@ -42,7 +42,9 @@ function scene:create( event )
     self.level = Level.load()
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
-    
+    if DEBUG_FPS then
+        self:fpsMesure()
+    end
     --Create global screen boundaries
     local leftWall = Wall.new(0,display.contentHeight/2,1, display.contentHeight )
     local rightWall = Wall.new(display.contentWidth, display.contentHeight/2, 1, display.contentHeight)
@@ -114,7 +116,10 @@ end
 
 function scene:fpsMesure()
     local runtime = 0
-     
+    self.fpsText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
+    self.fpsText.x = 50
+    self.fpsText.y = 50
+    local count = 0
     local function getDeltaTime()
         local temp = system.getTimer()-- Get current game time in ms
         local dt = (temp-runtime) / (1000/display.fps)  -- 60 fps or 30 fps as base
@@ -125,13 +130,19 @@ function scene:fpsMesure()
     -- Frame update function
     local function frameUpdate()
         -- Delta Time value
+        count = count + 1
+
         local dt = getDeltaTime()
-        --print("FPS mesure: "..dt)
+        if count == 10 then
+            --print("FPS mesure: "..dt)
+            self.fpsText.text = math.round(dt * 100)
+            count = 0
+        end
     end
     Runtime:addEventListener("enterFrame", frameUpdate)
 end
 
---scene:fpsMesure()
+
 
 function scene:pauseGame()
     print("Pause game")
@@ -219,14 +230,12 @@ function scene:startGame()
     self.score.y = 50
     --main character
     self.mainCharacter = Character.new({lifes = 0, fingerSize = 50, fireRate = 500, controlType = "follow"})
-    
-
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight / 5 * 4
     self.mainCharacter:startControl()
     self.mainCharacter:openShield(3000)
     --self.mainCharacter:openShield()
-    self.mainCharacter:autoShoot()   
+    self.mainCharacter:autoShoot()
 
 
     self.mainCharacter.onScoreChanged = function(character, score)
