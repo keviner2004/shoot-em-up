@@ -11,7 +11,7 @@ util.addEnterFrameListener = function(obj, func, options)
             if options and options.onDisapear then
                 options.onDisapear(obj)
             end
-            enterFrame.remove(obj.m_enterFrame)
+            enterFrame:cancel(obj.m_enterFrame)
             return
         end
         if obj.paused then
@@ -21,11 +21,11 @@ util.addEnterFrameListener = function(obj, func, options)
         --print("obj.m_enterFrame ", obj.m_enterFrame)
         func(event)
     end
-    enterFrame.each(obj.m_enterFrame)
+    enterFrame:each(obj.m_enterFrame, "movelib")
 end
 
 util.removeEnterFrameListener = function(obj)
-    enterFrame.remove(obj.m_enterFrame)
+    enterFrame:cancel(obj.m_enterFrame)
 end
 
 util.angleBetween = function(p1, p2, p3, p4)

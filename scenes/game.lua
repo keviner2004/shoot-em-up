@@ -168,12 +168,13 @@ function scene:pauseGame()
 end
 
 function scene:clearGame()
+    print("clearGame")
     if self.mainGroup and self.mainGroup.numChildren then
         local i = 1
         while i <= self.mainGroup.numChildren do
             local v = self.mainGroup[i]
             if v.name then
-                print("pause obj: "..v.name)
+                print("clear obj: "..v.name)
             end
             if v.clear then
                 v:clear()
@@ -229,12 +230,10 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = 0, fingerSize = 50, fireRate = 500, controlType = "follow"})
+    self.mainCharacter = Character.new({lifes = PLAYER_LIFES, fingerSize = 50, fireRate = 500, controlType = "follow"})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight / 5 * 4
     self.mainCharacter:startControl()
-    self.mainCharacter:openShield(3000)
-    --self.mainCharacter:openShield()
     self.mainCharacter:autoShoot()
 
 
@@ -327,6 +326,13 @@ function scene:startGame()
     self.mainGroup:insert(self.mainCharacter)
     self.hudGroup:insert(self.score)
     self.status = "started"
+    --shield must be opened after the character is added to the main scene
+    if PLAYER_UNSTOPPABLE then
+        self.mainCharacter:openShield()
+    else
+        self.mainCharacter:openShield(3000)
+    end
+
 end
 
 function scene:checkScore(afterCheck)

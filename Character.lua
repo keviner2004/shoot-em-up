@@ -46,16 +46,13 @@ Character.new = function (options)
     character.maxPower = 3
     character.boundRad = 25
     character.damage = 10
-    character.shield = Shield.new()
-    character.shield.x = -500
-    character.shield.y = -500
-    character.parent:insert(character.shield)
     character.backpack = Backpack.new()
     character:belongTo(PHYSIC_CATEGORY_CHARACTER)
     character:collideWith(PHYSIC_CATEGORY_ENEMY, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ITEM, PHYSIC_CATEGORY_MISSILE, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_VICTIM)
     character:setBody({type = "dynamic", isSensor = true, radius = character.boundRad})
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
+    character.isDefeated = false
     --physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
     --add control
     character.control = options and options.control
@@ -68,7 +65,6 @@ Character.new = function (options)
         })
 
     end
-
 
     character.preCollision = function(self, event)
         --print("pre")
@@ -177,6 +173,10 @@ Character.new = function (options)
     end
 
     function character:shoot()
+        if not character.x then
+            print("Don't shoot!")
+            return
+        end
         if character.power <= 1 then
             --local bullet = Laser.new({fireTo = "enemy", owner = self})
             local bullet = HomingLaser.new({fireTo = "enemy", owner = self})
@@ -286,6 +286,13 @@ Character.new = function (options)
     end
 
     function character:openShield(duration)
+        if not self.shield then
+            self.shield = Shield.new()
+            self.parent:insert(self.shield)
+            self.shield.x = -500
+            self.shield.y = -500
+            move.stick(self.shield, self)
+        end
         self.shield:open(duration)
     end
 
@@ -315,6 +322,9 @@ Character.new = function (options)
             self:removeSelf()
         end})
         if self.lifes < 0 then
+            print("Character is defeated")
+            self.isDefeated = true
+            self:cancelTimer()
             self:cancelControl()
             self:onGameOver()
         else
@@ -361,8 +371,6 @@ Character.new = function (options)
 
     function character:startControl()
         self.control:start()
-        move.stick(self.shield, self)
-        
     end
 
     function character:cancelControl()

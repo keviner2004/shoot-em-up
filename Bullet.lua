@@ -17,6 +17,7 @@ Bullet.new = function(options)
     bullet.fireTo = options and options.fireTo
     if options and options.fireTo == "character" then
         --print("fire to ch")
+        bullet:collideWith(PHYSIC_CATEGORY_SHIELD)
         bullet:collideWith(PHYSIC_CATEGORY_CHARACTER)
     elseif options and options.fireTo == "enemy" then
         bullet:collideWith(PHYSIC_CATEGORY_ENEMY)

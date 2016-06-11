@@ -6,6 +6,9 @@ DEBUG_FPS = true
 DEBUG_SKIP_SPLASH = true
 --config setting
 CONFIG_SOUND_ON = false
+--game config
+PLAYER_LIFES = 0
+PLAYER_UNSTOPPABLE = true
 
 rankServerUrl = "http://163.18.2.162"
 

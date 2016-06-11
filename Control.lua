@@ -1,4 +1,5 @@
 local enterFrame = require("enterFrame")
+local util = require("util")
 local Control = {}
 
 Control.new = function(target, controlType, fingerSize, options)
@@ -17,11 +18,6 @@ Control.new = function(target, controlType, fingerSize, options)
     end
 
     function control:touch( event )
-        if self.target.x == nil then
-            print(self.target.name.." is removed")
-            self:cancel()
-            return
-        end
         if event.phase == "began" then
             --followTouchPos(self, event)
             self.enableMove = true
@@ -80,11 +76,13 @@ Control.new = function(target, controlType, fingerSize, options)
 
 
     function control:enterFrame(event)
-        --character is removed
-        if self.target.x == nil or self.target.isDead then
-            print("character is removed")
+        if not util.isExist(self.target) then
+            --character is removed
+            print(self.target.name.." is removed, detected by control")
+            self:cancel()
             return
         end
+        
         if self.controlType == "follow" and self.enableMove then
             self:getMoveAngle(self.target, self.touchPos)
             local offsetY = 30 * math.sin(self.moveAngle) * (1 + (self.target.speed or 0))
@@ -165,7 +163,7 @@ Control.new = function(target, controlType, fingerSize, options)
         elseif self.controlType == "key" then
             Runtime:addEventListener( "key", self)
         end
-        enterFrame.each(self)
+        enterFrame:each(self, "control")
         self.status = "started"
     end
 
@@ -177,7 +175,7 @@ Control.new = function(target, controlType, fingerSize, options)
         elseif self.controlType == "key" then
             Runtime:removeEventListener( "key", self)
         end
-        enterFrame.remove(self)
+        enterFrame:cancel(self)
         self.status = "canceled"
     end
 

@@ -4,6 +4,8 @@ local GameObject = require("GameObject")
 
 Shield.new = function(options)
     local shield = GameObject.new()
+    shield.type = "shield"
+    shield.name = "shield"
     shield:collideWith(PHYSIC_CATEGORY_ENEMY)
     shield:collideWith(PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_MISSILE)
     shield:belongTo(PHYSIC_CATEGORY_SHIELD)
