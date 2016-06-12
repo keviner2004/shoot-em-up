@@ -1,7 +1,7 @@
 print("load config")
 
 --debug setting
-DEBUG_PHYSIC = true
+DEBUG_PHYSIC = false
 DEBUG_FPS = true
 DEBUG_SKIP_SPLASH = true
 --config setting
@@ -14,9 +14,9 @@ rankServerUrl = "http://163.18.2.162"
 
 gmaeLevles = {
     --"level_bossfight_warning"
-    "level_boss_1"
+    --"level_boss_1"
     --"level_1"
-    --"level_5"
+    "level_6"
     --"level_test"
     --"level_bonus"
 }

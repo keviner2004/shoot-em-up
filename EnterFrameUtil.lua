@@ -23,9 +23,9 @@ Util.new = function ()
     end
     -- For internal use
     function _M:enterFrame(event)  
-        print("call ========== start")
+        --print("call ========== start")
         for i, v in pairs(self:getItems()) do
-            print("call ", i, "th func with tag: ", v.tag )
+            --print("call ", i, "th func with tag: ", v.tag )
             if v == nil then
                 print("[Error] nil func in the table")
             end
@@ -36,7 +36,7 @@ Util.new = function ()
                 v.f(event)
             end
         end
-        print("call ========== end")
+        --print("call ========== end")
     end
 
     -- Call f each frame

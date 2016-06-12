@@ -24,7 +24,8 @@ EnemyPlane.new = function(options)
     plane:addPhysic()
     plane.hp = 1
 
-    function plane:split()
+    function plane:onDead(crime)
+        self:removePhysic()
         transition.to(self, {time = 50, alpha = 0, onComplete = 
             function()
                 self:removeSelf()
@@ -33,11 +34,6 @@ EnemyPlane.new = function(options)
         local effect = Effect.new({time=1000})
         effect.x = self.x
         effect.y = self.y
-    end
-
-    function plane:onDead(crime)
-        self:removePhysic()
-        self:split() 
     end
 
     function plane:onMovePoint(event)

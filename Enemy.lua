@@ -8,12 +8,19 @@ local Sprite = require("Sprite")
 Enemy.new = function(options)
     local enemy = GameObject.new()
     enemy:addTag(enemy)
+    enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
+    enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET)
+    enemy:setBody({
+        type = "dynamic",
+        isSensor = true        
+    })
     enemy.damage = 10
     enemy.name = "enemy"
     enemy.type = "enemy"
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items) or {}
     enemy.score = 1
+
     enemy.preCollision = function(self, event)
         --print("enemy before hit by "..event.other.name)
         --if event.other.name == "bullet" then 
@@ -26,7 +33,7 @@ Enemy.new = function(options)
     end
 
     enemy.collision = function(self, event)
-        --print("enemy hit by "..event.other.name..":"..self.hp..", x:"..event.x..",y:"..event.y)
+        print("enemy hit by "..event.other.name..":"..self.hp..", x:"..event.x..",y:"..event.y)
         if event.other.name == "character" then
             self:hurt(event.other.damage, event.other)
         elseif event.other.name == "bullet" then
@@ -72,22 +79,13 @@ Enemy.new = function(options)
         self.hp = self.hp - damage
     end
 
-    function enemy:addPhysic()
-        physics.addBody(self, "dynamic", {isSensor = true, friction = 0, mass = 1, filter = {categoryBits=2, maskBits=5}})
-    end
-
-    function enemy:removePhysic()
-        physics.removeBody(self)
-    end
-
     function enemy:onDead(crime)
         print("Enemy onDead")
-        --removeBody cannot be called when the world is locked and in the middle of number crunching, such as during a collision event, so we use remove the body latter
-        timer.performWithDelay( 1, 
-            function(e) 
-                physics.removeBody(self)
-            end)
-        --move.stop(enemy)
+        physics.removeBody(self)
+        transition.to(self, {alpha = 0, onComplete = 
+            function ( ... )
+                self:clear()    
+        end})
     end
 
     function enemy:dropItems()

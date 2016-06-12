@@ -2,6 +2,8 @@ local GameObject = {}
 local move = require("move")
 local Sprite = require("Sprite")
 local TimerUtil = require("TimerUtil")
+local EnterFrameUtil = require("EnterFrameUtil")
+
 GameObject.new = function (options)
     local object = nil
     if options and options.frames then
@@ -11,7 +13,7 @@ GameObject.new = function (options)
     end
     object.timerUtil = TimerUtil.new()
     object.type = "gameobject"
-    object.neme = "gameobject"
+    object.name = "gameobject"
     object.paused = false
     object.shifting = 1
     object.autoDestroy = false
@@ -20,6 +22,8 @@ GameObject.new = function (options)
     object.categoryBits = 0
     object.maskBits = 0
     object.bodyInited = false
+    object.bodyType = "dynamic"
+    object.enterFrame = EnterFrameUtil.new()
 
     function object:hasTag(tag)
         for i, v in ipairs(self._tags) do
@@ -55,7 +59,7 @@ GameObject.new = function (options)
         self._b_enterFrame = function(event)
             if not self.x then
                 --print("Game object removed")
-                Runtime:removeEventListener( "enterFrame", self._b_enterFrame )
+                self.enterFrame:cancel(self._b_enterFrame)
                 return 
             end
             if self.paused then
@@ -65,12 +69,12 @@ GameObject.new = function (options)
             if move.isOut(self) then
                 --print("Gameobject auto destroy: "..self.name)
                 --print("before2", self.m_enterFrame)
-                Runtime:removeEventListener( "enterFrame", self._b_enterFrame )
+                self.enterFrame:cancel(self._b_enterFrame)
                 --print("after2", self.m_enterFrame)
                 self:clear()
             end
         end
-        Runtime:addEventListener( "enterFrame", self._b_enterFrame )
+        self.enterFrame:each(self._b_enterFrame)
     end
 
     function object:disableAutoDestroy()
@@ -88,8 +92,21 @@ GameObject.new = function (options)
 
     function object:clear()
        self.timerUtil:clear()
+       self.enterFrame:cancelAll()
+       self.stopped = true
        transition.cancel(self)
        self:removeSelf()
+    end
+
+
+    function object:callWhenInStage(func)
+        local function checkOnStage()
+            if not move.isOut(self) then
+                func()
+                self.enterFrame:cancel(checkOnStage)        
+            end
+        end
+        self.enterFrame:each(checkOnStage)
     end
 
     function object:freeze()

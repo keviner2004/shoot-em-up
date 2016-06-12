@@ -1,11 +1,5 @@
-local a = {}
+local Logger = require("Logger")
 
-a[1] = 1
-a[2] = 2
-a[3] = 3
-a[4] = 4
-
-a[2] = nil
-a[3] = nil
-
-print(#a)
+local logger = Logger.new("test")
+logger:setMask({tags = {"physic"}})
+logger:debug("physic", "1234 %d", 5678)

@@ -67,11 +67,15 @@ function M.move(obj, options)
     M.follow( obj, pathPoints, followParams)
 end
 
-function M.stick(target, obj)
+function M.stick(obj, target, options)
+    local offsetX = (options and options.offsetX) or 0
+    local offsetY = (options and options.offsetY) or 0
     util.addEnterFrameListener(target, 
         function(event)
-            target.x = obj.x
-            target.y = obj.y
+            if target.x and target.y then
+                obj.x = target.x + offsetX
+                obj.y = target.y + offsetY
+            end
             --print("Set x y M:", event.time, obj.x)
         end
     )

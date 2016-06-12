@@ -16,7 +16,7 @@ Bullet.new = function(options)
 
     bullet.fireTo = options and options.fireTo
     if options and options.fireTo == "character" then
-        --print("fire to ch")
+        print("fire to ch")
         bullet:collideWith(PHYSIC_CATEGORY_SHIELD)
         bullet:collideWith(PHYSIC_CATEGORY_CHARACTER)
     elseif options and options.fireTo == "enemy" then
@@ -59,7 +59,6 @@ Bullet.new = function(options)
         print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
         if event.phase == "began" then
             bullet:onHit(event)
-            print("isSensor ?", bullet.isSensor, bullet.name)
             if bullet.isSensor then
                 bullet:afterHit(event)
             end
