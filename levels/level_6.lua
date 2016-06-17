@@ -9,6 +9,7 @@ function sublevel:show(options)
     supply.x = display.contentWidth/2
     supply.y = display.contentHeight/2
     self.view:insert(supply)
+    supply:addItem("items.PowerUp", {level = 3})
 end
 
 return sublevel

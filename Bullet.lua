@@ -16,7 +16,7 @@ Bullet.new = function(options)
 
     bullet.fireTo = options and options.fireTo
     if options and options.fireTo == "character" then
-        print("fire to ch")
+        --print("fire to ch")
         bullet:collideWith(PHYSIC_CATEGORY_SHIELD)
         bullet:collideWith(PHYSIC_CATEGORY_CHARACTER)
     elseif options and options.fireTo == "enemy" then
@@ -24,7 +24,7 @@ Bullet.new = function(options)
     end
 
     if options and options.selfCollision then
-        print("collisionSelf bullet")
+        --print("collisionSelf bullet")
         bullet:collideWith(self)
     end
 
@@ -41,7 +41,7 @@ Bullet.new = function(options)
     })
 
     bullet.type = "bullet"
-    bullet.name = "bullet"
+    bullet:setName("bullet")
     bullet.damage = 10
     bullet.owner = options and options.owner
     bullet:enableAutoDestroy()
@@ -56,7 +56,7 @@ Bullet.new = function(options)
 
     bullet.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
-        print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
+        --print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
         if event.phase == "began" then
             bullet:onHit(event)
             if bullet.isSensor then
@@ -70,7 +70,7 @@ Bullet.new = function(options)
 
 
     function bullet:afterHit(event)
-        print(self.name.." after hit")
+        --print(self.name.." after hit")
         self:clear()
     end
 

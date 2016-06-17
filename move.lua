@@ -70,12 +70,15 @@ end
 function M.stick(obj, target, options)
     local offsetX = (options and options.offsetX) or 0
     local offsetY = (options and options.offsetY) or 0
-    util.addEnterFrameListener(target, 
+    util.addEnterFrameListener(obj, 
         function(event)
             if target.x and target.y then
                 obj.x = target.x + offsetX
                 obj.y = target.y + offsetY
             end
+            --if not target then
+                --return true
+            --end
             --print("Set x y M:", event.time, obj.x)
         end
     )
@@ -246,15 +249,13 @@ function M.rotatAround(obj, options)
 end
 
 function M.stop(obj)
+    if not obj then
+        return
+    end
     obj.moveCanceled = true
-    if obj then
-        transition.cancel(obj)
-    end
-    
-    if obj.m_enterFrame then
-        --print("remove enter frame listener")
-        util.removeEnterFrameListener(obj)
-    end
+    transition.cancel(obj)
+    --print("remove enter frame listener")
+    util.removeEnterFrameListener(obj)
 end
 
 function M.pause(obj)

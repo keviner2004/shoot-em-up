@@ -1,5 +1,6 @@
 local widget = require("widget")
 local Sprite = require("Sprite")
+local sfx = require("sfx")
 --local pathOfThisFile = ...
 --print("Path! "..pathOfThisFile)
 local NineSliceButton = {}
@@ -66,6 +67,9 @@ NineSliceButton.new = function(name, w, h, l)
 
     function button.buttonView:touch(event)
         --print("touch: "..event.phase.."/"..event.phase.." on "..self.id)
+        if event.phase == "ended" then
+            button:playSound()
+        end        
         button:onTouch(event)
         --return false treat as background
         return self.propagating --false
@@ -73,6 +77,10 @@ NineSliceButton.new = function(name, w, h, l)
     
     --button:addEventListener("touch", self)
     
+    function button:playSound()
+        sfx:play("button")
+    end
+
     function button:onTouch(func, propagating)
         
     end

@@ -1,4 +1,5 @@
 require("constant")
+local sfx = require("sfx")
 local Character = require("Character")
 local Backgrounds = require("Background")
 local physics = require( "physics" )
@@ -38,7 +39,7 @@ function scene:create( event )
         physics.setDrawMode( "hybrid" ) 
     end
     self.first = true
-    self.stageSpeed = 200
+    self.stageSpeed = CONFIG_STAGE_SPEED
     self.level = Level.load()
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
@@ -50,8 +51,6 @@ function scene:create( event )
     local rightWall = Wall.new(display.contentWidth, display.contentHeight/2, 1, display.contentHeight)
     local topWall = Wall.new(display.contentWidth/2, 0, display.contentWidth, 1)
     local bottomWall = Wall.new(display.contentWidth/2, display.contentHeight, display.contentWidth, 1)
-
-
     --UI
     local playerLife = display.newGroup()
     playerLife.x = 65
@@ -395,8 +394,10 @@ function scene:show( event )
             }
             composer.showOverlay( "scenes.start", options )
             self.first = false
+            sfx:play("title", {loops = -1})
         else
             print("just start the game")
+            sfx:play("bg", {loops = -1})
             self:startGame()
         end
     end

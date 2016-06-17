@@ -1,5 +1,5 @@
 EnterFrameUtil = require("EnterFrameUtil")
 
-local enterframe = EnterFrameUtil.new()
+local enterframe = EnterFrameUtil.new({owner = "Global"})
 
 return enterframe

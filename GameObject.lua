@@ -23,7 +23,7 @@ GameObject.new = function (options)
     object.maskBits = 0
     object.bodyInited = false
     object.bodyType = "dynamic"
-    object.enterFrame = EnterFrameUtil.new()
+    object.enterFrame = EnterFrameUtil.new({owner = object.name})
 
     function object:hasTag(tag)
         for i, v in ipairs(self._tags) do
@@ -137,6 +137,11 @@ GameObject.new = function (options)
 
     function object:slow()
         self.shifting = 0.5
+    end
+
+    function object:setName(name)
+        self.name = name
+        self.enterFrame:setOwner(name)
     end
 
     function object:setBody(body)

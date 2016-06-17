@@ -5,20 +5,22 @@ local Menu = {}
 
 Menu.new = function()
     local scene = composer.newScene()
+    scene.menuWidth = math.round(display.contentWidth*0.9)
+    scene.menuHeight = math.round(display.contentHeight*0.9)
 
     function scene:create( event )
        local sceneGroup = self.view
        local panelHeight = 0
        local panelWidth = 0
        local titleValue = self:getTitleText()
-       local glassPanel = GlassCornersPanel.new(math.round(display.contentWidth*0.9), math.round(display.contentHeight*0.9))
+       self:init(event)
+       local glassPanel = GlassCornersPanel.new(self.menuWidth, self.menuHeight)
        glassPanel.x = display.contentWidth/2
        glassPanel.y = display.contentHeight/2
        local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 40)
        titleText.x = glassPanel.x
        titleText.y = glassPanel.y - glassPanel.contentWidth / 2
-       sceneGroup:insert(glassPanel)
-       sceneGroup:insert(titleText)
+       
        self.onClose = event.params and event.params.onClose
        self.buttonGap = 10
        self.buttons = display.newGroup()
@@ -26,8 +28,21 @@ Menu.new = function()
        --center these buttons
        self.buttons.x = display.contentWidth / 2
        self.buttons.y = display.contentHeight / 2
+       self.glassPanel = glassPanel
+       
+       sceneGroup:insert(glassPanel)
+       sceneGroup:insert(titleText)
+       self:construct()
        self:insertButtons()
        self:resizeButtons()
+    end
+
+    function scene:init(event)
+
+    end
+
+    function scene:construct()
+
     end
 
     function scene:getTitleText()

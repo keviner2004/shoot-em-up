@@ -1,5 +1,8 @@
-local Logger = require("Logger")
+a = {}
+b = {}
+t = {}
 
-local logger = Logger.new("test")
-logger:setMask({tags = {"physic"}})
-logger:debug("physic", "1234 %d", 5678)
+t[a] = 1
+t[b] = 5
+
+print(t[a])

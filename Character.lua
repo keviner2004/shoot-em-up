@@ -12,7 +12,7 @@ local move = require("move")
 local util = require("util")
 local Backpack = require("Backpack")
 local id = 0
-
+local sfx = require("sfx")
 local CircleExplosion = require("effects.CircleExplosion")
 Character.new = function (options)
     local character = GameObject.new()
@@ -177,6 +177,7 @@ Character.new = function (options)
             print("Don't shoot!")
             return
         end
+        sfx:play("laser")
         if character.power <= 1 then
             --local bullet = Laser.new({fireTo = "enemy", owner = self})
             local bullet = HomingLaser.new({fireTo = "enemy", owner = self})

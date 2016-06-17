@@ -6,6 +6,7 @@ DEBUG_FPS = true
 DEBUG_SKIP_SPLASH = true
 --config setting
 CONFIG_SOUND_ON = false
+CONFIG_STAGE_SPEED = 200
 --game config
 PLAYER_LIFES = 0
 PLAYER_UNSTOPPABLE = true
@@ -16,7 +17,7 @@ gmaeLevles = {
     --"level_bossfight_warning"
     --"level_boss_1"
     --"level_1"
-    "level_6"
+    "level_5"
     --"level_test"
     --"level_bonus"
 }

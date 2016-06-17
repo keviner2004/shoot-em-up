@@ -2,30 +2,58 @@ local PVector = require("move.PVector")
 local enterFrame = require("enterFrame")
 local util = {}
 
+util.enterFrameContainer = {}
 --then wrapped enter frame function will be the object is disapeared
 util.addEnterFrameListener = function(obj, func, options)
-    obj.m_enterFrame = function(event)
-        --print("debug")
+    if not util.enterFrameContainer[obj] then
+        util.enterFrameContainer[obj] = {}
+    end
+
+    local m_enterFrame = function(event)
+        --print("debug: "..obj.name)
         if obj.x == nil then
---            print("The object is missing")
+            --print("The object is missing")
             if options and options.onDisapear then
                 options.onDisapear(obj)
             end
-            enterFrame:cancel(obj.m_enterFrame)
+            util.removeEnterFrameListener(obj, m_enterFrame)
             return
         end
         if obj.paused then
             --print("Game paused "..obj.name)
             return
         end
-        --print("obj.m_enterFrame ", obj.m_enterFrame)
-        func(event)
+        if func(event) then
+            print("m_enterFrame is interrupted")
+            util.removeEnterFrameListener(obj, m_enterFrame)
+        end
     end
-    enterFrame:each(obj.m_enterFrame, "movelib")
+    table.insert(util.enterFrameContainer[obj], m_enterFrame)
+    enterFrame:each(m_enterFrame, "movelib")
+    return m_enterFrame
 end
 
-util.removeEnterFrameListener = function(obj)
-    enterFrame:cancel(obj.m_enterFrame)
+util.removeEnterFrameListener = function(obj, f)
+    if not util.enterFrameContainer[obj] then
+        print("[Fetal error] enterFrameContainer is nil")
+        return
+    end
+    if not f then
+        for i, v in ipairs(util.enterFrameContainer[obj]) do
+            enterFrame:cancel(v)
+        end
+        util.enterFrameContainer[obj] = nil
+    else
+        local ind = table.indexOf(util.enterFrameContainer[obj], f)
+        if ind and ind > 0 then
+            table.remove(util.enterFrameContainer[obj], ind)
+        else
+            print("[Fetal error] remove nil func")
+        end
+        if #util.enterFrameContainer[obj] == 0 then
+            util.enterFrameContainer[obj] = nil
+        end
+    end
 end
 
 util.angleBetween = function(p1, p2, p3, p4)

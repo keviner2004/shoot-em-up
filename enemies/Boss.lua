@@ -6,7 +6,7 @@ local Enemy = require("Enemy")
 local Square = require("ui.Square")
 local GlassPanel = require("ui.GlassPanelEmpty")
 local Sprite = require("Sprite")
-local Ufo = require("enemies.Ufo")
+local Ufo = require("enemies.AlienUFOs")
 local util = require("util")
 local bossId = 0
 

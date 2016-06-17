@@ -1,4 +1,7 @@
+local logger = require("logger")
+local TAG = "Level"
 local Level = {}
+
 Level.load = function()
     local level = {}
     --[[local level = 
@@ -27,8 +30,10 @@ Level.load = function()
     --level.vistedLevels = {}
     level.levels = {}
     level.levelCandidates = {}
+    level.bossCandidates = {}
     level.currentSublevel = nil
-
+    level.count = 0
+    level.fightsBeforeEncounterBoss = 5
     --Reqire all level module
     for i, v in ipairs(gmaeLevles) do
         local subLevel = require("levels."..v)
@@ -40,12 +45,27 @@ Level.load = function()
     function level:initLevelCandidate()
         self.levelCandidates = {}
         for i, v in ipairs(self.levels) do
-            self.levelCandidates[i] = i
+            table.insert(self.levelCandidates, i)
         end
+        logger:debug(TAG, "numOfNormalLevel: %d", #self.levelCandidates)
+    end
+
+    function level:initBossCandidate()
+        self.bossCandidates = {}
+        for i, v in ipairs(self.levels) do
+            if v.isBossFight then
+                table.insert(self.bossCandidates, i)
+            end
+        end
+        logger:debug(TAG, "numOfBossLevel: %d", #self.bossCandidates)
     end
 
     function level:clearLevelCandidate()
         self.levelCandidates = {}
+    end
+
+    function level:clearBossCandidate()
+        self.bossCandidates = {}
     end
 
     function level:init(scene, view, players, stageSpeed, game)
@@ -80,24 +100,45 @@ Level.load = function()
         end})
     end
 
-    function level:startLevel(idx)
-        --Get a random level from levels
-        if not idx then
-            if #self.levelCandidates == 0  then
-                self:initLevelCandidate()
-            end
+    function level:pickupLevel(levels)
+        local r = math.random(#levels)
+        local idx = levels[r]
+        table.remove(levels, r)  
+        return idx      
+    end
 
-            local r = math.random(#self.levelCandidates)
-            idx = self.levelCandidates[r]
-            table.remove(self.levelCandidates, r)
+    function level:startLevel()
+        --Get a random level from levels
+        if #self.levelCandidates == 0  then
+            self:initLevelCandidate()
         end
+
+        if #self.bossCandidates == 0  then
+            self:initBossCandidate()
+        end
+
+        local idx = 0
+
+        if (#self.bossCandidates > 0 and self.count == self.fightsBeforeEncounterBoss) or #self.levelCandidates == 0 then
+            self.count = 0
+            idx = self:pickupLevel(self.bossCandidates)
+        elseif #self.levelCandidates > 0 then
+            self.count = self.count + 1
+            idx = self:pickupLevel(self.levelCandidates)
+        end
+
+        if idx == 0 then
+            logger:warn(TAG, "no level found")
+            return
+        end
+
         self.levels[idx]:init(self.scene, self.view, self.players, self.stageSpeed, self.game, {
             onComplete = function()
                 self:startLevel()
             end
         })
         --show the level name
-
+        --boss fight
         if self.levels[idx].isBossFight then
             local warningLevel = require("levels.level_bossfight_warning")
             warningLevel:init(self.scene, self.view, self.players, self.stageSpeed, self.game, {
@@ -110,7 +151,7 @@ Level.load = function()
             self.currentSublevel = warningLevel
             warningLevel:start({author = self.levels[idx].author, name = self.levels[idx].name})
         else
-            print("Normal level ", idx)
+            logger:debug(TAG, "Normal level %d", idx)
             self.currentSublevel = self.levels[idx]
             self:showInfo()
             self.levels[idx]:start()
@@ -131,6 +172,7 @@ Level.load = function()
 
     function level:stop()
         self:clearLevelCandidate()
+        self:clearBossCandidate()
         if self.currentSublevel then
             self.currentSublevel:stop()
         end
