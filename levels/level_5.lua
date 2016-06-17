@@ -15,8 +15,11 @@ function sublevel:show(options)
     local turret3 = Turret.new({player = self.player, shootInterval = 1000, shootDelay = 600})
     local astronaut = Astronaut.new({player = self.player, shootInterval = 500})
     
-    astronaut.x = 100
-    astronaut.y = 100
+    astronaut:away()
+    turret1:away()
+    turret2:away()
+    turret3:away()
+    line:away()
 
     station.rotation = 15
     line.rotation = -45
@@ -68,34 +71,34 @@ function sublevel:show(options)
 
     turret1:callWhenInStage(
         function()
-            print("turret1 is on stage")
+            print("********turret1 is on stage")
             turret1:enableAutoDestroy()
         end
     )
 
     turret2:callWhenInStage(
         function()
-            print("turret2 is on stage")
+            print("********turret2 is on stage")
             turret2:enableAutoDestroy()
         end
     )
 
     turret3:callWhenInStage(
         function()
-            print("turret3 is on stage")
+            print("********turret3 is on stage")
             turret3:enableAutoDestroy()
         end
     )
     line:callWhenInStage(
         function()
-            print("turret3 is on stage")
+            print("********line is on stage")
             line:enableAutoDestroy()
         end
     )
 
     astronaut:callWhenInStage(
         function()
-            print("turret3 is on stage")
+            print("********astronaut is on stage")
             astronaut:enableAutoDestroy()
         end
     )

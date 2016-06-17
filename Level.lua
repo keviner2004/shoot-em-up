@@ -1,4 +1,5 @@
 local logger = require("logger")
+local TimerUtil = require("TimerUtil")
 local TAG = "Level"
 local Level = {}
 
@@ -33,6 +34,7 @@ Level.load = function()
     level.bossCandidates = {}
     level.currentSublevel = nil
     level.count = 0
+    level.timerUtil = TimerUtil.new()
     level.fightsBeforeEncounterBoss = 5
     --Reqire all level module
     for i, v in ipairs(gmaeLevles) do
@@ -159,18 +161,21 @@ Level.load = function()
     end
 
     function level:pause()
+        self.timerUtil:pause()
         if self.currentSublevel then
             self.currentSublevel:pause()
         end
     end
 
     function level:resume()
+        self.timerUtil:resume()
         if self.currentSublevel then
             self.currentSublevel:resume()
         end 
     end
 
     function level:stop()
+        self.timerUtil:clear()
         self:clearLevelCandidate()
         self:clearBossCandidate()
         if self.currentSublevel then
@@ -179,8 +184,17 @@ Level.load = function()
         self.stopped = true
     end
 
-    function level:start()
-        self:startLevel()
+    function level:start(options)
+        if options and options.delay then
+            self.timerUtil:addTimer(options.delay, 
+                function ()
+                    self:startLevel()
+                end
+            )
+        else
+            self:startLevel()
+        end
+        --self:startLevel()
     end
 
     return level

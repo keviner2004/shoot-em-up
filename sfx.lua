@@ -24,6 +24,23 @@ sfx.laser = {
   channel = 3
 }
 
+sfx.hurt = {
+  handle = audio.loadSound("sounds/sfx_sounds_impact1.wav"),
+}
+
+sfx.explosion = {
+  handle = audio.loadSound("sounds/sfx_exp_short_hard11.wav"),
+}
+
+sfx.scream = {
+  handle = audio.loadSound("sounds/sfx_deathscream_human9.wav"),
+}
+
+sfx.start = {
+  handle = audio.loadSound("sounds/sfx_sounds_pause7_in.wav"),
+  channel = 2
+}
+
 function sfx:init()
    audio.reserveChannels(5)
    sfx.masterVolume = audio.getVolume()  
@@ -31,8 +48,6 @@ function sfx:init()
    audio.setVolume( 0.80, { channel = 1 } )  --music track
    audio.setVolume( 0.80, { channel = 2 } )  --ui
    audio.setVolume( 0.8,  { channel = 3 } )  --Lesser
-   audio.setVolume( 1.0,  { channel = 4 } )  --alien voice
-   audio.setVolume( 0.25, { channel = 5 } )  --weak explosion
 end
 
 function sfx:play(name, options)
@@ -47,8 +62,10 @@ function sfx:play(name, options)
     end
     if options.channel then
       audio.stop(options.channel)
+      return audio.play(self[name].handle, options)
     end
-    return audio.play(self[name].handle, options)
+    return audio.play(self[name].handle)
+    
 end
 
 function sfx:pause(channel)

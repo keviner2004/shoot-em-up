@@ -21,6 +21,7 @@ function scene:insertButtons()
     local startButton = self:newButton("~Start~")
     startButton.buttonView.alpha = 0
     startButton.buttonText.size = 60
+    startButton.pressSound = "start"
     startButton.buttonView.isHitTestable = true
     function blink(show)
         if not show then

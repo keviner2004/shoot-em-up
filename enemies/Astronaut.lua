@@ -4,6 +4,7 @@ local move = require("move")
 local Astronaut = {}
 
 Astronaut.new = function(options)
+    options.deadSound = "scream"
     local astronaut = Enemy.new(options)
     local sprite = Sprite.new("Astronauts/18")
     astronaut.dir = 0

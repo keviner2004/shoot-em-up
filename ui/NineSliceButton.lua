@@ -8,6 +8,7 @@ local NineSliceButton = {}
 NineSliceButton.new = function(name, w, h, l)
     local path = string.format("UI/%s/9-slices", name)
     local button = display.newGroup()
+    button.pressSound = "button"
     button.createView = function(self, w, h)
         self.w = w
         self.h = h
@@ -78,7 +79,7 @@ NineSliceButton.new = function(name, w, h, l)
     --button:addEventListener("touch", self)
     
     function button:playSound()
-        sfx:play("button")
+        sfx:play(self.pressSound)
     end
 
     function button:onTouch(func, propagating)

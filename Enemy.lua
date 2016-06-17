@@ -3,6 +3,7 @@ local move = require("move")
 local Item = require("Item")
 local GameObject = require("GameObject")
 local Sprite = require("Sprite")
+local sfx = require("sfx")
 
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
@@ -16,6 +17,8 @@ Enemy.new = function(options)
     enemy.damage = 10
     enemy.name = "enemy"
     enemy.type = "enemy"
+    enemy.hurtSound = options.hurtSound or "hurt"
+    enemy.deadSound = options.deadSound or "explosion"
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items) or {}
     enemy.score = 1
@@ -107,6 +110,14 @@ Enemy.new = function(options)
         end
     end
 
+    function enemy:playHurtSound()
+        sfx:play(self.hurtSound)
+    end
+
+    function enemy:playDeadSound()
+       sfx:play(self.deadSound) 
+    end
+
     function enemy:unHurtEffect()
         print("apply unhurt effect")
         function blend(obj)
@@ -128,6 +139,7 @@ Enemy.new = function(options)
             self:onHurt(damage, crime)
             --self:unHurtEffect()
             if self.hp <= 0 then
+                self:playDeadSound()
                 timer.performWithDelay(1, 
                     function(event)
                         self:onDead(crime)
@@ -142,6 +154,8 @@ Enemy.new = function(options)
                         end
                     end
                 )
+            else
+                self:playHurtSound()
             end
         end
     end

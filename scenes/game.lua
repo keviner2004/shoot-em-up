@@ -231,10 +231,9 @@ function scene:startGame()
     --main character
     self.mainCharacter = Character.new({lifes = PLAYER_LIFES, fingerSize = 50, fireRate = 500, controlType = "follow"})
     self.mainCharacter.x = display.contentWidth / 2
-    self.mainCharacter.y = display.contentHeight / 5 * 4
+    self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()
     self.mainCharacter:autoShoot()
-
 
     self.mainCharacter.onScoreChanged = function(character, score)
         print("Set score "..score)
@@ -317,7 +316,15 @@ function scene:startGame()
         end
     end 
     --]] 
-    self.level:start()
+
+    transition.to(self.mainCharacter, {
+        y = display.contentHeight / 5 * 4,
+        onComplete = function()
+            self.level:start({delay = 800})
+        end
+    })
+
+    
     --add to group
 
     sceneGroup:insert(self.mainGroup)

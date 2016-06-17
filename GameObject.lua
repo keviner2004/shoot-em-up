@@ -135,6 +135,11 @@ GameObject.new = function (options)
         end
     end
 
+    function object:away()
+        self.x = -1000
+        self.y = -1000
+    end
+
     function object:slow()
         self.shifting = 0.5
     end

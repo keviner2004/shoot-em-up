@@ -11,8 +11,9 @@ function util.isExist(obj)
     end
 end
 
-function util.addTimerUtil(obj)
-    
+function util.away(obj)
+    obj.x = -1000
+    obj.y = -1000
 end
 
 return util
