@@ -1,6 +1,8 @@
 local PVector = require("move.PVector")
 local enterFrame = require("enterFrame")
 local util = {}
+local logger = require("logger")
+local TAG = "move.util"
 
 util.enterFrameContainer = {}
 --then wrapped enter frame function will be the object is disapeared
@@ -9,10 +11,11 @@ util.addEnterFrameListener = function(obj, func, options)
         util.enterFrameContainer[obj] = {}
     end
 
-    local m_enterFrame = function(event)
+    local m_enterFrame = nil
+    m_enterFrame = function(event)
         --print("debug: "..obj.name)
         if obj.x == nil then
-            --print("The object is missing")
+            logger:verbose(TAG, "The object is missing")
             if options and options.onDisapear then
                 options.onDisapear(obj)
             end
@@ -24,11 +27,13 @@ util.addEnterFrameListener = function(obj, func, options)
             return
         end
         if func(event) then
-            print("m_enterFrame is interrupted")
+            logger:verbose(TAG, "m_enterFrame is interrupted")
             util.removeEnterFrameListener(obj, m_enterFrame)
         end
     end
+    logger:verbose(TAG, "insert enterframe 1")
     table.insert(util.enterFrameContainer[obj], m_enterFrame)
+    logger:verbose(TAG, "insert enterframe 2")
     enterFrame:each(m_enterFrame, "movelib")
     return m_enterFrame
 end
@@ -39,14 +44,17 @@ util.removeEnterFrameListener = function(obj, f)
         return
     end
     if not f then
+        logger:verbose(TAG, "remove all enterFrame")
         for i, v in ipairs(util.enterFrameContainer[obj]) do
             enterFrame:cancel(v)
         end
         util.enterFrameContainer[obj] = nil
     else
+        logger:verbose(TAG, "remove specified enterFrame")
         local ind = table.indexOf(util.enterFrameContainer[obj], f)
         if ind and ind > 0 then
             table.remove(util.enterFrameContainer[obj], ind)
+            enterFrame:cancel(f)
         else
             print("[Fetal error] remove nil func")
         end

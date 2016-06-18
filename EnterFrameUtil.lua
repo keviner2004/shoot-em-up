@@ -24,12 +24,8 @@ Util.new = function (options)
         TAG = "EnterFrame.".._M.owner
     end
 
-    -- Call f next frame
-    function _M:next(f)
-        timer.performWithDelay(1, f)
-    end
     -- For internal use
-    function _M:enterFrame(event)  
+    function _M:enterFrame(event)
         logger:verbose(TAG, "call ========== start")
         for i, v in pairs(self:getItems()) do
             logger:verbose(TAG, "call %dth func with tag: %s", i, v.tag )
@@ -48,7 +44,6 @@ Util.new = function (options)
 
     -- Call f each frame
     function _M:each(f, tag)
-        --print("add ", f)
         --remove at next frame
         if self.numOfItems == 0 then
             Runtime:addEventListener('enterFrame', self)
@@ -57,7 +52,9 @@ Util.new = function (options)
             logger:error("f cannot be nil ")
             return
         end
+        logger:verbose(TAG, "add f")
         _M:add({f = f, tag = tag or ""})
+        logger:verbose(TAG, "add f done")
     end
 
     -- Stop calling f

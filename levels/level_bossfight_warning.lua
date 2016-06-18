@@ -1,5 +1,6 @@
 local Sublevel = require("Sublevel")
 local GameObject = require("GameObject")
+local sfx = require("sfx")
 
 local sublevel = Sublevel.new("", "", {duration = 4000})
 function sublevel:show(options)
@@ -23,6 +24,7 @@ function sublevel:show(options)
     warning:insert(warnigText1)
     warning:insert(warnigText2)
     warning:insert(warnigText3)
+    self.warningChannel = sfx:play("warning", {loops = -1})
     transition.blink(warning, {time = 2000, onRepeat = 
         function (event)
         -- body
@@ -32,6 +34,11 @@ function sublevel:show(options)
             end
     end})
     self.view:insert(warning)
+end
+
+function sublevel:finish()
+    print("warning level complete")
+    sfx:stop(self.warningChannel)
 end
 
 return sublevel

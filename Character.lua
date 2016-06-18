@@ -45,7 +45,7 @@ Character.new = function (options)
     character.power = 1
     character.maxPower = 3
     character.boundRad = 25
-    character.damage = 10
+    character.damage = 0
     character.backpack = Backpack.new()
     character:belongTo(PHYSIC_CATEGORY_CHARACTER)
     character:collideWith(PHYSIC_CATEGORY_ENEMY, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ITEM, PHYSIC_CATEGORY_MISSILE, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_VICTIM)

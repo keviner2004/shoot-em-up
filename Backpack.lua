@@ -1,4 +1,7 @@
+local logger = require("logger")
 local Backpack = {}
+
+local TAG = "Backpack"
 
 Backpack.new = function(options)
     local backpack = {}
@@ -29,9 +32,12 @@ Backpack.new = function(options)
     function backpack:add(item)
         item._backpackid = self:getItemId()
         if not item._backpackid then
+            logger:error(TAG, "no backpack id found")
             return nil
         end
+        logger:verbose(TAG, "Add item to backpack")
         self.items[item._backpackid] = item
+        logger:verbose(TAG, "Add item to backpack done")
         self.numOfItems = self.numOfItems + 1
         return item._backpackid
     end

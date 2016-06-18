@@ -1,6 +1,8 @@
 local util = require("move.util")
+local logger = require("logger")
 local PVector = require("move.PVector")
 local M = {}
+local TAG = "follow"
 
 M.smoothTransition = function(target, options)
     --target.x = target.x + ((options and options.dampX) or 0)
@@ -50,6 +52,8 @@ M.smoothTransition = function(target, options)
             else
                 target.x = target.x + offsetX
             end
+        else
+            isDoneX = true
         end
         
         if target.y ~= options.y then
@@ -63,16 +67,19 @@ M.smoothTransition = function(target, options)
                 isDoneY = true
             else
                 target.y = target.y + offsetY   
-            end 
+            end
+        else
+            isDoneY = true
         end
 
         if isDoneX and isDoneY then
-            --print("Complete")
-            util.removeEnterFrameListener(target)
+            logger:verbose(TAG, "Complete, return true for finish smooth move")
+            --util.removeEnterFrameListener(target)
             options.onComplete((remainX^2 + remainY^2)^0.5)
-            return
+            return true
         end
     end
+    logger:verbose(TAG, "Add enterframe listener for smooth move")
     util.addEnterFrameListener(target, trans, options)
 end
 
@@ -176,7 +183,7 @@ function M.follow( obj, pathPoints, params)
             --print("dist: "..dist..", t: "..transTime)
             if transTime >= (1000 / display.fps) then
                 rotation()
-                --print("smooth transition with time: "..transTime.. ", point: "..obj.nextPoint)
+                logger:verbose(TAG, "smooth transition with time: "..transTime.. ", point: "..obj.nextPoint)
                 M.smoothTransition( obj, {
                 --transition.to( obj, {
                     time = transTime,

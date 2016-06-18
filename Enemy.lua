@@ -17,8 +17,8 @@ Enemy.new = function(options)
     enemy.damage = 10
     enemy.name = "enemy"
     enemy.type = "enemy"
-    enemy.hurtSound = options.hurtSound or "hurt"
-    enemy.deadSound = options.deadSound or "explosion"
+    enemy.hurtSound = (options and options.hurtSound) or "hurt"
+    enemy.deadSound = (options and options.deadSound) or "explosion"
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items) or {}
     enemy.score = 1
@@ -63,7 +63,10 @@ Enemy.new = function(options)
     end
 
     function enemy:setDefaultBullet(class, options)
-        if options and not options.fireTo then
+        if not options then
+            options = {}
+        end
+        if not options.fireTo then
             options.fireTo = "character"
         end
         --print("Add default bullet: "..class.." to enemy")
@@ -72,6 +75,7 @@ Enemy.new = function(options)
     end
 
     function enemy:shoot(options)
+        sfx:play("shot")
         local x = options.x or self.x
         local y = options.y or self.y
         local degree = options.degree or 0
@@ -82,6 +86,7 @@ Enemy.new = function(options)
         bullet.y = y
         --print("Shoot dir "..degree)
         bullet:setLinearVelocity( speed * math.cos(math.rad(degree)), - speed * math.sin(math.rad(degree)))
+        self.parent:insert(bullet)
         self:toFront()
     end
 
@@ -95,7 +100,9 @@ Enemy.new = function(options)
                         blend(obj[i])
                     end
                 else
-                    obj.fill.blendMode = "screen"
+                    if obj.fill then
+                        obj.fill.blendMode = "screen"
+                    end
                     --obj.fill.effect = "filter.brightness"
                 end
             end
@@ -126,7 +133,9 @@ Enemy.new = function(options)
                     blend(obj[i])
                 end
             else
-                obj.fill.blendMode = "normal"
+                if obj.fill then
+                    obj.fill.blendMode = "normal"
+                end
             end
         end
         blend(self) 

@@ -6,8 +6,9 @@ local Enemy = require("Enemy")
 local Square = require("ui.Square")
 local GlassPanel = require("ui.GlassPanelEmpty")
 local Sprite = require("Sprite")
-local Ufo = require("enemies.AlienUFOs")
+local Ufo = require("enemies.AlienUFO")
 local util = require("util")
+local sfx = require("sfx")
 local bossId = 0
 
 Boss.new = function(player, options)
@@ -44,6 +45,7 @@ Boss.new = function(player, options)
     --timer.performWithDelay(1, function()
     
     --end)
+    boss:setDefaultBullet("bullets.BossBullet")
 
     boss.preCollision = function(self, event)
         --print("boss before hit by "..event.other.name)
@@ -248,6 +250,7 @@ Boss.new = function(player, options)
         if self:isStage1()then
             self:rotateBullet(function()
                 self:bashToCharacter(function()
+                    print("bash complete, is finish?")
                     self:stage1(onComplete)
                 end)
             end)
@@ -304,6 +307,7 @@ Boss.new = function(player, options)
                 return
             end
             --print("New missle")
+            sfx:play("surround")
             local num = 3
             for i = 1, num do
                 local missile = Missile.new({fireTo = "character"})
@@ -317,6 +321,7 @@ Boss.new = function(player, options)
                     end
                     move.stop(missile)
                     --print("Frie! "..missile.rotation)
+                    sfx:play("seek")
                     missile:seek(self.player, {degree = 360 - missile.rotation, magnitude = 450})
                 end)
             end
@@ -387,6 +392,7 @@ Boss.new = function(player, options)
     end
 
     function boss:split()
+        sfx:play("split")
         local newBoss1 = self:clone()
         local newBoss2 = self:clone()
         boss.parent:insert(newBoss1)
@@ -466,10 +472,12 @@ Boss.new = function(player, options)
     end
 
     function boss:bashToCharacter(onComplete)
+        sfx:play("bash")
         if not util.isExist(self.player) then
             return
         end
         self.ignoreWall = true
+
         move.toward(self, {
             radius = math.atan2(self.player.y - self.y, self.player.x - self.x), 
             offsetX = 15,
@@ -495,37 +503,27 @@ Boss.new = function(player, options)
             y = display.contentHeight / 2,
             time = 1000, 
             onComplete = function()
-                local i = self:addTimer(200, function ()
-                    local bullet = BossBullet.new()
-                    self.parent:insert(bullet)
-                    bullet.onDestroy = function()
-                        print("bullet detroyed")
-                    end
-                    self.parent:insert(bullet)
-                    bullet.x = self.x
-                    bullet.y = self.y
-                    move.toward(bullet, {degree = startDegree})
-                    startDegree = startDegree + devision
-                end, count)
-                print("use timer ", i)
-                self:addTimer(200*count, function ()
-                    self:addTimer(200, function ()
-                        local bullet = BossBullet.new()
-                        self.parent:insert(bullet)
-                        bullet.onDestroy = function()
-                            print("bullet detroyed")
-                        end
-                        bullet.x = self.x
-                        bullet.y = self.y
-                        move.toward(bullet, {degree = startDegree})
-                        startDegree = startDegree - devision
-                    end, count)
+                local i = self:addTimer(200, 
+                    function ()
+                        self:shoot({degree = startDegree})
+                        startDegree = startDegree + devision
+                    end, 
+                count)
+                self:addTimer(200*count, 
+                    function ()
+                    self:addTimer(200, 
+                        function ()
+                            self:shoot({degree = startDegree})
+                            startDegree = startDegree - devision
+                        end, 
+                    count)
                 end)
 
-                self:addTimer(400*count, function()
-                    if onComplete then
-                        onComplete()
-                    end
+                self:addTimer(400*count, 
+                    function()
+                        if onComplete then
+                            onComplete()
+                        end
                 end)
             end
         })

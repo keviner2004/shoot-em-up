@@ -4,7 +4,7 @@ local GameObject = require("GameObject")
 local move = require("move")
 local Beam = {}
 local Sprite = require("Sprite")
-
+local sfx = require("sfx")
 Beam.new = function (options)
     print("beam")
     --local beam = GameObject.new()
@@ -60,7 +60,7 @@ Beam.new = function (options)
             return
         end
         local l = self:getLength()
-        print("resize with len "..l)
+        --print("resize with len "..l)
         self.x = self.defaultX - (l/2 - self.segs[1].height/2) * math.sin(math.rad(self.rotation)) 
         self.y = self.defaultY + (l/2 - self.segs[1].height/2) * math.cos(math.rad(self.rotation))
         self.myCircle.x = self.x
@@ -101,6 +101,7 @@ Beam.new = function (options)
     end
 
     function beam:shoot()
+        sfx:play("fallingLaser")
         print("shoot")
         local max =  self.rotation + self.range
         local min =  self.rotation - self.range
@@ -180,7 +181,7 @@ Beam.new = function (options)
     end
 
     function beam:resizeBody()
-        print("resize with body "..self.segs.height/2)
+        --print("resize with body "..self.segs.height/2)
         self:setBody({
             box = {
                 halfWidth =self.segs.width/2,
@@ -200,6 +201,10 @@ Beam.new = function (options)
 
     function beam:stop()
         --print("beam is stopped")
+        if self.burstChannel then
+            print("stop burst audio channel", self.burstChannel)
+            sfx:stop(self.burstChannel)
+        end
         Runtime:removeEventListener("enterFrame", self.beamHandler)
 
     end
@@ -235,12 +240,15 @@ Beam.new = function (options)
             -- There's at least one hit
             --print( "Hit count: " .. tostring( #hits ) )
             -- Output the results
-            
             for i,v in ipairs( hits ) do
                 --print("hit "..v.object.type)
                 if v.object.type == "wall" then
                     if not self.burst then
                         self.burst = self:newBurst()
+                        
+                        self.burstChannel = sfx:play("burst", {loops = -1})
+                        print("stop burst audio channel", self.burstChannel)
+
                         self:insert(self.burst)
                     end
                     --self.burst.isVisible = true

@@ -62,7 +62,7 @@ Sublevel.new = function (name, author, options)
        self.timerUtil:removeTimer(id) 
     end
 
-    function sublevel:finish()
+    function sublevel:isFinish()
         --print("finished? ",self._finished)
         if self._finished then
             return true
@@ -74,16 +74,21 @@ Sublevel.new = function (name, author, options)
         print("Start check")
         self._check = function()
             --print("Check...")
-            if self:finish() then
+            if self:isFinish() then
                 print("Sublevel complete")
                 Runtime:removeEventListener( "enterFrame", self._check )
                 if self.onComplete then
                     print("Call oncomplete")
                     self.onComplete()
+                    self:finish()
                 end
             end
         end
         Runtime:addEventListener( "enterFrame", self._check )
+    end
+
+    function sublevel:finish()
+        
     end
 
     return sublevel

@@ -34,6 +34,7 @@ EnemyPlane.new = function(options)
         local effect = Effect.new({time=1000})
         effect.x = self.x
         effect.y = self.y
+        
     end
 
     function plane:onMovePoint(event)

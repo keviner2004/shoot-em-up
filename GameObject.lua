@@ -202,7 +202,7 @@ GameObject.new = function (options)
             print("Physics body is already removed")
             return 
         end
-        print("remove physics")
+        --print("remove physics")
         physics.removeBody(self)
         self:removeEventListener( "collision", self )
         self:removeEventListener( "preCollision", self )

@@ -171,8 +171,9 @@ function M.toward(obj, options)
             --print("dx: "..dx..", dy: "..dy)
             obj.x = obj.x + dx
             obj.y = obj.y + dy
+            local stopForward = false
             if options.back and M.isOut(obj) then
-                M.stop(obj)
+                stopForward = true
                 print("back mode enabled")
                 local rx = math.cos(rRad)
                 local ry = math.sin(rRad)
@@ -213,7 +214,7 @@ function M.toward(obj, options)
                         mode = "straight",
                         startPos = {x = startX, y = startY},
                         endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
-                        time = 2000,
+                        speed = 300,
                         autoRotation = options.autoRotation,
                         onComplete = function()
                             if options.onComplete then
@@ -221,6 +222,11 @@ function M.toward(obj, options)
                             end
                         end
                 })
+                print("back pos done")
+            end
+            if stopForward then
+                print("remove because out")
+                return true
             end
         end
     )
@@ -229,11 +235,6 @@ end
 function M.rotatAround(obj, options)
     local angle = options.startDegree or 0
     local function rotation()
-        if options.target.x == nil or obj.x == nil then
-            print("rotatAround failed because of object disapear")
-            M.stop(obj)
-            return
-        end
         obj.rotation = 360 - ((angle + 90 - obj.dir )%360)
         obj.x = options.target.x + options.distance * math.cos(math.rad(angle))
         obj.y = options.target.y - options.distance * math.sin(math.rad(angle))
@@ -242,6 +243,10 @@ function M.rotatAround(obj, options)
     print("start at "..angle)
     util.addEnterFrameListener(obj, 
         function()
+            if options.target.x == nil or obj.x == nil then
+                print("rotatAround failed because of object disapear")
+                return true
+            end
             rotation()
             angle = (angle + options.speed)%360
         end

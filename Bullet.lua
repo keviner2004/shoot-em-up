@@ -46,43 +46,35 @@ Bullet.new = function(options)
     bullet.owner = options and options.owner
     bullet:enableAutoDestroy()
 
-    bullet.preCollision = function(self, event)
-        if event.contact then
-            print("Disable bullet physic")
-            event.contact.isEnabled = false
-        end
-        bullet:afterHit(event)
-    end
-
     bullet.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
-        --print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
+        print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
         if event.phase == "began" then
-            bullet:onHit(event)
-            if bullet.isSensor then
-                bullet:afterHit(event)
-            end
+            bullet:hit(event)
         end
     end
 
-    bullet:addEventListener("collision", bullet)
-    bullet:addEventListener("preCollision", bullet)
+    function bullet:showDestroyEffect()
 
-
-    function bullet:afterHit(event)
-        --print(self.name.." after hit")
-        self:clear()
     end
 
-    function bullet:onHit(event)
-        --local destroyedBullet = display.newSprite( myImageSheet , {frames={sheetInfo:getFrameIndex("Lasers/laserGreen14")}} )
-        --destroyedBullet.x, destroyedBullet.y = self:localToContent(event.x, event.y)
-        --destroyedBullet.x, destroyedBullet.y = event.x, event.y
-        --destroyedBullet.x = self.x
-        --destroyedBullet.y = self.y - self.height/2
-        --transition.to(destroyedBullet, {time = 50, alpha = 0, onComplete = function()
-        --    destroyedBullet:removeSelf()
-        --end})
+    function bullet:playDestroySound()
+
+    end
+
+    function bullet:hit(event)
+        print(self.name.." show destroy effect hit 2")
+        self:showDestroyEffect()
+        
+        print(self.name.."play sound hit 2")
+        self:playDestroySound()
+
+        print(self.name.." after hit 2")
+        self:afterHit()
+    end
+
+    function bullet:afterHit(event)
+        self:clear()
     end
 
     return bullet

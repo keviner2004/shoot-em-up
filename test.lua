@@ -1,8 +1,8 @@
-a = {}
-b = {}
-t = {}
+local tbl = {1,2,3,4}
 
-t[a] = 1
-t[b] = 5
-
-print(t[a])
+for k, v in pairs(tbl) do
+  print(v)
+  if (v == 3) then
+    tbl = {}
+  end
+end

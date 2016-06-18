@@ -1,4 +1,5 @@
 local logger = require("logger")
+local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
 local TAG = "Level"
 local Level = {}
@@ -142,11 +143,15 @@ Level.load = function()
         --show the level name
         --boss fight
         if self.levels[idx].isBossFight then
+            sfx:fadeOut(sfx.CHANNEL_BG, 1000)
             local warningLevel = require("levels.level_bossfight_warning")
             warningLevel:init(self.scene, self.view, self.players, self.stageSpeed, self.game, {
                 onComplete = function()
-                    --self:showInfo()
+                    logger:debug(TAG, "Boss level %d", idx)
                     self.currentSublevel = self.levels[idx]
+                    logger:debug(TAG, "play boss music")
+                    sfx.changeSound = true
+                    sfx:play("bgBoss", {loops = -1})
                     self.levels[idx]:start()
                 end
             })
@@ -156,6 +161,10 @@ Level.load = function()
             logger:debug(TAG, "Normal level %d", idx)
             self.currentSublevel = self.levels[idx]
             self:showInfo()
+            if self.changeSound then
+                sfx:play("bg", {loops = -1})
+                self.changeSound = false
+            end
             self.levels[idx]:start()
         end
     end
