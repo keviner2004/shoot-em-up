@@ -89,6 +89,8 @@ M.followN = function(target, points, options)
     moveObj.target = target
     moveObj.autoRotation = options.autoRotation
     moveObj.pIdx = 0
+    moveObj.lastTimestamp = 0
+    moveObj.speed = (options and options.speed) or 200
     if ( options.showPoints == true ) then
         local pathPointsGroup = display.newGroup()
         for p = 1,#points do
@@ -111,15 +113,13 @@ M.followN = function(target, points, options)
         --print("move init 2 ")
         self.x = self.points[self.pIdx].x
         self.y = self.points[self.pIdx].y
-        local desired = PVector.new({x = self.x - target.x, y = self.y - target.y})
-        local d = desired:meg()
-        local speed = (options and options.speed) or 200
-        local duration = (options and options.time) or 500
-        local offset = speed * (1 / display.fps)
-        desired:normalize()
-        desired:multi(offset)
-        self.offsetX = desired.x
-        self.offsetY = desired.y
+        self.desired = PVector.new({x = self.x - target.x, y = self.y - target.y})
+        local d = self.desired:meg()
+        local offset = self.speed * (1 / display.fps)
+        self.desired:normalize()
+        --self.desired:multi(offset)
+        self.offsetX = self.desired.x * offset
+        self.offsetY = self.desired.y * offset
         self.first = true
         --print("OffsetX: "..self.offsetX..", OffsetY:"..self.offsetY..", distance: "..d..", duration: "..duration)
         self.isDoneX = false

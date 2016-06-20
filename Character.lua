@@ -40,6 +40,7 @@ Character.new = function (options)
     character.fingerSize = options and options.fingerSize
     character.controlType = (options and options.controlType) or "follow"
     character.hp = (options and options.hp) or 1
+    character.maxHp = character.hp
     character.score = (options and options.score) or 0
     character.moveAngle = 0
     character.enableMove = false
@@ -84,7 +85,7 @@ Character.new = function (options)
         print("hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
         if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy"then
             print("hit2 by "..event.other.name..":"..self.hp)
-            if self.shield.opened then
+            if self.shield and self.shield.opened then
                 print("shield is open, ignore")
                 return
             end
@@ -106,15 +107,13 @@ Character.new = function (options)
         end
     end
 
-    character:addEventListener("preCollision", character)
-    character:addEventListener("collision", character)
-
     function character:onHurt(damage)
         print("onHurt, ch damage "..damage)
         self.hp = self.hp - damage
         if self.hp < 0 then
-            self.isDead = true
+            --self.isDead = true
             self:onDead()
+
         end
     end
 
@@ -127,20 +126,24 @@ Character.new = function (options)
     end
 
     function character:onRespawn(x, y)
-        local newCharacter = Character.new(character)
-        self.parent:insert(newCharacter)
-        newCharacter:openShield(3000)
-        newCharacter.x = x
-        newCharacter.y = y
-        newCharacter:startControl()
-        newCharacter:autoShoot()
-        newCharacter.onLifeChanged = character.onLifeChanged
-        newCharacter.onScoreChanged = character.onScoreChanged
-        newCharacter.onGameOver = character.onGameOver
-        newCharacter.onRespawned = character.onRespawned
-        newCharacter.control.target = newCharacter
+        --self.isDead = false
+        --local newCharacter = Character.new(character)
+        --self.parent:insert(newCharacter)
+        print("Character die reopenShield")
+        self:openShield(3000)
+        --self.x = x
+        --self.y = y
+        --self:startControl()
+        --self:autoShoot()
+        print("Character die reopen fill hp")
+        self.hp = self.maxHp
+        --newCharacter.onLifeChanged = character.onLifeChanged
+        --newCharacter.onScoreChanged = character.onScoreChanged
+        --newCharacter.onGameOver = character.onGameOver
+        --newCharacter.onRespawned = character.onRespawned
+        --newCharacter.control.target = newCharacter
 
-        self:onRespawned(newCharacter)
+        self:onRespawned(self)
     end
 
     function character:onRespawned(newCharacter)
@@ -177,7 +180,7 @@ Character.new = function (options)
     end
 
     function character:shoot()
-        if not character.x then
+        if not util.isExist(self) then
             print("Don't shoot!")
             return
         end
@@ -294,8 +297,8 @@ Character.new = function (options)
         if not self.shield then
             self.shield = Shield.new()
             self.parent:insert(self.shield)
-            self.shield.x = -500
-            self.shield.y = -500
+            self.shield.x = self.x
+            self.shield.y = self.y
             move.stick(self.shield, self)
         end
         self.shield:open(duration)
@@ -316,28 +319,43 @@ Character.new = function (options)
     function character:onDead()
         print("Character dead "..self.id)
         self:dropItems()
-        self.isDead = true
+        --self.isDead = true
         --emit partical
-        local effect = CircleExplosion.new({time = 800})
+        local effect = CircleExplosion.new({time = 1100})
+        sfx:play("playerDead")
+        if self.shield then
+            --self.shield:clear()
+            --self.shield:close()
+        end
         effect.x = self.x
         effect.y = self.y
         self.parent:insert(effect)
         self.lifes = self.lifes - 1
-        transition.to(self, {time = 500, alpha = 0, onComplete = function()
-            self:removeSelf()
-        end})
+        print("########### blink transition")
+        local blinkCount = 0
+        local blinkTransition = nil
+        blinkTransition = transition.blink(self, {time = 500, onRepeat  = 
+            function(event)
+                print("onrepeat!!!!")
+                blinkCount = blinkCount + 1
+                if blinkCount >= 3 then
+                    transition.cancel(blinkTransition)
+                    self.alpha = 1
+                end
+            end
+        })
         if self.lifes < 0 then
             print("Character is defeated")
             self.isDefeated = true
             self:cancelTimer()
             self:cancelControl()
             self:onGameOver()
+            self.shield:clear()
+            self:clear()
         else
             local respawnX, respawnY = self.x, self.y
             self:onLifeChanged(self.lifes)
-            self:addTimer(300, function()
-                self:onRespawn(respawnX, respawnY)
-            end)
+            self:onRespawn(respawnX, respawnY)
         end
     end
 

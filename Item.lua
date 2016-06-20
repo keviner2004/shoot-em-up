@@ -3,6 +3,7 @@ local GameObject = require("GameObject")
 local Glory = require("Effects.Glory")
 local Explosion = require("Effects.StarExplosion3")
 local Sprite = require("Sprite")
+local sfx = require("sfx")
 
 Item.new = function(sprites, options)
     local item = GameObject.new()
@@ -27,8 +28,13 @@ Item.new = function(sprites, options)
     function item:effect(receiver)
         self:disableAutoDestroy()
         self:visualEffect()
+        self:playGotSound()
         self:mentalEffect()
         print("Item effect the receiver")
+    end
+
+    function item:playGotSound()
+        sfx:play("scoreUp")
     end
 
     function item:visualEffect()

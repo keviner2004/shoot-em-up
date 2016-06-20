@@ -23,7 +23,7 @@ Ufo.new = function(options)
         if duration then
             self:addTimer(duration, function()
                 beam:stop()
-                beam:removeSelf()      
+                beam:removeSelf()
             end)
         end
     end

@@ -49,7 +49,7 @@ Util.new = function (options)
             Runtime:addEventListener('enterFrame', self)
         end
         if not f then
-            logger:error("f cannot be nil ")
+            logger:error(TAG, "f cannot be nil ")
             return
         end
         _M:add({f = f, tag = tag or ""})

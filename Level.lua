@@ -36,7 +36,7 @@ Level.load = function()
     level.currentSublevel = nil
     level.count = 0
     level.timerUtil = TimerUtil.new()
-    level.fightsBeforeEncounterBoss = 5
+    level.fightsBeforeEncounterBoss = CONFIG_FIGHT_BEFORE_ENCOUNTER_BOSS
     --Reqire all level module
     for i, v in ipairs(gmaeLevles) do
         local subLevel = require("levels."..v)
@@ -81,6 +81,11 @@ Level.load = function()
         self.game = game
     end
 
+    function level:setPlayer(players)
+        self.players = players
+        self.currentSublevel:setPlayer(players)
+    end
+
     function level:showInfo()
         local levelTitle = display.newGroup() 
         local levelNameTxt = display.newText(string.format("%s", self.currentSublevel.name), 0, 0, "kenvector_future_thin", 35)
@@ -115,6 +120,7 @@ Level.load = function()
     function level:startLevel()
         --Get a random level from levels
         if #self.levelCandidates == 0  then
+            logger:warn(TAG, "Repeat normal level")
             self:initLevelCandidate()
         end
 
@@ -129,7 +135,9 @@ Level.load = function()
             idx = self:pickupLevel(self.bossCandidates)
         elseif #self.levelCandidates > 0 then
             self.count = self.count + 1
+            logger:debug(TAG, "normal levels before pick "..#self.levelCandidates)
             idx = self:pickupLevel(self.levelCandidates)
+            logger:debug(TAG, "normal levels after pick "..#self.levelCandidates)
         end
 
         if idx == 0 then

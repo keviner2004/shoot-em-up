@@ -9,7 +9,7 @@ Shield.new = function(options)
     shield:collideWith(PHYSIC_CATEGORY_ENEMY)
     shield:collideWith(PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_MISSILE)
     shield:belongTo(PHYSIC_CATEGORY_SHIELD)
-    shield.damege = 999999999
+    shield.damage = 999999999
 
     function shield:open(time)
         if self.opened then
@@ -36,13 +36,17 @@ Shield.new = function(options)
 
     function shield:close()
         print("Close shield")
+        self.opened = false
         self:removePhysics()
         print("Remove shield physics")
-        transition.to(self, { alpha = 0, onComplete = 
+        transition.to(self.sprite, { alpha = 0, onComplete = 
             function()
-                self:clear()
-                print("clear")
-                self.opened = false
+                if self.sprite.removeSelf then
+                    self.sprite:removeSelf()
+                end
+                --self:clear()
+                --print("clear")
+                --self.opened = false
             end
         })
     end

@@ -12,15 +12,19 @@ Sublevel.new = function (name, author, options)
     function sublevel:init(scene, view, players, stageSpeed, game, options)
         self.timerUtil = TimerUtil.new()
         self.onComplete = options and options.onComplete
-        self.players = players
-        self.player = players[1]
-        self.firstPlayer = players[1]
-        self.secondPlayer = players[2]
+        self:setPlayer(players)
         self.stageSpeed = stageSpeed
         self.view = view        
         self.scene = scene
         self.game = game
         self._finished = false
+    end
+
+    function sublevel:setPlayer(players)
+        self.players = players
+        self.player = players[1]
+        self.firstPlayer = players[1]
+        self.secondPlayer = players[2]        
     end
 
     function sublevel:start(options)

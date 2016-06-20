@@ -3,7 +3,7 @@ local Meteor = {}
 
 Meteor.new = function()
     local asteroid = Asteroid.new("Meteors/Med/4")
-    asteroid:addPhysic()
+    asteroid:enablePhysics()
     return asteroid
 end
 

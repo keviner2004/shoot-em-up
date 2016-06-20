@@ -26,7 +26,7 @@ Victim.new = function()
         radius = victim.sprite.height * 1.5
     })
 
-    victim.time = 5000
+    victim.time = 3000
     victim.remainTime = victim.time
     victim.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
@@ -54,7 +54,7 @@ Victim.new = function()
 
     function victim:clearIndicator()
         print("clearIndicator")
-        Runtime:removeEventListener( "enterFrame", self._drawLine)
+        self.enterFrame:cancel(self._drawLine)
         self._drawLine = nil
     end
 
@@ -129,11 +129,13 @@ Victim.new = function()
                 self:insert(self.sprite)
                 return
             end
-            self._line = display.newLine( self.parent, self.x, self.y, target.x, target.y)
+            if target.x and target.y then
+                self._line = display.newLine( self.parent, self.x, self.y, target.x, target.y)
+            end
             --self._line:setStrokeColor( 1, 0, 0, 1 )
             self._line.strokeWidth = 3
         end
-        Runtime:addEventListener( "enterFrame", self._drawLine)
+        self.enterFrame:each(self._drawLine)
     end
 
     --time:milisecond

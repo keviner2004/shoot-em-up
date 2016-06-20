@@ -10,7 +10,7 @@ Enemy.new = function(options)
     local enemy = GameObject.new(options)
     enemy:addTag(enemy)
     enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
-    enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET)
+    enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_SHIELD)
     enemy:setBody({
         type = "dynamic",
         isSensor = true        
@@ -22,7 +22,7 @@ Enemy.new = function(options)
     enemy.deadSound = (options and options.deadSound) or "explosion"
     enemy.hp = (options and options.hp) or 50
     enemy.items = (options and options.items) or {}
-    enemy.score = 1
+    enemy.score = 100
     enemy.defaultBullet = {
         class = "bullets.CircleBullet",
         params = {
@@ -45,7 +45,7 @@ Enemy.new = function(options)
 
     enemy.collision = function(self, event)
         --print("enemy hit by "..event.other.name..":"..self.hp..", x:"..event.x..",y:"..event.y)
-        if event.other.name == "character" then
+        if event.other.name == "character" or event.other.name == "shield" then
             self:hurt(event.other.damage, event.other)
         elseif event.other.name == "bullet" then
             self:hurt(event.other.damage, event.other.owner)
@@ -122,6 +122,8 @@ Enemy.new = function(options)
         local effect = Effect.new({time=1000})
         effect.x = self.x
         effect.y = self.y
+        effect:enablePhysics()
+        effect:setLinearVelocity( 0, CONFIG_STAGE_SPEED )
         self.parent:insert(effect)
     end
 
@@ -185,7 +187,7 @@ Enemy.new = function(options)
     function enemy:onDead(crime)
         print("Enemy onDead")
         physics.removeBody(self)
-        transition.to(self, {alpha = 0, onComplete = 
+        transition.to(self, {time = 0, alpha = 0, onComplete = 
             function ( ... )
                 self:clear()    
         end})

@@ -42,7 +42,7 @@ Bullet.new = function(options)
 
     bullet.type = "bullet"
     bullet:setName("bullet")
-    bullet.damage = 10
+    bullet.damage = 20
     bullet.owner = options and options.owner
     bullet:enableAutoDestroy()
 

@@ -27,7 +27,7 @@ function sublevel:show(options)
     station.y = -station.height/2
     --station.y = display.contentHeight/2
     station:enablePhysics()
-    station:setLinearVelocity( 0, self.stageSpeed )
+    
     turret1.base.rotation = 15
     turret2.base.rotation = 15
     turret3.base.rotation = 15
@@ -37,34 +37,32 @@ function sublevel:show(options)
     turret3:startShootLoop(600)
     astronaut:startShootLoop()
 
-    move.stick(turret1, station, {
-        offsetX = station.width * 0.48, 
-        offsetY = -station.height * 0.16
-    })
+    turret1.x = station.x + station.width * 0.48
+    turret1.y = station.y -station.height * 0.16
 
-    move.stick(turret2, station, {
-        offsetX = 0, 
-        offsetY = 0
-    })
+    turret2.x = station.x
+    turret2.y = station.y
 
-    move.stick(turret3, station, {
-        offsetX = -station.width * 0.22, 
-        offsetY = -station.height * 0.295
-    })
+    turret3.x = station.x -station.width * 0.22
+    turret3.y = station.y -station.height * 0.295
     
-    move.stick(line, station, {
-        offsetX = -station.width * 0.4, 
-        offsetY = -station.height * 0.45
-    })
+    line.x = station.x -station.width * 0.4
+    line.y = station.y -station.height * 0.45
 
-    move.stick(astronaut, station, {
-        offsetX = -station.width * 0.55, 
-        offsetY = -station.height * 0.45
-    })
+    astronaut.x = station.x -station.width * 0.55
+    astronaut.y = station.y -station.height * 0.45
+
+    station:setLinearVelocity( 0, self.stageSpeed )
+    turret1:setLinearVelocity( 0, self.stageSpeed )
+    turret2:setLinearVelocity( 0, self.stageSpeed )
+    turret3:setLinearVelocity( 0, self.stageSpeed )
+    astronaut:setLinearVelocity( 0, self.stageSpeed )
+    line:enablePhysics()
+    line:setLinearVelocity( 0, self.stageSpeed )
 
     station:callWhenInStage(
         function()
-            print("station is on stage")
+            print("********station is on stage")
             station:enableAutoDestroy()
         end
     )
@@ -108,13 +106,11 @@ function sublevel:show(options)
     self.view:insert(turret1)
     self.view:insert(turret2)
     self.view:insert(turret3)
-    
     self.view:insert(astronaut)
-
     self.station = station
 end
 
-function sublevel:finish()
+function sublevel:isFinish()
     if not util.isExist(self.station) then
         return true
     end

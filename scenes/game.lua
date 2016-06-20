@@ -304,13 +304,14 @@ function scene:startGame()
             composer.showOverlay( "scene.victory", options )
         end)
     end
-
-    self.mainCharacter.onRespawned = function(obj, newCharacter)
-        print("set boss player to new player")
-        self.boss.player = newCharacter
-    end
-
     --]]
+    --[[
+    self.mainCharacter.onRespawned = function(obj, newCharacter)
+        print("set new player to level")
+        self.level:setPlayer({newCharacter})
+    end
+    --]]
+
     --update ui according the player
 
     self.playerLifeText.text = self.mainCharacter.lifes
@@ -368,7 +369,7 @@ function scene:checkScore(afterCheck)
                 end
             }
         }
-        composer.showOverlay( "scene.newHighScore", options )
+        composer.showOverlay( "scenes.newHighScore", options )
     else
         self.helper:syncHighScore()
         if afterCheck then

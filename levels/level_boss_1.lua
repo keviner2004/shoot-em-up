@@ -28,15 +28,12 @@ function sublevel:show(options)
                     end
                 }
             }
+            if self.player.openShield then
+                self.player:openShield()
+            end
             composer.showOverlay( "scenes.victory", options )
         end)
     end
-
-    self.player.onRespawned = function(obj, newCharacter)
-        print("set boss player to new player")
-        self.boss.player = newCharacter
-    end
-
 end
 
 return sublevel

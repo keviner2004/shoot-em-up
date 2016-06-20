@@ -95,6 +95,10 @@ function M.pointTo(obj, target)
     end
     util.addEnterFrameListener(obj,
         function(event)
+            if not target or not target.x or not target.y then
+                print("You need to pass a target when you use pointTo")
+                return true
+            end
             local srcX = obj.x
             local srcY = obj.y
             local dstX = target.x
@@ -102,7 +106,7 @@ function M.pointTo(obj, target)
             if obj.localToContent then
                 srcX, srcY = obj:localToContent(0, 0)
             end
-            if obj.localToContent then
+            if target.localToContent then
                 dstX, dstY = target:localToContent(0, 0)
             end
             
