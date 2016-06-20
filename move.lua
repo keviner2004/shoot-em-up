@@ -10,6 +10,7 @@ local util = require("move.util")
 M.angleBetween = util.angleBetween
 M.distBetween = util.distBetween
 M.follow = follow.follow
+M.followN = follow.followN
 M.getCurve = curve.getCurve
 
 local function radiusBetween( srcX, srcY, dstX, dstY , degree)
@@ -210,17 +211,14 @@ function M.toward(obj, options)
                 end
 
                 print("back pos is "..startX, startY)
-                M.move(obj, {
-                        mode = "straight",
-                        startPos = {x = startX, y = startY},
-                        endPos = {x = obj.m_defaultX, y = obj.m_defaultY},
-                        speed = 300,
-                        autoRotation = options.autoRotation,
-                        onComplete = function()
-                            if options.onComplete then
-                                options.onComplete()
-                            end
-                        end
+                obj.x = startX
+                obj.y = startY
+                transition.to(obj, {x = obj.m_defaultX, y = obj.m_defaultY, time = 1000, onComplete = 
+                    function()
+                        if options.onComplete then
+                            options.onComplete()
+                        end                        
+                    end
                 })
                 print("back pos done")
             end

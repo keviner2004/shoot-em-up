@@ -48,7 +48,9 @@ Level.load = function()
     function level:initLevelCandidate()
         self.levelCandidates = {}
         for i, v in ipairs(self.levels) do
-            table.insert(self.levelCandidates, i)
+            if not v.isBossFight then
+                table.insert(self.levelCandidates, i)
+            end
         end
         logger:debug(TAG, "numOfNormalLevel: %d", #self.levelCandidates)
     end

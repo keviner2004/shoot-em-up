@@ -14,6 +14,10 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local Score = require("ui.Score")
 local widget = require("widget")
+local logger = require("logger")
+
+local TAG = "gamescene"
+
 system.setIdleTimer( false )
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
@@ -98,9 +102,8 @@ function scene:create( event )
     sceneGroup:insert(bottomWall)
     sceneGroup:insert(playerLife)
     sceneGroup:insert(self.pauseButton)
-
 end
- 
+
 function scene:touch(event)
     if event.phase == "began" then
         transition.cancel(self.pauseButton)
@@ -135,7 +138,11 @@ function scene:fpsMesure()
         if count == 10 then
             --print("FPS mesure: "..dt)
             self.fpsText.text = math.round(dt * 100)
+
             count = 0
+        end
+        if dt * 100 > 150 then
+            logger:warn(TAG, "FPS: "..dt* 150)
         end
     end
     Runtime:addEventListener("enterFrame", frameUpdate)
@@ -229,7 +236,7 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = PLAYER_LIFES, fingerSize = 50, fireRate = 500, controlType = "follow"})
+    self.mainCharacter = Character.new({lifes = PLAYER_LIFES, fingerSize = 50, fireRate = 500, controlType = "both"})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()
@@ -338,7 +345,6 @@ function scene:startGame()
     else
         self.mainCharacter:openShield(3000)
     end
-
 end
 
 function scene:checkScore(afterCheck)

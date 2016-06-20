@@ -385,6 +385,9 @@ Boss.new = function(player, options)
         The boss in stage 3 will clone itself to attack the player
     --]]
     function boss:stage3()
+        function boss:showDestroyEffect()
+            
+        end
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
             self:removeSelf()
         end})

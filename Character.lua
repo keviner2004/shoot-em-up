@@ -13,7 +13,11 @@ local util = require("util")
 local Backpack = require("Backpack")
 local id = 0
 local sfx = require("sfx")
+local logger = require("logger")
 local CircleExplosion = require("effects.CircleExplosion")
+
+local TAG = "Character"
+
 Character.new = function (options)
     local character = GameObject.new()
     character:addTag("character")
@@ -96,7 +100,7 @@ Character.new = function (options)
                 if util.isExist(event.other) then
                     self:onItem(event.other)
                 else
-                    print("Item "..event.item.name.."disapeared")
+                    
                 end
             end)
         end
@@ -180,7 +184,7 @@ Character.new = function (options)
         sfx:play("laser")
         if character.power <= 1 then
             --local bullet = Laser.new({fireTo = "enemy", owner = self})
-            local bullet = HomingLaser.new({fireTo = "enemy", owner = self})
+            local bullet = Laser.new({fireTo = "enemy", owner = self})
             bullet.x = self.x
             bullet.y = self.y
             bullet:setLinearVelocity(0, -2000)
@@ -341,21 +345,39 @@ Character.new = function (options)
 
     end
 
-    function character:autoShoot()
-        local tid = self:addTimer(self.fireRate,
-            function(event)
-                if self.x == nil then
-                    print("Character is dead, stop shoot timer "..event.tid)
-                    self:cancelTimer(event.tid)
-                    return
-                end
-                self:shoot()
-            end, -1)
-        print("Shooting timer "..tid)
+    function character:autoShoot(enable)
+        if enable == nil then
+            enable = true
+        end
+        if enable then
+            logger:debug(TAG, "Enable auto shoot")
+            self.tid = self:addTimer(self.fireRate,
+                function(event)
+                    if self.x == nil then
+                        print("Character is dead, stop shoot timer "..event.tid)
+                        self:cancelTimer(event.tid)
+                        return
+                    end
+                    self:shoot()
+                end, -1)
+            print("Shooting timer "..self.tid)
+        else
+            logger:debug(TAG, "disable auto shoot")
+            if self.tid then
+                self:cancelTimer(self.tid)
+            end
+        end
+        self.enableAutoShoot = enable
     end
+
+
 
     function character:explode()
 
+    end
+
+    function character:toggleAutoShoot()
+        self:autoShoot(not self.enableAutoShoot)
     end
 
     function character:powerUp()

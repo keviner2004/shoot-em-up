@@ -15,8 +15,8 @@ rankServerUrl = "http://163.18.2.162"
 
 gmaeLevles = {
     --"level_bossfight_warning"
-    "level_boss_1"
-    --"level_1"
+    "level_boss_1",
+    "level_1"
     --"level_5"
     --"level_test"
     --"level_bonus"

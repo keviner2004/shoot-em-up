@@ -83,6 +83,166 @@ M.smoothTransition = function(target, options)
     util.addEnterFrameListener(target, trans, options)
 end
 
+M.followN = function(target, points, options)
+    local moveObj = {}
+    moveObj.points = points
+    moveObj.target = target
+    moveObj.autoRotation = options.autoRotation
+    moveObj.pIdx = 0
+    if ( options.showPoints == true ) then
+        local pathPointsGroup = display.newGroup()
+        for p = 1,#points do
+            local dot = display.newCircle( pathPointsGroup, 0, 0, 8 )
+            dot:setFillColor( 1, 1, 1, 0.4 )
+            dot.x = points[p].x
+            dot.y = points[p].y
+        end
+        target.parent:insert(pathPointsGroup)
+        moveObj.pathPointsGroup = pathPointsGroup
+    end
+
+    options.onDisapear = function ()
+        if moveObj.pathPointsGroup then
+            moveObj.pathPointsGroup:removeSelf()
+        end
+    end
+
+    function moveObj:init()
+        --print("move init 2 ")
+        self.x = self.points[self.pIdx].x
+        self.y = self.points[self.pIdx].y
+        local desired = PVector.new({x = self.x - target.x, y = self.y - target.y})
+        local d = desired:meg()
+        local speed = (options and options.speed) or 200
+        local duration = (options and options.time) or 500
+        local offset = speed * (1 / display.fps)
+        desired:normalize()
+        desired:multi(offset)
+        self.offsetX = desired.x
+        self.offsetY = desired.y
+        self.first = true
+        --print("OffsetX: "..self.offsetX..", OffsetY:"..self.offsetY..", distance: "..d..", duration: "..duration)
+        self.isDoneX = false
+        self.isDoneY = false
+        self.remainX = 0
+        self.remainY = 0
+    end
+
+    function moveObj:getNextPoint()
+        return self.points[self.nextPIdx]
+    end
+
+    function moveObj:inc()
+        self.pIdx = self.pIdx + 1
+        --print("self.pIdx", self.pIdx)
+        self.nextPIdx = self.pIdx + 1
+        --print("self.nextPIdx", self.nextPIdx)
+    end
+
+    function moveObj:rotate()
+        if not self.autoRotation then
+            return
+        end
+        self.target.rotation = util.angleBetween(self.target.x, self.target.y, self.x, self.y) + self.target.dir
+    end
+
+    function moveObj:enterFrame(event)
+        if self.first then
+            self:rotate()
+            if options.onPoint then
+                options.onPoint()
+            end
+            self.first = false
+        end
+        if self.target.x ~= self.x then
+            if self.target.x < self.x and self.target.x + self.offsetX > self.x then
+                self.remainX = self.target.x + self.offsetX - self.x
+                self.target.x = self.x
+                self.isDoneX = true
+            elseif self.target.x > self.x and self.target.x + self.offsetX < self.x then
+                self.remainX = self.target.x + self.offsetX - self.x
+                self.target.x = self.x
+                self.isDoneX = true
+            else
+                self.target.x = self.target.x + self.offsetX
+            end
+        else
+            self.isDoneX = true
+        end
+        
+        if self.target.y ~= self.y then
+            if self.target.y < self.y and self.target.y + self.offsetY > self.y then
+                self.remainY = self.target.y + self.offsetY - self.y
+                self.target.y = self.y
+                self.isDoneY = true
+            elseif self.target.y > self.y and self.target.y + self.offsetY < self.y then
+                self.remainY = self.target.y + self.offsetY - self.y
+                self.target.y = self.y
+                self.isDoneY = true
+            else
+                self.target.y = self.target.y + self.offsetY   
+            end
+        else
+            self.isDoneY = true
+        end
+        --print("target.x: "..self.target.x..", target.y: "..self.target.y..", x: "..self.x..", y: "..self.y, self.isDoneX, self.isDoneY, self.pIdx)
+        if self.isDoneX and self.isDoneY then
+            self.remain = (self.remainX^2 + self.remainY^2)^0.5
+            self:skipPoints()
+            self:inc()
+            if self:isComplete() then
+                logger:debug(TAG, "Complete, return true for finish smooth move")
+                if self.pathPointsGroup then
+                    display.remove(self.pathPointsGroup)
+                end
+                if options.onComplete then
+                    options.onComplete()
+                end
+                --exit moving loop
+                return true
+            end
+            --print("move init 1 ")
+            self:init()
+        end
+    end
+
+    function moveObj:isComplete()
+        return self.pIdx > #points
+    end
+
+    function moveObj:skipPoints()
+        --the loop will skip points
+        local nextPoint = self:getNextPoint()
+        if not nextPoint then
+            return
+        end
+        local dist = util.distBetween( self.target.x, self.target.y, nextPoint.x, nextPoint.y )
+        if self.remain then
+            if self.remain > dist then
+                --print("Skip pint "..self.nextPIdx)
+                self.target.x = nextPoint.x
+                self.target.y = nextPoint.y
+                self:inc()
+                self.remain = self.remain - dist
+                return self:skipPoints()
+            end
+            --print("kerker "..self.remain.." < "..dist)
+            local remainVector = PVector.new({x = nextPoint.x - self.target.x, y = nextPoint.y - self.target.y})
+            remainVector:normalize()
+            remainVector:multi(self.remain)
+            self.target.x = self.target.x + remainVector.x
+            self.target.y = self.target.y + remainVector.y
+            --print("move remaining distance from last transition: "..options.remain..", x: "..remainVector.x..",y: "..remainVector.y)
+        end
+    end
+
+    moveObj:inc()
+    moveObj:init()
+    logger:verbose(TAG, "Add enterframe listener for smooth move")
+    util.addEnterFrameListener(target, moveObj, options)
+end
+
+
 function M.follow( obj, pathPoints, params)
     local speed = params.speed or 100
     --print("follow with speed "..speed)
@@ -193,7 +353,8 @@ function M.follow( obj, pathPoints, params)
                     onComplete = nextTransition,
                     onDisapear = onDisapear,
                     onCancel = onDisapear, 
-                    remain = remain
+                    remain = remain,
+                    idep = true
                 })
                 inc()
             else

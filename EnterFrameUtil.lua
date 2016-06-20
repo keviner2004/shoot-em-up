@@ -52,9 +52,7 @@ Util.new = function (options)
             logger:error("f cannot be nil ")
             return
         end
-        logger:verbose(TAG, "add f")
         _M:add({f = f, tag = tag or ""})
-        logger:verbose(TAG, "add f done")
     end
 
     -- Stop calling f
@@ -73,7 +71,7 @@ Util.new = function (options)
                 Runtime:removeEventListener('enterFrame', self)
             end
         else
-            logger:error("%s f cannot be removed properly in %d items. ", type(f), self.numOfItems)
+            logger:error(TAG, "%s f cannot be removed properly in %d items. ", type(f), self.numOfItems)
         end
     end
 

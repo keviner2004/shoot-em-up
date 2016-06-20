@@ -7,8 +7,22 @@ Control.new = function(target, controlType, fingerSize, options)
     control.controlType = controlType
     control.fingerSize = fingerSize
     control.target = target
+    control.offsetX = 0
+    control.offsetY = 0
+    control.enableFollowMove = false
+    control.enableKeyMove = false
+    control.pressKey = {}
     if options and options.func then
         control.func = options.func
+    end
+
+    if control.controlType == "key" then
+        control.enableKeyControl = true
+    elseif control.controlType == "follow" then
+        control.enableFollowControl = true
+    elseif control.controlType == "both" then
+        control.enableKeyControl = true
+        control.enableFollowControl = true
     end
 
     function control:getMoveAngle(pos1, pos2)
@@ -20,7 +34,7 @@ Control.new = function(target, controlType, fingerSize, options)
     function control:touch( event )
         if event.phase == "began" then
             --followTouchPos(self, event)
-            self.enableMove = true
+            self.enableFollowMove = true
             self.touchPos = event
             --self:getMoveAngle(self.target, event)
         elseif event.phase == "moved" then
@@ -30,18 +44,16 @@ Control.new = function(target, controlType, fingerSize, options)
             self.touchPos = event
             --self:getMoveAngle(self.target, event)
         elseif event.phase == "ended" then
-            self.enableMove = false
+            self.enableFollowMove = false
             --cancelTouchPos()
         end
     end
 
     function control:key( event )
-        local message = "Key '" .. event.keyName .. "' was pressed " .. event.phase
-        --print(message)
         if event.keyName == "right" or event.keyName == "left" or event.keyName == "up" or event.keyName == "down" then
-            if event.phase == "down" then
-                print("enable move")
-                self.enableMove = true
+            if event.phase == "down" then 
+                self.pressKey[event.keyName] = true
+                self.enableKeyMove = true
                 if event.keyName == "right" then
                     self.offsetX = 10
                 end
@@ -54,8 +66,10 @@ Control.new = function(target, controlType, fingerSize, options)
                 if event.keyName == "down" then
                     self.offsetY = 10
                 end
+                print("enable move with key "..self.offsetX)
             elseif event.phase == "up" then
-                self.enableMove = false
+                self.pressKey[event.keyName] = false
+                --local stopped = false
                 if event.keyName == "right" then
                     self.offsetX = 0
                 end
@@ -68,14 +82,26 @@ Control.new = function(target, controlType, fingerSize, options)
                 if event.keyName == "down" then
                     self.offsetY = 0
                 end
+                for k, v in pairs(self.pressKey) do
+                    return
+                end
+                self.enableKeyMove = false
             end
         end
-        return false
+
+        if event.phase == "up" then
+            if string.lower(event.keyName) == "p" then
+                self.target:toggleAutoShoot()
+            end
+        end
+
+        --return false
     end
 
 
 
     function control:enterFrame(event)
+        --print("enterframe")
         if not util.isExist(self.target) then
             --character is removed
             print(self.target.name.." is removed, detected by control")
@@ -83,7 +109,10 @@ Control.new = function(target, controlType, fingerSize, options)
             return
         end
         
-        if self.controlType == "follow" and self.enableMove then
+        if self.enableFollowControl and self.enableFollowMove then
+            if not self.touchPos then
+                return
+            end
             self:getMoveAngle(self.target, self.touchPos)
             local offsetY = 30 * math.sin(self.moveAngle) * (1 + (self.target.speed or 0))
             local offsetX = 30 * math.cos(self.moveAngle) * (1 + (self.target.speed or 0))
@@ -128,7 +157,9 @@ Control.new = function(target, controlType, fingerSize, options)
                     self.target.y = self.target.y + offsetY    
                 end 
             end
-        elseif self.controlType == "key"  then
+        end
+        if self.enableKeyControl and self.enableKeyMove then
+            --print("move "..self.offsetX)
             self.target.x = self.target.x + self.offsetX * (1 + (self.target.speed or 0))
             self.target.y = self.target.y + self.offsetY * (1 + (self.target.speed or 0))
         end
@@ -157,22 +188,25 @@ Control.new = function(target, controlType, fingerSize, options)
         if self.status == "started" then
            return 
         end
-        if self.controlType == "follow" then
+        if self.enableFollowControl then
             Runtime:addEventListener("touch", self)
             Runtime:addEventListener("mouse", self)
-        elseif self.controlType == "key" then
+        end
+        if self.enableKeyControl then
             Runtime:addEventListener( "key", self)
         end
         enterFrame:each(self, "control")
+        --Runtime:addEventListener("enterFrame", self)
         self.status = "started"
     end
 
     function control:cancel()
         print("cancel control")
-        if self.controlType == "follow" then
+        if self.enableFollowControl then
             Runtime:removeEventListener("touch", self)
             Runtime:removeEventListener("mouse", self)
-        elseif self.controlType == "key" then
+        end
+        if self.enableKeyControl then
             Runtime:removeEventListener( "key", self)
         end
         enterFrame:cancel(self)

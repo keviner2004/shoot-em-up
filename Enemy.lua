@@ -2,6 +2,7 @@ local Enemy = {}
 local move = require("move")
 local Item = require("Item")
 local GameObject = require("GameObject")
+local Effect = require("effects.StarExplosion2")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 
@@ -90,7 +91,7 @@ Enemy.new = function(options)
         self:toFront()
     end
 
-    function enemy:hurtEffect()
+    function enemy:showHurtEffect()
         print("apply hurt effect")
         if not self.processHurtEffect then
             self.processHurtEffect = true
@@ -110,11 +111,18 @@ Enemy.new = function(options)
             blend(self)
             timer.performWithDelay(100, 
                 function()
-                    self:unHurtEffect()
+                    self:showUnHurtEffect()
                     self.processHurtEffect = false
                 end
             )
         end
+    end
+
+    function enemy:showDestroyEffect()
+        local effect = Effect.new({time=1000})
+        effect.x = self.x
+        effect.y = self.y
+        self.parent:insert(effect)
     end
 
     function enemy:playHurtSound()
@@ -125,7 +133,7 @@ Enemy.new = function(options)
        sfx:play(self.deadSound) 
     end
 
-    function enemy:unHurtEffect()
+    function enemy:showUnHurtEffect()
         print("apply unhurt effect")
         function blend(obj)
             if obj.numChildren then
@@ -144,13 +152,14 @@ Enemy.new = function(options)
     function enemy:hurt(damage, crime)
         --print("Hurt enemy: "..damage..":"..self.hp)
         if self.hp > 0 then
-            self:hurtEffect()
+            self:showHurtEffect()
             self:onHurt(damage, crime)
             --self:unHurtEffect()
             if self.hp <= 0 then
                 self:playDeadSound()
                 timer.performWithDelay(1, 
                     function(event)
+                        self:showDestroyEffect()
                         self:onDead(crime)
                         if crime and crime.onKill then
                             crime:onKill(self)
