@@ -17,13 +17,9 @@ Item.new = function(sprites, options)
     item.speed = 0
     item.score = 0
     item.apearDuration = (options and options.apearDuration) or 5000
-
-    physics.addBody(item, "dynamic", {
-        filter = {
-            categoryBits=PHYSIC_CATEGORY_ITEM, 
-            maskBits=PHYSIC_CATEGORY_CHARACTER
-        }
-    })
+    item:belongTo(PHYSIC_CATEGORY_ITEM)
+    item:collideWith(PHYSIC_CATEGORY_CHARACTER)
+    item:enablePhysics()
 
     function item:effect(receiver)
         self:disableAutoDestroy()
@@ -71,7 +67,7 @@ Item.new = function(sprites, options)
         local vy = math.cos(math.rad(degree))*10
         print("random move items ", vx, vy)
         self:setLinearVelocity(vx , vy)
-        self:enableAutoDestroy()
+        --self:enableAutoDestroy()
         if self.apearDuration > 0 then
             self.timerId = item:addTimer(self.apearDuration, function()
                 transition.to(item, {

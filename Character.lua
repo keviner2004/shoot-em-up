@@ -232,6 +232,9 @@ Character.new = function (options)
         for i, v in pairs(self.backpack:getItems()) do
             --local ItemClass = require(v.class)
             --local item = ItemClass.new(unpack(v.params))
+            if not util.isExist(v) then
+                
+            end
             local item = v
             if item.droppable then
                 item.enabled = true
