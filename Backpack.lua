@@ -9,6 +9,7 @@ Backpack.new = function(options)
     backpack.maxItems = options and options.maxItems or 300
     backpack.counter = 0
     backpack.numOfItems = 0
+    backpack.indexes = {}
 
     function backpack:getItemId() 
         if self.numOfItems > self.maxItems then
@@ -42,9 +43,31 @@ Backpack.new = function(options)
         return item._backpackid
     end
 
+    function backpack:add2(item)
+        local _backpackid = self:getItemId()
+        if not _backpackid then
+            logger:error(TAG, "no backpack id found")
+            return nil
+        end
+        self.indexes[item] = _backpackid
+        --logger:verbose(TAG, "Add item to backpack")
+        self.items[_backpackid] = item
+        --logger:verbose(TAG, "Add item to backpack done")
+        self.numOfItems = self.numOfItems + 1
+        return _backpackid
+    end
+
     function backpack:remove(item)
         self.items[item._backpackid] = nil
         self.numOfItems = self.numOfItems - 1
+    end
+
+    function backpack:remove2(item)
+        local itemIndex = self.indexes[item]
+        self.items[itemIndex] = nil
+        self.indexes[item] = nil
+        self.numOfItems = self.numOfItems - 1
+        return itemIndex
     end
 
     function backpack:getItems()

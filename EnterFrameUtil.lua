@@ -4,6 +4,8 @@ local Util = {}
 
 Util.new = function (options)
     local _M = Backpack.new({maxItems = 3000})
+    local tags = {}
+
     _M.owner = (options and options.owner) or ""
     local TAG = "EnterFrame.".._M.owner
     function _M:remove(f)
@@ -28,15 +30,22 @@ Util.new = function (options)
     function _M:enterFrame(event)
         logger:verbose(TAG, "call ========== start")
         for i, v in pairs(self:getItems()) do
-            logger:verbose(TAG, "call %dth func with tag: %s", i, v.tag )
+            --logger:verbose(TAG, "call %dth func with tag: %s", i, v.tag )
+            logger:verbose(TAG, "call %dth func with tag: %s", i, tags[v] )
+            --logger:verbose(TAG, "call %dth func", i)
             if v == nil then
                 logger:error("nil func in the table")
             end
-            if type(v.f) == "table" then
-                --print("Call table method ", v.tag)
-                v.f:enterFrame(event)
+            local result = false
+            --if type(v.f) == "table" then
+            --    result = v.f:enterFrame(event)
+            --else
+            --    result = v.f(event)
+            --end
+            if type(v) == "table" then
+                result = v:enterFrame(event)
             else
-                v.f(event)
+                result = v(event)
             end
         end
         logger:verbose(TAG, "call ========== end")
@@ -52,7 +61,9 @@ Util.new = function (options)
             logger:error(TAG, "f cannot be nil ")
             return
         end
-        _M:add({f = f, tag = tag or ""})
+        tags[f] = tag or ""
+        --_M:add({f = f, tag = tag or ""})
+        _M:add2(f)
     end
 
     -- Stop calling f
@@ -63,7 +74,9 @@ Util.new = function (options)
         if type(f) == "table" then
             logger:verbose(TAG, "Cancel table")
         end
-        local ind = self:remove(f)
+        --local ind = self:remove(f)
+        local ind = self:remove2(f)
+        tags[f] = nil
         if ind then
             logger:verbose(TAG, "Remove enterFrame %dth listener", ind)
             if self.numOfItems == 0 then
