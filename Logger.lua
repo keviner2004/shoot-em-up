@@ -1,6 +1,7 @@
 --logging
 local Logging = require("Logging")
+local config = require("gameConfig")
 local logger = Logging.new()
 --logger:setLevel(Logging.VERBOSE)
-logger:setLevel(Logging.DEBUG)
-return logger 
+logger:setLevel(config.logLevel)
+return logger

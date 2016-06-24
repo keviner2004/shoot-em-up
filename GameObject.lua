@@ -79,7 +79,7 @@ GameObject.new = function (options)
 
     function object:disableAutoDestroy()
         self.autoDestroy = false
-        Runtime:removeEventListener( "enterFrame", self._b_enterFrame )
+        self.enterFrame:cancel(self._b_enterFrame)
     end
 
     function object:addTimer(delay, func, count)

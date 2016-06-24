@@ -1,4 +1,5 @@
 local lfs = require "lfs"
+local config = require("gameConfig")
 local sfx = {}
 
 sfx.CHANNEL_BG = 1
@@ -108,6 +109,9 @@ function sfx:init()
 end
 
 function sfx:play(name, options)
+    if not config.soundOn then
+      return
+    end
     self:initVolumn()
     if not options then
       options = {}

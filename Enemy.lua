@@ -5,6 +5,7 @@ local GameObject = require("GameObject")
 local Effect = require("effects.StarExplosion2")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
+local config = require("gameConfig")
 
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
@@ -123,7 +124,7 @@ Enemy.new = function(options)
         effect.x = self.x
         effect.y = self.y
         effect:enablePhysics()
-        effect:setLinearVelocity( 0, CONFIG_STAGE_SPEED )
+        effect:setLinearVelocity( 0, config.stageSpeed )
         self.parent:insert(effect)
     end
 

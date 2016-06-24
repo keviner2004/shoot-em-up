@@ -3,6 +3,7 @@ local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
 local TAG = "Level"
 local Level = {}
+local config = require("gameConfig")
 
 Level.load = function()
     local level = {}
@@ -36,9 +37,9 @@ Level.load = function()
     level.currentSublevel = nil
     level.count = 0
     level.timerUtil = TimerUtil.new()
-    level.fightsBeforeEncounterBoss = CONFIG_FIGHT_BEFORE_ENCOUNTER_BOSS
+    level.fightsBeforeEncounterBoss = config.fightBeforeEncounterBoss
     --Reqire all level module
-    for i, v in ipairs(gmaeLevles) do
+    for i, v in ipairs(config.gmaeLevles) do
         local subLevel = require("levels."..v)
         print("Author: "..subLevel.author)
         print("Sub level name: "..subLevel.name)

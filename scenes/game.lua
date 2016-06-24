@@ -15,6 +15,7 @@ local scene = composer.newScene()
 local Score = require("ui.Score")
 local widget = require("widget")
 local logger = require("logger")
+local config = require("gameConfig")
 
 local TAG = "gamescene"
 
@@ -39,15 +40,15 @@ function scene:create( event )
     physics.start()
     physics.setGravity(0, 0)
     physics.setReportCollisionsInContentCoordinates( true )
-    if DEBUG_PHYSIC then
+    if config.debugPhysics then
         physics.setDrawMode( "hybrid" ) 
     end
     self.first = true
-    self.stageSpeed = CONFIG_STAGE_SPEED
+    self.stageSpeed = config.stageSpeed
     self.level = Level.load()
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
-    if DEBUG_FPS then
+    if config.debugFPS then
         self:fpsMesure()
     end
     --Create global screen boundaries
@@ -236,7 +237,7 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = PLAYER_LIFES, fingerSize = 50, fireRate = 500, controlType = "both"})
+    self.mainCharacter = Character.new({lifes = config.playerLifes, fingerSize = 50, fireRate = 500, controlType = "both"})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()
@@ -341,7 +342,7 @@ function scene:startGame()
     self.hudGroup:insert(self.score)
     self.status = "started"
     --shield must be opened after the character is added to the main scene
-    if PLAYER_UNSTOPPABLE then
+    if config.playerUnstoppable then
         self.mainCharacter:openShield()
     else
         self.mainCharacter:openShield(3000)

@@ -1,17 +1,10 @@
-local array = {}
-list = nil
-local l = list
-while l do
-  print(l.value)
-  l = l.next
+local a = {}
+
+
+for i = 0, 10000000 do
+    a.new = function()
+    end
+    local function new()
+    end
+    a.new = new
 end
-
-
-for i =1,1000000 do
-    array[i] = i 
-end
-
-for i =1,1000000 do
-    list = { next = list, value = i }
-end
-
