@@ -67,7 +67,7 @@ GameObject.new = function (options)
             end
             --print("Check is out???")
             if move.isOut(self) then
-                --print("Gameobject auto destroy: "..self.name)
+                --print("GameObject auto destroy: "..self.name)
                 --print("before2", self.m_enterFrame)
                 self.enterFrame:cancel(self._b_enterFrame)
                 --print("after2", self.m_enterFrame)

@@ -1,7 +1,7 @@
-local Gameobject = require("Gameobject")
+local GameObject = require("GameObject")
 local Effect = {}
 Effect.new = function(options)
-    local effect = Gameobject.new()
+    local effect = GameObject.new()
     effect.duration = (options and options.time) or 400
     effect.type = "effect"
     effect.name = "effect"

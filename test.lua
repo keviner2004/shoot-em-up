@@ -1,10 +1,10 @@
-local a = {}
+local T = {}
 
-
-for i = 0, 10000000 do
-    a.new = function()
-    end
-    local function new()
-    end
-    a.new = new
+T.new = function()
+    local t = {}
+    t.a = 5
+    return t
 end
+
+
+return T

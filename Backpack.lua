@@ -43,6 +43,11 @@ Backpack.new = function(options)
         return item._backpackid
     end
 
+    function backpack:remove(item)
+        self.items[item._backpackid] = nil
+        self.numOfItems = self.numOfItems - 1
+    end
+
     function backpack:add2(item)
         local _backpackid = self:getItemId()
         if not _backpackid then
@@ -57,13 +62,15 @@ Backpack.new = function(options)
         return _backpackid
     end
 
-    function backpack:remove(item)
-        self.items[item._backpackid] = nil
-        self.numOfItems = self.numOfItems - 1
-    end
-
     function backpack:remove2(item)
         local itemIndex = self.indexes[item]
+        if not itemIndex then
+            logger:error(TAG, "Item is missing")
+            return
+        end
+        if type(item) == "table" then
+            logger:info(TAG, "backpack remove table at index "..itemIndex)
+        end
         self.items[itemIndex] = nil
         self.indexes[item] = nil
         self.numOfItems = self.numOfItems - 1

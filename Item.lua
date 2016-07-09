@@ -1,7 +1,7 @@
 local Item = {}
 local GameObject = require("GameObject")
-local Glory = require("Effects.Glory")
-local Explosion = require("Effects.StarExplosion3")
+local Glory = require("effects.Glory")
+local Explosion = require("effects.StarExplosion3")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 

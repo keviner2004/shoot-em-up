@@ -237,7 +237,7 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = config.playerLifes, fingerSize = 50, fireRate = 500, controlType = "both"})
+    self.mainCharacter = Character.new({lifes = config.playerLifes, fingerSize = 50, fireRate = 500, controlType = config.controlType})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()
@@ -352,7 +352,7 @@ end
 function scene:checkScore(afterCheck)
     print("scene:checkScore")
     local localHeighScore = self.helper:getHighScore("local")
-    if localHeighScore < self.mainCharacter.score then
+    if localHeighScore and localHeighScore < self.mainCharacter.score then
         local options = {
             effect = "fade",
             time = 500,

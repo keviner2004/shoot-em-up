@@ -2,6 +2,13 @@ local enterFrame = require("enterFrame")
 local util = require("util")
 local Control = {}
 
+local SIN, COS = {}, {}
+
+for i = -360, 360 do 
+   SIN[i] = math.sin( math.pi / 180 * i ) 
+   COS[i] = math.cos( math.pi / 180 * i )
+end
+
 Control.new = function(target, controlType, fingerSize, options)
     local control = {}
     control.controlType = controlType
@@ -12,6 +19,7 @@ Control.new = function(target, controlType, fingerSize, options)
     control.enableFollowMove = false
     control.enableKeyMove = false
     control.pressKey = {}
+    control.moveAngle = 0
     if options and options.func then
         control.func = options.func
     end
@@ -28,7 +36,7 @@ Control.new = function(target, controlType, fingerSize, options)
     function control:getMoveAngle(pos1, pos2)
         local deltaX = pos2.x - pos1.x
         local deltaY = pos2.y - self.fingerSize - pos1.y
-        self.moveAngle = math.atan2(deltaY, deltaX)
+        self.moveAngle = math.deg(math.atan2(deltaY, deltaX))
     end
 
     function control:touch( event )
@@ -113,30 +121,16 @@ Control.new = function(target, controlType, fingerSize, options)
             if not self.touchPos then
                 return
             end
+            ----[[
             self:getMoveAngle(self.target, self.touchPos)
-            local offsetY = 30 * math.sin(self.moveAngle) * (1 + (self.target.speed or 0))
-            local offsetX = 30 * math.cos(self.moveAngle) * (1 + (self.target.speed or 0))
-
+            local offsetY = 30 * SIN[math.floor(self.moveAngle)] * (1 + (self.target.speed or 0))
+            local offsetX = 30 * COS[math.floor(self.moveAngle)] * (1 + (self.target.speed or 0))
+            --local offsetX = 0
+            --local offsetY = 0
             local targetY = self.touchPos.y - self.fingerSize
 
-            if self.lastTouchX then
-                self.touchDiffX = self.touchPos.x - self.lastTouchX
-                self.mouseDiffX = self.mousePos.x - self.lastMouseX
-            end
-            if self.lastTouchY then
-                self.touchDiffY = self.touchPos.y - self.lastTouchY
-                self.mouseDiffY = self.mousePos.y - self.lastMouseY
-            end
-            self.lastTouchX = self.touchPos.x
-            self.lastTouchY = self.touchPos.y
-            self.lastMouseX = self.mousePos.x
-            self.lastMouseY = self.mousePos.y
-            
-            --print("Diff test: ", self.touchDiffX, self.mouseDiffX)
-            if self.touchDiffX ~= self.mouseDiffX then
-                
-            end
             --print("pos test x: ", self.target.x, self.touchPos.x, ", y:", self.target.y, self.touchPos.y, "deg:", math.deg(self.moveAngle))
+            
             if self.target.x ~= self.touchPos.x then
                 if self.target.x < self.touchPos.x and self.target.x + offsetX > self.touchPos.x then
                     self.target.x = self.touchPos.x
@@ -147,7 +141,6 @@ Control.new = function(target, controlType, fingerSize, options)
                 end
             end
             
-            local oriY = self.target.y - self.fingerSize
             if self.target.y ~= targetY then
                 if self.target.y < targetY and self.target.y + offsetY > targetY then
                     self.target.y = targetY
@@ -157,6 +150,7 @@ Control.new = function(target, controlType, fingerSize, options)
                     self.target.y = self.target.y + offsetY    
                 end 
             end
+            ----]]
         end
         if self.enableKeyControl and self.enableKeyMove then
             --print("move "..self.offsetX)
@@ -173,15 +167,10 @@ Control.new = function(target, controlType, fingerSize, options)
         elseif self.target.y  < 0 then
             self.target.y = 0
         end
-        if self.func then
-            self.func(self.target)
-        end
+        --if self.func then
+            --self.func(self.target)
+        --end
         --print("Set x y C:", event.time, target.x)
-    end
-
-    function control:mouse(event)
-        --print("mouse:", event.x)
-        self.mousePos = event
     end
 
     function control:start()
@@ -190,13 +179,11 @@ Control.new = function(target, controlType, fingerSize, options)
         end
         if self.enableFollowControl then
             Runtime:addEventListener("touch", self)
-            Runtime:addEventListener("mouse", self)
         end
         if self.enableKeyControl then
             Runtime:addEventListener( "key", self)
         end
-        enterFrame:each(self, "control")
-        --Runtime:addEventListener("enterFrame", self)
+        enterFrame:each(self, "control")        
         self.status = "started"
     end
 

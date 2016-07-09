@@ -1,15 +1,8 @@
-local A = require("test")
+local T = require("test")
+local t1 = T.new()
+t1.a = 10
+local t2 = T.new()
 
-A:init("name")
-
-local a = A.new()
-a:init("name")
-local b = A.new()
-local c = A.new()
-
---b:init("bbbb")
---c:init("cccc")
-print(A.name)
-print(a.name)
-print(b.name)
-print(c.name)
+print(t1.a)
+print(t2.a)
+--require("test")

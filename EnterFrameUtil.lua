@@ -72,7 +72,7 @@ Util.new = function (options)
             return 
         end
         if type(f) == "table" then
-            logger:verbose(TAG, "Cancel table")
+            logger:info(TAG, "Cancel table")
         end
         --local ind = self:remove(f)
         local ind = self:remove2(f)

@@ -1,33 +1,38 @@
 local Backgrounds = {}
 
 Backgrounds.new = function(speed)
-    local tileWidth = 256
-    local tileHeight = 256
     local backgrounds = display.newGroup()
+    local tile = display.newImage("imgs/backgrounds/purple.png")
+    tile.alpha = 0
     backgrounds.speed = speed or 50
     backgrounds.offset = (1000 / display.fps) * (speed / 1000)
     --generate background
     local function generateBackground()
-        local cols = math.ceil((display.contentWidth + tileWidth) / tileWidth)
-        local rows = math.ceil((display.contentHeight + tileHeight) / tileHeight)
+        
+        local cols = math.ceil((display.contentWidth) / tile.contentWidth) + 1
+        local rows = math.ceil((display.contentHeight) / tile.contentHeight) + 1
         local backgroundGroup = display.newGroup()
-        for row = 0, rows - 1 do
-            for col = 0, cols - 1 do
+        local left = -math.ceil((tile.width * cols - display.contentWidth)/2)
+        local top = -math.ceil((tile.height * rows - display.contentHeight)/2)
+        print("Generate background left:", left, "top:", top, backgroundGroup.x, backgroundGroup.y)
+        for row = 1, rows do
+            for col = 1, cols do
                 local background = display.newImage("imgs/backgrounds/purple.png")
-                background.x = col * tileWidth
-                background.y = row * tileHeight
+                background.y = top + math.ceil((row - 0.5) * tile.height)
+                background.x = left + math.ceil((col - 0.5) * tile.width)
                 backgroundGroup:insert(background)
             end
         end    
         return backgroundGroup
     end
-
+    --backgrounds.x = backgrounds.x + 100
     local background1 = generateBackground()
     local background2 = generateBackground()
     background1.y = background2.y - background2.height
     backgrounds.pageHeight = background2.height
     backgrounds:insert(background1)
     backgrounds:insert(background2)
+    backgrounds:insert(tile)
     local backgroundMoves = 0
 
     function backgrounds:enterFrame(event)

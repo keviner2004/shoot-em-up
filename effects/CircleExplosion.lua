@@ -1,12 +1,12 @@
 local Effect = require("Effect")
-local Gameobject = require("Gameobject")
+local GameObject = require("GameObject")
 local move = require("move")
 local E = {}
 E.new = function(options)
     local effect = Effect.new(options)
 
     local function addStar(x, y, deg, xScale, yScale)
-        local partical = Gameobject.new({
+        local partical = GameObject.new({
             frames = {"Particles/11"}
         })
         partical.x = x
