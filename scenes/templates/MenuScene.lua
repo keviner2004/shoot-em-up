@@ -2,6 +2,9 @@ local composer = require( "composer" )
 local GlassCornersPanel = require("ui.GlassCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local Menu = {}
+local logger = require("logger")
+
+local TAG = "MenuScene"
 
 Menu.new = function()
     local scene = composer.newScene()
@@ -9,6 +12,7 @@ Menu.new = function()
     scene.menuHeight = math.round(display.contentHeight*0.9)
 
     function scene:create( event )
+       logger:info(TAG, "scene create")
        local sceneGroup = self.view
        local panelHeight = 0
        local panelWidth = 0
@@ -24,12 +28,11 @@ Menu.new = function()
        self.onClose = event.params and event.params.onClose
        self.buttonGap = 10
        self.buttons = display.newGroup()
-       self.view:insert(self.buttons)
        --center these buttons
        self.buttons.x = display.contentWidth / 2
        self.buttons.y = display.contentHeight / 2
        self.glassPanel = glassPanel
-       
+       sceneGroup:insert(self.buttons)
        sceneGroup:insert(glassPanel)
        sceneGroup:insert(titleText)
        self:construct()
@@ -93,13 +96,15 @@ Menu.new = function()
     function scene:show( event )
        local sceneGroup = self.view
        local phase = event.phase 
-     
+      
        if ( phase == "will" ) then
           -- Called when the scene is still off screen (but is about to come on screen).
+          logger:info(TAG, "scene will show")
        elseif ( phase == "did" ) then
           -- Called when the scene is now on screen.
           -- Insert code here to make the scene come alive.
           -- Example: start timers, begin animation, play audio, etc.
+          logger:info(TAG, "scene did show")
        end
     end
 
@@ -110,10 +115,12 @@ Menu.new = function()
        local phase = event.phase
      
        if ( phase == "will" ) then
+          logger:info(TAG, "scene will hide")
           -- Called when the scene is on screen (but is about to go off screen).
           -- Insert code here to "pause" the scene.
           -- Example: stop timers, stop animation, stop audio, etc.
        elseif ( phase == "did" ) then
+          logger:info(TAG, "scene did hide")
           -- Called immediately after scene goes off screen.
           if self.onClose then
              self.onClose()
@@ -123,11 +130,12 @@ Menu.new = function()
      
     -- "scene:destroy()"
     function scene:destroy( event )
-     
+       logger:info(TAG, "scene destroy")
        local sceneGroup = self.view
        -- Called prior to the removal of scene's view ("sceneGroup").
        -- Insert code here to clean up the scene.
        -- Example: remove display objects, save state, etc.
+       --sceneGroup:removeSelf()
     end
      
     ---------------------------------------------------------------------------------

@@ -1,8 +1,10 @@
 local composer = require("composer")
 local MenuScene = require("scenes.templates.MenuScene")
 local Sprite = require("Sprite")
-
+local logger = require("logger")
 local scene = MenuScene.new()
+
+local TAG = "START MENU"
 
 function scene:init()
     self.menuWidth = math.round(display.contentWidth*0.8)
@@ -18,12 +20,13 @@ function scene:construct()
 end
 
 function scene:insertButtons()
+    logger:debug(TAG, "insertButtons")
     local startButton = self:newButton("~Start~")
     startButton.buttonView.alpha = 0
     startButton.buttonText.size = 60
     startButton.pressSound = "start"
     startButton.buttonView.isHitTestable = true
-    function blink(show)
+    local function blink(show)
         if not show then
             alpha = 0.65
         else

@@ -21,6 +21,7 @@ function sublevel:show(options)
                     end
                 )
             end)
+            self.view:insert(enemy)
         end)
     end
 
@@ -39,6 +40,7 @@ function sublevel:show(options)
                     end
                 )
             end)
+            self.view:insert(enemy)
         end)
     end
 end
