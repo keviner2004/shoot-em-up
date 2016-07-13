@@ -15,7 +15,7 @@ local scene = composer.newScene()
 local Score = require("ui.Score")
 local widget = require("widget")
 local logger = require("logger")
-local config = require("gameConfig")
+local gameConfig = require("gameConfig")
 
 local TAG = "gamescene"
 
@@ -40,15 +40,16 @@ function scene:create( event )
     physics.start()
     physics.setGravity(0, 0)
     physics.setReportCollisionsInContentCoordinates( true )
-    if config.debugPhysics then
+    if gameConfig.debugPhysics then
         physics.setDrawMode( "hybrid" ) 
     end
     self.first = true
-    self.stageSpeed = config.stageSpeed
+    self.status = "wait"
+    self.stageSpeed = gameConfig.stageSpeed
     self.level = Level.load()
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
-    if config.debugFPS then
+    if gameConfig.debugFPS then
         self:fpsMesure()
     end
     --Create global screen boundaries
@@ -76,24 +77,14 @@ function scene:create( event )
         label = "",
         onEvent = function ( event )
             if ( "ended" == event.phase ) then
-                self:pauseGame()
-                composer.showOverlay( "scenes.menu", {
-                    effect = "fade",
-                    time = 500,
-                    isModal = true,
-                    params = {
-                        title = "Pause",
-                        onClose = function()
-                            self:resumeGame()
-                        end
-                    }
-                })
+                self:toggleGame()
             end
         end
     })
     self.pauseButton.x = display.contentWidth - self.pauseButton.contentWidth - 10
     self.pauseButton.y = display.contentHeight - self.pauseButton.contentHeight
     Runtime:addEventListener("touch", self)
+    Runtime:addEventListener("key", self)
 
     --add to the scene
     sceneGroup:insert(backgrounds)
@@ -105,6 +96,26 @@ function scene:create( event )
     sceneGroup:insert(self.pauseButton)
 end
 
+function scene:toggleGame()
+    if self.status == "started" then
+        self:pauseGame()
+        composer.showOverlay( "scenes.menu", {
+            effect = "fade",
+            time = 500,
+            isModal = true,
+            params = {
+                title = "Pause",
+                onClose = function()
+                    self:resumeGame()
+                end
+            }
+        })
+    elseif self.status == "paused" then
+        self:resumeGame()
+        composer.hideOverlay( "fade", 400 )
+    end
+end
+
 function scene:touch(event)
     if event.phase == "began" then
         transition.cancel(self.pauseButton)
@@ -114,6 +125,16 @@ function scene:touch(event)
     elseif event.phase == "ended" then
         transition.cancel(self.pauseButton)
         transition.to(self.pauseButton, {time = 300, alpha = 1})
+    end
+end
+
+function scene:key(event)
+    if event.phase == "up" then
+        --logger:info(TAG, "hahaha "..event.keyName.."/"..gameConfig.keyCancel)
+        if event.keyName == gameConfig.keyCancel then
+            logger:info(TAG, "toggle game status")
+            self:toggleGame()
+        end
     end
 end
 
@@ -237,7 +258,7 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = config.playerLifes, fingerSize = 50, fireRate = 500, controlType = config.controlType})
+    self.mainCharacter = Character.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 500, controlType = gameConfig.controlType})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()
@@ -342,7 +363,7 @@ function scene:startGame()
     self.hudGroup:insert(self.score)
     self.status = "started"
     --shield must be opened after the character is added to the main scene
-    if config.playerUnstoppable then
+    if gameConfig.playerUnstoppable then
         self.mainCharacter:openShield()
     else
         self.mainCharacter:openShield(3000)
@@ -409,6 +430,7 @@ function scene:show( event )
             }
             composer.showOverlay( "scenes.start", options )
             self.first = false
+            self.status = "wait"
             sfx:play("title", {loops = -1})
         else
             print("just start the game")

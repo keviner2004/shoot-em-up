@@ -2,7 +2,8 @@ local GameObject = require("GameObject")
 local Sprite = require("Sprite")
 local move = require("move")
 local Victim = {}
-
+local logger = require("logger")
+local TAG = "victim"
 Victim.new = function()
     local victim = GameObject.new()
     victim.type = "victim"
@@ -129,8 +130,13 @@ Victim.new = function()
                 self:insert(self.sprite)
                 return
             end
-            if target.x and target.y then
+
+            if self.parent and target.x and target.y and self.x and self.y then
                 self._line = display.newLine( self.parent, self.x, self.y, target.x, target.y)
+            else
+                logger:error(TAG, "Target or victim disapeared")
+                print("Debug victim ",self.parent , target.x, target.y, self.x, self.y)
+                return
             end
             --self._line:setStrokeColor( 1, 0, 0, 1 )
             self._line.strokeWidth = 3

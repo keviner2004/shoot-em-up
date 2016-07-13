@@ -11,23 +11,18 @@ function scene:insertButtons()
    local restartButton = self:newButton("Restart")
    local giveupButton = self:newButton("Exit")
 
-   self.buttons:insert(restartButton)
-   self.buttons:insert(giveupButton)
-   self.buttons:insert(rankButton)
-
-   function restartButton:onTouch(event)
+   restartButton.action = function(event)
       --print("custom: "..event.phase.."/"..event.phase)
-      if event.phase == "ended" then
          composer.gotoScene("scenes.game")
-      end
    end
 
-   function giveupButton:onTouch(event)
-      --print("custom: "..event.phase.."/"..event.phase)
-      if event.phase == "ended" then
+   giveupButton.action = function(event)
          composer.gotoScene("scenes.game", {params = {giveup = true}})
-      end
    end
+
+   self:insertButton(restartButton)
+   self:insertButton(giveupButton)
+   self:insertButton(rankButton)
 
 end
  

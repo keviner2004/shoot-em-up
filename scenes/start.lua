@@ -3,7 +3,7 @@ local MenuScene = require("scenes.templates.MenuScene")
 local Sprite = require("Sprite")
 local logger = require("logger")
 local scene = MenuScene.new()
-
+local sfx = require("sfx")
 local TAG = "START MENU"
 
 function scene:init()
@@ -40,12 +40,31 @@ function scene:insertButtons()
     end
     blink()
     self.buttons:insert(startButton)
+
     function startButton:onTouch(event)
         --print("custom: "..event.phase.."/"..event.phase)
         if event.phase == "ended" then
-            composer.gotoScene("scenes.game")
+            scene:startGame()
         end
     end
+
+    function scene:startGame()
+        composer.gotoScene("scenes.game")
+    end
+
+    function scene:onWillShow( event )
+
+    end
+
+    function scene:onWillHide( event )
+        
+    end
+
+    function scene:onConfirm(buttonSelectedIndex)
+        sfx:play("start")
+        self:startGame()
+    end
+
 end
 
 return scene

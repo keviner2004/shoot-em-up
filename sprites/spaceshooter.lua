@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:62b5913381587b7de9d9f187bfef6889:5a62f8d1a418e61acebe713006da358d:2e31ad8fd1d77f790753c7b2e629602d$
+-- $TexturePacker:SmartUpdate:a66216a930a3298afaac7ef6a02c889e:90a2259dd6468f3674059fb581558d7d:2e31ad8fd1d77f790753c7b2e629602d$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -16,1312 +16,1312 @@ SheetInfo.sheet =
     
         {
             -- AlienUFOs/Ships/1
-            x=1093,
-            y=542,
+            x=871,
+            y=818,
             width=126,
             height=124,
 
         },
         {
             -- AlienUFOs/Ships/2
-            x=1564,
-            y=202,
+            x=681,
+            y=714,
             width=126,
             height=128,
 
         },
         {
             -- AlienUFOs/Ships/3
-            x=939,
-            y=653,
+            x=870,
+            y=1094,
             width=125,
             height=146,
 
         },
         {
             -- AlienUFOs/Ships/4
-            x=939,
-            y=803,
+            x=435,
+            y=969,
             width=125,
             height=109,
 
         },
         {
             -- AlienUFOs/Ships/5
-            x=1068,
-            y=670,
+            x=221,
+            y=940,
             width=125,
             height=123,
 
         },
         {
             -- AlienUFOs/Ships/Damages/1
-            x=1564,
-            y=334,
+            x=678,
+            y=922,
             width=126,
             height=68,
 
         },
         {
             -- AlienUFOs/Ships/Damages/10
-            x=143,
-            y=1163,
+            x=3,
+            y=950,
             width=125,
             height=67,
 
         },
         {
             -- AlienUFOs/Ships/Damages/2
-            x=426,
-            y=944,
+            x=435,
+            y=893,
             width=126,
             height=72,
 
         },
         {
             -- AlienUFOs/Ships/Damages/3
-            x=382,
-            y=1020,
+            x=435,
+            y=1082,
             width=125,
             height=90,
 
         },
         {
             -- AlienUFOs/Ships/Damages/4
-            x=1338,
-            y=626,
+            x=677,
+            y=1254,
             width=125,
             height=62,
 
         },
         {
             -- AlienUFOs/Ships/Damages/5
-            x=248,
-            y=1341,
+            x=221,
+            y=1067,
             width=125,
             height=67,
 
         },
         {
             -- AlienUFOs/Ships/Damages/6
-            x=410,
-            y=1330,
+            x=870,
+            y=1022,
             width=126,
             height=68,
 
         },
         {
             -- AlienUFOs/Ships/Damages/7
-            x=1338,
-            y=692,
+            x=681,
+            y=846,
             width=126,
             height=72,
 
         },
         {
             -- AlienUFOs/Ships/Damages/8
-            x=272,
-            y=1153,
+            x=678,
+            y=1066,
             width=125,
             height=90,
 
         },
         {
             -- AlienUFOs/Ships/Damages/9
-            x=1347,
-            y=854,
+            x=3,
+            y=1021,
             width=125,
             height=62,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Legs/1
-            x=1909,
-            y=717,
+            x=1226,
+            y=356,
             width=76,
             height=33,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Legs/2
-            x=1302,
-            y=1332,
+            x=605,
+            y=822,
             width=72,
             height=46,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Legs/3
-            x=265,
-            y=1103,
+            x=1174,
+            y=1726,
             width=112,
             height=46,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Legs/4
-            x=1313,
-            y=1018,
+            x=1163,
+            y=1887,
             width=100,
             height=46,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Main/1
-            x=1911,
-            y=309,
+            x=678,
+            y=994,
             width=126,
             height=68,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Main/2
-            x=1906,
-            y=381,
+            x=870,
+            y=946,
             width=126,
             height=72,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Main/3
-            x=248,
-            y=1247,
+            x=677,
+            y=1160,
             width=125,
             height=90,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Main/4
-            x=1904,
-            y=243,
+            x=3,
+            y=1087,
             width=125,
             height=62,
 
         },
         {
             -- AlienUFOs/Ships/Parts/Main/5
-            x=1068,
-            y=909,
+            x=435,
+            y=1176,
             width=125,
             height=67,
 
         },
         {
             -- AlienUFOs/Ships/Parts/dome
-            x=295,
-            y=1565,
+            x=348,
+            y=1270,
             width=83,
             height=98,
 
         },
         {
             -- Aliens/Green/hurt
-            x=1417,
-            y=920,
+            x=605,
+            y=872,
             width=69,
             height=93,
 
         },
         {
             -- Aliens/Green/stand
-            x=687,
-            y=882,
+            x=888,
+            y=1949,
             width=66,
             height=92,
 
         },
         {
             -- Astronauts/1
-            x=1110,
-            y=1370,
+            x=1511,
+            y=927,
             width=34,
             height=44,
 
         },
         {
             -- Astronauts/10
-            x=1563,
-            y=620,
+            x=1473,
+            y=1175,
             width=31,
             height=44,
 
         },
         {
             -- Astronauts/11
-            x=1172,
-            y=1537,
+            x=1320,
+            y=1045,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/12
-            x=1580,
-            y=1063,
+            x=1437,
+            y=1724,
             width=50,
             height=44,
 
         },
         {
             -- Astronauts/13
-            x=1134,
-            y=1532,
+            x=1549,
+            y=927,
             width=34,
             height=44,
 
         },
         {
             -- Astronauts/14
-            x=1242,
-            y=1535,
+            x=1350,
+            y=1180,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/15 Copy
-            x=1634,
-            y=1013,
+            x=670,
+            y=1590,
             width=60,
             height=51,
 
         },
         {
             -- Astronauts/15
-            x=1771,
-            y=1420,
+            x=1491,
+            y=1724,
             width=50,
             height=44,
 
         },
         {
             -- Astronauts/16
-            x=1921,
-            y=1471,
+            x=1484,
+            y=1044,
             width=31,
             height=44,
 
         },
         {
             -- Astronauts/17
-            x=936,
-            y=1632,
+            x=1361,
+            y=1044,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/18
-            x=1056,
-            y=1370,
+            x=1545,
+            y=1723,
             width=50,
             height=44,
 
         },
         {
             -- Astronauts/2
-            x=1024,
-            y=1630,
+            x=1391,
+            y=1179,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/3
-            x=1300,
-            y=1382,
+            x=1599,
+            y=1723,
             width=50,
             height=44,
 
         },
         {
             -- Astronauts/4
-            x=1195,
-            y=1675,
+            x=1519,
+            y=1044,
             width=31,
             height=44,
 
         },
         {
             -- Astronauts/5
-            x=1025,
-            y=1678,
+            x=1402,
+            y=1044,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/6
-            x=1297,
-            y=1430,
+            x=1493,
+            y=667,
             width=50,
             height=44,
 
         },
         {
             -- Astronauts/7
-            x=1733,
-            y=1454,
+            x=1631,
+            y=810,
             width=34,
             height=44,
 
         },
         {
             -- Astronauts/8
-            x=1009,
-            y=1818,
+            x=1432,
+            y=1177,
             width=37,
             height=44,
 
         },
         {
             -- Astronauts/9
-            x=1409,
-            y=1439,
+            x=1493,
+            y=715,
             width=50,
             height=44,
 
         },
         {
             -- Buildings/1
-            x=1565,
-            y=1464,
+            x=1653,
+            y=1052,
             width=43,
             height=42,
 
         },
         {
             -- Buildings/10
-            x=1703,
-            y=1612,
+            x=1277,
+            y=944,
             width=29,
             height=28,
 
         },
         {
             -- Buildings/11
-            x=409,
-            y=1837,
+            x=244,
+            y=1931,
             width=103,
             height=14,
 
         },
         {
             -- Buildings/12
-            x=1417,
-            y=1017,
+            x=127,
+            y=1360,
             width=89,
             height=88,
 
         },
         {
             -- Buildings/13 Copy
-            x=1481,
-            y=411,
+            x=127,
+            y=1277,
             width=90,
             height=79,
 
         },
         {
             -- Buildings/13
-            x=857,
-            y=871,
+            x=1037,
+            y=1641,
             width=67,
             height=85,
 
         },
         {
             -- Buildings/2
-            x=978,
-            y=1678,
+            x=1746,
+            y=1020,
             width=43,
             height=42,
 
         },
         {
             -- Buildings/3
-            x=1516,
-            y=1299,
+            x=1000,
+            y=1015,
             width=43,
             height=84,
 
         },
         {
             -- Buildings/4
-            x=1790,
-            y=642,
+            x=1325,
+            y=1774,
             width=43,
             height=84,
 
         },
         {
             -- Buildings/5
-            x=966,
-            y=1074,
+            x=132,
+            y=1101,
             width=85,
             height=84,
 
         },
         {
             -- Buildings/6
-            x=1055,
-            y=1074,
+            x=132,
+            y=1189,
             width=85,
             height=84,
 
         },
         {
             -- Buildings/7
-            x=614,
-            y=1308,
+            x=1047,
+            y=1047,
             width=47,
             height=46,
 
         },
         {
             -- Buildings/8
-            x=1445,
-            y=1687,
+            x=1840,
+            y=1066,
             width=29,
             height=28,
 
         },
         {
             -- Buildings/9
-            x=1743,
-            y=950,
+            x=1098,
+            y=1047,
             width=47,
             height=46,
 
         },
         {
             -- Effects/Fire/1
-            x=1722,
-            y=1576,
+            x=1855,
+            y=1860,
             width=14,
             height=32,
 
         },
         {
             -- Effects/Fire/10
-            x=1433,
-            y=1545,
+            x=1472,
+            y=771,
             width=17,
             height=40,
 
         },
         {
             -- Effects/Fire/11
-            x=1309,
-            y=1811,
+            x=1587,
+            y=1450,
             width=25,
             height=41,
 
         },
         {
             -- Effects/Fire/12
-            x=1879,
-            y=1414,
+            x=1133,
+            y=1726,
             width=23,
             height=53,
 
         },
         {
             -- Effects/Fire/13
-            x=1134,
-            y=1769,
+            x=1844,
+            y=1020,
             width=25,
             height=42,
 
         },
         {
             -- Effects/Fire/14
-            x=1173,
-            y=1480,
+            x=1105,
+            y=1730,
             width=24,
             height=53,
 
         },
         {
             -- Effects/Fire/15
-            x=1213,
-            y=1533,
+            x=1587,
+            y=927,
             width=25,
             height=44,
 
         },
         {
             -- Effects/Fire/16
-            x=377,
-            y=1383,
+            x=773,
+            y=1733,
             width=24,
             height=56,
 
         },
         {
             -- Effects/Fire/2
-            x=1549,
-            y=1727,
+            x=1755,
+            y=1889,
             width=14,
             height=33,
 
         },
         {
             -- Effects/Fire/3
-            x=381,
-            y=1114,
+            x=1544,
+            y=888,
             width=14,
             height=35,
 
         },
         {
             -- Effects/Fire/4
-            x=1656,
-            y=1822,
+            x=1855,
+            y=1896,
             width=14,
             height=32,
 
         },
         {
             -- Effects/Fire/5
-            x=1807,
-            y=1646,
+            x=1855,
+            y=1932,
             width=14,
             height=32,
 
         },
         {
             -- Effects/Fire/6
-            x=1821,
-            y=1828,
+            x=1855,
+            y=1968,
             width=14,
             height=32,
 
         },
         {
             -- Effects/Fire/7
-            x=1969,
-            y=1610,
+            x=1243,
+            y=839,
             width=14,
             height=32,
 
         },
         {
             -- Effects/Fire/8
-            x=1451,
-            y=1719,
+            x=1472,
+            y=815,
             width=17,
             height=40,
 
         },
         {
             -- Effects/Fire/9
-            x=1439,
-            y=1766,
+            x=1596,
+            y=1858,
             width=17,
             height=40,
 
         },
         {
             -- Effects/Shield/1
-            x=955,
-            y=399,
+            x=1047,
+            y=531,
             width=144,
             height=138,
 
         },
         {
             -- Effects/Shield/2
-            x=804,
-            y=317,
+            x=871,
+            y=583,
             width=144,
             height=119,
 
         },
         {
             -- Effects/Shield/3
-            x=955,
-            y=541,
+            x=871,
+            y=706,
             width=134,
             height=108,
 
         },
         {
             -- Effects/Speed/1
-            x=1453,
-            y=510,
+            x=805,
+            y=1792,
             width=8,
             height=112,
 
         },
         {
             -- Effects/Speed/2
-            x=1570,
-            y=679,
+            x=228,
+            y=1802,
             width=7,
             height=128,
 
         },
         {
             -- Effects/Speed/3
-            x=1581,
-            y=679,
+            x=211,
+            y=1802,
             width=13,
             height=128,
 
         },
         {
             -- Effects/Speed/4
-            x=550,
-            y=753,
+            x=608,
+            y=624,
             width=17,
             height=128,
 
         },
         {
             -- Effects/Star/1
-            x=1987,
-            y=1607,
+            x=1618,
+            y=1986,
             width=25,
             height=24,
 
         },
         {
             -- Effects/Star/2
-            x=1851,
-            y=1718,
+            x=1718,
+            y=930,
             width=24,
             height=24,
 
         },
         {
             -- Effects/Star/3
-            x=2016,
-            y=1604,
+            x=1824,
+            y=1939,
             width=25,
             height=24,
 
         },
         {
             -- Effects/smoke/1
-            x=1880,
-            y=1798,
+            x=1787,
+            y=1993,
             width=21,
             height=21,
 
         },
         {
             -- Effects/smoke/2
-            x=1463,
-            y=1837,
+            x=1639,
+            y=898,
             width=26,
             height=25,
 
         },
         {
             -- Effects/smoke/3
-            x=1432,
-            y=1589,
+            x=1636,
+            y=858,
             width=35,
             height=36,
 
         },
         {
             -- Effects/smoke/4
-            x=560,
-            y=1837,
+            x=1606,
+            y=898,
             width=29,
             height=25,
 
         },
         {
             -- Effects/smoke/5
-            x=1570,
-            y=1668,
+            x=1837,
+            y=1206,
             width=32,
             height=33,
 
         },
         {
             -- Effects/smoke/6
-            x=1008,
-            y=1364,
+            x=132,
+            y=1036,
             width=44,
             height=51,
 
         },
         {
             -- Effects/smoke/7
-            x=597,
-            y=1833,
+            x=467,
+            y=1916,
             width=30,
             height=29,
 
         },
         {
             -- Effects/smoke/8
-            x=1563,
-            y=1627,
+            x=575,
+            y=1605,
             width=37,
             height=37,
 
         },
         {
             -- Effects/smoke/9
-            x=1825,
-            y=1414,
+            x=616,
+            y=1590,
             width=50,
             height=52,
 
         },
         {
             -- Lasers/1
-            x=1247,
-            y=1474,
+            x=581,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/10
-            x=1428,
-            y=1629,
+            x=807,
+            y=1099,
             width=10,
             height=54,
 
         },
         {
             -- Lasers/11
-            x=1558,
-            y=1764,
+            x=806,
+            y=1908,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/12
-            x=747,
-            y=826,
+            x=1538,
+            y=1092,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/13
-            x=610,
-            y=1437,
+            x=918,
+            y=1589,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/14
-            x=956,
-            y=1365,
+            x=970,
+            y=1589,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/15
-            x=936,
-            y=1680,
+            x=889,
+            y=1907,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/16
-            x=1454,
-            y=1542,
+            x=931,
+            y=1907,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/17
-            x=1265,
-            y=1468,
+            x=599,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/18
-            x=2033,
-            y=243,
+            x=398,
+            y=683,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/19
-            x=1576,
-            y=1764,
+            x=999,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/2
-            x=1073,
-            y=1541,
+            x=857,
+            y=486,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/20
-            x=1711,
-            y=1788,
+            x=1538,
+            y=1133,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/21
-            x=2025,
-            y=1150,
+            x=617,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/22
-            x=922,
-            y=1636,
+            x=857,
+            y=547,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/23
-            x=1668,
-            y=1744,
+            x=1017,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/24
-            x=1852,
-            y=1677,
+            x=1679,
+            y=1840,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/25
-            x=1461,
-            y=1629,
+            x=1023,
+            y=1730,
             width=14,
             height=54,
 
         },
         {
             -- Lasers/26
-            x=1658,
-            y=1554,
+            x=1077,
+            y=1730,
             width=10,
             height=54,
 
         },
         {
             -- Lasers/27
-            x=1725,
-            y=1788,
+            x=1035,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/28
-            x=1884,
-            y=1675,
+            x=1679,
+            y=1881,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/29
-            x=1194,
-            y=1356,
+            x=1022,
+            y=1589,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/3
-            x=1743,
-            y=1788,
+            x=1053,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/30
-            x=1121,
-            y=1480,
+            x=1074,
+            y=1586,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/31
-            x=1471,
-            y=1584,
+            x=1540,
+            y=1262,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/32
-            x=1513,
-            y=1584,
+            x=1829,
+            y=1630,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/33
-            x=1279,
-            y=1403,
+            x=635,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/34
-            x=948,
-            y=1783,
+            x=398,
+            y=744,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/35
-            x=1740,
-            y=1574,
+            x=1071,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/36
-            x=1779,
-            y=1788,
+            x=1857,
+            y=1737,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/37
-            x=1335,
-            y=1478,
+            x=653,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/38
-            x=1056,
-            y=1726,
+            x=398,
+            y=805,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/39
-            x=1866,
-            y=1675,
+            x=1089,
+            y=1203,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/4
-            x=1792,
-            y=1747,
+            x=1857,
+            y=1778,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/40
-            x=1793,
-            y=1788,
+            x=1857,
+            y=1819,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/41
-            x=1672,
-            y=1554,
+            x=1041,
+            y=1730,
             width=14,
             height=54,
 
         },
         {
             -- Lasers/42
-            x=1690,
-            y=1554,
+            x=1091,
+            y=1730,
             width=10,
             height=54,
 
         },
         {
             -- Lasers/43
-            x=1761,
-            y=1788,
+            x=1597,
+            y=1122,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/44
-            x=1807,
-            y=1787,
+            x=1679,
+            y=1922,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/45
-            x=1283,
-            y=1478,
+            x=1059,
+            y=1897,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/46
-            x=1283,
-            y=1530,
+            x=1111,
+            y=1897,
             width=48,
             height=48,
 
         },
         {
             -- Lasers/47
-            x=1479,
-            y=1626,
+            x=1741,
+            y=1585,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/48
-            x=1521,
-            y=1626,
+            x=1697,
+            y=1616,
             width=38,
             height=38,
 
         },
         {
             -- Lasers/5
-            x=944,
-            y=1722,
+            x=671,
+            y=1735,
             width=14,
             height=57,
 
         },
         {
             -- Lasers/6
-            x=1414,
-            y=1629,
+            x=857,
+            y=608,
             width=10,
             height=57,
 
         },
         {
             -- Lasers/7
-            x=1774,
-            y=1747,
+            x=1597,
+            y=1163,
             width=14,
             height=37,
 
         },
         {
             -- Lasers/8
-            x=1821,
-            y=1787,
+            x=1679,
+            y=1963,
             width=10,
             height=37,
 
         },
         {
             -- Lasers/9
-            x=1704,
-            y=1554,
+            x=1059,
+            y=1730,
             width=14,
             height=54,
 
         },
         {
             -- Lasers/Beam/1
-            x=857,
-            y=960,
+            x=563,
+            y=1266,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/Beam/2
-            x=1153,
-            y=1151,
+            x=563,
+            y=1370,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/Beam/3
-            x=363,
-            y=1456,
+            x=1155,
+            y=1783,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/Beam/4
-            x=1465,
-            y=510,
+            x=1197,
+            y=1776,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/Beam/5
-            x=1510,
-            y=1001,
+            x=1239,
+            y=1776,
             width=38,
             height=100,
 
         },
         {
             -- Lasers/Burst/1
-            x=1758,
-            y=3,
+            x=681,
+            y=293,
             width=188,
             height=189,
 
         },
         {
             -- Lasers/Burst/2
-            x=1339,
-            y=218,
+            x=437,
+            y=431,
             width=188,
             height=189,
 
         },
         {
             -- Lasers/Burst/3
-            x=571,
-            y=440,
+            x=221,
+            y=454,
             width=188,
             height=189,
 
         },
         {
             -- Lasers/Burst/4 Copy
-            x=1559,
-            y=3,
+            x=437,
+            y=232,
             width=195,
             height=195,
 
         },
         {
             -- Lasers/Burst/4
-            x=571,
-            y=633,
+            x=3,
+            y=464,
             width=188,
             height=189,
 
         },
         {
             -- Lasers/Burst/5
-            x=763,
-            y=440,
+            x=3,
+            y=657,
             width=188,
             height=189,
 
         },
         {
             -- Lasers/GroundBurst/1
-            x=628,
-            y=358,
+            x=873,
+            y=337,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/GroundBurst/2
-            x=952,
-            y=317,
+            x=873,
+            y=419,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/GroundBurst/3
-            x=1128,
-            y=307,
+            x=1049,
+            y=449,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/GroundBurst/4
-            x=763,
-            y=789,
+            x=681,
+            y=486,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/GroundBurst/5
-            x=1128,
-            y=389,
+            x=871,
+            y=501,
             width=172,
             height=78,
 
         },
         {
             -- Lasers/Rings/1
-            x=633,
-            y=318,
+            x=339,
+            y=1606,
             width=93,
             height=36,
 
         },
         {
             -- Lasers/Rings/2
-            x=1507,
-            y=580,
+            x=436,
+            y=1606,
             width=93,
             height=36,
 
         },
         {
             -- Lasers/Rings/3
-            x=770,
-            y=1255,
+            x=1653,
+            y=602,
             width=93,
             height=36,
 
         },
         {
             -- Lasers/Rings/4
-            x=956,
-            y=1258,
+            x=1653,
+            y=642,
             width=93,
             height=36,
 
         },
         {
             -- Lasers/Rings/5
-            x=1053,
-            y=1258,
+            x=1653,
+            y=682,
             width=93,
             height=36,
 
@@ -1336,1664 +1336,1664 @@ SheetInfo.sheet =
         },
         {
             -- Meteors/Big/1
-            x=665,
-            y=1170,
+            x=1465,
+            y=1772,
             width=101,
             height=83,
 
         },
         {
             -- Meteors/Big/2
-            x=426,
-            y=843,
+            x=1187,
+            y=709,
             width=120,
             height=97,
 
         },
         {
             -- Meteors/Big/3
-            x=597,
-            y=1747,
+            x=1363,
+            y=1862,
             width=89,
             height=82,
 
         },
         {
             -- Meteors/Big/4
-            x=295,
-            y=1667,
+            x=999,
+            y=1103,
             width=98,
             height=96,
 
         },
         {
             -- Meteors/Big/5
-            x=1411,
-            y=1198,
+            x=1511,
+            y=1636,
             width=101,
             height=83,
 
         },
         {
             -- Meteors/Big/6
-            x=131,
-            y=1468,
+            x=3,
+            y=1264,
             width=120,
             height=97,
 
         },
         {
             -- Meteors/Big/7
-            x=1507,
-            y=494,
+            x=1456,
+            y=1862,
             width=89,
             height=82,
 
         },
         {
             -- Meteors/Big/8
-            x=410,
-            y=1230,
+            x=1101,
+            y=1097,
             width=98,
             height=96,
 
         },
         {
             -- Meteors/Huge/1
-            x=681,
-            y=85,
+            x=1591,
+            y=3,
             width=220,
             height=222,
 
         },
         {
             -- Meteors/Huge/2
-            x=1339,
-            y=3,
+            x=1591,
+            y=229,
             width=216,
             height=211,
 
         },
         {
             -- Meteors/Huge/3
-            x=1123,
-            y=85,
+            x=221,
+            y=232,
             width=212,
             height=218,
 
         },
         {
             -- Meteors/Huge/4
-            x=905,
-            y=85,
+            x=3,
+            y=232,
             width=214,
             height=228,
 
         },
         {
             -- Meteors/Med/1
-            x=1695,
-            y=1072,
+            x=348,
+            y=1226,
             width=45,
             height=40,
 
         },
         {
             -- Meteors/Med/2
-            x=1009,
-            y=1726,
+            x=1793,
+            y=1023,
             width=43,
             height=42,
 
         },
         {
             -- Meteors/Med/3
-            x=1009,
-            y=1772,
+            x=1746,
+            y=1066,
             width=43,
             height=42,
 
         },
         {
             -- Meteors/Med/4
-            x=1956,
-            y=1510,
+            x=1795,
+            y=979,
             width=45,
             height=40,
 
         },
         {
             -- Meteors/Small/1
-            x=1377,
-            y=1420,
+            x=403,
+            y=1918,
             width=28,
             height=27,
 
         },
         {
             -- Meteors/Small/2
-            x=1586,
-            y=1836,
+            x=1582,
+            y=1262,
             width=29,
             height=26,
 
         },
         {
             -- Meteors/Small/3
-            x=1056,
-            y=1787,
+            x=435,
+            y=1918,
             width=28,
             height=27,
 
         },
         {
             -- Meteors/Small/4
-            x=1795,
-            y=1582,
+            x=1839,
+            y=1098,
             width=29,
             height=26,
 
         },
         {
             -- Meteors/Tiny/1
-            x=1983,
-            y=1554,
+            x=61,
+            y=1954,
             width=18,
             height=18,
 
         },
         {
             -- Meteors/Tiny/2
-            x=1824,
-            y=1766,
+            x=1195,
+            y=531,
             width=16,
             height=16,
 
         },
         {
             -- Meteors/Tiny/3
-            x=1972,
-            y=1834,
+            x=83,
+            y=1954,
             width=18,
             height=18,
 
         },
         {
             -- Meteors/Tiny/4
-            x=2015,
-            y=1760,
+            x=1722,
+            y=1988,
             width=16,
             height=16,
 
         },
         {
             -- Missiles/1
-            x=1233,
-            y=1408,
+            x=413,
+            y=556,
             width=19,
             height=62,
 
         },
         {
             -- Missiles/10
-            x=690,
-            y=1746,
+            x=1591,
+            y=444,
             width=21,
             height=83,
 
         },
         {
             -- Missiles/11
-            x=1256,
-            y=1403,
+            x=413,
+            y=622,
             width=19,
             height=61,
 
         },
         {
             -- Missiles/12
-            x=1694,
-            y=366,
+            x=1735,
+            y=1708,
             width=36,
             height=61,
 
         },
         {
             -- Missiles/13
-            x=1304,
-            y=307,
+            x=221,
+            y=1646,
             width=31,
             height=90,
 
         },
         {
             -- Missiles/14
-            x=1751,
-            y=800,
+            x=1615,
+            y=1115,
             width=34,
             height=71,
 
         },
         {
             -- Missiles/15
-            x=1197,
-            y=670,
+            x=195,
+            y=464,
             width=22,
             height=85,
 
         },
         {
             -- Missiles/16
-            x=1377,
-            y=1451,
+            x=1839,
+            y=1128,
             width=28,
             height=40,
 
         },
         {
             -- Missiles/17
-            x=777,
-            y=311,
+            x=195,
+            y=730,
             width=22,
             height=43,
 
         },
         {
             -- Missiles/18
-            x=1687,
-            y=1298,
+            x=1695,
+            y=1724,
             width=36,
             height=61,
 
         },
         {
             -- Missiles/19
-            x=1153,
-            y=1255,
+            x=1310,
+            y=1094,
             width=38,
             height=82,
 
         },
         {
             -- Missiles/2
-            x=1906,
-            y=1406,
+            x=1653,
+            y=1738,
             width=36,
             height=61,
 
         },
         {
             -- Missiles/20
-            x=825,
-            y=1325,
+            x=1591,
+            y=531,
             width=21,
             height=83,
 
         },
         {
             -- Missiles/21
-            x=1031,
-            y=1547,
+            x=412,
+            y=687,
             width=19,
             height=61,
 
         },
         {
             -- Missiles/22
-            x=730,
-            y=1257,
+            x=1695,
+            y=1658,
             width=36,
             height=62,
 
         },
         {
             -- Missiles/23
-            x=553,
-            y=1020,
+            x=256,
+            y=1646,
             width=31,
             height=90,
 
         },
         {
             -- Missiles/24
-            x=1751,
-            y=875,
+            x=1615,
+            y=1190,
             width=34,
             height=71,
 
         },
         {
             -- Missiles/25
-            x=656,
-            y=1570,
+            x=195,
+            y=553,
             width=22,
             height=85,
 
         },
         {
             -- Missiles/26
-            x=1381,
-            y=1810,
+            x=1555,
+            y=1385,
             width=28,
             height=40,
 
         },
         {
             -- Missiles/27
-            x=1246,
-            y=1356,
+            x=195,
+            y=777,
             width=22,
             height=43,
 
         },
         {
             -- Missiles/28
-            x=946,
-            y=1417,
+            x=1826,
+            y=1672,
             width=36,
             height=61,
 
         },
         {
             -- Missiles/29
-            x=1474,
-            y=1373,
+            x=1394,
+            y=1092,
             width=38,
             height=81,
 
         },
         {
             -- Missiles/3
-            x=1513,
-            y=1105,
+            x=291,
+            y=1646,
             width=31,
             height=89,
 
         },
         {
             -- Missiles/30
-            x=1851,
-            y=1245,
+            x=1591,
+            y=618,
             width=21,
             height=83,
 
         },
         {
             -- Missiles/31
-            x=1054,
-            y=1541,
+            x=562,
+            y=1735,
             width=15,
             height=57,
 
         },
         {
             -- Missiles/32
-            x=1123,
-            y=1418,
+            x=216,
+            y=1740,
             width=32,
             height=58,
 
         },
         {
             -- Missiles/33
-            x=1758,
-            y=710,
+            x=512,
+            y=1646,
             width=27,
             height=86,
 
         },
         {
             -- Missiles/34
-            x=1727,
-            y=1292,
+            x=1187,
+            y=976,
             width=31,
             height=67,
 
         },
         {
             -- Missiles/35
-            x=1876,
-            y=1245,
+            x=1424,
+            y=1227,
             width=18,
             height=81,
 
         },
         {
             -- Missiles/36
-            x=1628,
-            y=1548,
+            x=1597,
+            y=1596,
             width=26,
             height=36,
 
         },
         {
             -- Missiles/37
-            x=2027,
-            y=1349,
+            x=1645,
+            y=962,
             width=18,
             height=39,
 
         },
         {
             -- Missiles/38
-            x=1952,
-            y=939,
+            x=526,
+            y=1736,
             width=32,
             height=57,
 
         },
         {
             -- Missiles/39
-            x=1641,
-            y=847,
+            x=1009,
+            y=766,
             width=34,
             height=77,
 
         },
         {
             -- Missiles/4
-            x=823,
-            y=1412,
+            x=764,
+            y=1400,
             width=34,
             height=70,
 
         },
         {
             -- Missiles/40
-            x=710,
-            y=1487,
+            x=1472,
+            y=524,
             width=17,
             height=79,
 
         },
         {
             -- Missiles/5
-            x=712,
-            y=1570,
+            x=195,
+            y=642,
             width=22,
             height=84,
 
         },
         {
             -- Missiles/6
-            x=1407,
-            y=1767,
+            x=1508,
+            y=1262,
             width=28,
             height=39,
 
         },
         {
             -- Missiles/7
-            x=1216,
-            y=1581,
+            x=195,
+            y=824,
             width=22,
             height=43,
 
         },
         {
             -- Missiles/8
-            x=991,
-            y=1547,
+            x=1786,
+            y=1732,
             width=36,
             height=61,
 
         },
         {
             -- Missiles/9
-            x=1568,
-            y=1378,
+            x=1352,
+            y=1093,
             width=38,
             height=82,
 
         },
         {
             -- Particles/1
-            x=131,
-            y=1352,
+            x=575,
+            y=1796,
             width=111,
             height=112,
 
         },
         {
             -- Particles/10
-            x=309,
-            y=1767,
+            x=207,
+            y=1949,
             width=96,
             height=92,
 
         },
         {
             -- Particles/11
-            x=662,
-            y=978,
+            x=603,
+            y=1949,
             width=91,
             height=92,
 
         },
         {
             -- Particles/12
-            x=1313,
-            y=773,
+            x=239,
+            y=1802,
             width=30,
             height=125,
 
         },
         {
             -- Particles/13
-            x=265,
-            y=867,
+            x=3,
+            y=1684,
             width=113,
             height=114,
 
         },
         {
             -- Particles/14
-            x=180,
-            y=1569,
+            x=563,
+            y=1474,
             width=111,
             height=112,
 
         },
         {
             -- Particles/15
-            x=180,
-            y=1685,
+            x=678,
+            y=1474,
             width=111,
             height=112,
 
         },
         {
             -- Particles/16
-            x=1223,
-            y=658,
+            x=817,
+            y=1792,
             width=111,
             height=111,
 
         },
         {
             -- Particles/17
-            x=757,
-            y=871,
+            x=307,
+            y=1949,
             width=96,
             height=92,
 
         },
         {
             -- Particles/18
-            x=665,
-            y=1074,
+            x=698,
+            y=1949,
             width=91,
             height=92,
 
         },
         {
             -- Particles/19
-            x=628,
-            y=961,
+            x=273,
+            y=1801,
             width=30,
             height=125,
 
         },
         {
             -- Particles/2
-            x=1198,
-            y=773,
+            x=932,
+            y=1791,
             width=111,
             height=111,
 
         },
         {
             -- Particles/20
-            x=265,
-            y=985,
+            x=341,
+            y=1800,
             width=113,
             height=114,
 
         },
         {
             -- Particles/21
-            x=401,
-            y=1114,
+            x=690,
+            y=1795,
             width=111,
             height=112,
 
         },
         {
             -- Particles/3
-            x=757,
-            y=967,
+            x=407,
+            y=1949,
             width=96,
             height=92,
 
         },
         {
             -- Particles/4
-            x=770,
-            y=1159,
+            x=793,
+            y=1949,
             width=91,
             height=92,
 
         },
         {
             -- Particles/5
-            x=631,
-            y=1090,
+            x=307,
+            y=1800,
             width=30,
             height=125,
 
         },
         {
             -- Particles/6
-            x=131,
-            y=1234,
+            x=458,
+            y=1798,
             width=113,
             height=114,
 
         },
         {
             -- Particles/7
-            x=1223,
-            y=542,
+            x=793,
+            y=1474,
             width=111,
             height=112,
 
         },
         {
             -- Particles/8
-            x=1338,
-            y=510,
+            x=908,
+            y=1473,
             width=111,
             height=112,
 
         },
         {
             -- Particles/9
-            x=516,
-            y=1114,
+            x=1023,
+            y=1471,
             width=111,
             height=111,
 
         },
         {
             -- Power-ups/Bolt/1
-            x=1512,
-            y=1727,
+            x=1616,
+            y=588,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Bolt/2
-            x=1500,
-            y=1764,
+            x=1616,
+            y=625,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Bolt/3
-            x=1463,
-            y=1800,
+            x=1616,
+            y=662,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Bolt/4
-            x=1500,
-            y=1801,
+            x=1616,
+            y=699,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Bolt/5
-            x=1734,
-            y=202,
+            x=413,
+            y=454,
             width=20,
             height=30,
 
         },
         {
             -- Power-ups/Bolt/6
-            x=1044,
-            y=916,
+            x=413,
+            y=488,
             width=20,
             height=30,
 
         },
         {
             -- Power-ups/Bolt/7
-            x=1044,
-            y=950,
+            x=413,
+            y=522,
             width=20,
             height=30,
 
         },
         {
             -- Power-ups/None/1
-            x=1567,
-            y=1705,
+            x=1616,
+            y=736,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/None/2
-            x=1604,
-            y=1711,
+            x=1616,
+            y=773,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/None/3
-            x=1594,
-            y=1748,
+            x=1616,
+            y=1041,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/None/4
-            x=1600,
-            y=1785,
+            x=1616,
+            y=1078,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Pills/1
-            x=1351,
-            y=1438,
+            x=1160,
+            y=1586,
             width=22,
             height=22,
 
         },
         {
             -- Power-ups/Pills/2
-            x=1825,
-            y=1714,
+            x=1160,
+            y=1612,
             width=22,
             height=22,
 
         },
         {
             -- Power-ups/Pills/3
-            x=1825,
-            y=1740,
+            x=1846,
+            y=923,
             width=22,
             height=22,
 
         },
         {
             -- Power-ups/Pills/4
-            x=1880,
-            y=1772,
+            x=1846,
+            y=949,
             width=22,
             height=22,
 
         },
         {
             -- Power-ups/Shield/2
-            x=1631,
-            y=1748,
+            x=1616,
+            y=1265,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Shield/3
-            x=1637,
-            y=1785,
+            x=1616,
+            y=1302,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Shield/4
-            x=1686,
-            y=1751,
+            x=1616,
+            y=1339,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Shield/5
-            x=1856,
-            y=1511,
+            x=1838,
+            y=1172,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Shield/6
-            x=1921,
-            y=1519,
+            x=1837,
+            y=1351,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Shield/7
-            x=1852,
-            y=1545,
+            x=1837,
+            y=1385,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Shiled/1
-            x=1619,
-            y=1822,
+            x=1616,
+            y=1376,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Star/1
-            x=1674,
-            y=1788,
+            x=1616,
+            y=1413,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Star/2
-            x=1674,
-            y=1825,
+            x=1616,
+            y=1450,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Star/3
-            x=1711,
-            y=1829,
+            x=1616,
+            y=1487,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Star/4
-            x=1723,
-            y=1751,
+            x=1616,
+            y=1556,
             width=33,
             height=33,
 
         },
         {
             -- Power-ups/Star/5
-            x=1849,
-            y=1579,
+            x=1837,
+            y=1419,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Star/6
-            x=1736,
-            y=1615,
+            x=1837,
+            y=1453,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Star/7
-            x=1771,
-            y=1612,
+            x=1660,
+            y=1704,
             width=31,
             height=30,
 
         },
         {
             -- Power-ups/Things/1
-            x=1722,
-            y=1502,
+            x=1837,
+            y=1243,
             width=32,
             height=32,
 
         },
         {
             -- Power-ups/Things/2
-            x=1722,
-            y=1538,
+            x=1837,
+            y=1279,
             width=32,
             height=32,
 
         },
         {
             -- Power-ups/Things/3
-            x=1758,
-            y=1508,
+            x=1837,
+            y=1315,
             width=32,
             height=32,
 
         },
         {
             -- Rockets/Parts/1
-            x=1118,
-            y=980,
+            x=605,
+            y=1072,
             width=68,
             height=78,
 
         },
         {
             -- Rockets/Parts/10
-            x=1195,
-            y=1307,
+            x=1149,
+            y=1047,
             width=73,
             height=45,
 
         },
         {
             -- Rockets/Parts/11
-            x=1604,
-            y=554,
+            x=605,
+            y=1154,
             width=68,
             height=78,
 
         },
         {
             -- Rockets/Parts/12
-            x=770,
-            y=1295,
+            x=605,
+            y=1042,
             width=69,
             height=26,
 
         },
         {
             -- Rockets/Parts/13
-            x=1686,
-            y=710,
+            x=1110,
+            y=1244,
             width=68,
             height=71,
 
         },
         {
             -- Rockets/Parts/14
-            x=1837,
-            y=700,
+            x=1669,
+            y=801,
             width=68,
             height=40,
 
         },
         {
             -- Rockets/Parts/15
-            x=1679,
-            y=785,
+            x=1350,
+            y=791,
             width=68,
             height=73,
 
         },
         {
             -- Rockets/Parts/16
-            x=1909,
-            y=664,
+            x=832,
+            y=1590,
             width=82,
             height=49,
 
         },
         {
             -- Rockets/Parts/17
-            x=1569,
-            y=847,
+            x=1801,
+            y=753,
             width=68,
             height=73,
 
         },
         {
             -- Rockets/Parts/18
-            x=1789,
-            y=884,
+            x=1439,
+            y=930,
             width=68,
             height=42,
 
         },
         {
             -- Rockets/Parts/19
-            x=665,
-            y=1389,
+            x=807,
+            y=1157,
             width=59,
             height=52,
 
         },
         {
             -- Rockets/Parts/2
-            x=1562,
-            y=924,
+            x=1472,
+            y=859,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/20
-            x=1353,
-            y=1495,
+            x=350,
+            y=1178,
             width=44,
             height=44,
 
         },
         {
             -- Rockets/Parts/21
-            x=1618,
-            y=1588,
+            x=1591,
+            y=820,
             width=36,
             height=36,
 
         },
         {
             -- Rockets/Parts/22
-            x=1537,
-            y=1806,
+            x=1732,
+            y=1799,
             width=28,
             height=28,
 
         },
         {
             -- Rockets/Parts/23
-            x=1531,
-            y=218,
+            x=3,
+            y=1802,
             width=29,
             height=170,
 
         },
         {
             -- Rockets/Parts/24
-            x=377,
-            y=1247,
+            x=178,
+            y=1802,
             width=29,
             height=132,
 
         },
         {
             -- Rockets/Parts/25
-            x=1694,
-            y=202,
+            x=565,
+            y=781,
             width=36,
             height=160,
 
         },
         {
             -- Rockets/Parts/26
-            x=382,
-            y=867,
+            x=134,
+            y=1802,
             width=40,
             height=146,
 
         },
         {
             -- Rockets/Parts/27
-            x=1634,
-            y=928,
+            x=636,
+            y=232,
             width=41,
             height=81,
 
         },
         {
             -- Rockets/Parts/28
-            x=1516,
-            y=1198,
+            x=1281,
+            y=1776,
             width=40,
             height=97,
 
         },
         {
             -- Rockets/Parts/29
-            x=511,
-            y=1020,
+            x=165,
+            y=1952,
             width=38,
             height=90,
 
         },
         {
             -- Rockets/Parts/3
-            x=1679,
-            y=862,
+            x=1350,
+            y=868,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/30
-            x=1144,
-            y=1062,
+            x=958,
+            y=1949,
             width=47,
             height=85,
 
         },
         {
             -- Rockets/Parts/31
-            x=715,
-            y=1746,
+            x=1561,
+            y=1946,
             width=31,
             height=83,
 
         },
         {
             -- Rockets/Parts/4
-            x=1837,
-            y=744,
+            x=1336,
+            y=976,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/5
-            x=1490,
-            y=919,
+            x=605,
+            y=1236,
             width=68,
             height=78,
 
         },
         {
             -- Rockets/Parts/6
-            x=1909,
-            y=754,
+            x=1797,
+            y=830,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/7
-            x=1789,
-            y=816,
+            x=1408,
+            y=976,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/8
-            x=1909,
-            y=822,
+            x=1480,
+            y=976,
             width=68,
             height=64,
 
         },
         {
             -- Rockets/Parts/9
-            x=1837,
-            y=618,
+            x=605,
+            y=1318,
             width=68,
             height=78,
 
         },
         {
             -- Rockets/SpaceRockets/1
-            x=410,
-            y=440,
+            x=1311,
+            y=478,
             width=157,
             height=309,
 
         },
         {
             -- Rockets/SpaceRockets/2
-            x=143,
-            y=844,
+            x=3,
+            y=1365,
             width=118,
             height=315,
 
         },
         {
             -- Rockets/SpaceRockets/3 Copy
-            x=3,
-            y=232,
+            x=681,
+            y=3,
             width=626,
             height=122,
 
         },
         {
             -- Rockets/SpaceRockets/3
-            x=3,
-            y=844,
+            x=1047,
+            y=673,
             width=136,
             height=370,
 
         },
         {
             -- Rockets/SpaceRockets/4
-            x=283,
-            y=440,
+            x=221,
+            y=1182,
             width=123,
             height=374,
 
         },
         {
             -- Ruby/1
-            x=1771,
-            y=1468,
+            x=821,
+            y=669,
             width=46,
             height=36,
 
         },
         {
             -- Ruby/2
-            x=1821,
-            y=1470,
+            x=821,
+            y=709,
             width=46,
             height=36,
 
         },
         {
             -- Ruby/3
-            x=1871,
-            y=1471,
+            x=821,
+            y=749,
             width=46,
             height=36,
 
         },
         {
             -- Ruby/4
-            x=1335,
-            y=1543,
+            x=821,
+            y=789,
             width=46,
             height=36,
 
         },
         {
             -- Ships/1
-            x=1015,
-            y=995,
+            x=1235,
+            y=1319,
             width=99,
             height=75,
 
         },
         {
             -- Ships/10
-            x=1893,
-            y=457,
+            x=1186,
+            y=1558,
             width=99,
             height=75,
 
         },
         {
             -- Ships/11
-            x=1197,
-            y=964,
+            x=1195,
+            y=551,
             width=112,
             height=75,
 
         },
         {
             -- Ships/12
-            x=1734,
-            y=484,
+            x=1338,
+            y=1319,
             width=98,
             height=75,
 
         },
         {
             -- Ships/13
-            x=1950,
-            y=155,
+            x=1352,
+            y=1469,
             width=94,
             height=84,
 
         },
         {
             -- Ships/14
-            x=1195,
-            y=1043,
+            x=1009,
+            y=1949,
             width=104,
             height=84,
 
         },
         {
             -- Ships/15
-            x=1195,
-            y=1219,
+            x=1203,
+            y=1096,
             width=103,
             height=84,
 
         },
         {
             -- Ships/16
-            x=484,
-            y=1570,
+            x=1225,
+            y=462,
             width=82,
             height=85,
 
         },
         {
             -- Ships/17
-            x=1411,
-            y=1109,
+            x=543,
+            y=1646,
             width=98,
             height=85,
 
         },
         {
             -- Ships/18
-            x=255,
-            y=1456,
+            x=1047,
+            y=1788,
             width=104,
             height=105,
 
         },
         {
             -- Ships/19
-            x=1303,
-            y=1068,
+            x=1117,
+            y=1949,
             width=104,
             height=84,
 
         },
         {
             -- Ships/2
-            x=571,
-            y=882,
+            x=1195,
+            y=630,
             width=112,
             height=75,
 
         },
         {
             -- Ships/20
-            x=1302,
-            y=1244,
+            x=1138,
+            y=1470,
             width=103,
             height=84,
 
         },
         {
             -- Ships/21
-            x=499,
-            y=1659,
+            x=348,
+            y=1421,
             width=82,
             height=85,
 
         },
         {
             -- Ships/22
-            x=382,
-            y=1570,
+            x=645,
+            y=1646,
             width=98,
             height=85,
 
         },
         {
             -- Ships/23
-            x=512,
-            y=1402,
+            x=1323,
+            y=1637,
             width=94,
             height=84,
 
         },
         {
             -- Ships/24
-            x=1195,
-            y=1131,
+            x=1108,
+            y=1638,
             width=104,
             height=84,
 
         },
         {
             -- Ships/25
-            x=1409,
-            y=1285,
+            x=1245,
+            y=1470,
             width=103,
             height=84,
 
         },
         {
             -- Ships/26
-            x=511,
-            y=1748,
+            x=348,
+            y=1510,
             width=82,
             height=85,
 
         },
         {
             -- Ships/27
-            x=397,
-            y=1659,
+            x=747,
+            y=1644,
             width=98,
             height=85,
 
         },
         {
             -- Ships/28
-            x=409,
-            y=1748,
+            x=849,
+            y=1643,
             width=98,
             height=85,
 
         },
         {
             -- Ships/29
-            x=585,
-            y=1659,
+            x=1450,
+            y=1469,
             width=94,
             height=84,
 
         },
         {
             -- Ships/3
-            x=1734,
-            y=563,
+            x=1495,
+            y=1557,
             width=98,
             height=75,
 
         },
         {
             -- Ships/30
-            x=1303,
-            y=1156,
+            x=1329,
+            y=1948,
             width=104,
             height=84,
 
         },
         {
             -- Ships/31
-            x=405,
-            y=1402,
+            x=1216,
+            y=1637,
             width=103,
             height=84,
 
         },
         {
             -- Ships/32
-            x=570,
-            y=1570,
+            x=951,
+            y=1641,
             width=82,
             height=85,
 
         },
         {
             -- Ships/33
-            x=1734,
-            y=398,
+            x=1320,
+            y=1233,
             width=100,
             height=82,
 
         },
         {
             -- Ships/34
-            x=1347,
-            y=768,
+            x=221,
+            y=1560,
             width=114,
             height=82,
 
         },
         {
             -- Ships/35
-            x=856,
-            y=1074,
+            x=1481,
+            y=407,
             width=106,
             height=80,
 
         },
         {
             -- Ships/36
-            x=1068,
-            y=797,
+            x=435,
+            y=781,
             width=126,
             height=108,
 
         },
         {
             -- Ships/37
-            x=410,
-            y=753,
+            x=681,
+            y=624,
             width=136,
             height=86,
 
         },
         {
             -- Ships/38
-            x=1950,
-            y=3,
+            x=36,
+            y=1802,
             width=94,
             height=148,
 
         },
         {
             -- Ships/39
-            x=405,
-            y=1490,
+            x=677,
+            y=1320,
             width=102,
             height=76,
 
         },
         {
             -- Ships/4
-            x=1893,
-            y=536,
+            x=1289,
+            y=1558,
             width=99,
             height=75,
 
         },
         {
             -- Ships/40
-            x=1313,
-            y=920,
+            x=1225,
+            y=1948,
             width=100,
             height=94,
 
         },
         {
             -- Ships/41
-            x=763,
-            y=633,
+            x=1050,
+            y=293,
             width=172,
             height=152,
 
         },
         {
             -- Ships/5
-            x=928,
-            y=916,
+            x=1003,
+            y=1320,
             width=112,
             height=75,
 
         },
         {
             -- Ships/6
-            x=1468,
-            y=682,
+            x=1653,
+            y=444,
             width=98,
             height=75,
 
         },
         {
             -- Ships/7
-            x=1575,
-            y=406,
+            x=1392,
+            y=1557,
             width=99,
             height=75,
 
         },
         {
             -- Ships/8
-            x=899,
-            y=995,
+            x=1119,
+            y=1319,
             width=112,
             height=75,
 
         },
         {
             -- Ships/9
-            x=1468,
-            y=761,
+            x=1653,
+            y=523,
             width=98,
             height=75,
 
         },
         {
             -- Ships/Damages/1
-            x=1600,
-            y=485,
+            x=1226,
+            y=393,
             width=74,
             height=65,
 
         },
         {
             -- Ships/Damages/2
-            x=1467,
-            y=620,
+            x=120,
+            y=1740,
             width=92,
             height=58,
 
         },
         {
             -- Ships/Damages/3
-            x=556,
-            y=961,
+            x=801,
+            y=1733,
             width=68,
             height=55,
 
         },
         {
             -- Ships/Damages/4
-            x=1598,
-            y=709,
+            x=1022,
+            y=1244,
             width=84,
             height=71,
 
         },
         {
             -- Ships/Damages/5
-            x=1598,
-            y=636,
+            x=802,
+            y=1400,
             width=98,
             height=69,
 
         },
         {
             -- Ships/Damages/6
-            x=1598,
-            y=784,
+            x=1226,
+            y=293,
             width=77,
             height=59,
 
         },
         {
             -- Ships/Damages/7
-            x=1476,
-            y=840,
+            x=1653,
+            y=722,
             width=89,
             height=75,
 
         },
         {
             -- Ships/Damages/8
-            x=1198,
-            y=888,
+            x=870,
+            y=1244,
             width=107,
             height=72,
 
         },
         {
             -- Ships/Damages/9
-            x=1700,
-            y=642,
+            x=1273,
+            y=1880,
             width=86,
             height=64,
 
         },
         {
             -- Ships/Parts/Beams/1
-            x=1646,
-            y=1644,
+            x=1787,
+            y=1552,
             width=40,
             height=20,
 
@@ -3001,1927 +3001,1927 @@ SheetInfo.sheet =
         {
             -- Ships/Parts/Beams/10
             x=1735,
-            y=1649,
+            y=1773,
             width=36,
             height=22,
 
         },
         {
             -- Ships/Parts/Beams/11
-            x=1273,
-            y=510,
+            x=1811,
+            y=237,
             width=58,
             height=28,
 
         },
         {
             -- Ships/Parts/Beams/12
-            x=692,
-            y=1833,
+            x=1815,
+            y=123,
             width=54,
             height=12,
 
         },
         {
             -- Ships/Parts/Beams/13
-            x=1409,
-            y=1487,
+            x=351,
+            y=1918,
             width=48,
             height=27,
 
         },
         {
             -- Ships/Parts/Beams/14
-            x=991,
-            y=1612,
+            x=1493,
+            y=649,
             width=51,
             height=14,
 
         },
         {
             -- Ships/Parts/Beams/2
-            x=1541,
-            y=1548,
+            x=1653,
+            y=1641,
             width=38,
             height=32,
 
         },
         {
             -- Ships/Parts/Beams/3
-            x=631,
-            y=1833,
+            x=501,
+            y=1916,
             width=29,
             height=29,
 
         },
         {
             -- Ships/Parts/Beams/4
-            x=1479,
-            y=1668,
+            x=1653,
+            y=1499,
             width=42,
             height=17,
 
         },
         {
             -- Ships/Parts/Beams/5
-            x=516,
-            y=1837,
+            x=1562,
+            y=898,
             width=40,
             height=25,
 
         },
         {
             -- Ships/Parts/Beams/6
-            x=1401,
-            y=1518,
+            x=1424,
+            y=903,
             width=44,
             height=23,
 
         },
         {
             -- Ships/Parts/Beams/7
-            x=1461,
-            y=1506,
+            x=1424,
+            y=867,
             width=44,
             height=32,
 
         },
         {
             -- Ships/Parts/Beams/8
-            x=972,
-            y=1557,
+            x=1312,
+            y=1398,
             width=15,
             height=68,
 
         },
         {
             -- Ships/Parts/Beams/9
-            x=1272,
-            y=1307,
+            x=1306,
+            y=976,
             width=26,
             height=65,
 
         },
         {
             -- Ships/Parts/Cockpits/1
-            x=2005,
-            y=985,
+            x=1547,
+            y=716,
             width=40,
             height=40,
 
         },
         {
             -- Ships/Parts/Cockpits/10
-            x=1906,
-            y=939,
+            x=252,
+            y=1740,
             width=42,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/11
-            x=1409,
-            y=1373,
+            x=1808,
+            y=555,
             width=61,
             height=62,
 
         },
         {
             -- Ships/Parts/Cockpits/12
-            x=1516,
-            y=1387,
+            x=629,
+            y=467,
             width=48,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/13
-            x=614,
-            y=1229,
+            x=1750,
+            y=702,
             width=47,
             height=75,
 
         },
         {
             -- Ships/Parts/Cockpits/14
-            x=1698,
-            y=1000,
+            x=1128,
+            y=1398,
             width=42,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/15
-            x=568,
-            y=1257,
+            x=1182,
+            y=1244,
             width=42,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/16
-            x=511,
-            y=1490,
+            x=783,
+            y=1320,
             width=51,
             height=76,
 
         },
         {
             -- Ships/Parts/Cockpits/17
-            x=2005,
-            y=1029,
+            x=1547,
+            y=760,
             width=40,
             height=40,
 
         },
         {
             -- Ships/Parts/Cockpits/18
-            x=910,
-            y=1354,
+            x=298,
+            y=1739,
             width=42,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/19
-            x=665,
-            y=1257,
+            x=1807,
+            y=621,
             width=61,
             height=62,
 
         },
         {
             -- Ships/Parts/Cockpits/2
-            x=986,
-            y=1419,
+            x=344,
+            y=1737,
             width=42,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/20
-            x=892,
-            y=1722,
+            x=629,
+            y=539,
             width=48,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/21
-            x=1846,
-            y=1003,
+            x=1746,
+            y=781,
             width=47,
             height=75,
 
         },
         {
             -- Ships/Parts/Cockpits/22
-            x=1056,
-            y=1298,
+            x=1174,
+            y=1398,
             width=42,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/23
-            x=1959,
-            y=1000,
+            x=1228,
+            y=1244,
             width=42,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/24
-            x=566,
-            y=1490,
+            x=838,
+            y=1320,
             width=51,
             height=76,
 
         },
         {
             -- Ships/Parts/Cockpits/25
-            x=2005,
-            y=1450,
+            x=1508,
+            y=1174,
             width=40,
             height=40,
 
         },
         {
             -- Ships/Parts/Cockpits/26
-            x=1032,
-            y=1419,
+            x=390,
+            y=1737,
             width=42,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/27
-            x=1981,
-            y=847,
+            x=1802,
+            y=687,
             width=61,
             height=62,
 
         },
         {
             -- Ships/Parts/Cockpits/28
-            x=896,
-            y=1794,
+            x=629,
+            y=611,
             width=48,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/29
-            x=731,
-            y=1487,
+            x=1675,
+            y=845,
             width=47,
             height=75,
 
         },
         {
             -- Ships/Parts/Cockpits/3
-            x=665,
-            y=1323,
+            x=1552,
+            y=975,
             width=61,
             height=62,
 
         },
         {
             -- Ships/Parts/Cockpits/30
-            x=1102,
-            y=1298,
+            x=1220,
+            y=1398,
             width=42,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/31
-            x=1969,
-            y=1075,
+            x=1274,
+            y=1244,
             width=42,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/32
-            x=1838,
-            y=398,
+            x=893,
+            y=1320,
             width=51,
             height=76,
 
         },
         {
             -- Ships/Parts/Cockpits/4
-            x=1988,
-            y=913,
+            x=629,
+            y=683,
             width=48,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/5
-            x=738,
-            y=1566,
+            x=1746,
+            y=860,
             width=47,
             height=75,
 
         },
         {
             -- Ships/Parts/Cockpits/6
-            x=1148,
-            y=1341,
+            x=1266,
+            y=1398,
             width=42,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/7
-            x=1979,
-            y=1150,
+            x=1746,
+            y=1112,
             width=42,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/8
-            x=1838,
-            y=478,
+            x=948,
+            y=1320,
             width=51,
             height=76,
 
         },
         {
             -- Ships/Parts/Cockpits/9
-            x=2005,
-            y=1494,
+            x=1508,
+            y=1218,
             width=40,
             height=40,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/1
-            x=914,
-            y=1294,
+            x=689,
+            y=1735,
             width=38,
             height=56,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/10
-            x=1079,
-            y=1479,
+            x=731,
+            y=1735,
             width=38,
             height=56,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/11
-            x=1159,
-            y=1413,
+            x=398,
+            y=1136,
             width=33,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/12
-            x=750,
-            y=1799,
+            x=629,
+            y=755,
             width=48,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/13
-            x=750,
-            y=1724,
+            x=1548,
+            y=1469,
             width=35,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/14
-            x=1078,
-            y=1418,
+            x=436,
+            y=1737,
             width=41,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/15
-            x=903,
-            y=1415,
+            x=1267,
+            y=810,
             width=39,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/16
-            x=802,
-            y=1796,
+            x=67,
+            y=1976,
             width=45,
             height=66,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/17
-            x=540,
-            y=1332,
+            x=806,
+            y=1213,
             width=60,
             height=66,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/18
-            x=1678,
-            y=431,
+            x=1016,
+            y=1399,
             width=52,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/2
-            x=1196,
-            y=1408,
+            x=398,
+            y=1203,
             width=33,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/3
-            x=956,
-            y=1298,
+            x=1755,
+            y=571,
             width=48,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/4
-            x=1946,
-            y=1386,
+            x=1693,
+            y=1789,
             width=35,
             height=71,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/5
-            x=1034,
-            y=1480,
+            x=481,
+            y=1737,
             width=41,
             height=57,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/6
-            x=991,
-            y=1480,
+            x=1267,
+            y=877,
             width=39,
             height=63,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/7
-            x=843,
-            y=1725,
+            x=116,
+            y=1976,
             width=45,
             height=66,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/8
-            x=1679,
-            y=930,
+            x=3,
+            y=1976,
             width=60,
             height=66,
 
         },
         {
             -- Ships/Parts/Cockpits/Bases/9
-            x=1678,
-            y=503,
+            x=1072,
+            y=1399,
             width=52,
             height=68,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/1
-            x=1806,
-            y=1612,
+            x=1243,
+            y=875,
             width=14,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/10
-            x=1893,
-            y=398,
+            x=808,
+            y=988,
             width=9,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/11
-            x=1653,
-            y=1510,
+            x=1720,
+            y=2009,
             width=10,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/12
-            x=1891,
-            y=1511,
+            x=1693,
+            y=1951,
             width=26,
             height=26,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/13
-            x=1353,
-            y=1464,
+            x=1742,
+            y=1988,
             width=16,
             height=16,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/14
-            x=1884,
-            y=1579,
+            x=1187,
+            y=909,
             width=14,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/15
-            x=1968,
-            y=1678,
+            x=1205,
+            y=909,
             width=13,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/16
-            x=843,
-            y=1295,
+            x=1632,
+            y=1524,
             width=17,
             height=26,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/17
-            x=1887,
-            y=1643,
+            x=1618,
+            y=2014,
             width=14,
             height=28,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/18
-            x=1570,
-            y=811,
+            x=534,
+            y=1916,
             width=24,
             height=29,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/19
-            x=2024,
-            y=1315,
+            x=1627,
+            y=1593,
             width=21,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/2
-            x=1835,
-            y=1786,
+            x=1222,
+            y=909,
             width=13,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/20
-            x=1907,
-            y=898,
+            x=846,
+            y=1283,
             width=17,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/21
-            x=2036,
-            y=381,
+            x=808,
+            y=1025,
             width=9,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/22
-            x=1760,
-            y=1751,
+            x=1734,
+            y=2008,
             width=10,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/23
-            x=2036,
-            y=418,
+            x=808,
+            y=1062,
             width=9,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/24
-            x=1780,
-            y=1829,
+            x=1748,
+            y=2008,
             width=10,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/25
-            x=1891,
-            y=1541,
+            x=1648,
+            y=1983,
             width=26,
             height=26,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/26
-            x=2014,
-            y=1780,
+            x=1809,
+            y=2023,
             width=16,
             height=16,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/3
-            x=1886,
-            y=1613,
+            x=1762,
+            y=1982,
             width=17,
             height=26,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/4
-            x=1969,
-            y=1646,
+            x=1636,
+            y=2014,
             width=14,
             height=28,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/5
-            x=664,
-            y=1833,
+            x=562,
+            y=1916,
             width=24,
             height=29,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/6
-            x=1794,
-            y=1508,
+            x=1762,
+            y=2012,
             width=21,
             height=30,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/7
-            x=1828,
-            y=1578,
+            x=1678,
+            y=2009,
             width=17,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/8
-            x=1808,
-            y=1828,
+            x=1680,
+            y=1803,
             width=9,
             height=33,
 
         },
         {
             -- Ships/Parts/Cockpits/Glase/9
-            x=1794,
-            y=1829,
+            x=1841,
+            y=1967,
             width=10,
             height=33,
 
         },
         {
             -- Ships/Parts/Engines/1
-            x=1518,
-            y=1700,
+            x=1653,
+            y=1677,
             width=38,
             height=23,
 
         },
         {
             -- Ships/Parts/Engines/2
-            x=1861,
-            y=898,
+            x=1493,
+            y=827,
             width=42,
             height=28,
 
         },
         {
             -- Ships/Parts/Engines/3
-            x=564,
-            y=1229,
+            x=1552,
+            y=1234,
             width=27,
             height=24,
 
         },
         {
             -- Ships/Parts/Engines/4
-            x=1928,
-            y=890,
+            x=1248,
+            y=1195,
             width=49,
             height=45,
 
         },
         {
             -- Ships/Parts/Engines/5
-            x=516,
-            y=1229,
+            x=1138,
+            y=1558,
             width=44,
             height=24,
 
         },
         {
             -- Ships/Parts/Engines/6
-            x=850,
-            y=1341,
+            x=1267,
+            y=976,
             width=35,
             height=66,
 
         },
         {
             -- Ships/Parts/Engines/7
-            x=1008,
-            y=1298,
+            x=350,
+            y=1112,
             width=44,
             height=62,
 
         },
         {
             -- Ships/Parts/Engines/8
-            x=851,
-            y=1795,
+            x=1222,
+            y=976,
             width=41,
             height=66,
 
         },
         {
             -- Ships/Parts/Engines/9
-            x=2015,
-            y=1073,
+            x=1126,
+            y=1586,
             width=30,
             height=48,
 
         },
         {
             -- Ships/Parts/Guns/1
-            x=1795,
-            y=1542,
+            x=1726,
+            y=890,
             width=16,
             height=36,
 
         },
         {
             -- Ships/Parts/Guns/10
-            x=2024,
-            y=1225,
+            x=1591,
+            y=775,
             width=21,
             height=41,
 
         },
         {
             -- Ships/Parts/Guns/11
-            x=2024,
-            y=1270,
+            x=1846,
+            y=975,
             width=21,
             height=41,
 
         },
         {
             -- Ships/Parts/Guns/12
-            x=1935,
-            y=196,
+            x=398,
+            y=647,
             width=11,
             height=32,
 
         },
         {
             -- Ships/Parts/Guns/13
-            x=1555,
-            y=1584,
+            x=1596,
+            y=1902,
             width=17,
             height=38,
 
         },
         {
             -- Ships/Parts/Guns/14
-            x=1902,
-            y=1571,
+            x=1597,
+            y=1041,
             width=15,
             height=32,
 
         },
         {
             -- Ships/Parts/Guns/15
-            x=1300,
-            y=1720,
+            x=1472,
+            y=725,
             width=17,
             height=42,
 
         },
         {
             -- Ships/Parts/Guns/2
-            x=1831,
-            y=1677,
+            x=1699,
+            y=2009,
             width=17,
             height=33,
 
         },
         {
             -- Ships/Parts/Guns/3
-            x=1806,
-            y=1747,
+            x=1597,
+            y=1556,
             width=14,
             height=36,
 
         },
         {
             -- Ships/Parts/Guns/4
-            x=1301,
-            y=1766,
+            x=1726,
+            y=845,
             width=16,
             height=41,
 
         },
         {
             -- Ships/Parts/Guns/5
-            x=1537,
-            y=1764,
+            x=1596,
+            y=1944,
             width=17,
             height=38,
 
         },
         {
             -- Ships/Parts/Guns/6
-            x=1445,
-            y=1810,
+            x=1597,
+            y=1077,
             width=14,
             height=41,
 
         },
         {
             -- Ships/Parts/Guns/7
-            x=1137,
-            y=1815,
+            x=1160,
+            y=1726,
             width=10,
             height=47,
 
         },
         {
             -- Ships/Parts/Guns/8
-            x=1354,
-            y=1382,
+            x=412,
+            y=752,
             width=19,
             height=52,
 
         },
         {
             -- Ships/Parts/Guns/9
-            x=1661,
-            y=1450,
+            x=605,
+            y=756,
             width=19,
             height=52,
 
         },
         {
             -- Ships/Parts/Others/1
-            x=1867,
-            y=1830,
+            x=1243,
+            y=810,
             width=17,
             height=25,
 
         },
         {
             -- Ships/Parts/Others/2
-            x=2015,
-            y=1125,
+            x=1846,
+            y=898,
             width=23,
             height=21,
 
         },
         {
             -- Ships/Parts/Others/3
-            x=1567,
-            y=1742,
+            x=36,
+            y=1954,
             width=21,
             height=18,
 
         },
         {
             -- Ships/Parts/Others/4
-            x=1699,
-            y=1519,
+            x=1645,
+            y=927,
             width=19,
             height=31,
 
         },
         {
             -- Ships/Parts/Others/5
-            x=1667,
-            y=1519,
+            x=1617,
+            y=1771,
             width=28,
             height=31,
 
         },
         {
             -- Ships/Parts/Scratches/1
-            x=1272,
-            y=1376,
+            x=1215,
+            y=866,
             width=24,
             height=23,
 
         },
         {
             -- Ships/Parts/Scratches/2
-            x=1068,
-            y=653,
+            x=1325,
+            y=1862,
             width=16,
             height=13,
 
         },
         {
             -- Ships/Parts/Wings/1
-            x=1928,
-            y=1082,
+            x=564,
+            y=1114,
             width=37,
             height=72,
 
         },
         {
             -- Ships/Parts/Wings/10
-            x=682,
-            y=1570,
+            x=1421,
+            y=1636,
             width=26,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/11
-            x=610,
-            y=1358,
+            x=1493,
+            y=491,
             width=51,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/12
-            x=1756,
-            y=1087,
+            x=1001,
+            y=847,
             width=42,
             height=80,
 
         },
         {
             -- Ships/Parts/Wings/13
-            x=512,
-            y=1257,
+            x=1811,
+            y=317,
             width=52,
             height=69,
 
         },
         {
             -- Ships/Parts/Wings/14
-            x=777,
-            y=1404,
+            x=1700,
+            y=1014,
             width=42,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/15
-            x=1640,
-            y=1189,
+            x=1467,
+            y=1948,
             width=43,
             height=83,
 
         },
         {
             -- Ships/Parts/Wings/16
-            x=1802,
-            y=1250,
+            x=821,
+            y=829,
             width=45,
             height=78,
 
         },
         {
             -- Ships/Parts/Wings/17
-            x=1985,
-            y=1375,
+            x=1554,
+            y=1084,
             width=38,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/18
-            x=1996,
-            y=457,
+            x=605,
+            y=1400,
             width=49,
             height=70,
 
         },
         {
             -- Ships/Parts/Wings/19
-            x=1995,
-            y=679,
+            x=1331,
+            y=1398,
             width=50,
             height=67,
 
         },
         {
             -- Ships/Parts/Wings/2
-            x=683,
-            y=1658,
+            x=1451,
+            y=1636,
             width=26,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/20
-            x=1981,
-            y=1300,
+            x=1548,
+            y=491,
             width=39,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/21
-            x=1979,
-            y=1225,
+            x=636,
+            y=317,
             width=41,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/22
-            x=1897,
-            y=1167,
+            x=180,
+            y=871,
             width=37,
             height=73,
 
         },
         {
             -- Ships/Parts/Wings/23
-            x=1378,
-            y=1332,
+            x=1372,
+            y=1774,
             width=27,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/24
-            x=730,
-            y=1323,
+            x=1310,
+            y=810,
             width=36,
             height=79,
 
         },
         {
             -- Ships/Parts/Wings/25
-            x=633,
-            y=232,
+            x=350,
+            y=940,
             width=44,
             height=82,
 
         },
         {
             -- Ships/Parts/Wings/26
-            x=1603,
-            y=1281,
+            x=398,
+            y=866,
             width=33,
             height=86,
 
         },
         {
             -- Ships/Parts/Wings/27
-            x=621,
-            y=1489,
+            x=1669,
+            y=924,
             width=45,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/28
-            x=1898,
-            y=1244,
+            x=1548,
+            y=1304,
             width=36,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/29
-            x=1938,
-            y=1158,
+            x=180,
+            y=1025,
             width=37,
             height=72,
 
         },
         {
             -- Ships/Parts/Wings/3
-            x=770,
-            y=1325,
+            x=1493,
+            y=570,
             width=51,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/30
-            x=713,
-            y=1658,
+            x=1481,
+            y=1636,
             width=26,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/31
-            x=1576,
-            y=1111,
+            x=1755,
+            y=444,
             width=51,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/32
-            x=1756,
-            y=1171,
+            x=1001,
+            y=931,
             width=42,
             height=80,
 
         },
         {
             -- Ships/Parts/Wings/33
-            x=1631,
-            y=1116,
+            x=1811,
+            y=390,
             width=52,
             height=69,
 
         },
         {
             -- Ships/Parts/Wings/34
-            x=743,
-            y=1645,
+            x=1700,
+            y=1093,
             width=42,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/35
-            x=1640,
-            y=1276,
+            x=1514,
+            y=1948,
             width=43,
             height=83,
 
         },
         {
             -- Ships/Parts/Wings/36
-            x=1771,
-            y=1338,
+            x=821,
+            y=911,
             width=45,
             height=78,
 
         },
         {
             -- Ships/Parts/Wings/37
-            x=861,
-            y=1411,
+            x=1831,
+            y=1555,
             width=38,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/38
-            x=1996,
-            y=531,
+            x=658,
+            y=1400,
             width=49,
             height=70,
 
         },
         {
             -- Ships/Parts/Wings/39
-            x=1580,
-            y=992,
+            x=1385,
+            y=1398,
             width=50,
             height=67,
 
         },
         {
             -- Ships/Parts/Wings/4
-            x=1802,
-            y=1082,
+            x=1545,
+            y=804,
             width=42,
             height=80,
 
         },
         {
             -- Ships/Parts/Wings/40
-            x=863,
-            y=1486,
+            x=1548,
+            y=566,
             width=39,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/41
-            x=882,
-            y=1561,
+            x=636,
+            y=392,
             width=41,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/42
-            x=822,
-            y=1486,
+            x=180,
+            y=948,
             width=37,
             height=73,
 
         },
         {
             -- Ships/Parts/Wings/43
-            x=1725,
-            y=1116,
+            x=1403,
+            y=1774,
             width=27,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/44
-            x=670,
-            y=1487,
+            x=1310,
+            y=893,
             width=36,
             height=79,
 
         },
         {
             -- Ships/Parts/Wings/45
-            x=1789,
-            y=730,
+            x=350,
+            y=1026,
             width=44,
             height=82,
 
         },
         {
             -- Ships/Parts/Wings/46
-            x=1610,
-            y=1371,
+            x=398,
+            y=956,
             width=33,
             height=86,
 
         },
         {
             -- Ships/Parts/Wings/47
-            x=1848,
-            y=1164,
+            x=1797,
+            y=898,
             width=45,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/48
-            x=1900,
-            y=1325,
+            x=1739,
+            y=1627,
             width=36,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/49
-            x=1938,
-            y=1234,
+            x=564,
+            y=1190,
             width=37,
             height=72,
 
         },
         {
             -- Ships/Parts/Wings/5
-            x=1794,
-            y=930,
+            x=904,
+            y=1400,
             width=52,
             height=69,
 
         },
         {
             -- Ships/Parts/Wings/50
-            x=1731,
-            y=1363,
+            x=1437,
+            y=1948,
             width=26,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/51
-            x=1791,
-            y=1003,
+            x=1810,
+            y=463,
             width=51,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/52
-            x=1802,
-            y=1166,
+            x=1440,
+            y=1312,
             width=42,
             height=80,
 
         },
         {
             -- Ships/Parts/Wings/53
-            x=1850,
-            y=930,
+            x=960,
+            y=1400,
             width=52,
             height=69,
 
         },
         {
             -- Ships/Parts/Wings/54
-            x=789,
-            y=1646,
+            x=1653,
+            y=1144,
             width=42,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/55
-            x=1647,
-            y=1363,
+            x=1549,
+            y=1859,
             width=43,
             height=83,
 
         },
         {
             -- Ships/Parts/Wings/56
-            x=1820,
-            y=1332,
+            x=821,
+            y=993,
             width=45,
             height=78,
 
         },
         {
             -- Ships/Parts/Wings/57
-            x=906,
-            y=1482,
+            x=1787,
+            y=1576,
             width=38,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/58
-            x=1996,
-            y=605,
+            x=711,
+            y=1400,
             width=49,
             height=70,
 
         },
         {
             -- Ships/Parts/Wings/59
-            x=789,
-            y=1725,
+            x=1439,
+            y=1398,
             width=50,
             height=67,
 
         },
         {
             -- Ships/Parts/Wings/6
-            x=835,
-            y=1646,
+            x=1793,
+            y=1069,
             width=42,
             height=75,
 
         },
         {
             -- Ships/Parts/Wings/60
-            x=948,
-            y=1482,
+            x=1548,
+            y=641,
             width=39,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/61
-            x=927,
-            y=1557,
+            x=1552,
+            y=1159,
             width=41,
             height=71,
 
         },
         {
             -- Ships/Parts/Wings/62
-            x=881,
-            y=1645,
+            x=564,
+            y=1037,
             width=37,
             height=73,
 
         },
         {
             -- Ships/Parts/Wings/63
-            x=1725,
-            y=1204,
+            x=1434,
+            y=1774,
             width=27,
             height=84,
 
         },
         {
             -- Ships/Parts/Wings/64
-            x=1762,
-            y=1255,
+            x=1436,
+            y=1092,
             width=36,
             height=79,
 
         },
         {
             -- Ships/Parts/Wings/65
-            x=1861,
-            y=812,
+            x=132,
+            y=950,
             width=44,
             height=82,
 
         },
         {
             -- Ships/Parts/Wings/66
-            x=1694,
-            y=1363,
+            x=398,
+            y=1046,
             width=33,
             height=86,
 
         },
         {
             -- Ships/Parts/Wings/67
-            x=728,
-            y=1406,
+            x=1746,
+            y=939,
             width=45,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/68
-            x=782,
-            y=1483,
+            x=1786,
+            y=1651,
             width=36,
             height=77,
 
         },
         {
             -- Ships/Parts/Wings/7
-            x=1744,
-            y=1000,
+            x=1570,
+            y=1771,
             width=43,
             height=83,
 
         },
         {
             -- Ships/Parts/Wings/8
-            x=1848,
-            y=1082,
+            x=821,
+            y=1075,
             width=45,
             height=78,
 
         },
         {
             -- Ships/Parts/Wings/9
-            x=1940,
-            y=1310,
+            x=981,
+            y=1244,
             width=37,
             height=72,
 
         },
         {
             -- Stations/1
-            x=3,
-            y=1218,
+            x=435,
+            y=1247,
             width=124,
             height=347,
 
         },
         {
             -- Stations/10
-            x=1758,
-            y=196,
+            x=3,
+            y=906,
             width=173,
             height=40,
 
         },
         {
             -- Stations/11
-            x=1734,
-            y=311,
+            x=873,
+            y=293,
             width=173,
             height=40,
 
         },
         {
             -- Stations/2
-            x=3,
-            y=1569,
+            x=221,
+            y=647,
             width=173,
             height=289,
 
         },
         {
             -- Stations/3
-            x=3,
-            y=440,
+            x=1311,
+            y=3,
             width=276,
             height=400,
 
         },
         {
             -- Stations/4
-            x=1734,
-            y=355,
+            x=436,
+            y=624,
             width=168,
             height=39,
 
         },
         {
             -- Stations/5
-            x=1304,
-            y=467,
+            x=436,
+            y=667,
             width=168,
             height=39,
 
         },
         {
             -- Stations/6
-            x=1103,
-            y=471,
+            x=435,
+            y=710,
             width=166,
             height=67,
 
         },
         {
             -- Stations/7
-            x=1734,
-            y=240,
+            x=1311,
+            y=407,
             width=166,
             height=67,
 
         },
         {
             -- Stations/8
-            x=571,
-            y=826,
+            x=681,
+            y=568,
             width=172,
             height=52,
 
         },
         {
             -- Stations/9
-            x=1304,
-            y=411,
+            x=3,
+            y=850,
             width=173,
             height=52,
 
         },
         {
             -- Stations/Parts/1
-            x=889,
-            y=1341,
+            x=1472,
+            y=607,
             width=17,
             height=66,
 
         },
         {
             -- Stations/Parts/10
-            x=1525,
-            y=1668,
+            x=1187,
+            y=944,
             width=41,
             height=28,
 
         },
         {
             -- Stations/Parts/11
-            x=1658,
-            y=1612,
+            x=1232,
+            y=944,
             width=41,
             height=28,
 
         },
         {
             -- Stations/Parts/12
-            x=977,
-            y=1630,
+            x=1226,
+            y=1046,
             width=43,
             height=44,
 
         },
         {
             -- Stations/Parts/13
-            x=1050,
-            y=1818,
+            x=1443,
+            y=1044,
             width=37,
             height=44,
 
         },
         {
             -- Stations/Parts/14
-            x=1134,
-            y=1580,
+            x=1616,
+            y=444,
             width=33,
             height=44,
 
         },
         {
             -- Stations/Parts/15
-            x=1158,
-            y=1675,
+            x=1616,
+            y=492,
             width=33,
             height=44,
 
         },
         {
             -- Stations/Parts/16
-            x=550,
-            y=885,
+            x=1472,
+            y=677,
             width=17,
             height=44,
 
         },
         {
             -- Stations/Parts/17
-            x=1243,
-            y=1815,
+            x=1616,
+            y=927,
             width=25,
             height=44,
 
         },
         {
             -- Stations/Parts/18
-            x=1463,
-            y=1458,
+            x=1755,
+            y=523,
             width=49,
             height=44,
 
         },
         {
             -- Stations/Parts/19
-            x=1272,
-            y=1812,
+            x=1616,
+            y=540,
             width=33,
             height=44,
 
         },
         {
             -- Stations/Parts/2
-            x=1201,
-            y=1629,
+            x=1587,
+            y=1404,
             width=25,
             height=42,
 
         },
         {
             -- Stations/Parts/20
-            x=1634,
-            y=1068,
+            x=1811,
+            y=269,
             width=57,
             height=44,
 
         },
         {
             -- Stations/Parts/21
-            x=962,
-            y=1724,
+            x=1273,
+            y=1046,
             width=43,
             height=44,
 
         },
         {
             -- Stations/Parts/22
-            x=283,
-            y=818,
+            x=3,
+            y=1215,
             width=123,
             height=45,
 
         },
         {
             -- Stations/Parts/23
-            x=1909,
-            y=615,
+            x=348,
+            y=1372,
             width=83,
             height=45,
 
         },
         {
             -- Stations/Parts/24
-            x=1171,
-            y=1585,
+            x=1791,
+            y=1470,
             width=41,
             height=40,
 
         },
         {
             -- Stations/Parts/3
-            x=1103,
-            y=399,
+            x=1591,
+            y=705,
             width=21,
             height=66,
 
         },
         {
             -- Stations/Parts/4
-            x=180,
-            y=1801,
+            x=3,
+            y=1153,
             width=125,
             height=58,
 
         },
         {
             -- Stations/Parts/5
-            x=1991,
-            y=809,
+            x=1815,
+            y=199,
             width=53,
             height=34,
 
         },
         {
             -- Stations/Parts/6
-            x=662,
-            y=1445,
+            x=824,
+            y=1907,
             width=61,
             height=38,
 
         },
         {
             -- Stations/Parts/7
-            x=867,
-            y=1254,
+            x=1350,
+            y=936,
             width=85,
             height=36,
 
         },
         {
             -- Stations/Parts/8
-            x=246,
-            y=1412,
+            x=221,
+            y=1138,
             width=125,
             height=40,
 
         },
         {
             -- Stations/Parts/9
-            x=1691,
-            y=1682,
+            x=1587,
+            y=1524,
             width=41,
             height=28,
 
         },
         {
             -- Turrets/1
-            x=1087,
-            y=1539,
+            x=785,
+            y=1590,
             width=43,
             height=50,
 
         },
         {
             -- Turrets/2
-            x=1676,
-            y=575,
+            x=1815,
+            y=3,
             width=54,
             height=57,
 
         },
         {
             -- Turrets/3
-            x=1836,
-            y=558,
+            x=1815,
+            y=139,
             width=53,
             height=56,
 
         },
         {
             -- Turrets/Parts/Bases/1
-            x=1087,
-            y=1593,
+            x=1653,
+            y=1098,
             width=43,
             height=42,
 
         },
         {
             -- Turrets/Parts/Bases/2
-            x=1991,
-            y=750,
+            x=1815,
+            y=64,
             width=54,
             height=55,
 
         },
         {
             -- Turrets/Parts/Bases/3
-            x=1242,
-            y=1583,
+            x=1653,
+            y=1520,
             width=41,
             height=41,
 
         },
         {
             -- Turrets/Parts/Bases/4
-            x=1273,
-            y=471,
+            x=1649,
+            y=1803,
             width=27,
             height=27,
 
         },
         {
             -- Turrets/Parts/Cannos/1
-            x=2027,
-            y=1392,
+            x=1596,
+            y=2004,
             width=18,
             height=38,
 
         },
         {
             -- Turrets/Parts/Cannos/2
-            x=1413,
-            y=1810,
+            x=821,
+            y=624,
             width=28,
             height=41,
 
         },
         {
             -- Turrets/Parts/Cannos/3
-            x=1420,
-            y=1721,
+            x=1732,
+            y=1831,
             width=27,
             height=41,
 
         },
         {
             -- UFOs/1
-            x=760,
-            y=1063,
+            x=125,
+            y=1452,
             width=92,
             height=92,
 
         },
         {
             -- UFOs/2
-            x=865,
-            y=1158,
+            x=125,
+            y=1548,
             width=92,
             height=92,
 
         },
         {
             -- UFOs/3
-            x=961,
-            y=1162,
+            x=125,
+            y=1644,
             width=92,
             height=92,
 
         },
         {
             -- UFOs/4
-            x=1057,
-            y=1162,
+            x=507,
+            y=1949,
             width=92,
             height=92,
 
         },
         {
             -- UI/Bar-corners/1/3-slices/1
-            x=1548,
-            y=1105,
+            x=1019,
+            y=675,
             width=24,
             height=87,
 
         },
         {
             -- UI/Bar-corners/1/3-slices/2
-            x=1687,
-            y=1116,
+            x=811,
+            y=806,
             width=6,
             height=87,
 
         },
         {
             -- UI/Bar-corners/1/3-slices/3
-            x=1560,
-            y=1196,
+            x=326,
+            y=1646,
             width=36,
             height=87,
 
         },
         {
             -- UI/Bar-corners/2/3-slices/1
-            x=1552,
-            y=1001,
+            x=1019,
+            y=583,
             width=24,
             height=88,
 
@@ -4932,8 +4932,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/2/3-slices/2
-            x=1981,
-            y=754,
+            x=811,
+            y=714,
             width=6,
             height=88,
 
@@ -4944,8 +4944,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/2/3-slices/3
-            x=588,
-            y=1020,
+            x=565,
+            y=945,
             width=36,
             height=88,
 
@@ -4956,368 +4956,368 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/3/3-slices/1
-            x=1687,
-            y=1207,
+            x=446,
+            y=1646,
             width=24,
             height=87,
 
         },
         {
             -- UI/Bar-corners/3/3-slices/2
-            x=1715,
-            y=1207,
+            x=811,
+            y=897,
             width=6,
             height=87,
 
         },
         {
             -- UI/Bar-corners/3/3-slices/3
-            x=1563,
-            y=1287,
+            x=366,
+            y=1646,
             width=36,
             height=87,
 
         },
         {
             -- UI/Bar-corners/4/3-slices/1
-            x=1697,
-            y=1116,
+            x=474,
+            y=1646,
             width=24,
             height=87,
 
         },
         {
             -- UI/Bar-corners/4/3-slices/2
-            x=1761,
-            y=1363,
+            x=502,
+            y=1646,
             width=6,
             height=87,
 
         },
         {
             -- UI/Bar-corners/4/3-slices/3
-            x=1600,
-            y=1190,
+            x=406,
+            y=1646,
             width=36,
             height=87,
 
         },
         {
             -- UI/Bars/1/9-slices/1
-            x=1851,
-            y=1746,
+            x=1617,
+            y=975,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/1/9-slices/2
-            x=605,
-            y=1229,
+            x=629,
+            y=431,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/1/9-slices/3
-            x=1879,
-            y=1744,
+            x=1617,
+            y=1003,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/1/9-slices/4
-            x=1552,
-            y=1093,
+            x=151,
+            y=1091,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/1/9-slices/5
-            x=1603,
-            y=1371,
+            x=629,
+            y=459,
             width=3,
             height=3,
 
         },
         {
             -- UI/Bars/1/9-slices/6
-            x=1531,
-            y=392,
+            x=989,
+            y=2038,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/1/9-slices/7
-            x=1907,
-            y=1749,
+            x=1718,
+            y=958,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/1/9-slices/8
-            x=1966,
-            y=1722,
+            x=1187,
+            y=673,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/1/9-slices/9
-            x=1935,
-            y=1750,
+            x=1718,
+            y=986,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/1
-            x=1852,
-            y=1774,
+            x=1588,
+            y=1292,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/2
-            x=2041,
-            y=350,
+            x=1001,
+            y=818,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/3
-            x=1906,
-            y=1777,
+            x=1588,
+            y=1320,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/4
-            x=1563,
-            y=668,
+            x=1017,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/2/9-slices/5
-            x=1563,
-            y=675,
+            x=1304,
+            y=451,
             width=3,
             height=3,
 
         },
         {
             -- UI/Bars/2/9-slices/6
-            x=692,
-            y=1856,
+            x=1045,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/2/9-slices/7
-            x=1934,
-            y=1778,
+            x=1588,
+            y=1348,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/8
-            x=1989,
-            y=1806,
+            x=1645,
+            y=1005,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/2/9-slices/9
-            x=1852,
-            y=1802,
+            x=1588,
+            y=1376,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/1
-            x=1905,
-            y=1805,
+            x=1755,
+            y=1926,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/2
-            x=1990,
-            y=1775,
+            x=1607,
+            y=1204,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/3
-            x=1933,
-            y=1806,
+            x=1755,
+            y=1954,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/4
-            x=1476,
-            y=501,
+            x=1073,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/3/9-slices/5
-            x=265,
-            y=1153,
+            x=1187,
+            y=701,
             width=3,
             height=3,
 
         },
         {
             -- UI/Bars/3/9-slices/6
-            x=1839,
-            y=1858,
+            x=1101,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/3/9-slices/7
-            x=1839,
-            y=1830,
+            x=1841,
+            y=2004,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/8
-            x=2007,
-            y=1775,
+            x=1779,
+            y=1627,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/3/9-slices/9
-            x=1888,
-            y=1833,
+            x=1187,
+            y=810,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/1
-            x=1916,
-            y=1834,
+            x=1215,
+            y=810,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/2
-            x=1996,
-            y=1803,
+            x=1779,
+            y=1655,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/3
-            x=1944,
-            y=1834,
+            x=1187,
+            y=838,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/4
-            x=1531,
-            y=399,
+            x=1129,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/4/9-slices/5
-            x=1751,
-            y=785,
+            x=1185,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/Bars/4/9-slices/6
-            x=856,
-            y=1064,
+            x=1157,
+            y=2037,
             width=24,
             height=3,
 
         },
         {
             -- UI/Bars/4/9-slices/7
-            x=1961,
-            y=1806,
+            x=1215,
+            y=838,
             width=24,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/8
-            x=2003,
-            y=1803,
+            x=1779,
+            y=1683,
             width=3,
             height=24,
 
         },
         {
             -- UI/Bars/4/9-slices/9
-            x=1962,
-            y=1778,
+            x=1187,
+            y=866,
             width=24,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/1
-            x=1054,
-            y=1602,
+            x=1583,
+            y=1234,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/2
-            x=595,
-            y=1229,
+            x=1597,
+            y=1204,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/3
-            x=1493,
-            y=1838,
+            x=1785,
+            y=1797,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/4
-            x=1306,
-            y=3,
+            x=1446,
+            y=1225,
             width=27,
             height=78,
 
@@ -5325,143 +5325,143 @@ SheetInfo.sheet =
         {
             -- UI/Buttons/1/9-slices/5
             x=681,
-            y=3,
+            y=129,
             width=621,
             height=78,
 
         },
         {
             -- UI/Buttons/1/9-slices/6
-            x=1897,
-            y=1003,
+            x=1476,
+            y=1092,
             width=27,
             height=78,
 
         },
         {
             -- UI/Buttons/1/9-slices/7
-            x=1524,
-            y=1838,
+            x=1826,
+            y=1799,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/8
-            x=1744,
-            y=1087,
+            x=1816,
+            y=1797,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/1/9-slices/9
-            x=1555,
-            y=1838,
+            x=1784,
+            y=1825,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/1
-            x=1921,
-            y=1553,
+            x=1825,
+            y=1827,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/2
-            x=556,
-            y=933,
+            x=1774,
+            y=1814,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/3
-            x=1952,
-            y=1554,
+            x=1724,
+            y=1876,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/4
-            x=1897,
-            y=1085,
+            x=1507,
+            y=1092,
             width=27,
             height=78,
 
         },
         {
             -- UI/Buttons/2/9-slices/5
-            x=3,
-            y=358,
+            x=681,
+            y=211,
             width=621,
             height=78,
 
         },
         {
             -- UI/Buttons/2/9-slices/6
-            x=1869,
-            y=1332,
+            x=1477,
+            y=1223,
             width=27,
             height=78,
 
         },
         {
             -- UI/Buttons/2/9-slices/7
-            x=1921,
-            y=1581,
+            x=1693,
+            y=1895,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/8
-            x=1963,
-            y=1750,
+            x=1763,
+            y=1833,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/2/9-slices/9
-            x=1952,
-            y=1582,
+            x=1648,
+            y=1927,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/1
-            x=2014,
-            y=1576,
+            x=1617,
+            y=1930,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/2
-            x=1973,
-            y=1746,
+            x=1773,
+            y=1842,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/3
-            x=1907,
-            y=1609,
+            x=1648,
+            y=1955,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/4
-            x=789,
-            y=1564,
+            x=1486,
+            y=1305,
             width=27,
             height=78,
 
@@ -5469,71 +5469,71 @@ SheetInfo.sheet =
         {
             -- UI/Buttons/3/9-slices/5
             x=681,
-            y=3,
+            y=129,
             width=621,
             height=78,
 
         },
         {
             -- UI/Buttons/3/9-slices/6
-            x=820,
-            y=1564,
+            x=1493,
+            y=1387,
             width=27,
             height=78,
 
         },
         {
             -- UI/Buttons/3/9-slices/7
-            x=1938,
-            y=1610,
+            x=1617,
+            y=1958,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/8
-            x=2005,
-            y=1719,
+            x=1763,
+            y=1861,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/3/9-slices/9
-            x=1987,
-            y=1635,
+            x=1783,
+            y=1853,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/1
-            x=2018,
-            y=1632,
+            x=1724,
+            y=1904,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/2
-            x=2037,
-            y=1716,
+            x=1815,
+            y=1825,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/3
-            x=2018,
-            y=1660,
+            x=1693,
+            y=1923,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/4
-            x=851,
-            y=1563,
+            x=1517,
+            y=1305,
             width=27,
             height=78,
 
@@ -5541,575 +5541,575 @@ SheetInfo.sheet =
         {
             -- UI/Buttons/4/9-slices/5
             x=681,
-            y=3,
+            y=129,
             width=621,
             height=78,
 
         },
         {
             -- UI/Buttons/4/9-slices/6
-            x=1928,
-            y=1000,
+            x=1524,
+            y=1387,
             width=27,
             height=78,
 
         },
         {
             -- UI/Buttons/4/9-slices/7
-            x=1907,
-            y=1637,
+            x=1824,
+            y=1855,
             width=27,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/8
-            x=2005,
-            y=1747,
+            x=1773,
+            y=1870,
             width=6,
             height=24,
 
         },
         {
             -- UI/Buttons/4/9-slices/9
-            x=1938,
-            y=1638,
+            x=1783,
+            y=1881,
             width=27,
             height=24,
 
         },
         {
             -- UI/Crossairs/1
-            x=1321,
-            y=1767,
+            x=973,
+            y=1906,
             width=39,
             height=39,
 
         },
         {
             -- UI/Crossairs/2
-            x=1364,
-            y=1767,
+            x=1016,
+            y=1906,
             width=39,
             height=39,
 
         },
         {
             -- UI/Crossairs/3
-            x=730,
-            y=311,
+            x=1107,
+            y=1197,
             width=43,
             height=43,
 
         },
         {
             -- UI/Crossairs/4
-            x=867,
-            y=1294,
+            x=1154,
+            y=1197,
             width=43,
             height=43,
 
         },
         {
             -- UI/Crossairs/5
-            x=1338,
-            y=1810,
+            x=1554,
+            y=1041,
             width=39,
             height=39,
 
         },
         {
             -- UI/Crossairs/6
-            x=1576,
-            y=1586,
+            x=533,
+            y=1605,
             width=38,
             height=37,
 
         },
         {
             -- UI/Crossairs/7
-            x=962,
-            y=1772,
+            x=1201,
+            y=1197,
             width=43,
             height=43,
 
         },
         {
             -- UI/Crossairs/8
-            x=962,
-            y=1819,
+            x=1653,
+            y=1005,
             width=43,
             height=43,
 
         },
         {
             -- UI/Cursors/1
-            x=1604,
-            y=1628,
-            width=38,
-            height=36,
+            x=605,
+            y=969,
+            width=69,
+            height=69,
 
         },
         {
             -- UI/Cursors/2
-            x=1775,
-            y=1646,
-            width=28,
-            height=31,
+            x=873,
+            y=1732,
+            width=48,
+            height=55,
 
         },
         {
             -- UI/Cursors/3
-            x=1731,
-            y=1714,
-            width=28,
-            height=33,
+            x=1750,
+            y=638,
+            width=48,
+            height=60,
 
         },
         {
             -- UI/Cursors/4
-            x=1768,
-            y=1681,
-            width=28,
-            height=31,
+            x=925,
+            y=1732,
+            width=48,
+            height=55,
 
         },
         {
             -- UI/Cursors/5
-            x=1748,
-            y=1829,
-            width=28,
-            height=33,
+            x=1493,
+            y=763,
+            width=48,
+            height=60,
 
         },
         {
             -- UI/Cursors/6
-            x=1606,
-            y=1668,
-            width=37,
-            height=39,
+            x=734,
+            y=1590,
+            width=47,
+            height=50,
 
         },
         {
             -- UI/Dots/1
-            x=1908,
-            y=1665,
+            x=1783,
+            y=1937,
             width=25,
             height=24,
 
         },
         {
             -- UI/Dots/2
-            x=1908,
-            y=1693,
+            x=1723,
+            y=1960,
             width=25,
             height=24,
 
         },
         {
             -- UI/Dots/3
-            x=1985,
-            y=1691,
+            x=1693,
+            y=1981,
             width=25,
             height=24,
 
         },
         {
             -- UI/Dots/4
-            x=1879,
-            y=1716,
+            x=1783,
+            y=1965,
             width=25,
             height=24,
 
         },
         {
             -- UI/Dots/5
-            x=1908,
-            y=1721,
+            x=1812,
+            y=1967,
             width=25,
             height=24,
 
         },
         {
             -- UI/Dots/6
-            x=1937,
-            y=1722,
+            x=1812,
+            y=1995,
             width=25,
             height=24,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/1
-            x=1287,
-            y=1582,
+            x=1699,
+            y=1172,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/3
-            x=1333,
-            y=1583,
+            x=1792,
+            y=1148,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/7
-            x=1379,
-            y=1583,
+            x=1745,
+            y=1187,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/9
-            x=1066,
-            y=1677,
+            x=1699,
+            y=1218,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/1
-            x=1070,
-            y=1723,
+            x=1653,
+            y=1223,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/3
-            x=1112,
-            y=1677,
+            x=1791,
+            y=1194,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/7
-            x=1116,
-            y=1723,
+            x=1745,
+            y=1233,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/9
-            x=1088,
-            y=1769,
+            x=1699,
+            y=1264,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/1
-            x=1091,
-            y=1815,
+            x=1653,
+            y=1269,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/3
-            x=1155,
-            y=1629,
+            x=1791,
+            y=1240,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/7
-            x=1162,
-            y=1723,
+            x=1745,
+            y=1279,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/9
-            x=1163,
-            y=1769,
+            x=1699,
+            y=1310,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/1
-            x=1151,
-            y=1815,
+            x=1653,
+            y=1315,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/3
-            x=1230,
-            y=1628,
+            x=1791,
+            y=1286,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/7
-            x=1276,
-            y=1628,
+            x=1745,
+            y=1325,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/9
-            x=1230,
-            y=1674,
+            x=1699,
+            y=1356,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/1
-            x=1276,
-            y=1674,
+            x=1653,
+            y=1361,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/3
-            x=1322,
-            y=1629,
+            x=1791,
+            y=1332,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/7
-            x=1368,
-            y=1629,
+            x=1745,
+            y=1371,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-corners/9-slices/9
-            x=1322,
-            y=1675,
+            x=1699,
+            y=1402,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-empty/9-slices/1
-            x=1516,
-            y=1459,
+            x=1290,
+            y=1725,
             width=45,
             height=45,
 
         },
         {
             -- UI/GlassPanel-empty/9-slices/2
-            x=1303,
-            y=1043,
+            x=180,
+            y=850,
             width=6,
             height=15,
 
@@ -6120,16 +6120,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/3
-            x=1612,
-            y=1461,
+            x=1301,
+            y=1184,
             width=45,
             height=45,
 
         },
         {
             -- UI/GlassPanel-empty/9-slices/4
-            x=1304,
-            y=401,
+            x=605,
+            y=812,
             width=15,
             height=6,
 
@@ -6140,8 +6140,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/5
-            x=1121,
-            y=1532,
+            x=1199,
+            y=2037,
             width=3,
             height=3,
 
@@ -6152,8 +6152,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/6
-            x=631,
-            y=1219,
+            x=132,
+            y=1091,
             width=15,
             height=6,
 
@@ -6164,16 +6164,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/7
-            x=1684,
-            y=1453,
+            x=1339,
+            y=1725,
             width=45,
             height=45,
 
         },
         {
             -- UI/GlassPanel-empty/9-slices/8
-            x=604,
-            y=1332,
+            x=1215,
+            y=531,
             width=6,
             height=15,
 
@@ -6184,1096 +6184,1096 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/9
-            x=1956,
-            y=1461,
+            x=1388,
+            y=1725,
             width=45,
             height=45,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/1
-            x=1368,
-            y=1675,
+            x=1653,
+            y=1407,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/2
-            x=2040,
-            y=913,
+            x=1865,
+            y=463,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/3
-            x=1208,
-            y=1723,
+            x=1791,
+            y=1378,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/7
-            x=1209,
-            y=1769,
+            x=1745,
+            y=1417,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/8
-            x=2041,
-            y=304,
+            x=1865,
+            y=509,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel-projection/9-slices/9
-            x=1197,
-            y=1815,
+            x=1699,
+            y=1448,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/1
-            x=1254,
-            y=1720,
+            x=1653,
+            y=1453,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/2
-            x=1425,
-            y=1583,
+            x=1472,
+            y=478,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/3
-            x=1255,
-            y=1766,
+            x=1791,
+            y=1424,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/4
-            x=681,
-            y=311,
+            x=346,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel/9-slices/5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/GlassPanel/9-slices/6
-            x=409,
-            y=1855,
+            x=392,
+            y=1599,
             width=42,
             height=3,
 
         },
         {
             -- UI/GlassPanel/9-slices/7
-            x=1321,
-            y=1721,
+            x=1745,
+            y=1463,
             width=42,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/8
-            x=1413,
-            y=1721,
+            x=339,
+            y=1560,
             width=3,
             height=42,
 
         },
         {
             -- UI/GlassPanel/9-slices/9
-            x=1367,
-            y=1721,
+            x=1699,
+            y=1494,
             width=42,
             height=42,
 
         },
         {
             -- UI/Icons/pause
-            x=1736,
-            y=1675,
+            x=1555,
+            y=1429,
             width=28,
             height=32,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/1
-            x=1691,
-            y=1714,
+            x=590,
+            y=1912,
             width=36,
             height=33,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/2
-            x=928,
-            y=871,
+            x=1009,
+            y=706,
             width=6,
             height=33,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/3
-            x=1478,
-            y=1689,
+            x=630,
+            y=1912,
             width=36,
             height=33,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/4
-            x=882,
-            y=1636,
+            x=438,
+            y=1598,
             width=36,
             height=3,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/5
-            x=1959,
-            y=1075,
+            x=1009,
+            y=759,
             width=6,
             height=3,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/6
-            x=1619,
-            y=1859,
+            x=478,
+            y=1598,
             width=36,
             height=3,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/7
-            x=1472,
-            y=1726,
+            x=670,
+            y=1912,
             width=36,
             height=33,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/8
-            x=1898,
-            y=1675,
+            x=1775,
+            y=1743,
             width=6,
             height=33,
 
         },
         {
             -- UI/MetalBottomPanel/9-slices/9
-            x=1460,
-            y=1763,
+            x=806,
+            y=1283,
             width=36,
             height=33,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/1
-            x=1987,
-            y=1663,
+            x=1824,
+            y=1883,
             width=27,
             height=24,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/2
-            x=2037,
-            y=1744,
+            x=1814,
+            y=1853,
             width=6,
             height=24,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/3
-            x=2018,
-            y=1688,
+            x=1824,
+            y=1911,
             width=27,
             height=24,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/4
-            x=1273,
-            y=502,
+            x=563,
+            y=1590,
             width=27,
             height=3,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/5
-            x=604,
-            y=1351,
+            x=1047,
+            y=1897,
             width=6,
             height=3,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/6
-            x=1476,
-            y=494,
+            x=958,
+            y=2038,
             width=27,
             height=3,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/7
-            x=1937,
-            y=1666,
+            x=1783,
+            y=1909,
             width=27,
             height=24,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/8
-            x=1997,
-            y=1775,
+            x=1773,
+            y=1898,
             width=6,
             height=24,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/9
-            x=1937,
-            y=1694,
+            x=1724,
+            y=1932,
             width=27,
             height=24,
 
         },
         {
             -- UI/MetalPanel/9-slices/1
-            x=1758,
-            y=1544,
+            x=1836,
+            y=1487,
             width=33,
             height=30,
 
         },
         {
             -- UI/MetalPanel/9-slices/2
-            x=295,
-            y=1767,
+            x=1775,
+            y=1780,
             width=6,
             height=30,
 
         },
         {
             -- UI/MetalPanel/9-slices/3
-            x=1819,
-            y=1510,
+            x=1835,
+            y=1521,
             width=33,
             height=30,
 
         },
         {
             -- UI/MetalPanel/9-slices/4
-            x=692,
-            y=1849,
+            x=518,
+            y=1598,
             width=33,
             height=3,
 
         },
         {
             -- UI/MetalPanel/9-slices/5
-            x=1959,
-            y=1075,
+            x=1009,
+            y=759,
             width=6,
             height=3,
 
         },
         {
             -- UI/MetalPanel/9-slices/6
-            x=455,
-            y=1855,
+            x=555,
+            y=1598,
             width=33,
             height=3,
 
         },
         {
             -- UI/MetalPanel/9-slices/7
-            x=1758,
-            y=1578,
+            x=1616,
+            y=1636,
             width=33,
             height=30,
 
         },
         {
             -- UI/MetalPanel/9-slices/8
-            x=1973,
-            y=1712,
+            x=1764,
+            y=1799,
             width=6,
             height=30,
 
         },
         {
             -- UI/MetalPanel/9-slices/9
-            x=1815,
-            y=1544,
+            x=1616,
+            y=1670,
             width=33,
             height=30,
 
         },
         {
             -- UI/Numeral/0
-            x=1414,
-            y=1690,
+            x=1617,
+            y=1806,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/1
-            x=1569,
-            y=1805,
+            x=1648,
+            y=1834,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/2
-            x=1763,
-            y=1716,
+            x=1617,
+            y=1837,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/3
-            x=1824,
-            y=1615,
+            x=1648,
+            y=1865,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/4
-            x=1825,
-            y=1646,
+            x=1617,
+            y=1868,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/5
-            x=1855,
-            y=1613,
+            x=1693,
+            y=1864,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/6
-            x=1856,
-            y=1644,
+            x=1648,
+            y=1896,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/7
-            x=1800,
-            y=1682,
+            x=1617,
+            y=1899,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/8
-            x=1794,
-            y=1716,
+            x=1826,
+            y=1737,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/9
-            x=1983,
-            y=1576,
+            x=1826,
+            y=1768,
             width=27,
             height=27,
 
         },
         {
             -- UI/Numeral/x
-            x=899,
-            y=960,
+            x=1587,
+            y=1495,
             width=25,
             height=25,
 
         },
         {
             -- UI/Parts/glassPanel_tab_1
-            x=1983,
-            y=1719,
+            x=105,
+            y=1954,
             width=18,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tab_2
-            x=743,
-            y=1724,
+            x=149,
+            y=1952,
             width=3,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tab_3
-            x=1983,
-            y=1741,
+            x=127,
+            y=1954,
             width=18,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tab_4
-            x=1880,
-            y=1823,
+            x=594,
+            y=1590,
             width=18,
             height=3,
 
         },
         {
             -- UI/Parts/glassPanel_tab_5
-            x=1640,
-            y=1363,
+            x=1192,
+            y=2037,
             width=3,
             height=3,
 
         },
         {
             -- UI/Parts/glassPanel_tab_6
-            x=1065,
-            y=1630,
+            x=592,
+            y=1597,
             width=18,
             height=3,
 
         },
         {
             -- UI/Parts/glassPanel_tab_7
-            x=2015,
-            y=1716,
+            x=1654,
+            y=2013,
             width=18,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tab_8
-            x=1981,
-            y=913,
+            x=156,
+            y=1952,
             width=3,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tab_9
-            x=2015,
-            y=1738,
+            x=1787,
+            y=2023,
             width=18,
             height=18,
 
         },
         {
             -- UI/Parts/glassPanel_tabbar_1
-            x=1442,
-            y=1629,
+            x=412,
+            y=808,
             width=15,
             height=54,
 
         },
         {
             -- UI/Parts/glassPanel_tabbar_2
-            x=1190,
-            y=980,
+            x=1304,
+            y=393,
             width=3,
             height=54,
 
         },
         {
             -- UI/Parts/glassPanel_tabbar_3
-            x=1201,
-            y=1475,
+            x=977,
+            y=1730,
             width=42,
             height=54,
 
         },
         {
             -- UI/Player-lifes/1
-            x=1065,
-            y=1639,
+            x=1591,
+            y=860,
             width=41,
             height=34,
 
         },
         {
             -- UI/Player-lifes/10
-            x=1110,
-            y=1639,
+            x=1745,
+            y=1509,
             width=41,
             height=34,
 
         },
         {
             -- UI/Player-lifes/11
-            x=1385,
-            y=1545,
+            x=710,
+            y=1911,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/12
-            x=2005,
-            y=1538,
+            x=1653,
+            y=1565,
             width=40,
             height=34,
 
         },
         {
             -- UI/Player-lifes/2
-            x=1509,
-            y=1508,
+            x=758,
+            y=1911,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/3
-            x=1647,
-            y=1668,
+            x=1743,
+            y=1547,
             width=40,
             height=34,
 
         },
         {
             -- UI/Player-lifes/4
-            x=1496,
-            y=1546,
+            x=1790,
+            y=1514,
             width=41,
             height=34,
 
         },
         {
             -- UI/Player-lifes/5
-            x=1557,
-            y=1510,
+            x=1424,
+            y=791,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/6
-            x=1691,
-            y=1644,
+            x=1697,
+            y=1578,
             width=40,
             height=34,
 
         },
         {
             -- UI/Player-lifes/7
-            x=1583,
-            y=1548,
+            x=1698,
+            y=1540,
             width=41,
             height=34,
 
         },
         {
             -- UI/Player-lifes/8
-            x=1605,
-            y=1510,
+            x=1424,
+            y=829,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/9
-            x=1647,
-            y=1706,
+            x=1653,
+            y=1603,
             width=40,
             height=34,
 
         },
         {
             -- UI/Squares/1/9-slices/1
-            x=1044,
-            y=984,
+            x=178,
+            y=1938,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/1/9-slices/2
-            x=760,
-            y=1159,
+            x=341,
+            y=1918,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/1/9-slices/3
-            x=1647,
-            y=1450,
+            x=189,
+            y=1938,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/1/9-slices/4
-            x=1463,
-            y=1439,
+            x=1345,
+            y=1862,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/1/9-slices/5
-            x=1678,
-            y=406,
+            x=1009,
+            y=743,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/1/9-slices/6
-            x=131,
-            y=1218,
+            x=1479,
+            y=491,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/1/9-slices/7
-            x=1985,
-            y=1450,
+            x=200,
+            y=1938,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/1/9-slices/8
-            x=1145,
-            y=1628,
+            x=1291,
+            y=1184,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/1/9-slices/9
-            x=1134,
-            y=1628,
+            x=211,
+            y=1934,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/1
-            x=1055,
-            y=984,
+            x=222,
+            y=1934,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/2
-            x=747,
-            y=867,
+            x=1301,
+            y=1233,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/3
-            x=1465,
-            y=840,
+            x=233,
+            y=1934,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/4
-            x=1490,
-            y=1001,
+            x=1479,
+            y=507,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/2/9-slices/5
-            x=1893,
-            y=435,
+            x=1814,
+            y=1881,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/2/9-slices/6
-            x=2027,
-            y=1434,
+            x=1311,
+            y=791,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/2/9-slices/7
-            x=1935,
-            y=232,
+            x=1163,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/8
-            x=1129,
-            y=1062,
+            x=1467,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/2/9-slices/9
-            x=492,
-            y=1855,
+            x=1174,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/1
-            x=503,
-            y=1855,
+            x=1185,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/2
-            x=375,
-            y=1443,
+            x=1477,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/3
-            x=1353,
-            y=1484,
+            x=1196,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/4
-            x=2038,
-            y=1434,
+            x=1322,
+            y=791,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/3/9-slices/5
-            x=922,
-            y=1697,
+            x=1814,
+            y=1897,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/3/9-slices/6
-            x=850,
-            y=1325,
+            x=1333,
+            y=791,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/3/9-slices/7
-            x=1364,
-            y=1484,
+            x=1207,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/8
-            x=385,
-            y=1443,
+            x=1487,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/3/9-slices/9
-            x=1066,
-            y=984,
+            x=1218,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/1
-            x=248,
-            y=1234,
+            x=1229,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/2
-            x=395,
-            y=1443,
+            x=1497,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/3
-            x=1197,
-            y=759,
+            x=1240,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/4
-            x=1646,
-            y=1628,
+            x=1616,
+            y=1704,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/4/9-slices/5
-            x=948,
-            y=1844,
+            x=1814,
+            y=1913,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/4/9-slices/6
-            x=939,
-            y=633,
+            x=1627,
+            y=1704,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/4/9-slices/7
-            x=1118,
-            y=1062,
+            x=1251,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/8
-            x=2036,
-            y=1211,
+            x=1507,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/4/9-slices/9
-            x=1679,
-            y=1000,
+            x=1262,
+            y=1937,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/1
-            x=1988,
-            y=985,
+            x=1203,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/2
-            x=1309,
-            y=902,
+            x=1517,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/3
-            x=2025,
-            y=1211,
+            x=1214,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/4
-            x=265,
-            y=844,
+            x=1638,
+            y=1704,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/5/9-slices/5
-            x=1070,
-            y=1769,
+            x=1814,
+            y=1929,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/5/9-slices/6
-            x=410,
-            y=843,
+            x=1649,
+            y=1704,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/5/9-slices/7
-            x=1600,
-            y=1822,
+            x=1225,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/8
-            x=1319,
-            y=902,
+            x=1527,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/5/9-slices/9
-            x=673,
-            y=961,
+            x=1236,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/1
-            x=1983,
-            y=1763,
+            x=1247,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/2
-            x=1329,
-            y=902,
+            x=1537,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/3
-            x=1994,
-            y=1763,
+            x=1258,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/4
-            x=662,
-            y=961,
+            x=1775,
+            y=1711,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/6/9-slices/5
-            x=1449,
-            y=1518,
+            x=1596,
+            y=1986,
             width=6,
             height=12,
 
         },
         {
             -- UI/Squares/6/9-slices/6
-            x=397,
-            y=1748,
+            x=1775,
+            y=1727,
             width=7,
             height=12,
 
         },
         {
             -- UI/Squares/6/9-slices/7
-            x=259,
-            y=1234,
+            x=1269,
+            y=1184,
             width=7,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/8
-            x=1283,
-            y=1464,
+            x=1547,
+            y=2035,
             width=6,
             height=7,
 
         },
         {
             -- UI/Squares/6/9-slices/9
-            x=1208,
-            y=759,
+            x=1280,
+            y=1184,
             width=7,
             height=7,
 
         },
     },
     
-    sheetContentWidth = 2048,
-    sheetContentHeight = 1865
+    sheetContentWidth = 1872,
+    sheetContentHeight = 2045
 }
 
 SheetInfo.frameIndex =

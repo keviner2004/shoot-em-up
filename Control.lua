@@ -1,6 +1,7 @@
 local enterFrame = require("enterFrame")
 local util = require("util")
 local Control = {}
+local gameConfig = require("gameConfig")
 
 local SIN, COS = {}, {}
 
@@ -58,44 +59,44 @@ Control.new = function(target, controlType, fingerSize, options)
     end
 
     function control:key( event )
-        if event.keyName == "right" or event.keyName == "left" or event.keyName == "up" or event.keyName == "down" then
-            if event.phase == "down" then 
-                self.pressKey[event.keyName] = true
-                self.enableKeyMove = true
-                if event.keyName == "right" then
-                    self.offsetX = 10
-                end
-                if event.keyName == "left" then
-                    self.offsetX = -10
-                end
-                if event.keyName == "up" then
-                    self.offsetY = -10
-                end
-                if event.keyName == "down" then
-                    self.offsetY = 10
-                end
-                print("enable move with key "..self.offsetX)
-            elseif event.phase == "up" then
-                self.pressKey[event.keyName] = false
-                --local stopped = false
-                if event.keyName == "right" then
-                    self.offsetX = 0
-                end
-                if event.keyName == "left" then
-                    self.offsetX = 0
-                end
-                if event.keyName == "up" then
-                    self.offsetY = 0
-                end
-                if event.keyName == "down" then
-                    self.offsetY = 0
-                end
-                for k, v in pairs(self.pressKey) do
-                    return
-                end
-                self.enableKeyMove = false
+        --if event.keyName == "right" or event.keyName == "left" or event.keyName == "up" or event.keyName == "down" then
+        if event.phase == "down" then 
+            self.pressKey[event.keyName] = true
+            self.enableKeyMove = true
+            if event.keyName == gameConfig.keyRight then
+                self.offsetX = 10
             end
+            if event.keyName == gameConfig.keyLeft then
+                self.offsetX = -10
+            end
+            if event.keyName == gameConfig.keyUp then
+                self.offsetY = -10
+            end
+            if event.keyName == gameConfig.keyDown then
+                self.offsetY = 10
+            end
+            print("enable move with key "..self.offsetX)
+        elseif event.phase == "up" then
+            self.pressKey[event.keyName] = false
+            --local stopped = false
+            if event.keyName == gameConfig.keyRight then
+                self.offsetX = 0
+            end
+            if event.keyName == gameConfig.keyLeft then
+                self.offsetX = 0
+            end
+            if event.keyName == gameConfig.keyUp then
+                self.offsetY = 0
+            end
+            if event.keyName == gameConfig.keyDown then
+                self.offsetY = 0
+            end
+            for k, v in pairs(self.pressKey) do
+                return
+            end
+            self.enableKeyMove = false
         end
+        --end
 
         if event.phase == "up" then
             if string.lower(event.keyName) == "p" then
@@ -114,6 +115,9 @@ Control.new = function(target, controlType, fingerSize, options)
             --character is removed
             print(self.target.name.." is removed, detected by control")
             self:cancel()
+            return
+        end
+        if self.target.paused then
             return
         end
         

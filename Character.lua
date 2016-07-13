@@ -233,7 +233,8 @@ Character.new = function (options)
             --local ItemClass = require(v.class)
             --local item = ItemClass.new(unpack(v.params))
             if not util.isExist(v) then
-                
+                logger:error(TAG, "!!!!!!!!!!!!!!!drop unExist item!!!!!!!!!!!!!!")
+                backpack:remove(v)
             end
             local item = v
             if item.droppable then

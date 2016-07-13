@@ -66,6 +66,7 @@ Item.new = function(sprites, options)
         local vx = math.cos(math.rad(degree))*10
         local vy = math.cos(math.rad(degree))*10
         print("random move items ", vx, vy)
+        
         self:setLinearVelocity(vx , vy)
         --self:enableAutoDestroy()
         if self.apearDuration > 0 then

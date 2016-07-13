@@ -1,6 +1,9 @@
 local MenuScene = require("scenes.templates.MenuScene")
 local scene = MenuScene.new() 
 local composer = require("composer")
+local logger = require("logger")
+local TAG = "MENU"
+
 function scene:getTitleText()
    return "Paused"
 end
@@ -9,25 +12,19 @@ function scene:insertButtons()
    local restartButton = self:newButton("Restart")
    local giveupButton = self:newButton("Giveup")
    local resumeButton = self:newResumeButton()
-   self.buttons:insert(resumeButton)
-   self.buttons:insert(restartButton)
-   self.buttons:insert(giveupButton)
 
-   function restartButton:onTouch(event)
-      --print("custom: "..event.phase.."/"..event.phase)
-      if event.phase == "ended" then
-         print("Restart game")
-         composer.gotoScene("scenes.game")
-      end
+   restartButton.action = function(event)
+      composer.gotoScene("scenes.game")
    end
 
-   function giveupButton:onTouch(event)
-      --print("custom: "..event.phase.."/"..event.phase)
-      if event.phase == "ended" then
-         print("Give up game")
-         composer.gotoScene("scenes.game", {params = {giveup = true}})
-      end
+   giveupButton.action = function(event)
+      logger:info(TAG, "Give up game")
+      composer.gotoScene("scenes.game", {params = {giveup = true}})  
    end
+
+   self:insertButton(resumeButton)
+   self:insertButton(restartButton)
+   self:insertButton(giveupButton)
 end
 
 return scene

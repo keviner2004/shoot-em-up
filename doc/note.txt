@@ -18,3 +18,8 @@ To do:
         2 homming laser
     d. level6
         guard
+
+know issune:
+
+1. White border around screen apear on some Android devices.
+2. FPS dropped when touch on screen on some android device,
