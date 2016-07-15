@@ -201,6 +201,7 @@ Level.load = function()
         if self.currentSublevel then
             self.currentSublevel:stop()
         end
+        self.count = 0
         self.stopped = true
     end
 

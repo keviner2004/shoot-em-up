@@ -195,7 +195,7 @@ Control.new = function(target, controlType, fingerSize, options)
         print("cancel control")
         if self.enableFollowControl then
             Runtime:removeEventListener("touch", self)
-            Runtime:removeEventListener("mouse", self)
+            ---Runtime:removeEventListener("mouse", self)
         end
         if self.enableKeyControl then
             Runtime:removeEventListener( "key", self)
