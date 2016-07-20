@@ -71,7 +71,7 @@ function scene:create( event )
     playerLife:insert(lifeIcon)
     
     self.pauseButton = widget.newButton({
-        sheet = myImageSheet,
+        sheet = Sprite.myImageSheet,
         defaultFrame = Sprite.getFrameIndex("UI/Icons/pause"),
         overFrame = Sprite.getFrameIndex("UI/Icons/pause"),
         label = "",

@@ -1,10 +1,3 @@
-local T = {}
-
-T.new = function()
-    local t = {}
-    t.a = 5
-    return t
+for i = 1,2 do
+    print(i)
 end
-
-
-return T

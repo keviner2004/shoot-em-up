@@ -10,12 +10,13 @@ NineSliceButton.new = function(name, w, h, l)
     local button = display.newGroup()
     button.pressSound = "button"
     button.createView = function(self, w, h)
+        --print("!!!!!!!!!", Sprite.myImageSheet)
         self.w = w
         self.h = h
         self.buttonView = widget.newButton({
             width = w,
             height = h,
-            sheet = myImageSheet,
+            sheet = Sprite.myImageSheet,
             topLeftFrame = Sprite.getFrameIndex(string.format("%s/1", path)),
             topMiddleFrame = Sprite.getFrameIndex(string.format("%s/2", path)),
             topRightFrame = Sprite.getFrameIndex(string.format("%s/3", path)),

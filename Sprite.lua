@@ -1,7 +1,11 @@
 local Sprite = {}
 
+Sprite.sheetInfo = require "sprites.spaceshooterHelper"
+Sprite.myImageSheet = graphics.newImageSheet( "sprites/spaceshooter.png", Sprite.sheetInfo:getSheet() )
+
+
 Sprite.getFrameIndex = function(name)
-    return sheetInfo:getFrameIndex(name)
+    return Sprite.sheetInfo:getFrameIndex(name)
 end
 
 Sprite.new = function(name, options)
@@ -11,13 +15,13 @@ Sprite.new = function(name, options)
     end
     if type(name) == "table" then
         for i, frame in ipairs(name) do
-            frames[i] = sheetInfo:getFrameIndex(frame)
+            frames[i] = Sprite.sheetInfo:getFrameIndex(frame)
         end
     else
-        frames={sheetInfo:getFrameIndex(name)}
+        frames={Sprite.sheetInfo:getFrameIndex(name)}
     end
     options.frames = frames
-    local sprite = display.newSprite( myImageSheet , options )
+    local sprite = display.newSprite( Sprite.myImageSheet , options )
     
     return sprite
 end
