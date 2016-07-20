@@ -37,4 +37,6 @@ config.gmaeLevles = {
     "level_bonus"
 }
 
+config.version = 0.5
+
 return config

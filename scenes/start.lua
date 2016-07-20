@@ -3,6 +3,7 @@ local MenuScene = require("scenes.templates.MenuScene")
 local Sprite = require("Sprite")
 local logger = require("logger")
 local scene = MenuScene.new()
+local gameConfig = require("gameConfig")
 local sfx = require("sfx")
 local TAG = "START MENU"
 
@@ -13,9 +14,13 @@ end
 
 function scene:construct()
     local logo = Sprite.new("Logo")
+    local versionTxt = display.newText("Ver."..gameConfig.version, 0, 0, "kenvector_future_thin", 32)
     self.view:insert(logo)
+    self.view:insert(versionTxt)
     logo.x = display.contentWidth/2
     logo.y = display.contentHeight/2 - self.menuHeight * 0.5
+    versionTxt.x = logo.x
+    versionTxt.y = logo.y + logo.height/2 + versionTxt.height/2
     self.glassPanel.alpha = 0
 end
 
