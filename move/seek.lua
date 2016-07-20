@@ -28,14 +28,17 @@ function M.seek(obj, target, options)
     --self:applyForce(-1000, 1000, self.x , self.y)
 
     util.addEnterFrameListener(obj, function()
+        if not obj.getLinearVelocity then
+            return true
+        end
         local vx, vy = obj:getLinearVelocity()
         if vx == 0 and vy == 0 then
             --print("seek to the end")
             if options and options.onComplete then
                 options.onComplete()
-                return
+                return true
             end
-            util.removeEnterFrameListener(obj)
+            --util.removeEnterFrameListener(obj)
         end
         M.steer(obj, target, maxSpeed, minForce, maxForce)
     end)

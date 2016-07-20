@@ -1,7 +1,7 @@
 local capture = require("capture")
-display.setStatusBar( display.HiddenStatusBar )
 local composer = require( "composer" )
 --composer.gotoScene( "leaderBoardScene" , {params = {stype = "local"}})
+display.setStatusBar( display.HiddenStatusBar )
 composer.gotoScene( "scenes.game")
 --composer.gotoScene( "newHighScoreScene")
 capture:startCapture()

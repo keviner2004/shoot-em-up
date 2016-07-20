@@ -118,7 +118,6 @@ Character.new = function (options)
         if self.hp < 0 then
             --self.isDead = true
             self:onDead()
-
         end
     end
 
@@ -330,6 +329,10 @@ Character.new = function (options)
     end
 
     function character:onDead()
+        if not self.parent then
+            logger:error( TAG, "Character dead but can not found the body")
+            return
+        end
         print("Character dead "..self.id)
         self:dropItems()
         --self.isDead = true
@@ -434,7 +437,6 @@ Character.new = function (options)
     character:enablePhysics()
 
     return character
-
 end
 
 return Character
