@@ -10,9 +10,9 @@
 local Curve = {}
 
 --adjust this number to effect the "smoothness" of the curve (total number of segments)
-print("require curve")
+--print("require curve")
 function Curve.getCurve( anchorPoints, segNum)
-    print("render curve")
+    --print("render curve")
     local pathPoints = {}
     for j = 1,segNum do
         pathPoints[#pathPoints+1] = { x=0, y=0 }

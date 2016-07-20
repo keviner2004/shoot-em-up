@@ -11,7 +11,7 @@ Score.new = function()
             function()
                 transition.to( self, {time = 100, xScale = 1, yScale = 1, onComplete = 
                     function()
-                        print("text anim done!!")
+                        --print("text anim done!!")
                         self.animing = false
                     end})
             end})

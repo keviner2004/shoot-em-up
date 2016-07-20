@@ -265,12 +265,12 @@ function scene:startGame()
     self.mainCharacter:autoShoot()
 
     self.mainCharacter.onScoreChanged = function(character, score)
-        print("Set score "..score)
+        --print("Set score "..score)
         self.score:setScore(score)
     end
 
     self.mainCharacter.onLifeChanged = function (character, lifes)
-        print("Update life bar "..lifes)
+        --print("Update life bar "..lifes)
         self.playerLifeText.text = lifes
     end
 

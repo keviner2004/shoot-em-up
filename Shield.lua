@@ -35,7 +35,7 @@ Shield.new = function(options)
     end
 
     function shield:close()
-        print("Close shield")
+        --print("Close shield")
         self.opened = false
         self:removePhysics()
         print("Remove shield physics")

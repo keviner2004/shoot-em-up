@@ -29,10 +29,10 @@ Sublevel.new = function (name, author, options)
 
     function sublevel:start(options)
         if self.duration then
-            print("Enable timer")
+            --print("Enable timer")
             self:addTimer(self.duration, 
                 function()
-                    print("set finished")
+                    --print("set finished")
                     self._finished = true
             end)
         end
@@ -79,10 +79,10 @@ Sublevel.new = function (name, author, options)
         self._check = function()
             --print("Check...")
             if self:isFinish() then
-                print("Sublevel complete")
+                --print("Sublevel complete")
                 Runtime:removeEventListener( "enterFrame", self._check )
                 if self.onComplete then
-                    print("Call oncomplete")
+                    --print("Call oncomplete")
                     self.onComplete()
                     self:finish()
                 end

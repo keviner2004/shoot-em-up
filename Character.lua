@@ -20,6 +20,11 @@ local TAG = "Character"
 
 Character.new = function (options)
     local character = GameObject.new()
+
+    function character:init()
+        self.power = 1
+    end
+
     character:addTag("character")
     character.gear = display.newGroup()
     id = id + 1
@@ -47,7 +52,6 @@ Character.new = function (options)
     character.touchPos = {}
     character.offsetX = 0
     character.offsetY = 0
-    character.power = 1
     character.maxPower = 3
     character.boundRad = 25
     character.damage = 0
@@ -58,6 +62,7 @@ Character.new = function (options)
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
     character.isDefeated = false
+    character:init()
     --physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
     --add control
     character.control = options and options.control
@@ -129,20 +134,20 @@ Character.new = function (options)
         --self.isDead = false
         --local newCharacter = Character.new(character)
         --self.parent:insert(newCharacter)
-        print("Character die reopenShield")
+        --print("Character die reopenShield")
         self:openShield(3000)
         --self.x = x
         --self.y = y
         --self:startControl()
         --self:autoShoot()
-        print("Character die reopen fill hp")
+        --print("Character die reopen fill hp")
         self.hp = self.maxHp
         --newCharacter.onLifeChanged = character.onLifeChanged
         --newCharacter.onScoreChanged = character.onScoreChanged
         --newCharacter.onGameOver = character.onGameOver
         --newCharacter.onRespawned = character.onRespawned
         --newCharacter.control.target = newCharacter
-
+        character:init()
         self:onRespawned(self)
     end
 
@@ -229,9 +234,13 @@ Character.new = function (options)
     end
 
     function character:dropItems()
+        logger:info(TAG, "character dropItems:")
         for i, v in pairs(self.backpack:getItems()) do
             --local ItemClass = require(v.class)
             --local item = ItemClass.new(unpack(v.params))
+            if v.name then
+                logger:info(TAG, "character dropItem:", v.name)
+            end
             if not util.isExist(v) then
                 logger:error(TAG, "!!!!!!!!!!!!!!!drop unExist item!!!!!!!!!!!!!!")
                 backpack:remove(v)
@@ -258,7 +267,7 @@ Character.new = function (options)
     end
 
     function character:eatItem(item)
-        print("eat item "..item.name)
+        logger:info(TAG, "Eat item "..item.name)
         item:undoDrop()
         item.enabled = false
         transition.cancel(item)
@@ -335,12 +344,12 @@ Character.new = function (options)
         effect.y = self.y
         self.parent:insert(effect)
         self.lifes = self.lifes - 1
-        print("########### blink transition")
+        --print("########### blink transition")
         local blinkCount = 0
         local blinkTransition = nil
         blinkTransition = transition.blink(self, {time = 500, onRepeat  = 
             function(event)
-                print("onrepeat!!!!")
+                --print("onrepeat!!!!")
                 blinkCount = blinkCount + 1
                 if blinkCount >= 3 then
                     transition.cancel(blinkTransition)

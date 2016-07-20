@@ -93,7 +93,7 @@ Enemy.new = function(options)
     end
 
     function enemy:showHurtEffect()
-        print("apply hurt effect")
+        --print("apply hurt effect")
         if not self.processHurtEffect then
             self.processHurtEffect = true
             function blend(obj)
@@ -137,7 +137,7 @@ Enemy.new = function(options)
     end
 
     function enemy:showUnHurtEffect()
-        print("apply unhurt effect")
+        --print("apply unhurt effect")
         function blend(obj)
             if obj.numChildren then
                 for i = 1, obj.numChildren do
@@ -167,10 +167,10 @@ Enemy.new = function(options)
                         if crime and crime.onKill then
                             crime:onKill(self)
                         end
-                        print("Enemy dead, drop items if needed")
+                        --print("Enemy dead, drop items if needed")
                         if self.items then
                             --drop items
-                            print("drop items")
+                            --print("drop items")
                             self:dropItems()
                         end
                     end
@@ -186,7 +186,7 @@ Enemy.new = function(options)
     end
 
     function enemy:onDead(crime)
-        print("Enemy onDead")
+        --print("Enemy onDead")
         physics.removeBody(self)
         transition.to(self, {time = 0, alpha = 0, onComplete = 
             function ( ... )
@@ -197,7 +197,7 @@ Enemy.new = function(options)
     function enemy:dropItems()
         if self.items then
             for i, v in ipairs(self.items) do
-                print("Enemy drops item "..v.class)
+                --print("Enemy drops item "..v.class)
                 local ItemClass = require(v.class)
                 local item = ItemClass.new(unpack(v.params))
                 self.parent:insert(item)

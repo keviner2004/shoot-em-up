@@ -48,7 +48,7 @@ Bullet.new = function(options)
 
     bullet.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
-        print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
+        --print(self.name.." hit "..event.other.name.." with damage: "..self.damage)
         if event.phase == "began" then
             bullet:hit(event)
         end
@@ -63,13 +63,13 @@ Bullet.new = function(options)
     end
 
     function bullet:hit(event)
-        print(self.name.." show destroy effect hit 2")
+        --print(self.name.." show destroy effect hit 2")
         self:showDestroyEffect()
         
-        print(self.name.."play sound hit 2")
+        --print(self.name.."play sound hit 2")
         self:playDestroySound()
 
-        print(self.name.." after hit 2")
+        --print(self.name.." after hit 2")
         self:afterHit()
     end
 

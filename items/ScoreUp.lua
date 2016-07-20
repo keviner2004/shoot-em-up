@@ -16,7 +16,7 @@ ScoreUp.new = function(options)
     print("Create item "..spriteName)
     local item = Item.new(spriteName)
     item.level = level
-    item.name = "powerup"
+    item.name = "scoreup"
     item.score = level * 100
 
     return item
