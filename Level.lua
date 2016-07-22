@@ -39,7 +39,7 @@ Level.load = function()
     level.timerUtil = TimerUtil.new()
     level.fightsBeforeEncounterBoss = config.fightBeforeEncounterBoss
     --Reqire all level module
-    for i, v in ipairs(config.gmaeLevles) do
+    for i, v in ipairs(config.gameLevels) do
         local subLevel = require("levels."..v)
         print("Author: "..subLevel.author)
         print("Sub level name: "..subLevel.name)

@@ -25,16 +25,15 @@ config.keyP2Down = "s"
 config.keyP2Left = "a"
 config.keyP2Right = "d"
 
-config.gmaeLevles = {
-    --"level_bossfight_warning"
-    "level_boss_1",
-    "level_1",
-    "level_2",
-    "level_3",
-    "level_4",
-    "level_5",
-    --"level_test"
-    "level_bonus"
+config.gameLevels = {
+    "default.level_boss_1",
+    "default.level_1",
+    "default.level_2",
+    "default.level_3",
+    "default.level_4",
+    "default.level_5",
+    "default.level_bonus",
+    "myLevel.level_simplest_example" --added level
 }
 
 config.version = 0.5
