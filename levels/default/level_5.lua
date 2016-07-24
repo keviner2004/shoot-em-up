@@ -111,7 +111,7 @@ function sublevel:show(options)
 end
 
 function sublevel:isFinish()
-    if not util.isExist(self.station) then
+    if not util.isExists(self.station) then
         return true
     end
     return false

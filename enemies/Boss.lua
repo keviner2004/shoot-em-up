@@ -451,7 +451,7 @@ Boss.new = function(player, options)
         transition.to(self, { time = options.time or 1000, delay = options.delay or 0, y = display.contentHeight + self.height, onComplete = function()
             --print("mode 1 complete")
             --self.x = display.contentWidth / 2
-            if not util.isExist(self) then
+            if not util.isExists(self) then
                 return
             end
             self.y = - self.height
@@ -476,7 +476,7 @@ Boss.new = function(player, options)
 
     function boss:bashToCharacter(onComplete)
         sfx:play("bash")
-        if not util.isExist(self.player) then
+        if not util.isExists(self.player) then
             return
         end
         self.ignoreWall = true

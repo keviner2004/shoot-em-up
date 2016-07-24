@@ -17,7 +17,7 @@ E.new = function(options)
     local interval = (options and options.interval) or 1000
 
     local function glory()
-        if not util.isExist(partical) then
+        if not util.isExists(partical) then
             --print("object disapear, stop effect")
             transition.cancel(partical)
             return

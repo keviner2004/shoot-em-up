@@ -1,6 +1,6 @@
 local util = {}
 
-function util.isExist(obj)
+function util.isExists(obj)
     if not obj then
         return false
     end
@@ -29,5 +29,7 @@ function util.equalOrContain(obj1, obj2)
     end
     return false
 end
+
+util.isExist = util.isExists
 
 return util

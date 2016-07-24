@@ -26,14 +26,14 @@ config.keyP2Left = "a"
 config.keyP2Right = "d"
 
 config.gameLevels = {
-    "default.level_boss_1",
-    "default.level_1",
-    "default.level_2",
-    "default.level_3",
-    "default.level_4",
-    "default.level_5",
-    "default.level_bonus",
-    "myLevel.level_simplest_example" --added level
+    --"default.level_boss_1",
+    --"default.level_1",
+    --"default.level_2",
+    --"default.level_3",
+    --"default.level_4",
+    --"default.level_5",
+    --"default.level_bonus",
+    "myLevel.level_custom_finish" --added level
 }
 
 config.version = 0.5

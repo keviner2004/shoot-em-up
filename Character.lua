@@ -103,7 +103,7 @@ Character.new = function (options)
             )
         elseif event.other.type == "item" and event.other.enabled then
             timer.performWithDelay( 1, function(e)
-                if util.isExist(event.other) then
+                if util.isExists(event.other) then
                     self:onItem(event.other)
                 else
                     
@@ -184,7 +184,7 @@ Character.new = function (options)
     end
 
     function character:shoot()
-        if not util.isExist(self) then
+        if not util.isExists(self) then
             print("Don't shoot!")
             return
         end
@@ -240,7 +240,7 @@ Character.new = function (options)
             if v.name then
                 logger:info(TAG, "character dropItem:", v.name)
             end
-            if not util.isExist(v) then
+            if not util.isExists(v) then
                 logger:error(TAG, "!!!!!!!!!!!!!!!drop unExist item!!!!!!!!!!!!!!")
                 backpack:remove(v)
             end

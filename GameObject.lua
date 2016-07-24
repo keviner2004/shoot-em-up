@@ -3,9 +3,12 @@ local move = require("move")
 local Sprite = require("Sprite")
 local TimerUtil = require("TimerUtil")
 local EnterFrameUtil = require("EnterFrameUtil")
+local util = require("util")
+local logger = require("logger")
 
 GameObject.new = function (options)
     local object = nil
+    local TAG = "GameObject"
     if options and options.frames then
         object = Sprite.new(options.frames, options)
     else
@@ -52,7 +55,7 @@ GameObject.new = function (options)
     function object:enableAutoDestroy()
         --print("enableAutoDestroy")
         if self.autoDestroy then
-            print("auto destroy was already on")
+            logger:warn(TAG, "auto destroy was already on")
             return
         end
         self.autoDestroy = true
@@ -98,7 +101,6 @@ GameObject.new = function (options)
        self:removeSelf()
     end
 
-
     function object:callWhenInStage(func)
         local function checkOnStage()
             if not move.isOut(self) then
@@ -107,6 +109,14 @@ GameObject.new = function (options)
             end
         end
         self.enterFrame:each(checkOnStage)
+    end
+
+    function object:autoDestroyWhenInTheScreen()
+        self:callWhenInStage(
+            function()
+                self:enableAutoDestroy()
+            end
+        )
     end
 
     function object:freeze()
@@ -182,7 +192,7 @@ GameObject.new = function (options)
 
     function object:addPhysics()
         if self.bodyInited then
-            print("Physics body is already enaled")
+            logger:warn(TAG, "Physics body is already enaled")
             return
         end
 
@@ -199,7 +209,7 @@ GameObject.new = function (options)
 
     function object:removePhysics()
         if not self.bodyInited then
-            print("Physics body is already removed")
+            logger:warn(TAG, "Physics body is already removed")
             return 
         end
         --print("remove physics")
@@ -220,6 +230,18 @@ GameObject.new = function (options)
     function object:reInitPhysics()
         self:enablePhysics(false)
         self:enablePhysics(true)
+    end
+
+    function object:insertToParent(obj)
+        if not util.isExists(obj) then
+            logger:warn(TAG, "insertToParent because the object does not exist")
+            return
+        end
+        if not util.isExists(self.parent) then
+            logger:warn(TAG, "insertToParent fail because parent does not exist")
+            return
+        end
+        self.parent:insert(obj)
     end
 
     object:addTag("gameobject")

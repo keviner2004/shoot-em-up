@@ -111,7 +111,7 @@ Control.new = function(target, controlType, fingerSize, options)
 
     function control:enterFrame(event)
         --print("enterframe")
-        if not util.isExist(self.target) then
+        if not util.isExists(self.target) then
             --character is removed
             print(self.target.name.." is removed, detected by control")
             self:cancel()

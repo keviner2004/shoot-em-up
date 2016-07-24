@@ -16,7 +16,6 @@ Missile.new = function (options)
     missile.dir = 90
     missile:insert(sprite)   
     missile:enablePhysics()
-    missile.type = "bullet"
     missile.name = "missile"
     --print ("Missle mass: ".. missile.mass)
     local count = 0
