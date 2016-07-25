@@ -141,14 +141,18 @@ end
 function scene:fpsMesure()
     local runtime = 0
     self.fpsText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
+    self.numOfObjectsText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
     self.fpsText.x = 50
     self.fpsText.y = 50
+    self.numOfObjectsText.x = 150
+    self.numOfObjectsText.y = 50
     local count = 0
-    local function getDeltaTime()
+
+    local function getFPS()
         local temp = system.getTimer()-- Get current game time in ms
-        local dt = (temp-runtime) / (1000/display.fps)  -- 60 fps or 30 fps as base
+        local fps = math.floor(1000 / (temp-runtime)) -- 60 fps or 30 fps as base
         runtime = temp  -- Store game time
-        return dt
+        return fps
     end
 
     -- Frame update function
@@ -156,15 +160,16 @@ function scene:fpsMesure()
         -- Delta Time value
         count = count + 1
 
-        local dt = getDeltaTime()
+        local fps = getFPS()
         if count == 10 then
-            --print("FPS mesure: "..dt)
-            self.fpsText.text = math.round(dt * 100)
-
+            self.fpsText.text = fps
+            if self.mainGroup then
+                self.numOfObjectsText.text = self.mainGroup.numChildren
+            end
             count = 0
         end
-        if dt * 100 > 150 then
-            logger:warn(TAG, "FPS: "..dt* 150)
+        if fps < display.fps / 2 then
+            logger:warn(TAG, "FPS: "..fps)
         end
     end
     Runtime:addEventListener("enterFrame", frameUpdate)

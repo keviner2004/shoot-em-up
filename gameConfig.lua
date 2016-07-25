@@ -36,6 +36,6 @@ config.gameLevels = {
     --"myLevel.level_custom_finish" --added level
 }
 
-config.version = 0.6
+config.version = 0.61
 
 return config
