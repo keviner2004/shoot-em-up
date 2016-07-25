@@ -14,7 +14,7 @@ Victim.new = function()
         "Aliens/Green/hurt"
     })
     victim.helpText.y = - (victim.sprite.height + victim.helpText.height)/2
-    victim:addTag("Victim")
+    victim:addTag("victim")
     victim:insert(victim.sprite)
     victim.sprite.rotation = -10
     --physics

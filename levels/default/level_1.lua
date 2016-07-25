@@ -25,7 +25,7 @@ function sublevel:show(options)
             })
             --set item drop by the enemy
             if i == num then
-                enemy:addItem("items.PowerUp", {level = 3})
+                enemy:addItem("items.PowerUp", {level = 1})
             end
             self.view:insert(enemy)
         end)
@@ -49,7 +49,7 @@ function sublevel:show(options)
             })
             --set item drop by the enemy
             if i == num then
-                enemy:addItem("items.PowerUp", {level = 3})
+                enemy:addItem("items.PowerUp", {level = 1})
             end
             self.view:insert(enemy)
         end)

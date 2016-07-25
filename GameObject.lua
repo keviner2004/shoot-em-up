@@ -27,10 +27,12 @@ GameObject.new = function (options)
     object.bodyInited = false
     object.bodyType = "dynamic"
     object.enterFrame = EnterFrameUtil.new({owner = object.name})
+    object.dir = 90
 
     function object:hasTag(tag)
-        for i, v in ipairs(self._tags) do
-            if v == tag then
+        for i = 1, #self._tags do
+            --print("Cmapare!!!!! "..self._tags[i])
+            if self._tags[i] == tag then
                 return true
             end
         end
@@ -99,6 +101,10 @@ GameObject.new = function (options)
        self.stopped = true
        transition.cancel(self)
        self:removeSelf()
+       self:onClear()
+    end
+
+    function object:onClear()
     end
 
     function object:callWhenInStage(func)

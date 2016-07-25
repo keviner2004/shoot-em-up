@@ -5,7 +5,7 @@ local myLevel = Sublevel.new("level name", "author name")
 
 function myLevel:show(options)
     local enemy = EnemyPlane.new()
-    self.view:insert(enemy)
+    self:insert(enemy)
     --place the enemy out of the screen
     enemy.x = display.contentWidth/4
     enemy.y = -100

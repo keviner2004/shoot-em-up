@@ -22,9 +22,12 @@ function M.seek(obj, target, options)
     local magnitude = (options and options.magnitude) or 450
     local degree = (options and options.degree) or obj.dir
         --print("["..os.time().."]seek "..options.degree.." "..maxForce.." "..maxSpeed)
-    obj:setLinearVelocity(
-        magnitude * math.sin(math.rad(degree)), 
-        - magnitude * math.cos(math.rad(degree)))
+    local tvx, tvy = obj:getLinearVelocity()
+    if tvx ==0 and tvy == 0 then
+        obj:setLinearVelocity(
+            magnitude * math.sin(math.rad(degree)), 
+            - magnitude * math.cos(math.rad(degree)))
+    end
     --self:applyForce(-1000, 1000, self.x , self.y)
 
     moveUtil.addEnterFrameListener(obj, function()

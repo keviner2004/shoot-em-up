@@ -11,6 +11,7 @@ local Shield = require("Shield")
 local move = require("move")
 local util = require("util")
 local Backpack = require("Backpack")
+local Enemy = require("Enemy")
 local id = 0
 local sfx = require("sfx")
 local logger = require("logger")
@@ -40,8 +41,8 @@ Character.new = function (options)
     character.name = "character"
     character.speed = (options and options.speed) or 0
     print("Character speed "..character.speed)
-    character.maxSpeed = 3
-    character.fireRate = options and options.fireRate
+    character.maxSpeed = 5
+    character.fireRate = (options and options.fireRate) or 500
     character.fingerSize = options and options.fingerSize
     character.controlType = (options and options.controlType) or "follow"
     character.hp = (options and options.hp) or 1
@@ -52,7 +53,7 @@ Character.new = function (options)
     character.touchPos = {}
     character.offsetX = 0
     character.offsetY = 0
-    character.maxPower = 3
+    character.maxPower = 5
     character.boundRad = 25
     character.damage = 0
     character.backpack = Backpack.new()
@@ -73,7 +74,6 @@ Character.new = function (options)
                 --target.shield.y = target.y
             end
         })
-
     end
 
     character.preCollision = function(self, event)
@@ -173,7 +173,7 @@ Character.new = function (options)
     end
 
     function character:onKill(victim)
-        print("Kill "..victim.name)
+        logger:info(TAG, "Kill "..victim.name)
         self:addScore(victim.score)
     end
 
@@ -183,53 +183,112 @@ Character.new = function (options)
         end
     end
 
+    function character:getFirstEnemy()
+        for i = 1, self.parent.numChildren do
+            if self.parent[i].hasTag and self.parent[i]:hasTag("enemy") then
+                return parent[i]
+            end
+        end 
+    end
+
+    function character:createHomingLaser(x, y, vx, vy)
+        local bullet = HomingLaser.new({fireTo = "enemy", owner = self})
+        bullet.x = x
+        bullet.y = y
+        bullet:setLinearVelocity(vx, vy)
+        self.parent:insert(bullet)
+        return bullet
+    end
+
+    function character:createNormalLaser(x, y, vx, vy)
+        local bullet = Laser.new({fireTo = "enemy", owner = self})
+        bullet.x = x
+        bullet.y = y
+        bullet:setLinearVelocity(vx, vy)
+        self.parent:insert(bullet)
+        return bullet
+    end
+
+
+    function character:shootHomingLaser()
+        local missiles = {}
+        --shoot homing laser
+        if self.power >= 5 then
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, 500, -500)
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -500, -500)
+
+        elseif self.power >= 4 then
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -500, -500)
+            --search enemy
+        end
+        local missileIdx = 1
+        if #missiles <= 0 then
+            --print("missile ", #missiles)
+            return
+        end
+
+        local numOfEnemies = Enemy.backpack.numOfItems
+        if numOfEnemies <= 0 then
+            return
+        end
+
+        
+        local missilePerEnemy = math.floor(#missiles / numOfEnemies)
+        local remain = #missiles - missilePerEnemy * numOfEnemies
+        --[[
+        for i = 1, #missiles do
+            for k, v in pairs(Enemy.backpack.items) do
+                missiles[i]:seek(v)
+                break
+            end
+        end
+        --]]
+        ----[[
+        for k, v in pairs(Enemy.backpack.items) do
+            --print("Handle enemy ", k)
+            local remainCount = 0
+            if remain > 0 then
+                remainCount = 1
+                remain = remain - 1
+            end
+            --print("missileIdx: ", missileIdx, missilePerEnemy, remainCount, numOfEnemies)
+            for i = 1, missilePerEnemy + remainCount do
+                missiles[missileIdx]:seek(v)
+                missileIdx = missileIdx + 1
+            end
+        end
+        ----]]
+        self:toFront()
+    end
+
+    function character:shootNormalLaser()
+        sfx:play("laser")        
+        if character.power >=3 then
+            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -2000)
+            local bullet2 = self:createNormalLaser(self.x, self.y, 0, -2000)
+            local bullet3 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -2000)
+        elseif character.power >= 2 then
+            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -2000)
+            local bullet2 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -2000)
+        else
+            local bullet = self:createNormalLaser(self.x, self.y, 0, -2000)
+        end
+        self:toFront()
+    end
+
+    local shootCount = 0
+
     function character:shoot()
         if not util.isExists(self) then
             print("Don't shoot!")
             return
         end
-        sfx:play("laser")
-        if character.power <= 1 then
-            --local bullet = Laser.new({fireTo = "enemy", owner = self})
-            local bullet = Laser.new({fireTo = "enemy", owner = self})
-            bullet.x = self.x
-            bullet.y = self.y
-            bullet:setLinearVelocity(0, -2000)
-            self.parent:insert(bullet)
-
-        elseif character.power == 2 then
-            local bullet = Laser.new({fireTo = "enemy", owner = self})
-            self.parent:insert(bullet)
-            bullet.x = self.x + 10
-            bullet.y = self.y
-            bullet:setLinearVelocity(0, -2000)
-
-            local bullet2 = Laser.new({fireTo = "enemy", owner = self})
-            self.parent:insert(bullet2)
-            bullet2.x = self.x - 10
-            bullet2.y = self.y
-            bullet2:setLinearVelocity(0, -2000)
-
-        elseif character.power >=3 then
-            local bullet = Laser.new({fireTo = "enemy", owner = self})
-            self.parent:insert(bullet)
-            bullet.x = self.x + 10
-            bullet.y = self.y
-            bullet:setLinearVelocity(0, -2000)
-
-            local bullet2 = Laser.new({fireTo = "enemy", owner = self})
-            self.parent:insert(bullet2)
-            bullet2.x = self.x
-            bullet2.y = self.y
-            bullet2:setLinearVelocity(0, -2000)
-
-            local bullet3 = Laser.new({fireTo = "enemy", owner = self})
-            self.parent:insert(bullet3)
-            bullet3.x = self.x - 10
-            bullet3.y = self.y
-            bullet3:setLinearVelocity(0, -2000)
+        shootCount = shootCount + 1
+        self:shootNormalLaser()
+        if math.mod(shootCount, 2) == 0 then
+            self:shootHomingLaser()
+            shootCount = 0
         end
-        self:toFront()
     end
 
     function character:dropItems()
@@ -293,6 +352,7 @@ Character.new = function (options)
     end
 
     function character:updateAttr()
+        self.power = 1
         for i, v in pairs(self.backpack:getItems()) do
             print("Update attr by item: "..v.name)
             print("attr: "..self.power..", "..self.speed)
@@ -403,8 +463,6 @@ Character.new = function (options)
         end
         self.enableAutoShoot = enable
     end
-
-
 
     function character:explode()
 

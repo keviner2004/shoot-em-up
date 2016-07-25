@@ -258,7 +258,7 @@ function scene:startGame()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 500, controlType = gameConfig.controlType})
+    self.mainCharacter = Character.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 250, controlType = gameConfig.controlType})
     self.mainCharacter.x = display.contentWidth / 2
     self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
     self.mainCharacter:startControl()

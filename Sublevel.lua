@@ -37,7 +37,7 @@ Sublevel.new = function (name, author, options)
             end)
         end
         self:checkComplete()
-        self:show(options)        
+        self:show(options)
     end
 
     function sublevel:show(options)
@@ -74,8 +74,20 @@ Sublevel.new = function (name, author, options)
         return false
     end
 
+    function sublevel:getEnemies()
+    
+    end
+
+    function sublevel:getEnemy()
+
+    end
+
+    function sublevel:insert(obj)
+        self.view:insert(obj)
+    end
+
     function sublevel:checkComplete()
-        print("Start check")
+        --print("Start check")
         self._check = function()
             --print("Check...")
             if self:isFinish() then
@@ -94,6 +106,23 @@ Sublevel.new = function (name, author, options)
     function sublevel:finish()
         
     end
+
+    setmetatable(sublevel, {
+        __index = function (table, key)
+            if key == "enemies" then
+                --print("!!!!!! "..table.view.numChildren )
+                local r = {}
+                for i = 1, table.view.numChildren do
+                    local obj = table.view[i]
+                    if obj and obj.hasTag and obj:hasTag("enemy") then
+                        r[#r+1] = obj
+                    end
+                end
+                return r
+            end
+        end
+    })
+
 
     return sublevel
 end

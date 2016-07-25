@@ -6,10 +6,14 @@ local Effect = require("effects.StarExplosion2")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local config = require("gameConfig")
+local Backpack = require("backpack")
+
+Enemy.backpack = Backpack.new()
 
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
-    enemy:addTag(enemy)
+    Enemy.backpack:add2(enemy)
+    enemy:addTag("enemy")
     enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
     enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_SHIELD)
     enemy:setBody({
@@ -208,6 +212,11 @@ Enemy.new = function(options)
                 item:dropped()
             end
         end
+    end
+
+    function enemy:onClear()
+        --print("Catch Clear Event")
+        Enemy.backpack:remove2(self)
     end
 
     return enemy
