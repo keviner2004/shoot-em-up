@@ -1,6 +1,7 @@
 require("constant")
 local sfx = require("sfx")
-local Character = require("Character")
+local RedPlane = require("characters.RedPlane")
+local BluePlane = require("characters.BluePlane")
 local Backgrounds = require("Background")
 local physics = require( "physics" )
 local move = require("move")
@@ -31,7 +32,7 @@ system.setIdleTimer( false )
 
 -- "scene:create()"
 function scene:create( event )
-    print("scene:create()")
+    logger:info(TAG, "scene:create")
     local sceneGroup = self.view
     
     -- Initialize the scene here.
@@ -47,6 +48,7 @@ function scene:create( event )
     self.status = "wait"
     self.stageSpeed = gameConfig.stageSpeed
     self.level = Level.load()
+    self.globalScore = 0
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
     if gameConfig.debugFPS then
@@ -97,6 +99,7 @@ function scene:create( event )
 end
 
 function scene:toggleGame()
+    logger:info(TAG, "toggleGame")
     if self.status == "started" then
         self:pauseGame()
         composer.showOverlay( "scenes.menu", {
@@ -159,17 +162,18 @@ function scene:fpsMesure()
     local function frameUpdate()
         -- Delta Time value
         count = count + 1
-
-        local fps = getFPS()
-        if count == 10 then
+        if count == 20 then
+            getFPS()
+        elseif count == 21 then
+            local fps = getFPS()
             self.fpsText.text = fps
             if self.mainGroup then
                 self.numOfObjectsText.text = self.mainGroup.numChildren
             end
+            if fps < display.fps / 2 then
+                logger:warn(TAG, "FPS: "..fps)
+            end
             count = 0
-        end
-        if fps < display.fps / 2 then
-            logger:warn(TAG, "FPS: "..fps)
         end
     end
     Runtime:addEventListener("enterFrame", frameUpdate)
@@ -178,7 +182,7 @@ end
 
 
 function scene:pauseGame()
-    print("Pause game")
+    logger:info(TAG, "Pause game")
     if self.status == "paused" then
         print("The game is paused")
         return 
@@ -201,7 +205,7 @@ function scene:pauseGame()
 end
 
 function scene:clearGame()
-    print("clearGame")
+    logger:info(TAG, "Clear game")
     if self.mainGroup and self.mainGroup.numChildren then
         local i = 1
         while i <= self.mainGroup.numChildren do
@@ -225,6 +229,7 @@ function scene:clearGame()
 end
 
 function scene:resumeGame()
+    logger:info(TAG, "Resume game")
     if self.status ~= "paused" then
         print("The game work fine")
     end
@@ -253,141 +258,147 @@ function scene:showScore(show)
     end
 end
 
-function scene:startGame()
+function scene:setScore()
+    self.globalScore = 0
+    for i = 1, #self.players do
+        if self.players[i].score then
+            self.globalScore = self.globalScore + self.players[i].score
+        end
+    end
+    self.score:setScore(self.globalScore)
+end
 
+function scene:createPlayer(PlaneClass, options)
+    local character = PlaneClass.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 300, controlType = options.controlType or gameConfig.controlType[1]})
+    character.x = (options.pos and options.pos.x) or display.contentWidth / 2
+    character.y = (options.pos and options.pos.y) or display.contentHeight + character.height / 2
+    character:startControl()
+    character:autoShoot()
+
+    character.onScoreChanged = function(obj, score, offset)
+        --print("Set score "..score)
+        self:setScore()
+    end
+
+    character.getLifes = function (obj)
+        return self.totalLifes
+    end
+
+    character.onLoseLifes = function (obj)
+        self.totalLifes = self.totalLifes - 1
+        if self.totalLifes < 0 then
+            self:gameOver()
+        else
+            self.playerLifeText.text = self.totalLifes    
+        end
+        
+    end
+
+    transition.to(character, {
+        x = (options.to and options.to.x) or character.x,
+        y = (options.to and options.to.y) or display.contentHeight / 5 * 4
+    })
+
+    --shield must be opened after the character is added to the main scene
+    if gameConfig.playerUnstoppable then
+        character:openShield()
+    else
+        character:openShield(3000)
+    end
+
+    return character
+end
+
+function scene:startGame()
+    logger:info(TAG, "Start game")
     local sceneGroup = self.view
     self.hudGroup = display.newGroup()
     self.mainGroup = display.newGroup()
-
+    self.totalLifes = gameConfig.playerLifes
     self.score = Score.new()
     self.score.x = display.contentWidth/2
     self.score.y = 50
     --main character
-    self.mainCharacter = Character.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 250, controlType = gameConfig.controlType})
-    self.mainCharacter.x = display.contentWidth / 2
-    self.mainCharacter.y = display.contentHeight + self.mainCharacter.height / 2
-    self.mainCharacter:startControl()
-    self.mainCharacter:autoShoot()
-
-    self.mainCharacter.onScoreChanged = function(character, score)
-        --print("Set score "..score)
-        self.score:setScore(score)
+    self.players = {}
+    local p1x = display.contentWidth / 2
+    if gameConfig.numOfPlayers == 2 then
+        p1x = display.contentWidth / 4
     end
+    self.mainCharacter = self:createPlayer(RedPlane, {
+        pos = {x = p1x},
+        controlType = gameConfig.controlType[1]
 
-    self.mainCharacter.onLifeChanged = function (character, lifes)
-        --print("Update life bar "..lifes)
-        self.playerLifeText.text = lifes
-    end
-
-    self.mainCharacter.onGameOver = function (obj)
-        print("on gameover")
-        self:checkScore(function()
-            --show gameover overlay
-            local options = {
-               effect = "fade",
-               time = 500,
-               isModal = true,
-               params = {
-                    score = self.mainCharacter.score,
-                    onClose = function()
-
-                    end
-               }
-            }
-            print("show gamover overlay")
-            composer.showOverlay( "scenes.gameover", options )  
-        end)
+    })
+    self.mainGroup:insert(self.mainCharacter)
+    self.players[#self.players + 1] = self.mainCharacter
+    if gameConfig.numOfPlayers == 2 then
+        self.secondCharacter = self:createPlayer(BluePlane, {
+            pos = {x = display.contentWidth / 4 * 3},
+            controlType = gameConfig.controlType[2]
+        })
+        self.mainGroup:insert(self.secondCharacter)
+        self.players[#self.players + 1] = self.secondCharacter       
     end
 
     --leaderboard helper
     self.helper = leaderBoardHelper.new()
     self.helper:init()
-    --start level
-    --level.start()
-    self.level:init(self, self.mainGroup, {self.mainCharacter}, self.stageSpeed, self)
-    --boss
-    --[[
-    self.boss = Boss.new(self.mainCharacter)
-    sceneGroup:insert(self.boss)
-    self.boss.x = display.contentWidth/2
-    self.boss.y = 300
-    local hpBar = self.boss:initHPBar()
-    sceneGroup:insert(hpBar)
-    self.boss:act()
-    self.boss.onDefeated = function()
-        print("Boss is defeated, show victory window")
-        self:checkScore(function()
-            local options = {
-                effect = "fade",
-                time = 500,
-                isModal = true,
-                params = {
-                    score = self.mainCharacter.score,
-                    onClose = function()
-                        
-                    end
-                }
-            }
-            composer.showOverlay( "scene.victory", options )
-        end)
-    end
-    --]]
-    --[[
-    self.mainCharacter.onRespawned = function(obj, newCharacter)
-        print("set new player to level")
-        self.level:setPlayer({newCharacter})
-    end
-    --]]
-
+    --init level
+    --self.level:init(self, self.mainGroup, self.players, self.stageSpeed, self)
+    print("Init!!!!!! ", self.mainGroup)
+    self.level:init(self, self.mainGroup, self.players, self.stageSpeed, self)
     --update ui according the player
-
-    self.playerLifeText.text = self.mainCharacter.lifes
-    -- Called when the scene is still off screen (but is about to come on screen).
-    --[[print("total object in scene: "..sceneGroup.numChildren)
-    for i = 1, sceneGroup.numChildren do
-        local v = sceneGroup[i]
-        if v and v.type then
-            print("check "..v.type.."/"..v.name)
-        end
-    end 
-    --]] 
-
-    transition.to(self.mainCharacter, {
-        y = display.contentHeight / 5 * 4,
-        onComplete = function()
-            self.level:start({delay = 800})
-        end
-    })
-
-    
+    self.playerLifeText.text = self.totalLifes
     --add to group
-
     sceneGroup:insert(self.mainGroup)
     sceneGroup:insert(self.hudGroup)
-    self.mainGroup:insert(self.mainCharacter)
+    timer.performWithDelay(1000 , 
+        function()
+            self.level:start()
+        end
+    )
     self.hudGroup:insert(self.score)
     self.status = "started"
-    --shield must be opened after the character is added to the main scene
-    if gameConfig.playerUnstoppable then
-        self.mainCharacter:openShield()
-    else
-        self.mainCharacter:openShield(3000)
+end
+
+function scene:gameOver()
+    for i = 1, #self.players do
+        if not self.players[i].isDead then
+            return
+        end
     end
+    logger:info(TAG, "Gameover")
+    self:checkScore(function()
+        --show gameover overlay
+        local options = {
+           effect = "fade",
+           time = 500,
+           isModal = true,
+           params = {
+                score = self.globalScore,
+                onClose = function()
+
+                end
+           }
+        }
+        logger:info(TAG, "Show gamover overlay")
+        composer.showOverlay( "scenes.gameover", options )  
+    end)
 end
 
 function scene:checkScore(afterCheck)
     print("scene:checkScore")
     local localHeighScore = self.helper:getHighScore("local")
-    if localHeighScore and localHeighScore < self.mainCharacter.score then
+    if localHeighScore and localHeighScore < self.globalScore then
         local options = {
             effect = "fade",
             time = 500,
             isModal = true,
             params = {
-                score = self.mainCharacter.score,
+                score = self.globalScore,
                 onOk = function(name)
                     print("Check windows close")
-                    self.helper:addRecord(name, self.mainCharacter.score, "local")
+                    self.helper:addRecord(name, self.globalScore, "local")
                     self.helper:delLastRecords(10, "local")
                     self.helper:syncHighScore()
                     if afterCheck then
@@ -438,7 +449,7 @@ function scene:show( event )
             self.status = "wait"
             sfx:play("title", {loops = -1})
         else
-            print("just start the game")
+            logger:info(TAG, "Just start the game")
             sfx:play("bg", {loops = -1})
             self:startGame()
         end
@@ -464,7 +475,7 @@ end
 function scene:destroy( event )
     print("scene:destroy()")
    local sceneGroup = self.view
-
+   
    -- Called prior to the removal of scene's view ("sceneGroup").
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.

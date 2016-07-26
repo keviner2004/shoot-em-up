@@ -1,6 +1,9 @@
 local TimerUtil = require("TimerUtil")
+local EnterFrameUtil = require("EnterFrameUtil")
 local Sublevel = {}
+local logger = require("logger")
 
+TAG = "Sublevel"
 Sublevel.new = function (name, author, options)
     local sublevel = {}
     sublevel.name = name
@@ -8,6 +11,7 @@ Sublevel.new = function (name, author, options)
     sublevel.duration = options and options.duration
     sublevel.isBossFight = options and options.isBossFight
     --sublevel.duration = options and options.duration or 30000
+    sublevel.enterFrame = EnterFrameUtil.new({owner = "sublevel"})
 
     function sublevel:init(scene, view, players, stageSpeed, game, options)
         self.timerUtil = TimerUtil.new()
@@ -17,6 +21,7 @@ Sublevel.new = function (name, author, options)
         self.view = view        
         self.scene = scene
         self.game = game
+        self.stopped = false
         self._finished = false
     end
 
@@ -28,6 +33,8 @@ Sublevel.new = function (name, author, options)
     end
 
     function sublevel:start(options)
+        self.stopped = false
+        logger:info(TAG, "sublevel:start")
         if self.duration then
             --print("Enable timer")
             self:addTimer(self.duration, 
@@ -46,8 +53,9 @@ Sublevel.new = function (name, author, options)
 
     function sublevel:stop()
         print("sub level stop")
+        self.stopped = true
         self.timerUtil:clear()
-        Runtime:removeEventListener( "enterFrame", self._check )
+        self.enterFrame:cancelAll()
     end
 
     function sublevel:pause()
@@ -85,14 +93,21 @@ Sublevel.new = function (name, author, options)
     function sublevel:insert(obj)
         self.view:insert(obj)
     end
-
+    local count = 0
     function sublevel:checkComplete()
-        --print("Start check")
-        self._check = function()
-            --print("Check...")
+        print("Start check ", count)
+        count = count + 1
+        local function _check()
+            if self.stopped then
+                --print("Stop checking please 1: ", self.enterFrame.numOfItems)
+                self.enterFrame:cancel(_check)
+                --print("Stop checking please 2: ", self.enterFrame.numOfItems)
+                return
+            end
             if self:isFinish() then
-                --print("Sublevel complete")
-                Runtime:removeEventListener( "enterFrame", self._check )
+                --print("==========Sublevel complete 1", self.enterFrame.numOfItems)
+                self.enterFrame:cancel(_check)
+                --print("==========Sublevel complete 2", self.enterFrame.numOfItems)
                 if self.onComplete then
                     --print("Call oncomplete")
                     self.onComplete()
@@ -100,7 +115,9 @@ Sublevel.new = function (name, author, options)
                 end
             end
         end
-        Runtime:addEventListener( "enterFrame", self._check )
+        --print("****************** Assign check task 1 *****************", self.enterFrame.numOfItems)
+        self.enterFrame:each(_check)
+        --print("****************** Assign check task 2 *****************", self.enterFrame.numOfItems)
     end
 
     function sublevel:finish()

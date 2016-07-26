@@ -2,13 +2,13 @@ local config = {}
 local Logging = require("Logging")
 config.stageSpeed = 200
 config.soundOn = true
-config.fightBeforeEncounterBoss = 5
+config.fightBeforeEncounterBoss = 10
 config.playerUnstoppable = false
 config.debugFPS = true
 config.logLevel = Logging.DEBUG
 config.debugPhysics = false
 config.playerLifes = 3
-config.controlType = "both" --both follow 
+config.controlType = {"follow", "key"} --both follow 
 config.rankServerUrl = "http://163.18.2.162"
 config.keyUp = "up"
 config.keyDown = "down"
@@ -24,6 +24,7 @@ config.keyP2Top = "w"
 config.keyP2Down = "s"
 config.keyP2Left = "a"
 config.keyP2Right = "d"
+config.numOfPlayers = 1
 
 config.gameLevels = {
     "default.level_boss_1",
@@ -33,9 +34,9 @@ config.gameLevels = {
     "default.level_4",
     "default.level_5",
     "default.level_bonus",
-    --"myLevel.level_custom_finish" --added level
+    "myLevel.level_custom_enemy" --added level
 }
 
-config.version = 0.61
+config.version = 0.7
 
 return config

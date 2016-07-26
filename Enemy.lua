@@ -10,6 +10,16 @@ local Backpack = require("backpack")
 
 Enemy.backpack = Backpack.new()
 
+setmetatable(Enemy, {
+    __index = function (table, key)
+        if key == "all" then
+            return Enemy.backpack.items
+        elseif key == "num" then
+            return Enemy.backpack.numOfItems
+        end
+    end
+})
+
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
     Enemy.backpack:add2(enemy)
@@ -85,7 +95,7 @@ Enemy.new = function(options)
         local x = options.x or self.x
         local y = options.y or self.y
         local degree = options.degree or 0
-        local speed = speed or 300
+        local speed = options.speed or 300
         local BulletClass = require(self.defaultBullet.class)
         local bullet = BulletClass.new(self.defaultBullet.options)
         bullet.x = x

@@ -119,6 +119,7 @@ Level.load = function()
     end
 
     function level:startLevel()
+        logger:info(TAG, "startLevel")
         --Get a random level from levels
         if #self.levelCandidates == 0  then
             logger:warn(TAG, "Repeat normal level")
@@ -195,6 +196,7 @@ Level.load = function()
     end
 
     function level:stop()
+        logger:info(TAG, "level:stop()")
         self.timerUtil:clear()
         self:clearLevelCandidate()
         self:clearBossCandidate()
@@ -206,9 +208,11 @@ Level.load = function()
     end
 
     function level:start(options)
+        logger:debug(TAG, "level:start")
         if options and options.delay then
             self.timerUtil:addTimer(options.delay, 
                 function ()
+                    logger:debug(TAG, "Continue to next level")
                     self:startLevel()
                 end
             )

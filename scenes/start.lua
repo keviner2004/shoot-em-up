@@ -26,29 +26,48 @@ end
 
 function scene:insertButtons()
     logger:debug(TAG, "insertButtons")
-    local startButton = self:newButton("~Start~")
-    startButton.buttonView.alpha = 0
-    startButton.buttonText.size = 60
-    startButton.pressSound = "start"
-    startButton.buttonView.isHitTestable = true
-    local function blink(show)
+
+    local function blink(btn, show)
         if not show then
             alpha = 0.65
         else
             alpha = 1
         end
-        transition.to(startButton, {time = 300, alpha = alpha, onComplete = 
+        transition.to(btn, {time = 300, alpha = alpha, onComplete = 
             function()
-                blink(not show)
+                blink(btn, not show)
             end
         })
     end
-    blink()
+
+    local startButton = self:newButton("~1P~")
+    startButton.buttonView.alpha = 0
+    startButton.buttonText.size = 60
+    startButton.pressSound = "start"
+    startButton.buttonView.isHitTestable = true
+    blink(startButton)
     self.buttons:insert(startButton)
+
+    local secondButton = self:newButton("~2P~")
+    secondButton.buttonView.alpha = 0
+    secondButton.buttonText.size = 60
+    secondButton.pressSound = "start"
+    secondButton.buttonView.isHitTestable = true
+    blink(secondButton)
+    self.buttons:insert(secondButton)
 
     function startButton:onTouch(event)
         --print("custom: "..event.phase.."/"..event.phase)
         if event.phase == "ended" then
+            gameConfig.numOfPlayers = 1
+            scene:startGame()
+        end
+    end
+
+    function secondButton:onTouch(event)
+        --print("custom: "..event.phase.."/"..event.phase)
+        if event.phase == "ended" then
+            gameConfig.numOfPlayers = 2
             scene:startGame()
         end
     end
@@ -66,7 +85,13 @@ function scene:insertButtons()
     end
 
     function scene:onConfirm(buttonSelectedIndex)
+        logger:info(TAG, "Select mode %d", buttonSelectedIndex)
         sfx:play("start")
+        if buttonSelectedIndex == 2 then
+            gameConfig.numOfPlayers = 2
+        else
+            gameConfig.numOfPlayers = 1
+        end
         self:startGame()
     end
 

@@ -25,7 +25,7 @@ Menu.new = function()
        local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 40)
        titleText.x = glassPanel.x
        titleText.y = glassPanel.y - glassPanel.contentWidth / 2
-       
+       self.selectedBtnIdx = 1
        self.onClose = event.params and event.params.onClose
        self.buttonGap = 10
        self.buttons = display.newGroup()

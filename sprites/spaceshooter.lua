@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:a66216a930a3298afaac7ef6a02c889e:90a2259dd6468f3674059fb581558d7d:2e31ad8fd1d77f790753c7b2e629602d$
+-- $TexturePacker:SmartUpdate:b0d8a3c55e121741b8e94adadde9cc92:90a2259dd6468f3674059fb581558d7d:2e31ad8fd1d77f790753c7b2e629602d$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -3503,7 +3503,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/1
+            -- Ships/Parts/Cockpits/Glass/1
             x=1243,
             y=875,
             width=14,
@@ -3511,7 +3511,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/10
+            -- Ships/Parts/Cockpits/Glass/10
             x=808,
             y=988,
             width=9,
@@ -3519,7 +3519,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/11
+            -- Ships/Parts/Cockpits/Glass/11
             x=1720,
             y=2009,
             width=10,
@@ -3527,7 +3527,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/12
+            -- Ships/Parts/Cockpits/Glass/12
             x=1693,
             y=1951,
             width=26,
@@ -3535,7 +3535,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/13
+            -- Ships/Parts/Cockpits/Glass/13
             x=1742,
             y=1988,
             width=16,
@@ -3543,7 +3543,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/14
+            -- Ships/Parts/Cockpits/Glass/14
             x=1187,
             y=909,
             width=14,
@@ -3551,7 +3551,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/15
+            -- Ships/Parts/Cockpits/Glass/15
             x=1205,
             y=909,
             width=13,
@@ -3559,7 +3559,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/16
+            -- Ships/Parts/Cockpits/Glass/16
             x=1632,
             y=1524,
             width=17,
@@ -3567,7 +3567,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/17
+            -- Ships/Parts/Cockpits/Glass/17
             x=1618,
             y=2014,
             width=14,
@@ -3575,7 +3575,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/18
+            -- Ships/Parts/Cockpits/Glass/18
             x=534,
             y=1916,
             width=24,
@@ -3583,7 +3583,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/19
+            -- Ships/Parts/Cockpits/Glass/19
             x=1627,
             y=1593,
             width=21,
@@ -3591,7 +3591,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/2
+            -- Ships/Parts/Cockpits/Glass/2
             x=1222,
             y=909,
             width=13,
@@ -3599,7 +3599,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/20
+            -- Ships/Parts/Cockpits/Glass/20
             x=846,
             y=1283,
             width=17,
@@ -3607,7 +3607,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/21
+            -- Ships/Parts/Cockpits/Glass/21
             x=808,
             y=1025,
             width=9,
@@ -3615,7 +3615,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/22
+            -- Ships/Parts/Cockpits/Glass/22
             x=1734,
             y=2008,
             width=10,
@@ -3623,7 +3623,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/23
+            -- Ships/Parts/Cockpits/Glass/23
             x=808,
             y=1062,
             width=9,
@@ -3631,7 +3631,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/24
+            -- Ships/Parts/Cockpits/Glass/24
             x=1748,
             y=2008,
             width=10,
@@ -3639,7 +3639,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/25
+            -- Ships/Parts/Cockpits/Glass/25
             x=1648,
             y=1983,
             width=26,
@@ -3647,7 +3647,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/26
+            -- Ships/Parts/Cockpits/Glass/26
             x=1809,
             y=2023,
             width=16,
@@ -3655,7 +3655,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/3
+            -- Ships/Parts/Cockpits/Glass/3
             x=1762,
             y=1982,
             width=17,
@@ -3663,7 +3663,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/4
+            -- Ships/Parts/Cockpits/Glass/4
             x=1636,
             y=2014,
             width=14,
@@ -3671,7 +3671,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/5
+            -- Ships/Parts/Cockpits/Glass/5
             x=562,
             y=1916,
             width=24,
@@ -3679,7 +3679,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/6
+            -- Ships/Parts/Cockpits/Glass/6
             x=1762,
             y=2012,
             width=21,
@@ -3687,7 +3687,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/7
+            -- Ships/Parts/Cockpits/Glass/7
             x=1678,
             y=2009,
             width=17,
@@ -3695,7 +3695,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/8
+            -- Ships/Parts/Cockpits/Glass/8
             x=1680,
             y=1803,
             width=9,
@@ -3703,7 +3703,7 @@ SheetInfo.sheet =
 
         },
         {
-            -- Ships/Parts/Cockpits/Glase/9
+            -- Ships/Parts/Cockpits/Glass/9
             x=1841,
             y=1967,
             width=10,
@@ -7715,32 +7715,32 @@ SheetInfo.frameIndex =
     ["Ships/Parts/Cockpits/Bases/7"] = 434,
     ["Ships/Parts/Cockpits/Bases/8"] = 435,
     ["Ships/Parts/Cockpits/Bases/9"] = 436,
-    ["Ships/Parts/Cockpits/Glase/1"] = 437,
-    ["Ships/Parts/Cockpits/Glase/10"] = 438,
-    ["Ships/Parts/Cockpits/Glase/11"] = 439,
-    ["Ships/Parts/Cockpits/Glase/12"] = 440,
-    ["Ships/Parts/Cockpits/Glase/13"] = 441,
-    ["Ships/Parts/Cockpits/Glase/14"] = 442,
-    ["Ships/Parts/Cockpits/Glase/15"] = 443,
-    ["Ships/Parts/Cockpits/Glase/16"] = 444,
-    ["Ships/Parts/Cockpits/Glase/17"] = 445,
-    ["Ships/Parts/Cockpits/Glase/18"] = 446,
-    ["Ships/Parts/Cockpits/Glase/19"] = 447,
-    ["Ships/Parts/Cockpits/Glase/2"] = 448,
-    ["Ships/Parts/Cockpits/Glase/20"] = 449,
-    ["Ships/Parts/Cockpits/Glase/21"] = 450,
-    ["Ships/Parts/Cockpits/Glase/22"] = 451,
-    ["Ships/Parts/Cockpits/Glase/23"] = 452,
-    ["Ships/Parts/Cockpits/Glase/24"] = 453,
-    ["Ships/Parts/Cockpits/Glase/25"] = 454,
-    ["Ships/Parts/Cockpits/Glase/26"] = 455,
-    ["Ships/Parts/Cockpits/Glase/3"] = 456,
-    ["Ships/Parts/Cockpits/Glase/4"] = 457,
-    ["Ships/Parts/Cockpits/Glase/5"] = 458,
-    ["Ships/Parts/Cockpits/Glase/6"] = 459,
-    ["Ships/Parts/Cockpits/Glase/7"] = 460,
-    ["Ships/Parts/Cockpits/Glase/8"] = 461,
-    ["Ships/Parts/Cockpits/Glase/9"] = 462,
+    ["Ships/Parts/Cockpits/Glass/1"] = 437,
+    ["Ships/Parts/Cockpits/Glass/10"] = 438,
+    ["Ships/Parts/Cockpits/Glass/11"] = 439,
+    ["Ships/Parts/Cockpits/Glass/12"] = 440,
+    ["Ships/Parts/Cockpits/Glass/13"] = 441,
+    ["Ships/Parts/Cockpits/Glass/14"] = 442,
+    ["Ships/Parts/Cockpits/Glass/15"] = 443,
+    ["Ships/Parts/Cockpits/Glass/16"] = 444,
+    ["Ships/Parts/Cockpits/Glass/17"] = 445,
+    ["Ships/Parts/Cockpits/Glass/18"] = 446,
+    ["Ships/Parts/Cockpits/Glass/19"] = 447,
+    ["Ships/Parts/Cockpits/Glass/2"] = 448,
+    ["Ships/Parts/Cockpits/Glass/20"] = 449,
+    ["Ships/Parts/Cockpits/Glass/21"] = 450,
+    ["Ships/Parts/Cockpits/Glass/22"] = 451,
+    ["Ships/Parts/Cockpits/Glass/23"] = 452,
+    ["Ships/Parts/Cockpits/Glass/24"] = 453,
+    ["Ships/Parts/Cockpits/Glass/25"] = 454,
+    ["Ships/Parts/Cockpits/Glass/26"] = 455,
+    ["Ships/Parts/Cockpits/Glass/3"] = 456,
+    ["Ships/Parts/Cockpits/Glass/4"] = 457,
+    ["Ships/Parts/Cockpits/Glass/5"] = 458,
+    ["Ships/Parts/Cockpits/Glass/6"] = 459,
+    ["Ships/Parts/Cockpits/Glass/7"] = 460,
+    ["Ships/Parts/Cockpits/Glass/8"] = 461,
+    ["Ships/Parts/Cockpits/Glass/9"] = 462,
     ["Ships/Parts/Engines/1"] = 463,
     ["Ships/Parts/Engines/2"] = 464,
     ["Ships/Parts/Engines/3"] = 465,

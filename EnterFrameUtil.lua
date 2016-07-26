@@ -6,6 +6,9 @@ Util.new = function (options)
     local _M = Backpack.new({maxItems = 3000})
     local tags = {}
 
+    local cancelMarkList = {}
+    local cancelList = {}
+
     _M.owner = (options and options.owner) or ""
     local TAG = "EnterFrame.".._M.owner
     function _M:remove(f)
@@ -28,26 +31,61 @@ Util.new = function (options)
 
     -- For internal use
     function _M:enterFrame(event)
-        logger:verbose(TAG, "call ========== start")
+        logger:verbose(TAG, "call ========== start, %d items", self.numOfItems)
         for i, v in pairs(self:getItems()) do
             --logger:verbose(TAG, "call %dth func with tag: %s", i, v.tag )
             logger:verbose(TAG, "call %dth func with tag: %s", i, tags[v] )
             --logger:verbose(TAG, "call %dth func", i)
+            local doit = true
             if v == nil then
-                logger:error("nil func in the table")
+                logger:error(TAG, "nil func in the table")
+                doit = false
             end
-            local result = false
-            --if type(v.f) == "table" then
-            --    result = v.f:enterFrame(event)
-            --else
-            --    result = v.f(event)
-            --end
-            if type(v) == "table" then
-                result = v:enterFrame(event)
-            else
-                result = v(event)
+            if cancelMarkList[v] then
+                logger:verbose(TAG, "%d th func Cancel flag set, cancel it latter", i)
+                doit = false
+            end
+            if doit then
+                local result = false
+                --if type(v.f) == "table" then
+                --    result = v.f:enterFrame(event)
+                --else
+                --    result = v.f(event)
+                --end
+                if type(v) == "table" then
+                    result = v:enterFrame(event)
+                else
+                    result = v(event)
+                end
+                if result then
+                    --auto cancel
+                    self:cancel(v)
+                end
             end
         end
+        --recyle
+        for i = 1, #cancelList do
+            --set back
+            local f = cancelList[i]
+            if type(f) == "table" then
+                logger:info(TAG, "Cancel table")
+            end
+            --local ind = self:remove(f)
+            local ind = self:remove2(f)
+            tags[f] = nil
+            if ind then
+                logger:verbose(TAG, "Remove enterFrame %dth listener", ind)
+                if self.numOfItems == 0 then
+                    --print("Set to nil, remove internal enterframe listener")
+                    Runtime:removeEventListener('enterFrame', self)
+                end
+            else
+                logger:error(TAG, "%s f cannot be removed properly in %d items. ", type(f), self.numOfItems)
+            end
+            cancelMarkList[f] = nil
+        end
+        --clear list
+        cancelList = {}
         logger:verbose(TAG, "call ========== end")
     end
 
@@ -69,28 +107,16 @@ Util.new = function (options)
     -- Stop calling f
     function _M:cancel(f)
         if not f then 
+            logger:error(TAG, "You can't cancel a nil func")
             return 
         end
-        if type(f) == "table" then
-            logger:info(TAG, "Cancel table")
-        end
-        --local ind = self:remove(f)
-        local ind = self:remove2(f)
-        tags[f] = nil
-        if ind then
-            logger:verbose(TAG, "Remove enterFrame %dth listener", ind)
-            if self.numOfItems == 0 then
-                --print("Set to nil, remove internal enterframe listener")
-                Runtime:removeEventListener('enterFrame', self)
-            end
-        else
-            logger:error(TAG, "%s f cannot be removed properly in %d items. ", type(f), self.numOfItems)
-        end
+        cancelMarkList[f] = true
+        cancelList[#cancelList+1] = f
     end
 
     -- Stop everything
     function _M:cancelAll()
-        --print("removeAll enterframe")
+        logger:verbose(TAG, "removeAll enterframe")
         Runtime:removeEventListener('enterFrame', self)
         self:clear()
     end

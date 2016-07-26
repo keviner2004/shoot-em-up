@@ -70,7 +70,7 @@ Backpack.new = function(options)
             return
         end
         if type(item) == "table" then
-            logger:info(TAG, "backpack remove table at index "..itemIndex)
+            logger:verbose(TAG, "backpack remove table at index "..itemIndex)
         end
         self.items[itemIndex] = nil
         self.indexes[item] = nil
@@ -100,7 +100,7 @@ Backpack.new = function(options)
             return
         end
         if type(item) == "table" then
-            logger:info(TAG, "backpack remove table at index "..itemIndex)
+            logger:verbose(TAG, "backpack remove table at index "..itemIndex)
         end
         self.items[itemIndex] = nil
         self.indexes[item] = nil

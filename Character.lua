@@ -31,12 +31,6 @@ Character.new = function (options)
     id = id + 1
     character.id = id
     character.gearLevel = 0
-    character.sprite = Sprite.new(
-        {
-            "Ships/3"
-        }
-    )
-    character:insert(character.sprite)
     character.type = "character"
     character.name = "character"
     character.speed = (options and options.speed) or 0
@@ -64,7 +58,6 @@ Character.new = function (options)
     character.isDead = false
     character.isDefeated = false
     character:init()
-    --physics.addBody(character, "dynamic", {isSensor = true, radius = character.boundRad, filter = {categoryBits=1, maskBits=character.maskBits}})
     --add control
     character.control = options and options.control
     if not character.control then
@@ -130,6 +123,7 @@ Character.new = function (options)
     end
 
     function character:onRespawn(x, y)
+        self.isDead = false
         --self.isDead = false
         --local newCharacter = Character.new(character)
         --self.parent:insert(newCharacter)
@@ -381,11 +375,19 @@ Character.new = function (options)
             return
         end
         self.score = self.score + score
-        self:onScoreChanged(self.score)
+        self:onScoreChanged(self.score, score)
     end
 
     function character:closeShield()
         self.shield:close()
+    end
+
+    function character:onLoseLifes()
+        self.lifes = self.lifes - 1
+    end
+
+    function character:getLifes()
+        return self.lifes
     end
 
     function character:onDead()
@@ -395,7 +397,7 @@ Character.new = function (options)
         end
         print("Character dead "..self.id)
         self:dropItems()
-        --self.isDead = true
+        self.isDead = true
         --emit partical
         local effect = CircleExplosion.new({time = 1100})
         sfx:play("playerDead")
@@ -406,7 +408,7 @@ Character.new = function (options)
         effect.x = self.x
         effect.y = self.y
         self.parent:insert(effect)
-        self.lifes = self.lifes - 1
+        self:onLoseLifes()
         --print("########### blink transition")
         local blinkCount = 0
         local blinkTransition = nil
@@ -420,7 +422,7 @@ Character.new = function (options)
                 end
             end
         })
-        if self.lifes < 0 then
+        if self:getLifes() < 0 then
             print("Character is defeated")
             self.isDefeated = true
             self:cancelTimer()
@@ -491,8 +493,6 @@ Character.new = function (options)
     function character:cancelControl()
         self.control:cancel()
     end
-
-    character:enablePhysics()
 
     return character
 end
