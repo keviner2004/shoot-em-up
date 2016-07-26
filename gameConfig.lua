@@ -37,6 +37,6 @@ config.gameLevels = {
     "myLevel.level_custom_enemy" --added level
 }
 
-config.version = 0.7
+config.version = 0.71
 
 return config
