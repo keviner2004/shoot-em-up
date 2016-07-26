@@ -299,13 +299,6 @@ function scene:createPlayer(PlaneClass, options)
         y = (options.to and options.to.y) or display.contentHeight / 5 * 4
     })
 
-    --shield must be opened after the character is added to the main scene
-    if gameConfig.playerUnstoppable then
-        character:openShield()
-    else
-        character:openShield(3000)
-    end
-
     return character
 end
 
@@ -338,6 +331,16 @@ function scene:startGame()
         })
         self.mainGroup:insert(self.secondCharacter)
         self.players[#self.players + 1] = self.secondCharacter       
+    end
+
+    for i = 1, #self.players do
+        local character = self.players[i]
+        --shield must be opened after the character is added to the main scene
+        if gameConfig.playerUnstoppable then
+            character:openShield()
+        else
+            character:openShield(3000)
+        end
     end
 
     --leaderboard helper
