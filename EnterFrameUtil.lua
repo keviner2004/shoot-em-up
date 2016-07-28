@@ -68,7 +68,7 @@ Util.new = function (options)
             --set back
             local f = cancelList[i]
             if type(f) == "table" then
-                logger:info(TAG, "Cancel table")
+                logger:verbose(TAG, "Cancel table")
             end
             --local ind = self:remove(f)
             local ind = self:remove2(f)

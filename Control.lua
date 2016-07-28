@@ -127,8 +127,8 @@ Control.new = function(target, controlType, fingerSize, options)
             end
             ----[[
             self:getMoveAngle(self.target, self.touchPos)
-            local offsetY = 30 * SIN[math.floor(self.moveAngle)] * (1 + (self.target.speed or 0))
-            local offsetX = 30 * COS[math.floor(self.moveAngle)] * (1 + (self.target.speed or 0))
+            local offsetY = 30 * SIN[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
+            local offsetX = 30 * COS[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
             --local offsetX = 0
             --local offsetY = 0
             local targetY = self.touchPos.y - self.fingerSize
@@ -158,8 +158,8 @@ Control.new = function(target, controlType, fingerSize, options)
         end
         if self.enableKeyControl and self.enableKeyMove then
             --print("move "..self.offsetX)
-            self.target.x = self.target.x + self.offsetX * (1 + (self.target.speed or 0))
-            self.target.y = self.target.y + self.offsetY * (1 + (self.target.speed or 0))
+            self.target.x = self.target.x + self.offsetX * (1 + (self.target.moveSpeed or 0))
+            self.target.y = self.target.y + self.offsetY * (1 + (self.target.moveSpeed or 0))
         end
         if self.target.x > display.contentWidth then
             self.target.x = display.contentWidth

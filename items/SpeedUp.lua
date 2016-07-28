@@ -16,7 +16,7 @@ SpeedUp.new = function(options)
     local item = Item.new(spriteName)
     item.level = level
     item.name = "speedup"
-    item.speed = level
+    item.shootSpeed = level
 
     return item
 end

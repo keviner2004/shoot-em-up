@@ -22,8 +22,11 @@ local TAG = "Character"
 Character.new = function (options)
     local character = GameObject.new()
 
-    function character:init()
-        self.power = 1
+    function character:init(options)
+        self.power = (options and options.power) or 1
+        self.defaultPower = self.power
+        self.shootSpeed = (options and options.shootSpeed) or 0
+        self.defaultShootSpeed = self.shootSpeed
     end
 
     character:addTag("character")
@@ -33,11 +36,11 @@ Character.new = function (options)
     character.gearLevel = 0
     character.type = "character"
     character.name = "character"
-    character.speed = (options and options.speed) or 0
-    print("Character speed "..character.speed)
-    character.maxSpeed = 5
+    character.maxShootSpeed = 5
+    character.minShootSpeed = 0
+    character.maxFireRate = 1000
     character.fireRate = (options and options.fireRate) or 500
-    character.fingerSize = options and options.fingerSize
+    character.fingerSize = (options and options.fingerSize) or 50
     character.controlType = (options and options.controlType) or "follow"
     character.hp = (options and options.hp) or 1
     character.maxHp = character.hp
@@ -48,6 +51,7 @@ Character.new = function (options)
     character.offsetX = 0
     character.offsetY = 0
     character.maxPower = 5
+    character.minPower = 1
     character.boundRad = 25
     character.damage = 0
     character.backpack = Backpack.new()
@@ -57,7 +61,10 @@ Character.new = function (options)
     character.lifes = (options and options.lifes) or 0
     character.isDead = false
     character.isDefeated = false
-    character:init()
+    character.moveSpeed = 0
+    character.maxMoveSpeed = 5
+    character.minimumFireRate = 300
+    character:init(options)
     --add control
     character.control = options and options.control
     if not character.control then
@@ -140,7 +147,7 @@ Character.new = function (options)
         --newCharacter.onGameOver = character.onGameOver
         --newCharacter.onRespawned = character.onRespawned
         --newCharacter.control.target = newCharacter
-        character:init()
+        character:init(options)
         self:onRespawned(self)
     end
 
@@ -303,19 +310,72 @@ Character.new = function (options)
                 --drop items, move them to the center
                 item.x = display.contentWidth / 2
                 item.y = display.contentHeight / 2
-                item:dropped()
+                item:dropped(self)
             end
         end
         self.backpack:clear()
     end
 
-    function character:limitAttr()
-        if self.power > self.maxPower then
-            self.power = self.maxPower
+    function character:limitAttr(attr)
+        if not attr then
+            attr = self
         end
-        if self.speed > self.maxSpeed then
-            self.speed = self.maxSpeed
+        if attr.power > self.maxPower then
+            attr.power = self.maxPower
         end
+        if attr.power < self.minPower then
+            attr.power = self.minPower
+        end
+        if attr.shootSpeed > self.maxShootSpeed then
+            attr.shootSpeed = self.maxShootSpeed
+        end
+        if attr.shootSpeed < self.minShootSpeed then
+            attr.shootSpeed = self.minShootSpeed
+        end
+    end
+
+    function character:needAddItemToBackup()
+
+    end
+
+    function character:doesAttrChange(attr)
+        if not attr then
+            attr = self
+        end
+        if attr.power == power and attr.shootSpeed == attr.shootSpeed then
+            return false
+        end
+        return true
+    end
+
+    function character:testUpdateAttr(item)
+        local result = {}
+        result.power = self.power
+        result.shootSpeed = self.shootSpeed
+        result.power = result.power + item.power
+        result.shootSpeed = result.shootSpeed + item.shootSpeed
+
+        self:limitAttr(result)
+
+        result.change = self:doesAttrChange(result)
+        print("change!!!!!!!!!!!!!!!", result.change)
+        return result
+    end
+
+    function character:updateAttr(result)
+
+    end
+
+    function character:reCalculateAttr()
+        self.power = self.defaultPower
+        self.shootSpeed = self.defaultShootSpeed
+        for i, v in pairs(self.backpack:getItems()) do
+            print("attr: "..self.power..", "..self.shootSpeed)
+            self.power = self.power + v.power
+            self.shootSpeed = self.shootSpeed + v.shootSpeed
+            logger:info(TAG, "Update attr by item: %s, power: %d, shootSpeed: %d", v.name, v.power, v.shootSpeed)
+        end
+        self:limitAttr()
     end
 
     function character:eatItem(item)
@@ -323,36 +383,34 @@ Character.new = function (options)
         item:undoDrop()
         item.enabled = false
         transition.cancel(item)
+        --take effect
+        if item:needKeep(self) then
+            self:applyItem(item)
+            self:putItem(item)
+        else
+            self:applyItem(item)
+            item:clear()
+        end
+
+
+    end
+
+    function character:putItem(item)
         self.backpack:add(item)
-        self._oldPower = self.power
-        self._oldSpeed = self.speed
-        self:updateAttr()
+        --move them out of the screen, not destroy them directly
+        item.x = -500
+        item.y = -500
+    end
+
+    function character:applyItem(item)
         item:effect(self)
-        self:limitAttr()
+        --add attribute
         if item.score then
             self:addScore(item.score)
         end
-        if self._oldPower == self.power and self._oldSpeed == self.speed then
-            print("unuseful item, popup")
-            self.backpack:remove(item)
-            item:removeSelf()
-        else
-            --move them out of the screen, not destroy them directly
-            --item:removeSelf()
-            item.x = -500
-            item.y = -500
-        end
-        print("Updated attr: "..self.power)
-    end
-
-    function character:updateAttr()
-        self.power = 1
-        for i, v in pairs(self.backpack:getItems()) do
-            print("Update attr by item: "..v.name)
-            print("attr: "..self.power..", "..self.speed)
-            self.power = self.power + v.power
-            self.speed = self.speed + v.speed
-        end
+        self.shootSpeed = self.shootSpeed + item.shootSpeed
+        self.power = self.power + item.power
+        self:limitAttr()
     end
 
     function character:onItem(item)
@@ -441,13 +499,22 @@ Character.new = function (options)
 
     end
 
+    function character:reStartAutoShoot()
+        self:toggleAutoShoot()
+        self:toggleAutoShoot()
+    end
+
     function character:autoShoot(enable)
         if enable == nil then
             enable = true
         end
         if enable then
             logger:debug(TAG, "Enable auto shoot")
-            self.tid = self:addTimer(self.fireRate,
+            local actualFireRate = self.fireRate - self.shootSpeed * 50
+            if actualFireRate < self.minimumFireRate then
+                actualFireRate = self.minimumFireRate
+            end
+            self.tid = self:addTimer(actualFireRate,
                 function(event)
                     if self.x == nil then
                         print("Character is dead, stop shoot timer "..event.tid)
@@ -481,8 +548,8 @@ Character.new = function (options)
     end
 
     function speedUp()
-        if character.speed < 200 then
-            character.speed = character.speed + 20
+        if character.shootSpeed < 200 then
+            character.shootSpeed = character.shootSpeed + 20
         end
     end
 

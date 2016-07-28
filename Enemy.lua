@@ -6,7 +6,7 @@ local Effect = require("effects.StarExplosion2")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local config = require("gameConfig")
-local Backpack = require("backpack")
+local Backpack = require("Backpack")
 
 Enemy.backpack = Backpack.new()
 

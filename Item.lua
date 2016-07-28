@@ -4,8 +4,10 @@ local Glory = require("effects.Glory")
 local Explosion = require("effects.StarExplosion3")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
+local logger = require("logger")
 
 Item.new = function(sprites, options)
+    local TAG = "item"
     local item = GameObject.new()
     local sprite = Sprite.new(sprites)
     item:insert(sprite)
@@ -14,7 +16,7 @@ Item.new = function(sprites, options)
     item.enabled = true
     item.droppable = true
     item.power = 0
-    item.speed = 0
+    item.shootSpeed = 0
     item.score = 0
     item.apearDuration = (options and options.apearDuration) or 5000
     item:belongTo(PHYSIC_CATEGORY_ITEM)
@@ -59,13 +61,23 @@ Item.new = function(sprites, options)
         end
     end
 
-    function item:dropped()
+    function item:dropped(receiver)
         --random move
-        math.randomseed(os.time())
-        local degree = math.random(0, 360)
-        local vx = math.cos(math.rad(degree))*10
-        local vy = math.cos(math.rad(degree))*10
-        print("random move items ", vx, vy)
+        --math.randomseed(os.time())
+        --degree = math.random(1, 360)
+        self:dropEffect()
+        self:onDrop()
+    end
+    
+    function item:dropEffect(receiver)
+        local degree = 0
+        local speed = math.random(10, 30)
+        for i = 0, math.floor(speed / 10) do
+            degree = math.random(1, 360)
+        end
+        local vx = math.cos(math.rad(degree))*speed
+        local vy = math.cos(math.rad(degree))*speed
+        logger:info(TAG, "random move items %d %d", vx, vy)
         
         self:setLinearVelocity(vx , vy)
         --self:enableAutoDestroy()
@@ -79,9 +91,21 @@ Item.new = function(sprites, options)
                     end
                 })
             end)
-        end
+        end        
     end
-    
+
+    function item:onDrop(receiver)
+        
+    end
+
+    function item:needKeep(receiver)
+        local result = receiver:testUpdateAttr(self)
+        if result.change then
+            return true         
+        end
+        return false
+    end
+
     item:idleEffect()
     sprite:toFront()
 

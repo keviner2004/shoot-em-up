@@ -13,12 +13,11 @@ PowerUp.new = function(options)
         end
     end
     local spriteName = sprites[level]
-    print("Create item "..spriteName)
     local item = Item.new(spriteName)
     item.level = level
     item.name = "powerup"
     item.power = level
-
+    
     return item
 end
 return PowerUp

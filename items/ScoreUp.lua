@@ -13,11 +13,14 @@ ScoreUp.new = function(options)
         end
     end
     local spriteName = sprites[level]
-    print("Create item "..spriteName)
     local item = Item.new(spriteName)
     item.level = level
     item.name = "scoreup"
     item.score = level * 100
+
+    function item:needKeep(receiver)
+        return false
+    end
 
     return item
 end
