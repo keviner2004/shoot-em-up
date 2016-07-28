@@ -44,7 +44,7 @@ sfx.shot = {
 
 sfx.laser = {
   handle = audio.loadSound("sounds/sfx_wpn_laser2.wav"),
-  channel = sfx.CHANNEL_CH1_LASER
+  --channel = sfx.CHANNEL_CH1_LASER
 }
 
 sfx.hurt = {
