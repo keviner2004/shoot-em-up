@@ -397,8 +397,9 @@ Boss.new = function(players, options)
         function boss:showDestroyEffect()
             
         end
+        self:removePhysics()
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
-            self:removeSelf()
+            self:clear()
         end})
         self:split()
     end

@@ -34,9 +34,9 @@ config.gameLevels = {
     "default.level_4",
     "default.level_5",
     "default.level_bonus",
-    --"myLevel.level_custom_enemy" --added level
+    "myLevel.level_custom_enemy" --added level
 }
 
-config.version = 0.75
+config.version = 0.76
 
 return config
