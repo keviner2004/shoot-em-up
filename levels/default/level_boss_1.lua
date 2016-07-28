@@ -2,10 +2,11 @@ local Sublevel = require("Sublevel")
 local sublevel = Sublevel.new("boss level", "keviner2004", {isBossFight = true})
 local Boss = require("enemies.Boss")
 local composer = require("composer")
+local util = require("util")
 function sublevel:show(options)
     --boss
     ----[[
-    self.boss = Boss.new(self.player)
+    self.boss = Boss.new(self.players)
     self.view:insert(self.boss)
     self.boss.x = display.contentWidth/2
     self.boss.y = 300
@@ -28,8 +29,10 @@ function sublevel:show(options)
                     end
                 }
             }
-            if self.player.openShield then
-                self.player:openShield()
+            for i = 1, #self.players do
+                if util.isExists(self.players[i]) and self.players[i].openShield then
+                    self.players[i]:openShield()
+                end
             end
             composer.showOverlay( "scenes.victory", options )
         end)

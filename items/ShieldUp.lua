@@ -22,6 +22,10 @@ ShieldUp.new = function(options)
         receiver.openShield(self.duration)
     end
 
+    function item:needKeep(receiver)
+        return false
+    end
+
     return item
 end
 return ShieldUp

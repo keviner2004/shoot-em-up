@@ -11,12 +11,12 @@ local util = require("util")
 local sfx = require("sfx")
 local bossId = 0
 
-Boss.new = function(player, options)
+Boss.new = function(players, options)
     bossId = bossId + 1
     local boss = Enemy.new()
     boss:addTag("boss")
     boss.bossId = bossId
-    boss.player = player
+    boss.players = players
     boss.master = (options and options.master) or boss
     boss.name = (options and options.name) or "boss"
     boss.hp = (options and options.hp) or 900
@@ -47,6 +47,7 @@ Boss.new = function(player, options)
     --end)
     boss:setDefaultBullet("bullets.BossBullet")
 
+
     boss.preCollision = function(self, event)
         --print("boss before hit by "..event.other.name)
         if event.other.name == "bullet" then 
@@ -67,6 +68,14 @@ Boss.new = function(player, options)
 
     physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=boss.maskBits}})
 
+    function boss:getPlayer()
+        for i = 1, #self.players do
+            if util.isExists(self.players[i]) then
+                return self.players[i]
+            end
+        end
+    end
+    
     function boss:initHPBar()
         print("initHPBar")
         local hpBar = display.newGroup()
@@ -183,7 +192,7 @@ Boss.new = function(player, options)
         print("onDead "..self.cloneCount.."."..self.bossId)
         self.hp = 0
         self.isDead = true
-        self.player.score = self.player.score + self.maxHp
+        self:getPlayer().score = self:getPlayer().score + self.maxHp
 
         if self.cloneCount == 0 then
             self.hpBar:hide(
@@ -322,7 +331,7 @@ Boss.new = function(player, options)
                     move.stop(missile)
                     --print("Frie! "..missile.rotation)
                     sfx:play("seek")
-                    missile:seek(self.player, {degree = 360 - missile.rotation, magnitude = 450})
+                    missile:seek(self:getPlayer(), {degree = 360 - missile.rotation, magnitude = 450})
                 end)
             end
         end)
@@ -420,7 +429,7 @@ Boss.new = function(player, options)
         end
         print("Clone boss with hp "..self.cloneHp)
         local newBoss = Boss.new(
-            self.player,
+            self.players,
             {
                 hp = self.cloneHp,
                 maxHp = self.cloneHp,
@@ -448,20 +457,23 @@ Boss.new = function(player, options)
     function boss:bash(options)
         self.ignoreWall = true
         --bash to player
-        transition.to(self, { time = options.time or 1000, delay = options.delay or 0, y = display.contentHeight + self.height, onComplete = function()
-            --print("mode 1 complete")
-            --self.x = display.contentWidth / 2
-            if not util.isExists(self) then
-                return
-            end
-            self.y = - self.height
-            if self.hpBar then
-                self.hpBar:hide()
-            end
-            self.invincible = true
-            if options.back then
-                self:back()
-            end
+        transition.to(self, { 
+            time = options.time or 1000, 
+            delay = options.delay or 0, y = display.contentHeight + self.height, 
+            onComplete = function()
+                --print("mode 1 complete")
+                --self.x = display.contentWidth / 2
+                if not util.isExists(self) then
+                    return
+                end
+                self.y = - self.height
+                if self.hpBar then
+                    self.hpBar:hide()
+                end
+                self.invincible = true
+                if options.back then
+                    self:back()
+                end
         end} )
     end
 
@@ -476,13 +488,13 @@ Boss.new = function(player, options)
 
     function boss:bashToCharacter(onComplete)
         sfx:play("bash")
-        if not util.isExists(self.player) then
+        if not util.isExists(self:getPlayer()) then
             return
         end
         self.ignoreWall = true
 
         move.toward(self, {
-            radius = math.atan2(self.player.y - self.y, self.player.x - self.x), 
+            radius = math.atan2(self:getPlayer().y - self.y, self:getPlayer().x - self.x), 
             offsetX = 15,
             offsetY = 15, 
             back = true,
