@@ -2,7 +2,7 @@ local config = {}
 local Logging = require("Logging")
 config.stageSpeed = 200
 config.soundOn = true
-config.fightBeforeEncounterBoss = 10
+config.fightBeforeEncounterBoss = 1
 config.playerUnstoppable = false
 config.debugFPS = true
 config.logLevel = Logging.DEBUG
@@ -25,6 +25,7 @@ config.keyP2Down = "s"
 config.keyP2Left = "a"
 config.keyP2Right = "d"
 config.numOfPlayers = 1
+config.infinite = true
 
 config.gameLevels = {
     "default.level_boss_1",
@@ -37,6 +38,6 @@ config.gameLevels = {
     "myLevel.level_custom_enemy" --added level
 }
 
-config.version = 0.76
+config.version = 0.8
 
 return config
