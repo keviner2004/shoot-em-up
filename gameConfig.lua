@@ -14,8 +14,8 @@ config.keyUp = "up"
 config.keyDown = "down"
 config.keyLeft = "left"
 config.keyRight = "right"
-config.keyConfirm = "enter"
-config.keyCancel = "escape"
+config.keyConfirm = {"enter"}
+config.keyCancel = {"escape"}
 config.keyP1Top = "up"
 config.keyP1Down = "down"
 config.keyP1Left = "left"
@@ -38,6 +38,6 @@ config.gameLevels = {
     "myLevel.level_custom_enemy" --added level
 }
 
-config.version = 0.81
+config.version = 0.82
 
 return config

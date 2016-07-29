@@ -1,5 +1,6 @@
+local logger = require("logger")
 local util = {}
-
+local TAG = "util"
 function util.isExists(obj)
     if not obj then
         return false
@@ -28,6 +29,21 @@ function util.equalOrContain(obj1, obj2)
         end
     end
     return false
+end
+
+function util.indexOf(table, value)
+    if not table then
+    end
+    if type(table) ~= "table" then
+        logger:error(TAG, "You can only indextable")
+        return
+    end
+    for i = 1, #table do
+        if table[i] == value then
+            return i    
+        end
+    end
+    return -1
 end
 
 util.isExist = util.isExists

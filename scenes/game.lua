@@ -17,7 +17,7 @@ local Score = require("ui.Score")
 local widget = require("widget")
 local logger = require("logger")
 local gameConfig = require("gameConfig")
-
+local util = require("util")
 local TAG = "gamescene"
 
 system.setIdleTimer( false )
@@ -134,7 +134,7 @@ end
 function scene:key(event)
     if event.phase == "up" then
         --logger:info(TAG, "hahaha "..event.keyName.."/"..gameConfig.keyCancel)
-        if event.keyName == gameConfig.keyCancel then
+        if util.equalOrContain(event.keyName, gameConfig.keyCancel) then
             logger:info(TAG, "toggle game status")
             self:toggleGame()
         end

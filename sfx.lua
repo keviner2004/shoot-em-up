@@ -71,6 +71,7 @@ sfx.split = {
 
 sfx.warning = {
   handle = audio.loadSound("sounds/sfx_alarm_loop3.wav"),
+  --channel = sfx.CHANNEL_BG
 }
 
 sfx.surround = {

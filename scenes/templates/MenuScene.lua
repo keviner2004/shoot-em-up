@@ -5,6 +5,7 @@ local Menu = {}
 local logger = require("logger")
 local gameConfig = require("gameConfig")
 local Sprite = require("Sprite")
+local util = require("util")
 local TAG = "MenuScene"
 
 Menu.new = function()
@@ -141,9 +142,9 @@ Menu.new = function()
               
           elseif event.keyName == gameConfig.keyRight then
               
-          elseif event.keyName == gameConfig.keyConfirm then
+          elseif util.equalOrContain(event.keyName, gameConfig.keyConfirm) then
               self:onConfirm(self.selectedBtnIdx)
-          elseif event.keyName == gameConfig.keyCancel then
+          elseif util.equalOrContain(event.keyName, gameConfig.keyCancel) then
               
           end
       end
