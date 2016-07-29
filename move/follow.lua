@@ -191,7 +191,7 @@ M.followN = function(target, points, options)
             self:skipPoints()
             self:inc()
             if self:isComplete() then
-                logger:debug(TAG, "Complete, return true for finish smooth move")
+                logger:verbose(TAG, "Complete, return true for finish smooth move")
                 if self.pathPointsGroup then
                     display.remove(self.pathPointsGroup)
                 end

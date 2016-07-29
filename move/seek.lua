@@ -1,5 +1,6 @@
 local PVector = require("move.PVector")
 local moveUtil = require("move.util")
+local util = require("util")
 local M = {}
 
 local function map(distance, rangeStart, rangeEnd, minSpeed, maxSpeed)
@@ -43,14 +44,14 @@ function M.seek(obj, target, options)
             end
             --util.removeEnterFrameListener(obj)
         end
+        if not util.isExists(target) then
+            return true
+        end
         M.steer(obj, target, maxSpeed, minForce, maxForce)
     end)
 end
 
 function M.steer(obj, target, maxSpeed, minForce, maxForce)
-    if not target.x then
-        return
-    end
     local vx, vy = obj:getLinearVelocity()
     local rotation = moveUtil.angleBetween(0, 0, vx, vy)
     --print("velocity: x: "..vx..",y: "..vy)
@@ -64,7 +65,7 @@ function M.steer(obj, target, maxSpeed, minForce, maxForce)
     --print("d: "..d)
     desired:normalize()
     if d <= 100 then
-        desiredSpeed = map(d, 0, 100, 0, maxSpeed)
+        --desiredSpeed = map(d, 0, 100, 0, maxSpeed)
         --print("distance: "..d..", desiredSpeed: "..desiredSpeed)
     else
         desiredSpeed = maxSpeed

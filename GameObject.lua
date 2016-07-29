@@ -84,7 +84,9 @@ GameObject.new = function (options)
 
     function object:disableAutoDestroy()
         self.autoDestroy = false
-        self.enterFrame:cancel(self._b_enterFrame)
+        if self._b_enterFrame then
+            self.enterFrame:cancel(self._b_enterFrame)
+        end
     end
 
     function object:addTimer(delay, func, count)
@@ -96,12 +98,12 @@ GameObject.new = function (options)
     end
 
     function object:clear()
-       self.timerUtil:clear()
-       self.enterFrame:cancelAll()
-       self.stopped = true
-       transition.cancel(self)
-       self:removeSelf()
-       self:onClear()
+        self.timerUtil:clear()
+        self:removeSelf()
+        self.enterFrame:cancelAll()
+        self.stopped = true
+        transition.cancel(self)
+        self:onClear()
     end
 
     function object:onClear()
