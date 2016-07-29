@@ -129,10 +129,18 @@ Level.load = function()
         if #self.bossCandidates == 0  then
             self:initBossCandidate()
         end
+        logger:debug(TAG, "#bossCandidates: %d, #levelCandidates: %d", #self.bossCandidates, #self.levelCandidates)
+        if #self.bossCandidates == 0 and #self.levelCandidates == 0 then
+            logger:error(TAG, "No levels are found")
+            return
+        end
 
         local idx = 0
 
-        if (#self.bossCandidates > 0 and self.count == self.fightsBeforeEncounterBoss) or #self.levelCandidates == 0 then
+        if #self.bossCandidates > 0 and #self.levelCandidates == 0 then
+            self.count = 0
+            idx = self:pickupLevel(self.bossCandidates)
+        elseif (#self.bossCandidates > 0 and self.count == self.fightsBeforeEncounterBoss) or #self.levelCandidates == 0 then
             self.count = 0
             idx = self:pickupLevel(self.bossCandidates)
         elseif #self.levelCandidates > 0 then
@@ -143,7 +151,7 @@ Level.load = function()
         end
 
         if idx == 0 then
-            logger:warn(TAG, "no level found")
+            logger:error(TAG, "no level found")
             return
         end
 
