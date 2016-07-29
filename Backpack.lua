@@ -122,6 +122,7 @@ Backpack.new = function(options)
 
     function backpack:clear()
         self.items = {}
+        self.numOfItems = 0
     end
 
     return backpack

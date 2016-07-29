@@ -18,6 +18,7 @@ function myLevel:show(options)
 end
 
 function myLevel:isFinish()
+    --print("isFinish!??")
     if util.isExists(self.enemy) then
         return false
     else

@@ -342,7 +342,7 @@ Character.new = function (options)
         if not attr then
             attr = self
         end
-        if attr.power == power and attr.shootSpeed == attr.shootSpeed then
+        if attr.power == self.power and attr.shootSpeed == self.shootSpeed then
             return false
         end
         return true
@@ -388,11 +388,13 @@ Character.new = function (options)
             self:applyItem(item)
             self:putItem(item)
         else
+            --logger:info(TAG, "Apply~~ "..item.name)
             self:applyItem(item)
+            --logger:info(TAG, "Clear~~ "..item.name)
             item:clear()
+            --logger:info(TAG, "Clear done~~ "..item.name)
         end
-
-
+        --logger:info(TAG, "Yammy~~ "..item.name)
     end
 
     function character:putItem(item)

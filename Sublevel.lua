@@ -55,7 +55,9 @@ Sublevel.new = function (name, author, options)
         print("sub level stop")
         self.stopped = true
         self.timerUtil:clear()
+        --print("****************** cancelAll check task 1 *****************", self.enterFrame.numOfItems)
         self.enterFrame:cancelAll()
+        --print("****************** cancelAll check task 2 *****************", self.enterFrame.numOfItems)
     end
 
     function sublevel:pause()
@@ -93,11 +95,9 @@ Sublevel.new = function (name, author, options)
     function sublevel:insert(obj)
         self.view:insert(obj)
     end
-    local count = 0
     function sublevel:checkComplete()
-        print("Start check ", count)
-        count = count + 1
         local function _check()
+            --print("_check!!!!!")
             if self.stopped then
                 --print("Stop checking please 1: ", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
@@ -105,10 +105,10 @@ Sublevel.new = function (name, author, options)
                 return
             end
             if self:isFinish() then
-                --print("==========Sublevel complete 1", self.enterFrame.numOfItems)
+                print("Sublevel is complete!!!!!")
                 self.enterFrame:cancel(_check)
-                --print("==========Sublevel complete 2", self.enterFrame.numOfItems)
                 if self.onComplete then
+                    logger:verbose(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
                     --print("Call oncomplete")
                     self.onComplete()
                     self:finish()

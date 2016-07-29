@@ -54,7 +54,7 @@ Item.new = function(sprites, options)
     end
 
     function item:undoDrop()
-        print("undoDrop")
+        logger:info(TAG, "undoDrop")
         self:setLinearVelocity(0 ,0)
         if self.timerId then
             item:cancelTimer(self.timerId)
