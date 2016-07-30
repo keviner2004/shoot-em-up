@@ -302,7 +302,7 @@ Character.new = function (options)
             end
             if not util.isExists(v) then
                 logger:error(TAG, "!!!!!!!!!!!!!!!drop unExist item!!!!!!!!!!!!!!")
-                backpack:remove(v)
+                self.backpack:remove(v)
             end
             local item = v
             if item.droppable then
