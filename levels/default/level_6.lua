@@ -1,3 +1,4 @@
+local gameConfig = require("gameConfig")
 local move = require("move")
 local Sublevel = require("Sublevel")
 local Supply = require("objects.Supply")
@@ -6,8 +7,8 @@ function sublevel:show(options)
     print("Show")
     --New victim
     local supply = Supply.new()
-    supply.x = display.contentWidth/2
-    supply.y = display.contentHeight/2
+    supply.x = gameConfig.contentWidth/2
+    supply.y = gameConfig.contentHeight/2
     self.view:insert(supply)
     supply:addItem("items.PowerUp", {level = 3})
 end

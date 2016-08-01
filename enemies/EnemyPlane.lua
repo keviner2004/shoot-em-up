@@ -1,3 +1,4 @@
+local gameConfig = require("gameConfig")
 local Enemy = require("Enemy")
 local Sprite = require("Sprite")
 local Effect = require("effects.StarExplosion2")
@@ -36,8 +37,8 @@ EnemyPlane.new = function(options)
         end
 
         if (degree < 90 and degree > 0) or ( degree > 270 and degree < 360 ) then
-            distX = display.contentWidth
-            distY = bullet.y - (display.contentWidth - enemy.x) * math.tan(math.rad(degree)) 
+            distX = gameConfig.contentWidth
+            distY = bullet.y - (gameConfig.contentWidth - enemy.x) * math.tan(math.rad(degree)) 
         else
             distX = 0
             distY = bullet.y + enemy.x * math.tan(math.rad(degree))

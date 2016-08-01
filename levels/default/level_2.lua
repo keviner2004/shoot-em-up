@@ -1,6 +1,7 @@
 local move = require("move")
 local Sublevel = require("Sublevel")
 local EnemyPlane = require("enemies.EnemyPlane")
+local gameConfig = require("gameConfig")
 local sublevel = Sublevel.new("2-st level", "keviner2004", {duration = 3000})
 
 function sublevel:show(options)
@@ -9,7 +10,7 @@ function sublevel:show(options)
     for i = 1, 4 do
         self:addTimer(300*i, function()
             local enemy = EnemyPlane.new()
-            enemy.x = display.contentWidth/4*3
+            enemy.x = gameConfig.contentWidth/4*3
             enemy.y = - enemy.height
             --Move enemy
             enemy:setLinearVelocity(0, speed)
@@ -28,7 +29,7 @@ function sublevel:show(options)
     for i = 1, 4 do
         self:addTimer(300*(i+4), function()
             local enemy = EnemyPlane.new()
-            enemy.x = display.contentWidth/4
+            enemy.x = gameConfig.contentWidth/4
             enemy.y = - enemy.height
             --Move enemy
             enemy:setLinearVelocity(0, speed)

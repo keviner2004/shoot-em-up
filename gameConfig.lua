@@ -26,7 +26,13 @@ config.keyP2Left = "a"
 config.keyP2Right = "d"
 config.numOfPlayers = 1
 config.infinite = true
-
+config.SHEET_PIXEL_EFFECT = "pixelEffect"
+config.contentX = 0
+config.contentY = 0
+config.contentWidth = display.contentWidth
+config.contentHeight = display.contentHeight
+config.contentCenterX = config.contentWidth/2
+config.contentCenterY = config.contentHeight/2
 config.gameLevels = {
     "default.level_boss_1",
     "default.level_1",
@@ -36,8 +42,9 @@ config.gameLevels = {
     "default.level_5",
     "default.level_bonus",
     "myLevel.level_custom_enemy" --added level
+    --"default.level_test",
 }
 
-config.version = 0.86
+config.version = 0.87
 
 return config

@@ -6,6 +6,7 @@ local curve = require("move.curve")
 local follow = require("move.follow")
 local seek = require("move.seek")
 local util = require("move.util")
+local gameConfig = require("gameConfig")
 
 M.angleBetween = util.angleBetween
 M.distBetween = util.distBetween
@@ -30,16 +31,16 @@ function M.isOut(obj)
         x, y = obj:localToContent(0, 0)
     end
     if  x < -(obj.width or 0)/2 or
-        x > display.contentWidth + (obj.width or 0)/2 or
+        x > gameConfig.contentWidth + (obj.width or 0)/2 or
         y < -(obj.height or 0)/2 or
-        y > display.contentHeight + (obj.height or 0)/2 then
+        y > gameConfig.contentHeight + (obj.height or 0)/2 then
         return true
     end 
     return false
 end
 
 function M.isOut2(x, y)
-    if x < 0 or x > display.contentWidth or y < 0 or y > display.contentHeight then
+    if x < 0 or x > gameConfig.contentWidth or y < 0 or y > gameConfig.contentHeight then
         return true
     end 
     return false
@@ -134,16 +135,16 @@ function M.track(obj, pointTo)
         moveTo.x = pointTo.x + dx
     end
 
-    if moveTo.x > display.contentWidth then
-        moveTo.x = display.contentWidth
+    if moveTo.x > gameConfig.contentWidth then
+        moveTo.x = gameConfig.contentWidth
     end
 
     if moveTo.y < 0 then
         moveTo.y = pointTo.y + dy
     end
 
-    if moveTo.y > display.contentHeight then
-        moveTo.y = display.contentHeight
+    if moveTo.y > gameConfig.contentHeight then
+        moveTo.y = gameConfig.contentHeight
     end
 
     transition.to(obj, {tag = obj.moveTag, delay = 1500, time = 500, x = moveTo.x, y = moveTo.y, 
@@ -186,30 +187,30 @@ function M.toward(obj, options)
                 local ryd = 0 
                 local startX = 0
                 local startY = 0
-                print("rDegree "..math.deg(rRad), rx, ry)
+                --print("rDegree "..math.deg(rRad), rx, ry)
 
                 if rx < 0 then
                     rxd = obj.m_defaultX
                 else
-                    rxd = display.contentWidth - obj.m_defaultX
+                    rxd = gameConfig.contentWidth - obj.m_defaultX
                 end   
                 if ry < 0 then
                     ryd = obj.m_defaultY
                 else
-                    ryd = display.contentHeight - obj.m_defaultY
+                    ryd = gameConfig.contentHeight - obj.m_defaultY
                 end
 
                 startX = obj.m_defaultX + rx * math.abs(ryd / ry)
                 startY = obj.m_defaultY + ry * math.abs(rxd / rx)
 
-                if startX > display.contentWidth then
-                    startX = display.contentWidth
+                if startX > gameConfig.contentWidth then
+                    startX = gameConfig.contentWidth
                 elseif startX < 0 then
                     startX = 0
                 end
 
-                if startY > display.contentHeight then
-                    startY = display.contentHeight
+                if startY > gameConfig.contentHeight then
+                    startY = gameConfig.contentHeight
                 elseif startY < 0 then
                     startY = 0
                 end

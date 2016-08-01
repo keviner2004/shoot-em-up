@@ -33,8 +33,8 @@ system.setIdleTimer( false )
 -- "scene:create()"
 function scene:create( event )
     logger:info(TAG, "scene:create")
+    self.superGroup = display.newGroup()
     local sceneGroup = self.view
-    
     -- Initialize the scene here.
     -- Example: add display objects to "sceneGroup", add touch listeners, etc.  
     --enable pyhsic
@@ -44,6 +44,7 @@ function scene:create( event )
     if gameConfig.debugPhysics then
         physics.setDrawMode( "hybrid" ) 
     end
+
     self.first = true
     self.status = "wait"
     self.stageSpeed = gameConfig.stageSpeed
@@ -54,15 +55,10 @@ function scene:create( event )
     if gameConfig.debugFPS then
         self:fpsMesure()
     end
-    --Create global screen boundaries
-    local leftWall = Wall.new(0,display.contentHeight/2,1, display.contentHeight )
-    local rightWall = Wall.new(display.contentWidth, display.contentHeight/2, 1, display.contentHeight)
-    local topWall = Wall.new(display.contentWidth/2, 0, display.contentWidth, 1)
-    local bottomWall = Wall.new(display.contentWidth/2, display.contentHeight, display.contentWidth, 1)
     --UI
     local playerLife = display.newGroup()
     playerLife.x = 65
-    playerLife.y = display.contentHeight - 35
+    playerLife.y = gameConfig.contentHeight - 35
     local lifeIcon = Sprite.new("UI/Player-lifes/2")
     self.playerLifeText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
     local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
@@ -83,19 +79,19 @@ function scene:create( event )
             end
         end
     })
-    self.pauseButton.x = display.contentWidth - self.pauseButton.contentWidth - 10
-    self.pauseButton.y = display.contentHeight - self.pauseButton.contentHeight
+    self.pauseButton.x = gameConfig.contentWidth - self.pauseButton.contentWidth - 10
+    self.pauseButton.y = gameConfig.contentHeight - self.pauseButton.contentHeight
     Runtime:addEventListener("touch", self)
     Runtime:addEventListener("key", self)
 
+    self.superGroup.x = gameConfig.contentX
+    self.superGroup.y = gameConfig.contentY
     --add to the scene
-    sceneGroup:insert(backgrounds)
-    sceneGroup:insert(leftWall)
-    sceneGroup:insert(rightWall)
-    sceneGroup:insert(topWall)
-    sceneGroup:insert(bottomWall)
-    sceneGroup:insert(playerLife)
-    sceneGroup:insert(self.pauseButton)
+    --sceneGroup:insert(backgrounds)
+    self.superGroup:insert(backgrounds)
+    self.superGroup:insert(playerLife)
+    self.superGroup:insert(self.pauseButton)
+    sceneGroup:insert(self.superGroup)
 end
 
 function scene:toggleGame()
@@ -270,8 +266,8 @@ end
 
 function scene:createPlayer(PlaneClass, options)
     local character = PlaneClass.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 300, controlType = options.controlType or gameConfig.controlType[1]})
-    character.x = (options.pos and options.pos.x) or display.contentWidth / 2
-    character.y = (options.pos and options.pos.y) or display.contentHeight + character.height / 2
+    character.x = (options.pos and options.pos.x) or gameConfig.contentWidth / 2
+    character.y = (options.pos and options.pos.y) or gameConfig.contentHeight + character.height / 2
     character:startControl()
     character:autoShoot()
 
@@ -296,7 +292,7 @@ function scene:createPlayer(PlaneClass, options)
 
     transition.to(character, {
         x = (options.to and options.to.x) or character.x,
-        y = (options.to and options.to.y) or display.contentHeight / 5 * 4
+        y = (options.to and options.to.y) or gameConfig.contentHeight / 5 * 4
     })
 
     return character
@@ -309,24 +305,36 @@ function scene:startGame()
     self.mainGroup = display.newGroup()
     self.totalLifes = gameConfig.playerLifes
     self.score = Score.new()
-    self.score.x = display.contentWidth/2
+    self.score.x = gameConfig.contentWidth/2
     self.score.y = 50
     --main character
     self.players = {}
-    local p1x = display.contentWidth / 2
+    local p1x = gameConfig.contentWidth / 2
     if gameConfig.numOfPlayers == 2 then
-        p1x = display.contentWidth / 4
+        p1x = gameConfig.contentWidth / 4
     end
     self.mainCharacter = self:createPlayer(RedPlane, {
         pos = {x = p1x},
         controlType = gameConfig.controlType[1]
 
     })
+
+    --Create global screen boundaries
+    local leftWall = Wall.new(0, gameConfig.contentHeight/2,1, gameConfig.contentHeight )
+    local rightWall = Wall.new(gameConfig.contentWidth, gameConfig.contentHeight/2, 1, gameConfig.contentHeight)
+    local topWall = Wall.new(gameConfig.contentWidth/2, 0, gameConfig.contentWidth, 1)
+    local bottomWall = Wall.new(gameConfig.contentWidth/2, gameConfig.contentHeight, gameConfig.contentWidth, 1)
+
+    self.mainGroup:insert(leftWall)
+    self.mainGroup:insert(rightWall)
+    self.mainGroup:insert(topWall)
+    self.mainGroup:insert(bottomWall)
+
     self.mainGroup:insert(self.mainCharacter)
     self.players[#self.players + 1] = self.mainCharacter
     if gameConfig.numOfPlayers == 2 then
         self.secondCharacter = self:createPlayer(BluePlane, {
-            pos = {x = display.contentWidth / 4 * 3},
+            pos = {x = gameConfig.contentWidth / 4 * 3},
             controlType = gameConfig.controlType[2]
         })
         self.mainGroup:insert(self.secondCharacter)
@@ -353,8 +361,8 @@ function scene:startGame()
     --update ui according the player
     self.playerLifeText.text = self.totalLifes
     --add to group
-    sceneGroup:insert(self.mainGroup)
-    sceneGroup:insert(self.hudGroup)
+    self.superGroup:insert(self.mainGroup)
+    self.superGroup:insert(self.hudGroup)
     timer.performWithDelay(1000 , 
         function()
             self.level:start()
@@ -478,7 +486,7 @@ end
 function scene:destroy( event )
     print("scene:destroy()")
    local sceneGroup = self.view
-   
+   self.superGroup:removeSelf()
    -- Called prior to the removal of scene's view ("sceneGroup").
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.

@@ -1,4 +1,4 @@
-local Boss = {}
+local gameConfig = require("gameConfig")
 local BossBullet = require("bullets.BossBullet")
 local Missile = require("bullets.Missile")
 local move = require("move")
@@ -10,6 +10,7 @@ local Ufo = require("enemies.AlienUFO")
 local util = require("util")
 local sfx = require("sfx")
 local bossId = 0
+local Boss = {}
 
 Boss.new = function(players, options)
     bossId = bossId + 1
@@ -35,7 +36,7 @@ Boss.new = function(players, options)
                 })
 
     --boss.ring = Sprite.new("Boss/ring")
-    boss.defaultX = display.contentWidth / 2
+    boss.defaultX = gameConfig.contentWidth / 2
     boss.defaultY = 300
     boss:insert(boss.head)
     --boss:insert(boss.ring)
@@ -79,7 +80,7 @@ Boss.new = function(players, options)
     function boss:initHPBar()
         print("initHPBar")
         local hpBar = display.newGroup()
-        local glassPanel = GlassPanel.new(display.contentWidth*0.88, 80)
+        local glassPanel = GlassPanel.new(gameConfig.contentWidth*0.88, 80)
         local base = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "shadow")
         local hpValue = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "red")
         local hpValue2 = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "yellow")
@@ -98,11 +99,11 @@ Boss.new = function(players, options)
         hpBar:insert(hpValue3)
         hpBar:insert(glassPanel)
         hpBar.lifes = {hpValue, hpValue2, hpValue3}
-        hpBar.x = display.contentWidth / 2
+        hpBar.x = gameConfig.contentWidth / 2
         hpBar.y = 100
         hpBar.lifeCount = #hpBar.lifes
-        hpBar.hpText = display.newText("0/0", display.contentWidth/2, 100, "kenvector_future_thin", 40)
-        hpBar.nameText = display.newText("Boss", display.contentWidth/2, 100, "kenvector_future_thin", 40)
+        hpBar.hpText = display.newText("0/0", gameConfig.contentWidth/2, 100, "kenvector_future_thin", 40)
+        hpBar.nameText = display.newText("Boss", gameConfig.contentWidth/2, 100, "kenvector_future_thin", 40)
         hpBar.hpText.x = 0
         hpBar.hpText.y = 0
         hpBar.nameText.x = - glassPanel.contentWidth / 2 + 100
@@ -354,12 +355,12 @@ Boss.new = function(players, options)
 
             local num = 4
 
-            local gap = display.contentWidth / (num+1)
+            local gap = gameConfig.contentWidth / (num+1)
 
-            self:createUfo(display.contentWidth, display.contentHeight, gap, 100)
+            self:createUfo(gameConfig.contentWidth, gameConfig.contentHeight, gap, 100)
             self:createUfo(gap*2, -100, gap * 2, 100)
             self:createUfo(gap*3, -100, gap * 3, 100)
-            self:createUfo(0, display.contentHeight, gap * 4, 100)
+            self:createUfo(0, gameConfig.contentHeight, gap * 4, 100)
             
             if not count then
                 count = 2
@@ -460,10 +461,9 @@ Boss.new = function(players, options)
         --bash to player
         transition.to(self, { 
             time = options.time or 1000, 
-            delay = options.delay or 0, y = display.contentHeight + self.height, 
+            delay = options.delay or 0, y = gameConfig.contentHeight + self.height, 
             onComplete = function()
                 --print("mode 1 complete")
-                --self.x = display.contentWidth / 2
                 if not util.isExists(self) then
                     return
                 end
@@ -515,8 +515,8 @@ Boss.new = function(players, options)
         local count = math.floor(360 / devision) 
         local once = 5
         transition.to(self, {
-            x = display.contentWidth / 2,
-            y = display.contentHeight / 2,
+            x = gameConfig.contentWidth / 2,
+            y = gameConfig.contentHeight / 2,
             time = 1000, 
             onComplete = function()
                 local i = self:addTimer(200, 

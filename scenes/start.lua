@@ -8,17 +8,17 @@ local sfx = require("sfx")
 local TAG = "START MENU"
 
 function scene:init()
-    self.menuWidth = math.round(display.contentWidth*0.8)
-    self.menuHeight = math.round(display.contentHeight*0.5)
+    self.menuWidth = math.round(gameConfig.contentWidth*0.8)
+    self.menuHeight = math.round(gameConfig.contentHeight*0.5)
 end
 
 function scene:construct()
     local logo = Sprite.new("Logo")
     local versionTxt = display.newText("Ver."..gameConfig.version, 0, 0, "kenvector_future_thin", 32)
-    self.view:insert(logo)
-    self.view:insert(versionTxt)
-    logo.x = display.contentWidth/2
-    logo.y = display.contentHeight/2 - self.menuHeight * 0.5
+    self.superGroup:insert(logo)
+    self.superGroup:insert(versionTxt)
+    logo.x = gameConfig.contentWidth/2
+    logo.y = gameConfig.contentHeight/2 - self.menuHeight * 0.5
     versionTxt.x = logo.x
     versionTxt.y = logo.y + logo.height/2 + versionTxt.height/2
     self.glassPanel.alpha = 0

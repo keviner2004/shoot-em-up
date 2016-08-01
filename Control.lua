@@ -1,8 +1,8 @@
 local enterFrame = require("enterFrame")
 local util = require("util")
-local Control = {}
 local gameConfig = require("gameConfig")
 
+local Control = {}
 local SIN, COS = {}, {}
 
 for i = -360, 360 do 
@@ -21,6 +21,7 @@ Control.new = function(target, controlType, fingerSize, options)
     control.enableKeyMove = false
     control.pressKey = {}
     control.moveAngle = 0
+    control.tmpTouchPos = {}
     if options and options.func then
         control.func = options.func
     end
@@ -36,7 +37,7 @@ Control.new = function(target, controlType, fingerSize, options)
 
     function control:getMoveAngle(pos1, pos2)
         local deltaX = pos2.x - pos1.x
-        local deltaY = pos2.y - self.fingerSize - pos1.y
+        local deltaY = pos2.y - pos1.y
         self.moveAngle = math.deg(math.atan2(deltaY, deltaX))
     end
 
@@ -126,30 +127,39 @@ Control.new = function(target, controlType, fingerSize, options)
                 return
             end
             ----[[
-            self:getMoveAngle(self.target, self.touchPos)
+            local touchX = self.touchPos.x - gameConfig.contentX
+            local touchY = self.touchPos.y - self.fingerSize - gameConfig.contentY
+            self.tmpTouchPos.x = touchX
+            self.tmpTouchPos.y = touchY
+            local targetX = self.target.x 
+            local targetY = self.target.y
+
+            --self:getMoveAngle(self.target, self.touchPos)
+            self:getMoveAngle(self.target, self.tmpTouchPos)
+            
             local offsetY = 30 * SIN[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
             local offsetX = 30 * COS[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
             --local offsetX = 0
             --local offsetY = 0
-            local targetY = self.touchPos.y - self.fingerSize
 
-            --print("pos test x: ", self.target.x, self.touchPos.x, ", y:", self.target.y, self.touchPos.y, "deg:", math.deg(self.moveAngle))
-            
-            if self.target.x ~= self.touchPos.x then
-                if self.target.x < self.touchPos.x and self.target.x + offsetX > self.touchPos.x then
-                    self.target.x = self.touchPos.x
-                elseif self.target.x > self.touchPos.x and self.target.x + offsetX < self.touchPos.x then
-                    self.target.x = self.touchPos.x
+            --local targetX, targetY = self.target:localToContent( 0, 0 )
+
+            --print("pos test x: ", targetX, touchX, ", y:", targetY, touchY, "deg:", math.deg(self.moveAngle), "offset: ", offsetX)
+            if targetX ~= touchX then
+                if targetX < touchX and touchX + offsetX > touchX then
+                    self.target.x = touchX
+                elseif targetX > touchX and targetX + offsetX < touchX then
+                    self.target.x = touchX
                 else
                     self.target.x = self.target.x + offsetX
                 end
             end
             
-            if self.target.y ~= targetY then
-                if self.target.y < targetY and self.target.y + offsetY > targetY then
-                    self.target.y = targetY
-                elseif self.target.y > targetY and self.target.y + offsetY < targetY then
-                    self.target.y = targetY
+            if targetY ~= touchY then
+                if targetY < touchY and targetY + offsetY > touchY then
+                    self.target.y = touchY
+                elseif targetY > touchY and targetY + offsetY < touchY then
+                    self.target.y = touchY
                 else
                     self.target.y = self.target.y + offsetY    
                 end 
@@ -161,13 +171,13 @@ Control.new = function(target, controlType, fingerSize, options)
             self.target.x = self.target.x + self.offsetX * (1 + (self.target.moveSpeed or 0))
             self.target.y = self.target.y + self.offsetY * (1 + (self.target.moveSpeed or 0))
         end
-        if self.target.x > display.contentWidth then
-            self.target.x = display.contentWidth
+        if self.target.x > gameConfig.contentWidth then
+            self.target.x = gameConfig.contentWidth
         elseif self.target.x  < 0 then
             self.target.x = 0
         end
-        if self.target.y > display.contentHeight then
-            self.target.y = display.contentHeight
+        if self.target.y > gameConfig.contentHeight then
+            self.target.y = gameConfig.contentHeight
         elseif self.target.y  < 0 then
             self.target.y = 0
         end

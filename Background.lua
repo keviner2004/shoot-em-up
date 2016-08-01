@@ -1,3 +1,4 @@
+local gameConfig = require("gameConfig")
 local Backgrounds = {}
 
 Backgrounds.new = function(speed)
@@ -9,11 +10,11 @@ Backgrounds.new = function(speed)
     --generate background
     local function generateBackground()
         
-        local cols = math.ceil((display.contentWidth) / tile.contentWidth) + 1
-        local rows = math.ceil((display.contentHeight) / tile.contentHeight) + 1
+        local cols = math.ceil((gameConfig.contentWidth) / tile.contentWidth) + 1
+        local rows = math.ceil((gameConfig.contentHeight) / tile.contentHeight) + 1
         local backgroundGroup = display.newGroup()
-        local left = -math.ceil((tile.width * cols - display.contentWidth)/2)
-        local top = -math.ceil((tile.height * rows - display.contentHeight)/2)
+        local left = -math.ceil((tile.width * cols - gameConfig.contentWidth)/2)
+        local top = -math.ceil((tile.height * rows - gameConfig.contentHeight)/2)
         print("Generate background left:", left, "top:", top, backgroundGroup.x, backgroundGroup.y)
         for row = 1, rows do
             for col = 1, cols do

@@ -1,5 +1,6 @@
-local capture = {}
+local gameConfig = require("gameConfig")
 local logger = require("logger")
+local capture = {}
 
 local TAG = "Capture"
 
@@ -16,8 +17,8 @@ function capture:key(event)
             prepareCapture = true
             local screenCap = display.captureScreen( true )
             screenCap:scale( 0.5, 0.5 )
-            screenCap.x = display.contentCenterX
-            screenCap.y = display.contentCenterY
+            screenCap.x = gameConfig.contentCenterX
+            screenCap.y = gameConfig.contentCenterY
             screenCap:removeSelf()
         end
         logger:debug(TAG, "event.keyName "..event.keyName)

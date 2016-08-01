@@ -1,4 +1,5 @@
 local move = require("move")
+local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
 local EnemyPlane = require("enemies.EnemyPlane")
 local sublevel = Sublevel.new("1-st level", "keviner2004", {duration = 4000})
@@ -6,8 +7,8 @@ local sublevel = Sublevel.new("1-st level", "keviner2004", {duration = 4000})
 function sublevel:show(options)
     --New enemy
     local num = 5
-    local pathPoints = move.getCurve({{x = -50, y = -50}, {x = -50, y = -50}, {x = -50, y = display.contentHeight*1.1}, {x = display.contentWidth*1.1, y = display.contentHeight*1.1}}, 100)
-    local pathPoints2 = move.getCurve({{x = display.contentWidth*1.1, y = -50}, {x = display.contentWidth*1,1, y = -50}, {x = display.contentWidth*1.1, y = display.contentHeight*1.1}, {x = -50, y = display.contentHeight*1.1}}, 100)
+    local pathPoints = move.getCurve({{x = -50, y = -50}, {x = -50, y = -50}, {x = -50, y = gameConfig.contentHeight*1.1}, {x = gameConfig.contentWidth*1.1, y = gameConfig.contentHeight*1.1}}, 100)
+    local pathPoints2 = move.getCurve({{x = gameConfig.contentWidth*1.1, y = -50}, {x = gameConfig.contentWidth*1,1, y = -50}, {x = gameConfig.contentWidth*1.1, y = gameConfig.contentHeight*1.1}, {x = -50, y = gameConfig.contentHeight*1.1}}, 100)
     for i = 1, num do
         self:addTimer(300 * i, function()
             local enemy = EnemyPlane.new()

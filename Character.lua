@@ -1,4 +1,5 @@
 local Character = {}
+local gameConfig = require("gameConfig")
 local Control = require("Control")
 local Laser = require("bullets.Laser")
 local HomingLaser = require("bullets.HomingLaser")
@@ -308,8 +309,8 @@ Character.new = function (options)
             if item.droppable then
                 item.enabled = true
                 --drop items, move them to the center
-                item.x = display.contentWidth / 2
-                item.y = display.contentHeight / 2
+                item.x = gameConfig.contentWidth / 2
+                item.y = gameConfig.contentHeight / 2
                 item:dropped(self)
             end
         end

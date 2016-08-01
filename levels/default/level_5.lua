@@ -1,3 +1,4 @@
+local gameConfig = require("gameConfig")
 local move = require("move")
 local Station = require("buildings.Station")
 local Line = require("buildings.Line")
@@ -23,9 +24,8 @@ function sublevel:show(options)
 
     station.rotation = 15
     line.rotation = -45
-    station.x = display.contentWidth/2
+    station.x = gameConfig.contentWidth/2
     station.y = -station.height/2
-    --station.y = display.contentHeight/2
     station:enablePhysics()
     
     turret1.base.rotation = 15

@@ -55,6 +55,7 @@ Item.new = function(sprites, options)
 
     function item:undoDrop()
         logger:info(TAG, "undoDrop")
+        self.isDropped = false
         self:setLinearVelocity(0 ,0)
         if self.timerId then
             item:cancelTimer(self.timerId)
@@ -62,6 +63,7 @@ Item.new = function(sprites, options)
     end
 
     function item:dropped(receiver)
+        self.isDropped = true
         --random move
         --math.randomseed(os.time())
         --degree = math.random(1, 360)
@@ -87,7 +89,9 @@ Item.new = function(sprites, options)
                     time = 500,
                     alpha = 0,
                     onComplete = function()
-                        item:removeSelf()
+                        if self.isDropped then
+                            item:removeSelf()
+                        end
                     end
                 })
             end)

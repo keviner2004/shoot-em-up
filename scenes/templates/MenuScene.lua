@@ -10,19 +10,21 @@ local TAG = "MenuScene"
 
 Menu.new = function()
     local scene = composer.newScene()
-    scene.menuWidth = math.round(display.contentWidth*0.9)
-    scene.menuHeight = math.round(display.contentHeight*0.9)
-
+    scene.menuWidth = math.round(gameConfig.contentWidth*0.9)
+    scene.menuHeight = math.round(gameConfig.contentHeight*0.9)
     function scene:create( event )
        logger:info(TAG, "scene create")
+       self.superGroup = display.newGroup()
+       self.superGroup.x = gameConfig.contentX
+       self.superGroup.y = gameConfig.contentY
        local sceneGroup = self.view
        local panelHeight = 0
        local panelWidth = 0
        local titleValue = self:getTitleText()
        self:init(event)
        local glassPanel = GlassCornersPanel.new(self.menuWidth, self.menuHeight)
-       glassPanel.x = display.contentWidth/2
-       glassPanel.y = display.contentHeight/2
+       glassPanel.x = gameConfig.contentWidth/2
+       glassPanel.y = gameConfig.contentHeight/2
        local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 40)
        titleText.x = glassPanel.x
        titleText.y = glassPanel.y - glassPanel.contentWidth / 2
@@ -31,12 +33,13 @@ Menu.new = function()
        self.buttonGap = 10
        self.buttons = display.newGroup()
        --center these buttons
-       self.buttons.x = display.contentWidth / 2
-       self.buttons.y = display.contentHeight / 2
+       self.buttons.x = gameConfig.contentWidth / 2
+       self.buttons.y = gameConfig.contentHeight / 2
        self.glassPanel = glassPanel
-       sceneGroup:insert(self.buttons)
-       sceneGroup:insert(glassPanel)
-       sceneGroup:insert(titleText)
+       self.superGroup:insert(self.buttons)
+       self.superGroup:insert(glassPanel)
+       self.superGroup:insert(titleText)
+       sceneGroup:insert(self.superGroup)
        self:construct()
        self:insertButtons()
        self:resizeButtons()
@@ -55,7 +58,7 @@ Menu.new = function()
     end
 
     function scene:newButton(text)
-       local button = GlassProjectionPanel.new(display.contentWidth* 0.5, display.contentHeight *0.1)
+       local button = GlassProjectionPanel.new(gameConfig.contentWidth* 0.5, gameConfig.contentHeight *0.1)
        button:setText(text)
        return button
     end

@@ -3,43 +3,19 @@ local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
 local TAG = "Level"
 local Level = {}
-local config = require("gameConfig")
+local gameConfig = require("gameConfig")
 
 Level.load = function()
     local level = {}
-    --[[local level = 
-    {
-        {
-            kind = "enemy", 
-            time = 1000, 
-            moves = {
-                {
-                    mode = "straight",
-                    startPos = {x = 100, y = 0}, 
-                    endPos = {x = 100, y = display.contentHeight},
-                    time = 4000
-                }
-            },
-
-            items = {
-                {
-                    kind = "powerup"
-                }
-            }
-        },
-
-    }
-    return level--]]
-    --level.vistedLevels = {}
     level.levels = {}
     level.levelCandidates = {}
     level.bossCandidates = {}
     level.currentSublevel = nil
     level.count = 0
     level.timerUtil = TimerUtil.new()
-    level.fightsBeforeEncounterBoss = config.fightBeforeEncounterBoss
+    level.fightsBeforeEncounterBoss = gameConfig.fightBeforeEncounterBoss
     --Reqire all level module
-    for i, v in ipairs(config.gameLevels) do
+    for i, v in ipairs(gameConfig.gameLevels) do
         local subLevel = require("levels."..v)
         print("Author: "..subLevel.author)
         print("Sub level name: "..subLevel.name)
@@ -97,8 +73,8 @@ Level.load = function()
         authorTxt.y = 30
         levelTitle:insert(levelNameTxt)
         levelTitle:insert(authorTxt)
-        levelTitle.x = display.contentWidth/2
-        levelTitle.y = display.contentHeight/2
+        levelTitle.x = gameConfig.contentWidth/2
+        levelTitle.y = gameConfig.contentHeight/2
         self.view:insert(levelTitle)
         levelTitle.alpha = 0
         --Show sublevel's infomation at start

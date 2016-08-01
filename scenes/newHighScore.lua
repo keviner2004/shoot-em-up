@@ -1,3 +1,4 @@
+local gameConfig = require("gameConfig")
 local widget = require( "widget" )
 local GlassTLCornersPanel = require("ui.GlassTLCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
@@ -17,10 +18,13 @@ local scene = composer.newScene()
 function scene:create( event )
    
    local sceneGroup = self.view
+   self.superGroup = display.newGroup()
+   self.superGroup.x = gameConfig.contentX
+   self.superGroup.y = gameConfig.contentY
    local glassPanel = GlassTLCornersPanel.new(550, 500)
 
-   glassPanel.x = display.contentWidth/2
-   glassPanel.y = display.contentHeight/2
+   glassPanel.x = gameConfig.contentWidth/2
+   glassPanel.y = gameConfig.contentHeight/2
    local title = display.newText("New Record!", 0, 0, "kenvector_future_thin", 40)
    title.x = glassPanel.x
    title.y = glassPanel.y - glassPanel.contentHeight / 2 + 70 
@@ -37,11 +41,12 @@ function scene:create( event )
 
    self.nameTextField = native.newTextField(glassPanel.x, nameText.y + 80, glassPanel.contentWidth - 170, 50)
 
-   sceneGroup:insert(glassPanel)
-   sceneGroup:insert(title)
-   sceneGroup:insert(scoreText)
-   sceneGroup:insert(nameText)
-
+   self.superGroup:insert(glassPanel)
+   self.superGroup:insert(title)
+   self.superGroup:insert(scoreText)
+   self.superGroup:insert(nameText)
+   
+   sceneGroup:insert(superGroup)
    
    function self.nameTextField:userInput( event )
       if ( event.phase == "began" ) then

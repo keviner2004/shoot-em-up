@@ -1,14 +1,19 @@
+local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local GameObject = require("GameObject")
-local Missile = require("bullets.Missile")
+local Effect = require("effects.PixelEffect1")
 local sublevel = Sublevel.new("", "")
 function sublevel:show(options)
-    local missile = Missile.new({fireTo = "character"})
-    missile.x = display.contentWidth/2
-    missile.y = display.contentHeight/2
-    self.view:insert(missile)
-    missile:startSmoke()
-    missile:seek(self.player)
+    function addEffect(x, y)
+        local effect = Effect.new()
+        self:insert(effect)
+        effect.x = x
+        effect.y = y
+    end
+
+    addEffect(gameConfig.contentWidth/2, gameConfig.contentHeight/2)
+    addEffect(0, 0)
+    addEffect(gameConfig.contentWidth/4*3, gameConfig.contentHeight/4*3)
+
 end
 
 return sublevel

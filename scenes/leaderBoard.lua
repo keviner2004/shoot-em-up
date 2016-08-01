@@ -3,6 +3,7 @@ local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local composer = require( "composer" )
 local scene = composer.newScene()
 local leaderBoardHelper = require("leaderBoardHelper")
+local gameConfig = require("gameConfig")
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
@@ -17,26 +18,30 @@ function scene:create( event )
    
    --print(pathOfThisFile)
    local sceneGroup = self.view
-   self.mainPanel = GlassCornersPanel.new(display.contentWidth/1.3, display.contentHeight/1.3)
+   self.superGroup = display.newGroup()
+   self.superGroup.x = gameConfig.contentX
+   self.superGroup.y = gameConfig.contentY
+   self.mainPanel = GlassCornersPanel.new(gameConfig.contentWidth/1.3, gameConfig.contentHeight/1.3)
    self.marginTop = 180
    self.marginBottom = 10
    self.marginLeft = 10
    self.marginRight = 10
 
-   self.mainPanel.x = display.contentWidth/2
-   self.mainPanel.y = display.contentHeight/2
-   titleButton = GlassProjectionPanel.new(display.contentWidth/2 - 150, 70)
+   self.mainPanel.x = gameConfig.contentWidth/2
+   self.mainPanel.y = gameConfig.contentHeight/2
+   titleButton = GlassProjectionPanel.new(gameConfig.contentWidth/2 - 150, 70)
    titleButton.x = self.mainPanel.x
    titleButton.y = self.mainPanel.y - self.mainPanel.contentHeight / 2 + 80 
    titleButton:setText("Local Rank")
-   sceneGroup:insert(self.mainPanel)
-   sceneGroup:insert(titleButton)
+   self.superGroup:insert(self.mainPanel)
+   self.superGroup:insert(titleButton)
 
-   local exitButton = GlassProjectionPanel.new(display.contentWidth/2 - 180, 70)
+   local exitButton = GlassProjectionPanel.new(gameConfig.contentWidth/2 - 180, 70)
    exitButton.x = self.mainPanel.x
    exitButton.y = self.mainPanel.y + self.mainPanel.contentHeight/2 - 80
    exitButton:setText("Exit")
-   sceneGroup:insert(exitButton)
+   self.superGroup:insert(exitButton)
+   sceneGroup:insert(superGroup)
 
    function exitButton:onTouch(event)
       --print("custom: "..event.phase.."/"..event.phase)
@@ -87,7 +92,7 @@ function scene:showRank()
       self.scores:insert(name)
       self.scores:insert(score)
    end
-   sceneGroup:insert(self.scores)
+   self.superGroup:insert(self.scores)
 end
 
 function scene:clearScore()
