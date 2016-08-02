@@ -3,8 +3,9 @@ local widget = require( "widget" )
 local GlassTLCornersPanel = require("ui.GlassTLCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local composer = require( "composer" )
-local scene = composer.newScene()
-
+local BasicScene = require("scenes.templates.BasicScene")
+--local scene = composer.newScene()
+local scene = BasicScene.new()
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
@@ -18,9 +19,9 @@ local scene = composer.newScene()
 function scene:create( event )
    
    local sceneGroup = self.view
-   self.superGroup = display.newGroup()
-   self.superGroup.x = gameConfig.contentX
-   self.superGroup.y = gameConfig.contentY
+   --self.superGroup = display.newGroup()
+   --self.superGroup.x = gameConfig.contentX
+   --self.superGroup.y = gameConfig.contentY
    local glassPanel = GlassTLCornersPanel.new(550, 500)
 
    glassPanel.x = gameConfig.contentWidth/2
@@ -46,7 +47,7 @@ function scene:create( event )
    self.superGroup:insert(scoreText)
    self.superGroup:insert(nameText)
    
-   sceneGroup:insert(superGroup)
+   sceneGroup:insert(self.superGroup)
    
    function self.nameTextField:userInput( event )
       if ( event.phase == "began" ) then

@@ -1,7 +1,7 @@
 local GlassCornersPanel = require("ui.GlassCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local composer = require( "composer" )
-local scene = composer.newScene()
+local BasicScene = require("scenes.templates.BasicScene")
 local leaderBoardHelper = require("leaderBoardHelper")
 local gameConfig = require("gameConfig")
 ---------------------------------------------------------------------------------
@@ -14,13 +14,16 @@ local gameConfig = require("gameConfig")
 ---------------------------------------------------------------------------------
  
 -- "scene:create()"
+
+local scene = BasicScene.new()
+
 function scene:create( event )
    
    --print(pathOfThisFile)
    local sceneGroup = self.view
-   self.superGroup = display.newGroup()
-   self.superGroup.x = gameConfig.contentX
-   self.superGroup.y = gameConfig.contentY
+   --self.superGroup = display.newGroup()
+   --self.superGroup.x = gameConfig.contentX
+   --self.superGroup.y = gameConfig.contentY
    self.mainPanel = GlassCornersPanel.new(gameConfig.contentWidth/1.3, gameConfig.contentHeight/1.3)
    self.marginTop = 180
    self.marginBottom = 10

@@ -27,6 +27,7 @@ config.keyP2Right = "d"
 config.numOfPlayers = 1
 config.infinite = true
 config.SHEET_PIXEL_EFFECT = "pixelEffect"
+config.SHEET_PIXEL_ITEM = "pixelItem"
 config.contentX = 0
 config.contentY = 0
 config.contentWidth = display.contentWidth
@@ -41,10 +42,11 @@ config.gameLevels = {
     "default.level_4",
     "default.level_5",
     "default.level_bonus",
-    "myLevel.level_custom_enemy" --added level
     --"default.level_test",
+    --"myLevel.level_custom_enemy",
+    --"myLevel.level_custom_item",
 }
 
-config.version = 0.87
+config.version = 0.88
 
 return config

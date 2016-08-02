@@ -8,7 +8,7 @@ Laser.new = function(options)
     sprite.fill = {1}
     laser:insert(sprite)
     laser:enablePhysics()
-    laser.damage = 0.1
+    laser.damage = 1
     function laser:seek(target, options)
         move.seek(self, target, options)
     end

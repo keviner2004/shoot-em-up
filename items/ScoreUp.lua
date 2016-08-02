@@ -1,3 +1,4 @@
+local Sprite = require("Sprite")
 local Item = require("Item")
 local ScoreUp = {}
 ScoreUp.new = function(options)
@@ -14,6 +15,8 @@ ScoreUp.new = function(options)
     end
     local spriteName = sprites[level]
     local item = Item.new(spriteName)
+    local sprite = Sprite.new(spriteName)
+    item:insert(sprite)
     item.level = level
     item.name = "scoreup"
     item.score = level * 100
@@ -21,7 +24,7 @@ ScoreUp.new = function(options)
     function item:needKeep(receiver)
         return false
     end
-
+    item:enablePhysics()
     return item
 end
 return ScoreUp

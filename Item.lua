@@ -6,11 +6,9 @@ local Sprite = require("Sprite")
 local sfx = require("sfx")
 local logger = require("logger")
 
-Item.new = function(sprites, options)
+Item.new = function(options)
     local TAG = "item"
     local item = GameObject.new()
-    local sprite = Sprite.new(sprites)
-    item:insert(sprite)
     item.type = "item"
     item.name = "item"
     item.enabled = true
@@ -21,7 +19,6 @@ Item.new = function(sprites, options)
     item.apearDuration = (options and options.apearDuration) or 5000
     item:belongTo(PHYSIC_CATEGORY_ITEM)
     item:collideWith(PHYSIC_CATEGORY_CHARACTER)
-    item:enablePhysics()
 
     function item:effect(receiver)
         self:disableAutoDestroy()
@@ -111,7 +108,6 @@ Item.new = function(sprites, options)
     end
 
     item:idleEffect()
-    sprite:toFront()
 
     return item
 end

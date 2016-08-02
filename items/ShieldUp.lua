@@ -1,3 +1,4 @@
+local Sprite = require("Sprite")
 local Item = require("Item")
 local ShieldUp = {}
 ShieldUp.new = function(options)
@@ -14,6 +15,8 @@ ShieldUp.new = function(options)
     end
     local spriteName = sprites[level]
     local item = Item.new(spriteName)
+    local sprite = Sprite.new(spriteName)
+    item:insert(sprite)
     item.level = level
     item.name = "sheildup"
     item.duration = level * 8000
@@ -25,7 +28,7 @@ ShieldUp.new = function(options)
     function item:needKeep(receiver)
         return false
     end
-
+    item:enablePhysics()
     return item
 end
 return ShieldUp

@@ -1,9 +1,14 @@
+local gameConfig = require("gameConfig")
 local Item = require("Item")
-local ScoreUp = {}
-ScoreUp.new = function(options)
+local Sprite = require("Sprite")
+local Object = {}
+Object.new = function(options)
     local item = Item.new()
-    item.name = "scoreup"
-    item.score = level * 100
+    local sprite = Sprite.new("Items/28")
+    
+    item.score = 50
+    item:insert(sprite)
+    item:enablePhysics()
 
     function item:needKeep(receiver)
         return false
@@ -11,4 +16,4 @@ ScoreUp.new = function(options)
 
     return item
 end
-return ScoreUp
+return Object

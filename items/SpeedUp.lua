@@ -1,3 +1,4 @@
+local Sprite = require("Sprite")
 local Item = require("Item")
 local SpeedUp = {}
 SpeedUp.new = function(options)
@@ -14,10 +15,12 @@ SpeedUp.new = function(options)
     end
     local spriteName = sprites[level]
     local item = Item.new(spriteName)
+    local sprite = Sprite.new(spriteName)
+    item:insert(sprite)
     item.level = level
     item.name = "speedup"
     item.shootSpeed = level
-
+    item:enablePhysics()
     return item
 end
 return SpeedUp

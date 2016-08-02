@@ -1,4 +1,5 @@
 local composer = require( "composer" )
+local BasicScene = require("scenes.templates.BasicScene")
 local GlassCornersPanel = require("ui.GlassCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local Menu = {}
@@ -9,14 +10,14 @@ local util = require("util")
 local TAG = "MenuScene"
 
 Menu.new = function()
-    local scene = composer.newScene()
+    local scene = BasicScene.new()
     scene.menuWidth = math.round(gameConfig.contentWidth*0.9)
     scene.menuHeight = math.round(gameConfig.contentHeight*0.9)
     function scene:create( event )
        logger:info(TAG, "scene create")
-       self.superGroup = display.newGroup()
-       self.superGroup.x = gameConfig.contentX
-       self.superGroup.y = gameConfig.contentY
+       --self.superGroup = display.newGroup()
+       --self.superGroup.x = gameConfig.contentX
+       --self.superGroup.y = gameConfig.contentY
        local sceneGroup = self.view
        local panelHeight = 0
        local panelWidth = 0
