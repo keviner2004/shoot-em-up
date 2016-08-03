@@ -30,6 +30,7 @@
 |                   | collision with   | o   | o   |     |     |      |      | o    |        |
 |-------------------|------------------|-----|-----|-----|-----|------|------|------|--------|
 --]]
+local constant = {}
 
 PHYSIC_CATEGORY_CHARACTER = 1
 PHYSIC_CATEGORY_ENEMY = 2
@@ -40,3 +41,5 @@ PHYSIC_CATEGORY_WALL = 32
 PHYSIC_CATEGORY_MISSILE = 64
 PHYSIC_CATEGORY_VICTIM = 128
 PHYSIC_CATEGORY_SHIELD = 256
+
+return constant

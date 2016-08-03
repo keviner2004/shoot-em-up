@@ -11,7 +11,8 @@ local util = require("util")
 local sfx = require("sfx")
 local bossId = 0
 local Boss = {}
-
+local logger = require("logger")
+local TAG = "Boss"
 Boss.new = function(players, options)
     bossId = bossId + 1
     local boss = Enemy.new()
@@ -67,7 +68,8 @@ Boss.new = function(players, options)
         end
     end
 
-    physics.addBody(boss, "dynamic", {bounce = 1, radius = boss.width * boss.xScale / 2, filter = {categoryBits=PHYSIC_CATEGORY_ENEMY, maskBits=boss.maskBits}})
+    boss:setBody({type = "dynamic", bounce = 1, radius = boss.width * boss.xScale / 2})
+    boss:enablePhysics()
 
     function boss:getPlayer()
         for i = 1, #self.players do
@@ -141,7 +143,7 @@ Boss.new = function(players, options)
             end
             if count < #self.lifes then
                 for i = count+1, #self.lifes do
-                    print("set "..i.."th life to zero")
+                    --print("set "..i.."th life to zero")
                     self.lifes[i]:setWidth(0)
                     self.lifes[i].x = (self.lifes[i].contentWidth - base.width)/2
                     self.lifes[i].y = 0
@@ -170,10 +172,10 @@ Boss.new = function(players, options)
 
     function boss:onHurt(damage)
         if self.invincible then
-            print("Boss is invincible")
+            logger:debug(TAG, "Boss is invincible")
             return
         end
-        print("Hurt on "..self.bossId..", damage:"..damage..", "..self.hp.."/"..self.maxHp)
+        logger:verbose(TAG, "Hurt on boss %d, damage: %d. HP: %d/%d", self.bossId, damage, self.hp, self.maxHp)
         if self.isDead then
             return
         end
@@ -182,7 +184,6 @@ Boss.new = function(players, options)
             realDamage = self.hp
         end
         self.hp = self.hp - realDamage
-        print("Hurted on "..self.bossId..":"..self.hp)
         if self.hpBar then
             self.hpBar:update(self.hp , self.maxHp)
         end
@@ -190,7 +191,7 @@ Boss.new = function(players, options)
     end
 
     function boss:onDead()
-        print("onDead "..self.cloneCount.."."..self.bossId)
+        logger:debug(TAG, "onDead "..self.cloneCount.."."..self.bossId)
         self.hp = 0
         self.isDead = true
         self:getPlayer().score = self:getPlayer().score + self.maxHp
@@ -198,10 +199,18 @@ Boss.new = function(players, options)
         if self.cloneCount == 0 then
             self.hpBar:hide(
                 function()
-                    print("Destroy hp bar")
+                    logger:debug(TAG, "Destroy hp bar")
                     self.hpBar:removeSelf()
                 end
             )
+            --remove remaining missiles
+            if self.missiles then
+                for i = 1, #self.missiles do
+                    if util.isExists(self.missiles[i]) then
+                        self.missiles[i]:removeSelf()
+                    end
+                end
+            end
             self:onDefeated()
         end
 
@@ -210,7 +219,7 @@ Boss.new = function(players, options)
         end
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
             if self.cloneCount == 0 then
-                print("Clear boss self")
+                logger:verbose(TAG, "Clear boss self")
                 self:clear()
             else
                 self:removeSelf()
@@ -219,11 +228,11 @@ Boss.new = function(players, options)
     end
 
     function boss:onDefeated()
-        print("boss is defeated")
+        logger:verbose(TAG, "boss is defeated")
     end
 
     function boss:afterHurt(damage)
-        print("boss afterHurt")
+        logger:verbose(TAG, "boss afterHurt")
     end
 
     function boss:stopRotation()
@@ -256,7 +265,7 @@ Boss.new = function(players, options)
         boss.defaultX = self.x
         boss.defaultY = self.y
         print("mode 1_2 start")
-
+        
         if self:isStage1()then
             self:rotateBullet(function()
                 self:bashToCharacter(function()
@@ -319,8 +328,10 @@ Boss.new = function(players, options)
             --print("New missle")
             sfx:play("surround")
             local num = 3
+            self.missiles = {}
             for i = 1, num do
-                local missile = Missile.new({fireTo = "character"})
+                local missile = Missile.new()
+                missile:enableAutoDestroy()
                 print(self.x)
                 self.parent:insert(missile)
                 move.rotatAround(missile, {target = self, speed = 3, distance = 150, startDegree = startDegree + 360 / num * (i-1)})
@@ -334,6 +345,7 @@ Boss.new = function(players, options)
                     sfx:play("seek")
                     missile:seek(self:getPlayer(), {degree = 360 - missile.rotation, magnitude = 450})
                 end)
+                self.missiles[#self.missiles+1] = missile
             end
         end)
         --bash

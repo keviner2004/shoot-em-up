@@ -1,5 +1,7 @@
 local lfs = require "lfs"
+local logger = require("logger")
 local config = require("gameConfig")
+local TAG = "audio"
 local sfx = {}
 
 sfx.CHANNEL_BG = 1
@@ -114,21 +116,27 @@ function sfx:play(name, options)
       return
     end
     self:initVolumn()
+
     if not options then
       options = {}
     end
 
-    options.channel = self[name].channel or 0
-    --print("Let play!!!!!!!!!!!!!!!!!!! "..options.channel)
-    if mute then
-        return false
-    end
-    --print("Play audio "..options.channel)
+    local reservedChannel = self[name].channel
 
-    if options.channel and options.channel~=0 then
-      --print("Let stop!!!!!!!!!!!!!!!!!!! "..options.channel)
-      audio.stop(options.channel)
+    if reservedChannel and reservedChannel ~= 0 then
+      audio.stop(reservedChannel)
+      options.channel = reservedChannel
+    else
+      local availableChannel = audio.findFreeChannel( 4 )
+      audio.setVolume( 1, { channel=availableChannel } )
+      options.channel = availableChannel
     end
+
+    local currentVolumn = audio.getVolume( { channel = options.channel } )
+
+    logger:debug(TAG, "Play sound %s at channel %d with volume %d", name, options.channel, currentVolumn)
+
+
     return audio.play(self[name].handle, options)
     
 end

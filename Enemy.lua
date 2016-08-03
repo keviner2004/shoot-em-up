@@ -7,7 +7,8 @@ local Sprite = require("Sprite")
 local sfx = require("sfx")
 local config = require("gameConfig")
 local Backpack = require("Backpack")
-
+local logger = require("logger")
+local TAG = "Enemy"
 Enemy.backpack = Backpack.new()
 
 setmetatable(Enemy, {
@@ -59,17 +60,15 @@ Enemy.new = function(options)
     end
 
     enemy.collision = function(self, event)
-        --print("enemy hit by "..event.other.name..":"..self.hp..", x:"..event.x..",y:"..event.y)
         if event.other.name == "character" or event.other.name == "shield" then
+            logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other)
-        elseif event.other.name == "bullet" then
+        elseif event.other.type == "bullet" then
+            logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other.owner)
         end
     end
-
-    enemy:addEventListener("preCollision", enemy)
-    enemy:addEventListener("collision", enemy)
-
+    
     function enemy:addItem(class, ...)
         --print("Add item "..class.." to enemy")
         local item = {}
@@ -167,7 +166,7 @@ Enemy.new = function(options)
     end
 
     function enemy:hurt(damage, crime)
-        --print("Hurt enemy: "..damage..":"..self.hp)
+        logger:info(TAG, "Hurt enemy: %d / %d", damage, self.hp)
         if self.hp > 0 then
             self:showHurtEffect()
             self:onHurt(damage, crime)

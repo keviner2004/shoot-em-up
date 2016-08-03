@@ -1,4 +1,4 @@
-local Bullet = require("Bullet")
+local Enemy = require("Enemy")
 local Sprite = require("Sprite")
 local GameObject = require("GameObject")
 local util = require("util")
@@ -8,11 +8,8 @@ local Effect = require("effects.StarExplosion2")
 local move = require "move"
 Missile.new = function (options)
     local sprite = Sprite.new("Missiles/4")
-    local missile = Bullet.new({
-        isRocket = true,
-        fireTo = options and options.fireTo,
-        --selfCollision = true
-    })
+    local missile = Enemy.new()
+    missile.hp = 40
     missile.dir = 90
     missile:insert(sprite)   
     missile:enablePhysics()
@@ -57,7 +54,9 @@ Missile.new = function (options)
         --self:addSmoke()
         self:addTimer(60 , 
             function()
-                self:addSmoke()
+                if util.isExists(self) then
+                    self:addSmoke()
+                end
             end
         , -1)
     end
@@ -66,19 +65,7 @@ Missile.new = function (options)
         move.seek(self, target, options)
     end
 
-    function missile:showDestroyEffect()
-        local effect = Effect.new({time=1000})
-        effect.x = self.x
-        effect.y = self.y
-        self.parent:insert(effect)
-    end
-
-    function missile:playDestroySound()
-        sfx:play("explosion2")
-    end
-
     missile:startSmoke()
-
     return missile
 end
 

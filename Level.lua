@@ -148,7 +148,7 @@ Level.load = function()
                     self.currentSublevel = self.levels[idx]
                     logger:debug(TAG, "play boss music")
                     self.changeSound = true
-                    self.channelBossFightBg = sfx:play("bgBoss", {loops = -1})
+                    sfx:play("bgBoss", {loops = -1})
                     self.levels[idx]:start()
                 end
             })
@@ -159,9 +159,7 @@ Level.load = function()
             self.currentSublevel = self.levels[idx]
             self:showInfo()
             if self.changeSound then
-                if sfx.channelBossFightBg then
-                    sfx:fadeOut(sfx.channelBossFightBg, 1000)
-                end
+                sfx:fadeOut(sfx.CHANNEL_BG, 1000)
                 sfx:play("bg", {loops = -1})
                 self.changeSound = false
             end
