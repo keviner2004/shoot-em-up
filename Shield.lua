@@ -9,7 +9,8 @@ Shield.new = function(options)
     shield:collideWith(PHYSIC_CATEGORY_ENEMY)
     shield:collideWith(PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_MISSILE)
     shield:belongTo(PHYSIC_CATEGORY_SHIELD)
-    shield.damage = 999999999
+    shield:addTag("shield")
+    shield.damage = 20
 
     function shield:open(time)
         if self.opened then

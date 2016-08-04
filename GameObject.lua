@@ -28,6 +28,7 @@ GameObject.new = function (options)
     object.bodyType = "dynamic"
     object.enterFrame = EnterFrameUtil.new({owner = object.name})
     object.dir = 90
+    object.immuneGravityField = true
 
     function object:hasTag(tag)
         for i = 1, #self._tags do
@@ -253,6 +254,42 @@ GameObject.new = function (options)
     end
 
     object:addTag("gameobject")
+
+    function object:enableAutoRotation()
+        if self._autoRotation then
+            logger:warn(TAG, "auto rotation was already enabled")
+        end
+        self._autoRotation = function()
+            if not util.isExists(self) then
+                return true
+            end
+            if self.getLinearVelocity then
+                self:rotateByVelocity()
+            else
+                return true
+            end
+        end
+        self.enterFrame:each(self._autoRotation)
+    end
+
+    function object:rotateTo(deg)
+        self.rotation = self.dir - deg
+    end
+
+    function object:rotateByVelocity()
+        if self.getLinearVelocity then
+            local vx, vy = self:getLinearVelocity()
+            local degree = math.deg(math.atan2(vy, vx))
+            self:rotateTo(-degree)
+        end
+    end
+
+    function object:disableAutoRotation()
+        if self._autoRotation then
+            self.enterFrame:cancel(self._autoRotation)     
+            self._autoRotation = nil    
+        end
+    end
 
     return object
 end

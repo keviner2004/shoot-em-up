@@ -44,6 +44,7 @@ config.gameLevels = {
     "default.level_bonus",
     --"default.level_test",
     "myLevel.level_custom_enemy",
+    "myLevel.level_custom_gravity_hole",
     "myLevel.level_custom_item",
 }
 

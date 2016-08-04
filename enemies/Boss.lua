@@ -42,8 +42,8 @@ Boss.new = function(players, options)
     boss:insert(boss.head)
     --boss:insert(boss.ring)
     --boss.head:play()
-    boss.maskBits = PHYSIC_CATEGORY_CHARACTER + PHYSIC_CATEGORY_ENEMY + PHYSIC_CATEGORY_BULLET + PHYSIC_CATEGORY_WALL
-    boss.autoDestroy = false
+    --boss:collideWith(PHYSIC_CATEGORY_ENEMY)
+    boss:collideWith(PHYSIC_CATEGORY_WALL)
     --timer.performWithDelay(1, function()
     
     --end)
@@ -67,8 +67,8 @@ Boss.new = function(players, options)
             end
         end
     end
-
-    boss:setBody({type = "dynamic", bounce = 1, radius = boss.width * boss.xScale / 2})
+    
+    boss:setBody({type = "dynamic", bounce = 1, isSensor = false, radius = boss.width * boss.xScale / 2})
     boss:enablePhysics()
 
     function boss:getPlayer()

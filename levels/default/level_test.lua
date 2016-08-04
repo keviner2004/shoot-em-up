@@ -1,19 +1,24 @@
 local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local Effect = require("effects.PixelEffect1")
+local GravityField = require("GravityField")
+local EnemyPlane = require("enemies.EnemyPlane")
 local sublevel = Sublevel.new("", "")
+
 function sublevel:show(options)
-    function addEffect(x, y)
-        local effect = Effect.new()
-        self:insert(effect)
-        effect.x = x
-        effect.y = y
-    end
+    local enemy = EnemyPlane.new()
+    local field = GravityField.new()
 
-    addEffect(gameConfig.contentWidth/2, gameConfig.contentHeight/2)
-    addEffect(0, 0)
-    addEffect(gameConfig.contentWidth/4*3, gameConfig.contentHeight/4*3)
+    enemy.x = gameConfig.contentCenterX/2
+    enemy.y = 0
 
+    enemy:setLinearVelocity( 0, 300 )
+    enemy:rotateByVelocity()
+
+    field.x = gameConfig.contentCenterX
+    field.y = gameConfig.contentCenterY
+
+    self:insert(field)
+    self:insert(enemy)
 end
 
 return sublevel

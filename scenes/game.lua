@@ -197,6 +197,7 @@ function scene:pauseGame()
             end
         end
     end
+    sfx:pause()
     self.status = "paused"
 end
 
@@ -239,6 +240,7 @@ function scene:resumeGame()
             end
         end
     end
+    sfx:resume()
     self.status = "started"
 end
 

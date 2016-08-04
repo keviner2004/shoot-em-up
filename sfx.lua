@@ -153,6 +153,14 @@ function sfx:stop(channel)
     audio.stop(channel)
 end
 
+function sfx:pause(channel)
+  audio.pause(channel)
+end
+
+function sfx:resume(channel)
+  audio.resume(channel)
+end
+
 sfx:init()
 
 return sfx

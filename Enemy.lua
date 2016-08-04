@@ -26,10 +26,10 @@ Enemy.new = function(options)
     Enemy.backpack:add2(enemy)
     enemy:addTag("enemy")
     enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
-    enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_SHIELD)
+    enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_SHIELD, PHYSIC_CATEGORY_FIELD)
     enemy:setBody({
         type = "dynamic",
-        isSensor = true        
+        isSensor = true
     })
     enemy.damage = 10
     enemy.name = "enemy"
@@ -60,10 +60,10 @@ Enemy.new = function(options)
     end
 
     enemy.collision = function(self, event)
-        if event.other.name == "character" or event.other.name == "shield" then
+        if event.other:hasTag("character") or event.other:hasTag("shield") then
             logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other)
-        elseif event.other.type == "bullet" then
+        elseif event.other:hasTag("bullet") then
             logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other.owner)
         end
