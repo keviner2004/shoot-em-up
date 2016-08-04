@@ -48,6 +48,6 @@ config.gameLevels = {
     "myLevel.level_custom_item",
 }
 
-config.version = 0.89
+config.version = 0.9
 
 return config
