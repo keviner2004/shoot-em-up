@@ -4,8 +4,8 @@ local GameObject = require("GameObject")
 local util = require("util")
 local sfx = require("sfx")
 local Missile = {}
-local Effect = require("effects.StarExplosion2")
 local move = require "move"
+
 Missile.new = function (options)
     local sprite = Sprite.new("Missiles/4")
     local missile = Enemy.new()

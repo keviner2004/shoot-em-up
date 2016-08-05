@@ -25,9 +25,15 @@ util.addEnterFrameListener = function(obj, func, options)
             util.removeEnterFrameListener(obj, m_enterFrame)
             return
         end
+
         if obj.paused then
             --print("Game paused "..obj.name)
             return
+        end
+
+        if obj.stopped then
+            logger:verbose(TAG, "Cancel move enterFrame because object is stopped")
+            return true
         end
 
         if type(func) == "table" then

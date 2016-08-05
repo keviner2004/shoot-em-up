@@ -23,6 +23,11 @@ Sublevel.new = function (name, author, options)
         self.game = game
         self.stopped = false
         self._finished = false
+        self:create()
+    end
+
+    function sublevel:create()
+
     end
 
     function sublevel:setPlayer(players)
@@ -58,6 +63,7 @@ Sublevel.new = function (name, author, options)
         --print("****************** cancelAll check task 1 *****************", self.enterFrame.numOfItems)
         self.enterFrame:cancelAll()
         --print("****************** cancelAll check task 2 *****************", self.enterFrame.numOfItems)
+        self:finish()
     end
 
     function sublevel:pause()
@@ -102,6 +108,8 @@ Sublevel.new = function (name, author, options)
                 --print("Stop checking please 1: ", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
                 --print("Stop checking please 2: ", self.enterFrame.numOfItems)
+                print("sublevel is canceled")
+                self:finish()
                 return
             end
             if self:isFinish() then

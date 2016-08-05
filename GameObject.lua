@@ -30,6 +30,9 @@ GameObject.new = function (options)
     object.dir = 90
     object.immuneGravityField = true
 
+    function object:init()
+    end
+
     function object:hasTag(tag)
         for i = 1, #self._tags do
             --print("Cmapare!!!!! "..self._tags[i])
@@ -90,24 +93,63 @@ GameObject.new = function (options)
         end
     end
 
-    function object:addTimer(delay, func, count)
-        return self.timerUtil:addTimer(delay, func, count)
+    function object:addTimer(delay, func, count, tag)
+        return self.timerUtil:addTimer(delay, func, count, tag)
     end
 
     function object:cancelTimer(id)
        self.timerUtil:cancel(id) 
     end
 
+    function object:cancel()
+        self.timerUtil:clear()
+        self.enterFrame:cancelAll()
+        self.stopped = true
+        transition.cancel(self)
+        if self.numChildren then
+            for i = 1, self.numChildren do
+                if self[i] and self[i].cancel then
+                    self[i]:cancel()
+                end
+            end
+        end
+    end
+
+    function object:destroy()
+        self:removeSelf()
+    end
+
+    function object:unCancel()
+        self.stopped = false
+        if self.numChildren then
+            for i = 1, self.numChildren do
+                if self[i] and self[i].unCancel then
+                    self[i]:unCancel()
+                end
+            end
+        end
+    end
+
     function object:clear()
+        --print("Clear "..self.name)
         self.timerUtil:clear()
         self:removeSelf()
         self.enterFrame:cancelAll()
         self.stopped = true
         transition.cancel(self)
         self:onClear()
+        if self.numChildren then
+            for i = 1, self.numChildren do
+                if self[i] and self[i].clear then
+                    --print("clear child "..self[i].name)
+                    self[i]:clear()
+                end
+            end
+        end
     end
 
     function object:onClear()
+        
     end
 
     function object:callWhenInStage(func)
@@ -134,7 +176,7 @@ GameObject.new = function (options)
         self.timerUtil:pause()
         if self.numChildren then
             for i = 1, self.numChildren do
-                if self[i].freeze then
+                if self[i] and self[i].freeze then
                     self[i]:freeze()
                 end
             end
@@ -147,7 +189,7 @@ GameObject.new = function (options)
         self.timerUtil:resume()
         if self.numChildren then
             for i = 1, self.numChildren do
-                if self[i].unfreeze then
+                if self[i] and self[i].unfreeze then
                     self[i]:unfreeze()
                 end
             end

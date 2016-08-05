@@ -31,7 +31,7 @@ function sublevel:show(options)
         -- body
             count = count + 1
             if count == 4 then
-            warning:removeSelf( )
+            warning:removeSelf()
             end
     end})
     self.view:insert(warning)

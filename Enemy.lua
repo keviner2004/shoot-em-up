@@ -2,7 +2,8 @@ local Enemy = {}
 local move = require("move")
 local Item = require("Item")
 local GameObject = require("GameObject")
-local Effect = require("effects.StarExplosion2")
+--local Effect = require("effects.StarExplosion2")
+local Effect = require("effects.PooledStarExplosion")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local config = require("gameConfig")
@@ -61,10 +62,10 @@ Enemy.new = function(options)
 
     enemy.collision = function(self, event)
         if event.other:hasTag("character") or event.other:hasTag("shield") then
-            logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
+            logger:debug(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other)
         elseif event.other:hasTag("bullet") then
-            logger:info(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
+            logger:debug(TAG, "%s with hp %d hit by %s with %d damage. ", self.name, self.hp, event.other.name, event.other.damage)
             self:hurt(event.other.damage, event.other.owner)
         end
     end
@@ -134,9 +135,9 @@ Enemy.new = function(options)
 
     function enemy:showDestroyEffect()
         local effect = Effect.new({time=1000})
+        effect:start()
         effect.x = self.x
         effect.y = self.y
-        effect:enablePhysics()
         effect:setLinearVelocity( 0, config.stageSpeed )
         self.parent:insert(effect)
     end
@@ -166,7 +167,7 @@ Enemy.new = function(options)
     end
 
     function enemy:hurt(damage, crime)
-        logger:info(TAG, "Hurt enemy: %d / %d", damage, self.hp)
+        logger:debug(TAG, "Hurt enemy: %d / %d", damage, self.hp)
         if self.hp > 0 then
             self:showHurtEffect()
             self:onHurt(damage, crime)

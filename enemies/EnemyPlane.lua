@@ -1,8 +1,8 @@
 local gameConfig = require("gameConfig")
 local Enemy = require("Enemy")
 local Sprite = require("Sprite")
-local Effect = require("effects.StarExplosion2")
 local EnemyPlane = {}
+
 EnemyPlane.new = function(options)
 --    print("new plane")
     local plane = Enemy.new(options)

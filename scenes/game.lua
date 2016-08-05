@@ -18,6 +18,11 @@ local widget = require("widget")
 local logger = require("logger")
 local gameConfig = require("gameConfig")
 local util = require("util")
+
+local Pool = require("Pool")
+local PooledItemExplosion = require("effects.PooledItemExplosion")
+local PooledStarExplosion = require("effects.PooledStarExplosion")
+
 local TAG = "gamescene"
 
 system.setIdleTimer( false )
@@ -202,16 +207,19 @@ function scene:pauseGame()
 end
 
 function scene:clearGame()
-    logger:info(TAG, "Clear game")
+    logger:info(TAG, "clear pools")
+    Pool.clear()
+    logger:info(TAG, "Clear game objects")
     if self.mainGroup and self.mainGroup.numChildren then
         local i = 1
         while i <= self.mainGroup.numChildren do
             local v = self.mainGroup[i]
-            if v.name then
-                print("clear obj: "..v.name)
-            end
             if v.clear then
+                if v.name then
+                    logger:info(TAG, "clear %dth obj: %s", i, v.name)
+                end
                 v:clear()
+                logger:info(TAG, "Objects after clear: %d", self.mainGroup.numChildren)
             else
                 i = i + 1
             end
@@ -222,6 +230,7 @@ function scene:clearGame()
         print("gamescene:hide() did")
         self.hudGroup:removeSelf()
     end
+    sfx:stop()
     self.level:stop()
 end
 
@@ -437,7 +446,8 @@ function scene:show( event )
 
     if ( phase == "will" ) then
         print("gamescene:show() will")
-
+        PooledItemExplosion.pooling(10)
+        PooledStarExplosion.pooling(10)
     elseif ( phase == "did" ) then
         print("gamescene:show() did")
         -- Called when the scene is now on screen.

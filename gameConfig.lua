@@ -5,7 +5,7 @@ config.soundOn = true
 config.fightBeforeEncounterBoss = 10
 config.playerUnstoppable = false
 config.debugFPS = true
-config.logLevel = Logging.DEBUG
+config.logLevel = Logging.INFO
 config.debugPhysics = false
 config.playerLifes = 3
 config.controlType = {"follow", "key"} --both follow 
@@ -48,6 +48,10 @@ config.gameLevels = {
     "myLevel.level_custom_item",
 }
 
-config.version = 0.9
+config.seperateLevels = {
+    
+}
+
+config.version = 0.91
 
 return config

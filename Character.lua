@@ -175,7 +175,7 @@ Character.new = function (options)
     end
 
     function character:onKill(victim)
-        logger:info(TAG, "Kill "..victim.name)
+        logger:debug(TAG, "Kill "..victim.name)
         self:addScore(victim.score)
     end
 
@@ -461,6 +461,7 @@ Character.new = function (options)
         self.isDead = true
         --emit partical
         local effect = CircleExplosion.new({time = 1100})
+        effect:start()
         sfx:play("playerDead")
         if self.shield then
             --self.shield:clear()

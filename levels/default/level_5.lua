@@ -62,41 +62,41 @@ function sublevel:show(options)
 
     station:callWhenInStage(
         function()
-            print("********station is on stage")
+            --print("********station is on stage")
             station:enableAutoDestroy()
         end
     )
 
     turret1:callWhenInStage(
         function()
-            print("********turret1 is on stage")
+            --print("********turret1 is on stage")
             turret1:enableAutoDestroy()
         end
     )
 
     turret2:callWhenInStage(
         function()
-            print("********turret2 is on stage")
+            --print("********turret2 is on stage")
             turret2:enableAutoDestroy()
         end
     )
 
     turret3:callWhenInStage(
         function()
-            print("********turret3 is on stage")
+            --print("********turret3 is on stage")
             turret3:enableAutoDestroy()
         end
     )
     line:callWhenInStage(
         function()
-            print("********line is on stage")
+            --print("********line is on stage")
             line:enableAutoDestroy()
         end
     )
 
     astronaut:callWhenInStage(
         function()
-            print("********astronaut is on stage")
+            --print("********astronaut is on stage")
             astronaut:enableAutoDestroy()
         end
     )

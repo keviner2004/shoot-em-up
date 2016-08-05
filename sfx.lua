@@ -134,7 +134,7 @@ function sfx:play(name, options)
 
     local currentVolumn = audio.getVolume( { channel = options.channel } )
 
-    logger:debug(TAG, "Play sound %s at channel %d with volume %d", name, options.channel, currentVolumn)
+    --logger:debug(TAG, "Play sound %s at channel %d with volume %d", name, options.channel, currentVolumn)
 
 
     return audio.play(self[name].handle, options)

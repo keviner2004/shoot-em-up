@@ -1,7 +1,8 @@
 local Item = {}
 local GameObject = require("GameObject")
 local Glory = require("effects.Glory")
-local Explosion = require("effects.StarExplosion3")
+--local Explosion = require("effects.StarExplosion3")
+local Explosion = require("effects.PooledItemExplosion")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local logger = require("logger")
@@ -34,6 +35,7 @@ Item.new = function(options)
 
     function item:visualEffect()
         local effect = Explosion.new({time=800})
+        effect:start()
         self.parent:insert(effect)
         effect.x = self.x
         effect.y = self.y
@@ -47,6 +49,7 @@ Item.new = function(options)
         local effect = Glory.new({
             time = -1}
         )
+        effect:start()
         self:insert(effect)
     end
 

@@ -6,13 +6,26 @@ Effect.new = function(options)
     effect.type = "effect"
     effect.name = "effect"
     effect:addTag("effect")
-    if effect.duration > 0 then
-        effect:addTimer(effect.duration, 
+
+    function effect:startTimer()
+        --print("!!!!!!!!!!!!!!Start timer "..self.duration)
+        self:addTimer(self.duration, 
+        --timer.performWithDelay( self.duration, 
             function()
-                --print("Remove duration")
-                effect:removeSelf() 
+                effect:clear()
             end
-        )
+        , 1, "effect")
+    end
+
+    function effect:show()
+
+    end
+
+    function effect:start()
+        self:show()
+        if effect.duration > 0 then
+            effect:startTimer()
+        end
     end
 
     return effect

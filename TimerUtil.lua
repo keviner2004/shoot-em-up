@@ -1,4 +1,7 @@
+local logger = require("logger")
+local TAG = "TimerUtil"
 local TimerUtil = {}
+
 TimerUtil.new = function(options)
     local timerUtil = {}
     timerUtil.timers = {}
@@ -34,31 +37,36 @@ TimerUtil.new = function(options)
         return nil
     end
 
-    function timerUtil:addTimer(delay, func, count)
+    function timerUtil:addTimer(delay, func, count, tag)
+        --if tag then logger:error(tag, "hahahahaha") end
         if not count then
             count = 1
         end
         if self.numOfTimers > self.maxTimers then
-            --print("add timer fail")
+            logger:error(TAG, "add timer fail")
             return
         end
         local tid = self:getTimerId()
         if not tid then
-            --print("Fetch timerId fail")
+            logger:error(TAG, "Fetch timerId fail")
             return nil
         end
-        --print("add timer "..tid)
-        local t = timer.performWithDelay(self.baseTime + delay, function(evnet)
-            --print("timer count: "..count.." / " ..evnet.count)
-            if self.timers[tid].c and self.timers[tid].c ~= -1 then
-                self.timers[tid].c = self.timers[tid].c - count
-            end
-            evnet.tid = tid
-            func(evnet)
-            if evnet.count == count then
-                self:removeTimer(tid)
-            end
-        end, count)
+        local totalDelay = self.baseTime + delay
+        --if tag then logger:error(tag, "add timer %d, with delay %d", tid, delay) end
+        local t = timer.performWithDelay(totalDelay, 
+            function(evnet)
+                --if tag then logger:error(TAG, "[]timer count: "..count.." / " ..evnet.count) end
+                
+                if self.timers[tid].c and self.timers[tid].c ~= -1 then
+                    self.timers[tid].c = self.timers[tid].c - count
+                end
+                evnet.tid = tid
+                func(evnet)
+                if evnet.count == count then
+                    self:removeTimer(tid)
+                end
+            end, 
+        count)
         self.timers[tid] = {}
         self.timers[tid].t = t
         self.timers[tid].f = func

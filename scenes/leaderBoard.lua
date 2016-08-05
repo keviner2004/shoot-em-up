@@ -44,7 +44,7 @@ function scene:create( event )
    exitButton.y = self.mainPanel.y + self.mainPanel.contentHeight/2 - 80
    exitButton:setText("Exit")
    self.superGroup:insert(exitButton)
-   sceneGroup:insert(superGroup)
+   sceneGroup:insert(self.superGroup)
 
    function exitButton:onTouch(event)
       --print("custom: "..event.phase.."/"..event.phase)

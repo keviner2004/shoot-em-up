@@ -37,21 +37,21 @@ E.new = function(options)
         transition.to(partical, {time = effect.duration, alpha = 0, xScale = 0.01, yScale = 0.01})
     end
 
-    --addCenter(0, 0, 1, 1)
+    function effect:show()
 
-    local randomDeg = math.random(0, 359)
+        local randomDeg = math.random(0, 359)
 
-    addStar(0, 0, 45 + randomDeg, 0.6, 0.6)
-    --addStar(0, 0, 100, 0.55, 0.55)
-    addStar(0, 0, 125 + randomDeg, 0.65, 0.65)
-    --addStar(0, 0, 180, 0.6, 0.6)
-    addStar(0, 0, 205 + randomDeg, 0.45, 0.45)
-    --addStar(0, 0, 235, 0.4, 0.4)
-    addStar(0, 0, 265 + randomDeg, 0.5, 0.5)
-    --addStar(0, 0, 300, 0.45, 0.45)
-    addStar(0, 0, 335 + randomDeg, 0.6, 0.6)
-    --addStar(0, 0, 360, 0.6, 0.6)
-
+        addStar(0, 0, 45 + randomDeg, 0.6, 0.6)
+        --addStar(0, 0, 100, 0.55, 0.55)
+        addStar(0, 0, 125 + randomDeg, 0.65, 0.65)
+        --addStar(0, 0, 180, 0.6, 0.6)
+        addStar(0, 0, 205 + randomDeg, 0.45, 0.45)
+        --addStar(0, 0, 235, 0.4, 0.4)
+        addStar(0, 0, 265 + randomDeg, 0.5, 0.5)
+        --addStar(0, 0, 300, 0.45, 0.45)
+        addStar(0, 0, 335 + randomDeg, 0.6, 0.6)
+        --addStar(0, 0, 360, 0.6, 0.6)
+    end
     return effect
 end
 return E
