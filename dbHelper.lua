@@ -85,7 +85,7 @@ end
 
 function helper:init()
     self:exec([[
-      CREATE TABLE IF NOT EXISTS rank (id INTEGER PRIMARY KEY, name TEXT, type TEXT, levelId TEXT, score INTEGER, date DATE DEFAULT CURRENT_DATE);
+      CREATE TABLE IF NOT EXISTS rank (id INTEGER PRIMARY KEY, name TEXT, type TEXT, levelId TEXT, score INTEGER, date DATETIME DEFAULT CURRENT_TIMESTAMP);
     ]])
     self:exec([[
       CREATE TABLE IF NOT EXISTS info (name TEXT PRIMARY KEY, value TEXT);

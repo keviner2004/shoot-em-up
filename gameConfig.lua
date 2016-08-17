@@ -63,7 +63,7 @@ config.seperateLevels = {
     "default.level_5",
 }
 
-config.version = "0.93"
-config.dbVersion = "0.1"
+config.version = "0.931"
+config.dbVersion = "0.22"
 
 return config
