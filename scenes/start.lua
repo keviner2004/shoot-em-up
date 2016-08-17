@@ -95,11 +95,10 @@ function scene:createUserButton()
     --add user name
     local userText = display.newText("", 0, 0, gameConfig.defaultFont, 35)
     local gap = 15
-
-    button:insert(userText)
-    button:insert(userIcon)
     userIcon.xScale = 0.5
     userIcon.yScale = 0.5
+    button:insert(userText)
+    button:insert(userIcon)
 
     function button:resize()
         local width = userText.width + userIcon.contentWidth

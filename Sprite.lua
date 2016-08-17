@@ -1,5 +1,6 @@
 local M = {}
 local logger = require("logger")
+local gameConfig = require("gameConfig")
 local TAG = "Sprite"
 
 M.sheetInfos = {}
@@ -22,9 +23,25 @@ M.getSheet = function(tag)
 end
 
 M.addSheet = function(tag, imgName, sheetInfoName)
+    local loweImgName = string.lower(imgName)
+
+    if not string.find(loweImgName, ".png") then
+        local scaleFactor =  gameConfig.contentHeight / gameConfig.basicHeight
+        local suffix = ""
+        for k, v in pairs(gameConfig.imageSuffix) do
+            if scaleFactor > v then
+                suffix = k
+            end
+        end
+        imgName = imgName..suffix..".png"
+        sheetInfoName = sheetInfoName..suffix
+    end
+
+    logger:info(TAG, "Add sheet: imgName %s, sheetInfoName %s", imgName, sheetInfoName)    
+
     M.sheetInfos[tag] = require(sheetInfoName)
     M.imageSheets[tag] = graphics.newImageSheet( imgName, M.sheetInfos[tag]:getSheet())
-    logger:info(TAG, "Add sheet tag: %s, image name: %s, sheet name: %s", tag, imgName, sheetInfoName)
+    logger:info(TAG, "Add sheet: %s, image name: %s, sheet name: %s", tag, imgName, sheetInfoName)
     M[tag] = {}
     M[tag].new = function(name, options)
         local frames = {}
@@ -54,7 +71,7 @@ M.removeSheet = function()
 end
 
 --set default spirte
-M.addSheet("default", "sprites/spaceshooter.png", "sprites.spaceshooterHelper")
+M.addSheet("default", "sprites/spaceshooter", "sprites.spaceshooter")
 
 M.sheetInfo = M.sheetInfos.default
 M.myImageSheet = M.imageSheets.default

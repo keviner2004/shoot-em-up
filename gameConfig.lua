@@ -7,7 +7,7 @@ config.playerUnstoppable = false
 config.debugFPS = true
 config.logLevel = Logging.INFO
 config.debugPhysics = false
-config.playerLifes = 0
+config.playerLifes = 2
 config.controlType = {"follow", "key"} --both follow 
 config.rankServerUrl = "http://163.18.2.162"
 config.keyUp = "up"
@@ -63,7 +63,13 @@ config.seperateLevels = {
     "default.level_5",
 }
 
-config.version = "0.931"
+config.version = "0.94"
 config.dbVersion = "0.22"
+config.basicHeight = 360
+
+config.imageSuffix = {
+    ["@2x"] = 1.5,
+    ["@4x"] = 3.5
+}
 
 return config
