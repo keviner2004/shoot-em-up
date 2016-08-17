@@ -2,7 +2,7 @@ local widget = require("widget")
 local Sprite = require("Sprite")
 local NineSlice = {}
 
-NineSlice.new = function(name, w, h, l)
+NineSlice.new = function(name, w, h)
 
     local topLeftFrame = Sprite.new(string.format("UI/%s/1", name))
     local topMiddleFrame = Sprite.new(string.format("UI/%s/2", name))

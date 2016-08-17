@@ -21,7 +21,7 @@ function capture:key(event)
             screenCap.y = gameConfig.contentCenterY
             screenCap:removeSelf()
         end
-        logger:debug(TAG, "event.keyName "..event.keyName)
+        --logger:debug(TAG, "event.keyName "..event.keyName)
     elseif event.phase == "up" then
         if event.keyName == "leftControl" or event.keyName == "rightControl" then
             logger:debug(TAG, "cancel capture screen")

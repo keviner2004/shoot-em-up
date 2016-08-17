@@ -2,7 +2,7 @@ local move = require("move")
 local Sublevel = require("Sublevel")
 local EnemyPlane = require("enemies.EnemyPlane")
 local gameConfig = require("gameConfig")
-local sublevel = Sublevel.new("2-st level", "keviner2004", {duration = 3000})
+local sublevel = Sublevel.new("9999999-002", "2-st level", "keviner2004", {duration = 3000})
 
 function sublevel:show(options)
     local speed = 400

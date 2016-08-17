@@ -527,7 +527,7 @@ Character.new = function (options)
                     end
                     self:shoot()
                 end, -1)
-            print("Shooting timer "..self.tid)
+            logger:info(TAG, "Shooting timer id: %d ", self.tid)
         else
             logger:debug(TAG, "disable auto shoot")
             if self.tid then

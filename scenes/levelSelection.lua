@@ -1,82 +1,43 @@
 local gameConfig = require("gameConfig")
 local composer = require( "composer" )
-local BasicScene = require("scenes.templates.BasicScene")
-local GlassPanel = require("ui.GlassPane")
+local LevelSelectionScene = require("scenes.templates.LevelSelectionScene")
+local Sprite = require("Sprite")
+local GlassPanel = require("ui.GlassPanel")
+local logger = require("logger")
+local navigator = require("navigator")
+local TAG = "LevelSelection"
 
-local scene = BasicScene.new()
+local levels = gameConfig.seperateLevels
 
-function scene:create( event )
-   
-    --print(pathOfThisFile)
-    local sceneGroup = self.view
-    self.gap = 10
-    self.numOfRows = 5
-    self.numOfCols = 6
-    self.marginRight = 10
-    self.marginLeft = 10
-    self.marginTop = 20
-    self.marginBottom = 20
+local numOfRows = 2
+local numOfCols = 2
 
-    self.blockWidth = gameConfig.contentWidth / numOfCols 
-    self.blockHeight = gameConfig.contentHeight / numOfRows 
+local scene = LevelSelectionScene.new({
+    row = 4,
+    col = 4,
+    numOfLevels = #levels,
+    title = "Select Level"
+})
 
-    if self.blockWidth > 0 and self.blockHeight > 0 then
-        for i = 1, self.numOfRows do
-            
-            local block = GlassPanel.new(w, h)
-        end
-    end
+  function scene:createLevelBlock(index)
+    local block = GlassPanel.new(self.blockWidth, self.blockHeight)
+    block:setText(index)
+    return block
+  end
 
-    sceneGroup:insert(self.superGroup)
+
+function scene:onLevelConfirm(index)
+    logger:info(TAG, "Start single level %d", index)
+    --go to game
+    navigator:push("scenes.levelSelection")
+    composer.gotoScene("scenes.game", {
+        params = {
+            mode = gameConfig.MODE_SINGLE_LEVEL,
+            levels = gameConfig.seperateLevels,
+            levelIdx = index
+        }
+    })
 end
-
-function scene:show( event )
-   local sceneGroup = self.view
-   local phase = event.phase 
- 
-   if ( phase == "will" ) then
-        
-    
-   elseif ( phase == "did" ) then
-      -- Called when the scene is now on screen.
-      -- Insert code here to make the scene come alive.
-      -- Example: start timers, begin animation, play audio, etc.
-   end
-end
-
--- "scene:hide()"
-function scene:hide( event )
-   
-   local sceneGroup = self.view
-   local phase = event.phase
- 
-   if ( phase == "will" ) then
-      -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to "pause" the scene.
-      -- Example: stop timers, stop animation, stop audio, etc.
-   elseif ( phase == "did" ) then
-      -- Called immediately after scene goes off screen.
-
-   end
-end
- 
--- "scene:destroy()"
-function scene:destroy( event )
- 
-   local sceneGroup = self.view
- 
-   -- Called prior to the removal of scene's view ("sceneGroup").
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
-end
- 
----------------------------------------------------------------------------------
- 
--- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
 
 return scene
 

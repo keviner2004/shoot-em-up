@@ -14,6 +14,13 @@ M.getFrameIndex = function(tag, name)
     return M.sheetInfos[tag]:getFrameIndex(name)
 end
 
+M.getSheet = function(tag)
+    if not tag then
+        tag = "default"
+    end
+    return M.imageSheets[tag]
+end
+
 M.addSheet = function(tag, imgName, sheetInfoName)
     M.sheetInfos[tag] = require(sheetInfoName)
     M.imageSheets[tag] = graphics.newImageSheet( imgName, M.sheetInfos[tag]:getSheet())

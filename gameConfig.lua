@@ -7,7 +7,7 @@ config.playerUnstoppable = false
 config.debugFPS = true
 config.logLevel = Logging.INFO
 config.debugPhysics = false
-config.playerLifes = 3
+config.playerLifes = 0
 config.controlType = {"follow", "key"} --both follow 
 config.rankServerUrl = "http://163.18.2.162"
 config.keyUp = "up"
@@ -34,6 +34,13 @@ config.contentWidth = display.contentWidth
 config.contentHeight = display.contentHeight
 config.contentCenterX = config.contentWidth/2
 config.contentCenterY = config.contentHeight/2
+config.buttonSound = "button"
+config.MODE_SINGLE_LEVEL = "singlemode"
+config.MODE_INFINITE_LEVEL = "infinitemode"
+config.MODE_MULTIPLE_LEVEL = "multiplemode"
+config.defaultFont = "kenvector_future_thin"
+config.defaultCursor = "UI/Cursors/1"
+config.ID_LEVEL_INFINITE = "98163718173"
 config.gameLevels = {
     "default.level_boss_1",
     "default.level_1",
@@ -49,9 +56,14 @@ config.gameLevels = {
 }
 
 config.seperateLevels = {
-    
+    "default.level_1",
+    "default.level_2",
+    "default.level_3",
+    "default.level_4",
+    "default.level_5",
 }
 
-config.version = 0.91
+config.version = "0.93"
+config.dbVersion = "0.1"
 
 return config

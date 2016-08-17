@@ -2,7 +2,7 @@ local gameConfig = require("gameConfig")
 local move = require("move")
 local Sublevel = require("Sublevel")
 local Supply = require("objects.Supply")
-local sublevel = Sublevel.new("station and cart", "keviner2004")
+local sublevel = Sublevel.new("9999999-006", "station and cart", "keviner2004")
 function sublevel:show(options)
     print("Show")
     --New victim

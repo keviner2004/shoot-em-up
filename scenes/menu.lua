@@ -9,18 +9,9 @@ function scene:getTitleText()
 end
 
 function scene:insertButtons()
-   local restartButton = self:newButton("Restart")
-   local giveupButton = self:newButton("Giveup")
+   local restartButton = self:newRestartButton()
+   local giveupButton = self:newGiveupButton()
    local resumeButton = self:newResumeButton()
-
-   restartButton.action = function(event)
-      composer.gotoScene("scenes.game")
-   end
-
-   giveupButton.action = function(event)
-      logger:info(TAG, "Give up game")
-      composer.gotoScene("scenes.game", {params = {giveup = true}})  
-   end
 
    self:insertButton(resumeButton)
    self:insertButton(restartButton)

@@ -2,7 +2,7 @@ local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
 local MyEnemy = require("levels.myLevel.MyEnemy")
 local util = require("util")
-local myLevel = Sublevel.new("level name", "author name")
+local myLevel = Sublevel.new("9999999-011", "level name", "author name")
 
 function myLevel:show(options)
     local enemy = MyEnemy.new()

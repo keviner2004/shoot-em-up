@@ -9,6 +9,7 @@ TimerUtil.new = function(options)
     timerUtil.maxTimers = 3000
     timerUtil.numOfTimers = 0
     timerUtil.baseTime = (options and options.baseTime) or 0
+    timerUtil.owner = (options and options.owner) or "default"
 
     function timerUtil:getTimerId()
         local try = 0
@@ -106,6 +107,7 @@ TimerUtil.new = function(options)
             timer.pause(self:getTimer(id))
         else
             for i, v in pairs(self.timers) do
+                --print(".........Pause timer"..i)
                 timer.pause(v.t)
             end
         end
@@ -116,7 +118,9 @@ TimerUtil.new = function(options)
             timer.resume(self:getTimer(id))
         else
             for i, v in pairs(self.timers) do
+                --print(".........Resume timer %d", i)
                 timer.resume(v.t)
+                --print(".........Resume timer %d done",i)
             end
         end
     end

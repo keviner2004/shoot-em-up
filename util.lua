@@ -46,6 +46,20 @@ function util.indexOf(table, value)
     return -1
 end
 
+function util.getRotateIndex(index, total)
+    if index > 0 then
+        index = index % total
+        if index == 0 then
+            index = total
+        end
+    else
+        index = -index
+        index = index % total
+        index = total - index
+    end
+    return index
+end
+
 util.isExist = util.isExists
 
 return util

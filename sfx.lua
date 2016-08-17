@@ -96,6 +96,9 @@ sfx.explosion2 = {
   handle = audio.loadSound("sounds/sfx_exp_short_soft9.mp3"), 
 }
 
+sfx.click = {
+  handle = audio.loadSound("sounds/click.mp3"),  
+}
 
 function sfx:initVolumn()
   --local masterVolume = audio.getVolume()  
@@ -150,7 +153,11 @@ function sfx:pause(channel)
 end
 
 function sfx:stop(channel)
-    audio.stop(channel)
+    if not channel then
+      audio.stop()
+    else
+      audio.stop(channel)
+    end
 end
 
 function sfx:pause(channel)

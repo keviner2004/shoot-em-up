@@ -1,7 +1,7 @@
 local gameConfig require("gameConfig")
 local Sublevel = require("Sublevel")
 local EnemyPlane = require("enemies.EnemyPlane")
-local myLevel = Sublevel.new("level name", "author name", {duration = 4000})
+local myLevel = Sublevel.new("9999999-016", "level name", "author name", {duration = 4000})
 
 function myLevel:show(options)
     local enemy = EnemyPlane.new()

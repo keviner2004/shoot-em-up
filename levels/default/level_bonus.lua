@@ -1,7 +1,7 @@
 local gameConfig = require("gameConfig")
 local move = require("move")
 local Sublevel = require("Sublevel")
-local sublevel = Sublevel.new("bonus level", "keviner2004", {duration = 10000})
+local sublevel = Sublevel.new("9999999-007", "bonus level", "keviner2004", {duration = 10000})
 local ScoreUp = require("items.ScoreUp")
 
 --[[

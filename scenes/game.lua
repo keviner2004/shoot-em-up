@@ -10,19 +10,21 @@ local Wall = require("Wall")
 local GlassPanel = require("ui.GlassPanel")
 local Square = require("ui.Square")
 local Sprite = require("Sprite")
-local leaderBoardHelper = require("leaderBoardHelper")
+local dbHelper = require("dbHelper")
 local composer = require( "composer" )
-local scene = composer.newScene()
 local Score = require("ui.Score")
 local widget = require("widget")
 local logger = require("logger")
 local gameConfig = require("gameConfig")
 local util = require("util")
-
+local BasicScene = require("scenes.templates.BasicScene")
 local Pool = require("Pool")
 local PooledItemExplosion = require("effects.PooledItemExplosion")
 local PooledStarExplosion = require("effects.PooledStarExplosion")
-
+local STATUS_STOPPED = "stopped"
+local STATUS_PAUSED = "paused"
+local STATUS_WAIT = "wait"
+local STATUS_STARTED = "started"
 local TAG = "gamescene"
 
 system.setIdleTimer( false )
@@ -35,10 +37,11 @@ system.setIdleTimer( false )
  
 ---------------------------------------------------------------------------------
 
+local scene = BasicScene.new()
+
 -- "scene:create()"
 function scene:create( event )
     logger:info(TAG, "scene:create")
-    self.superGroup = display.newGroup()
     local sceneGroup = self.view
     -- Initialize the scene here.
     -- Example: add display objects to "sceneGroup", add touch listeners, etc.  
@@ -51,28 +54,26 @@ function scene:create( event )
     end
 
     self.first = true
-    self.status = "wait"
+    self.status = STATUS_WAIT
     self.stageSpeed = gameConfig.stageSpeed
     self.level = Level.load()
     self.globalScore = 0
+    self.gameOptions = {}
     local backgrounds = Backgrounds.new(self.stageSpeed)
     backgrounds:startMoveLoop()   
     if gameConfig.debugFPS then
         self:fpsMesure()
     end
-    --UI
-    local playerLife = display.newGroup()
-    playerLife.x = 65
-    playerLife.y = gameConfig.contentHeight - 35
-    local lifeIcon = Sprite.new("UI/Player-lifes/2")
-    self.playerLifeText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
-    local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
-    lifeIcon.x = - totalL/2 + lifeIcon.width/2
-    lifeIcon.y = 0
-    self.playerLifeText.x = totalL/2 - self.playerLifeText.width/2
-    playerLife:insert(self.playerLifeText)
-    playerLife:insert(lifeIcon)
+    --UI    
     
+    self.superGroup.x = gameConfig.contentX
+    self.superGroup.y = gameConfig.contentY
+    --add to the scene
+    --sceneGroup:insert(backgrounds)
+    self.superGroup:insert(backgrounds)
+end
+
+function scene:createPauseBtn()
     self.pauseButton = widget.newButton({
         sheet = Sprite.myImageSheet,
         defaultFrame = Sprite.getFrameIndex("UI/Icons/pause"),
@@ -84,25 +85,37 @@ function scene:create( event )
             end
         end
     })
+    self.pauseButton.xScale = 0.5
+    self.pauseButton.yScale = 0.5
     self.pauseButton.x = gameConfig.contentWidth - self.pauseButton.contentWidth - 10
     self.pauseButton.y = gameConfig.contentHeight - self.pauseButton.contentHeight
+    self.hudGroup:insert(self.pauseButton)
     Runtime:addEventListener("touch", self)
-    Runtime:addEventListener("key", self)
-
-    self.superGroup.x = gameConfig.contentX
-    self.superGroup.y = gameConfig.contentY
-    --add to the scene
-    --sceneGroup:insert(backgrounds)
-    self.superGroup:insert(backgrounds)
-    self.superGroup:insert(playerLife)
-    self.superGroup:insert(self.pauseButton)
-    sceneGroup:insert(self.superGroup)
 end
 
-function scene:toggleGame()
+function scene:createPlayerLifeUI()
+    local playerLife = display.newGroup()
+    playerLife.x = 65
+    playerLife.y = gameConfig.contentHeight - 35
+    local lifeIcon = Sprite.new("UI/Player-lifes/2")
+    self.playerLifeText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
+    local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
+    lifeIcon.x = - totalL/2 + lifeIcon.width/2
+    lifeIcon.y = 0
+    self.playerLifeText.x = totalL/2 - self.playerLifeText.width/2
+    playerLife:insert(self.playerLifeText)
+    playerLife:insert(lifeIcon)
+    self.hudGroup:insert(playerLife)
+end
+
+function scene:toggleGame()    
     logger:info(TAG, "toggleGame")
-    if self.status == "started" then
-        self:pauseGame()
+    if self.status == STATUS_STARTED then
+        if self.lockToggleGame then
+            logger:info(TAG, "Toggle game locked")
+            return 
+        end
+        self.lockToggleGame = true
         composer.showOverlay( "scenes.menu", {
             effect = "fade",
             time = 500,
@@ -110,13 +123,14 @@ function scene:toggleGame()
             params = {
                 title = "Pause",
                 onClose = function()
-                    self:resumeGame()
+                    self.lockToggleGame = false
                 end
             }
         })
-    elseif self.status == "paused" then
-        self:resumeGame()
+        self:pauseGame()
+    elseif self.status == STATUS_PAUSED then
         composer.hideOverlay( "fade", 400 )
+        self:resumeGame()
     end
 end
 
@@ -132,14 +146,12 @@ function scene:touch(event)
     end
 end
 
-function scene:key(event)
-    if event.phase == "up" then
-        --logger:info(TAG, "hahaha "..event.keyName.."/"..gameConfig.keyCancel)
-        if util.equalOrContain(event.keyName, gameConfig.keyCancel) then
-            logger:info(TAG, "toggle game status")
-            self:toggleGame()
-        end
+function scene:onKeyCancel(event)
+    if self.status == STATUS_STOPPED then
+        return
     end
+    logger:info(TAG, "toggle game status")
+    self:toggleGame()
 end
 
 function scene:fpsMesure()
@@ -154,7 +166,7 @@ function scene:fpsMesure()
 
     local function getFPS()
         local temp = system.getTimer()-- Get current game time in ms
-        local fps = math.floor(1000 / (temp-runtime)) -- 60 fps or 30 fps as base
+        local fps = math.floor(1000 / (temp-runtime)) -- 60 fps or 30 fps as `e
         runtime = temp  -- Store game time
         return fps
     end
@@ -184,7 +196,7 @@ end
 
 function scene:pauseGame()
     logger:info(TAG, "Pause game")
-    if self.status == "paused" then
+    if self.status == STATUS_PAUSED then
         print("The game is paused")
         return 
     end
@@ -203,7 +215,19 @@ function scene:pauseGame()
         end
     end
     sfx:pause()
-    self.status = "paused"
+    self.status = STATUS_PAUSED
+end
+
+function scene:hideHUD()
+    if self.hudGroup then
+        self.hudGroup.isVisible = false
+    end
+end
+
+function scene:showHUD()
+    if self.hudGroup then
+        self.hudGroup.isVisible = true
+    end
 end
 
 function scene:clearGame()
@@ -227,16 +251,19 @@ function scene:clearGame()
         self.mainGroup:removeSelf()
     end
     if self.hudGroup then
-        print("gamescene:hide() did")
+        logger:info(TAG, "Clear hud")
         self.hudGroup:removeSelf()
     end
     sfx:stop()
     self.level:stop()
+    logger:info(TAG, "Clear listeners")
+    Runtime:addEventListener("touch", self)
+    self.status = STATUS_STOPPED
 end
 
 function scene:resumeGame()
     logger:info(TAG, "Resume game")
-    if self.status ~= "paused" then
+    if self.status ~= STATUS_PAUSED then
         print("The game work fine")
     end
     self.level:resume()
@@ -245,12 +272,13 @@ function scene:resumeGame()
         for i = 1, self.mainGroup.numChildren do
             local v = self.mainGroup[i]
             if v.unfreeze then
+                --print("~~~~~~~~~~~~unfreeze "..v.name)
                 v:unfreeze()
             end
         end
     end
     sfx:resume()
-    self.status = "started"
+    self.status = STATUS_STARTED
 end
 
 function scene:showScore(show)
@@ -309,8 +337,9 @@ function scene:createPlayer(PlaneClass, options)
     return character
 end
 
-function scene:startGame()
+function scene:startGame(options)
     logger:info(TAG, "Start game")
+    self.globalScore = 0
     local sceneGroup = self.view
     self.hudGroup = display.newGroup()
     self.mainGroup = display.newGroup()
@@ -329,6 +358,10 @@ function scene:startGame()
         controlType = gameConfig.controlType[1]
 
     })
+
+    --createHUD
+    self:createPauseBtn()
+    self:createPlayerLifeUI()
 
     --Create global screen boundaries
     local leftWall = Wall.new(0, gameConfig.contentHeight/2,1, gameConfig.contentHeight )
@@ -362,13 +395,13 @@ function scene:startGame()
         end
     end
 
-    --leaderboard helper
-    self.helper = leaderBoardHelper.new()
-    self.helper:init()
-    --init level
-    --self.level:init(self, self.mainGroup, self.players, self.stageSpeed, self)
-    print("Init!!!!!! ", self.mainGroup)
-    self.level:init(self, self.mainGroup, self.players, self.stageSpeed, self)
+    self.level:init({
+        game = self, 
+        view = self.mainGroup, 
+        players = self.players, 
+        stageSpeed = self.stageSpeed, 
+        scene = self
+    })
     --update ui according the player
     self.playerLifeText.text = self.totalLifes
     --add to group
@@ -376,11 +409,11 @@ function scene:startGame()
     self.superGroup:insert(self.hudGroup)
     timer.performWithDelay(1000 , 
         function()
-            self.level:start()
+            self.level:start(options)
         end
     )
     self.hudGroup:insert(self.score)
-    self.status = "started"
+    self.status = STATUS_STARTED
 end
 
 function scene:gameOver()
@@ -389,54 +422,57 @@ function scene:gameOver()
             return
         end
     end
+    self:hideHUD()
     logger:info(TAG, "Gameover")
-    self:checkScore(function()
-        --show gameover overlay
-        local options = {
-           effect = "fade",
-           time = 500,
-           isModal = true,
-           params = {
-                score = self.globalScore,
-                onClose = function()
+    local userName = dbHelper:getUserName()
 
-                end
-           }
-        }
-        logger:info(TAG, "Show gamover overlay")
-        composer.showOverlay( "scenes.gameover", options )  
-    end)
+    local levelId = gameConfig.ID_LEVEL_INFINITE
+
+    if self.gameMode ==  gameConfig.MODE_INFINITE_LEVEL then
+        levelId = gameConfig.ID_LEVEL_INFINITE
+    else
+        local currentLevel = require("levels."..self.levels[self.currentLevelIdx])
+        levelId = currentLevel.id
+    end
+
+    logger:info(TAG, "~~~~~~~~~~~~!!!!GameOver in Level %s!!!!!!!!!~~~~~~~~~", levelId)
+
+    local newRecord = dbHelper:updateRecord(userName, levelId, self.globalScore)
+    logger:info(TAG, "Show gamover overlay")
+    self:popUp("scenes.gameover", {
+        score = self.globalScore,
+        newRecord = newRecord,
+    })
 end
 
-function scene:checkScore(afterCheck)
-    print("scene:checkScore")
-    local localHeighScore = self.helper:getHighScore("local")
-    if localHeighScore and localHeighScore < self.globalScore then
-        local options = {
-            effect = "fade",
-            time = 500,
-            isModal = true,
-            params = {
-                score = self.globalScore,
-                onOk = function(name)
-                    print("Check windows close")
-                    self.helper:addRecord(name, self.globalScore, "local")
-                    self.helper:delLastRecords(10, "local")
-                    self.helper:syncHighScore()
-                    if afterCheck then
-                        afterCheck()
-                    end
-                end
-            }
-        }
-        composer.showOverlay( "scenes.newHighScore", options )
-    else
-        self.helper:syncHighScore()
-        if afterCheck then
-            afterCheck()
+function scene:victory(options)
+    for i = 1, #self.players do
+        if not self.players[i].isDead then
+            self.players[i]:openShield()
         end
     end
+    self:hideHUD()
+    logger:info(TAG, "Victory")
+    local userName = dbHelper:getUserName()
+    local newRecord = dbHelper:updateRecord(userName, (options and options.levelId) or gameConfig.ID_LEVEL_INFINITE, self.globalScore)
+    logger:info(TAG, "Show victory overlay")
+    local showNextLevel = true
+    local nextLevelIdx = 1
+    if self.currentLevelIdx >= #self.levels then
+        showNextLevel = false
+        nextLevelIdx = self.currentLevelIdx
+    else
+        nextLevelIdx = self.currentLevelIdx + 1
+    end
+    self:popUp("scenes.victory", {
+        score = self.globalScore,
+        newRecord = newRecord,
+        nextLevelIdx = nextLevelIdx,
+        showNextLevel = showNextLevel,
+        levels = self.levels
+    })
 end
+
 
 -- "scene:show()"
 function scene:show( event )
@@ -457,6 +493,7 @@ function scene:show( event )
            self.first = true
         end 
         if self.first then
+            self:hideHUD()
             print("Game start first, show start Screen")
             local options = {
                effect = "fade",
@@ -469,12 +506,32 @@ function scene:show( event )
             }
             composer.showOverlay( "scenes.start", options )
             self.first = false
-            self.status = "wait"
+            self.status = STATUS_WAIT
             sfx:play("title", {loops = -1})
         else
-            logger:info(TAG, "Just start the game")
+            self:showHUD()
+            self:resumeGame()
             sfx:play("bg", {loops = -1})
-            self:startGame()
+            if event.params and event.params.action == "restart" then
+                logger:info(TAG, "Restart the game with previous game options")
+                self:startGame(self.gameOptions)
+            else
+                local options = {}
+                options.mode = (event.params and event.params.mode) or gameConfig.MODE_INFINITE_LEVEL
+                self.currentLevelIdx = (event.params and event.params.levelIdx) or 1
+                self.levels = (event.params and event.params.levels) or gameConfig.gameLevels
+                if self.levels and self.currentLevelIdx then
+                    options.levelName = self.levels[self.currentLevelIdx]
+                end
+                options.onComplete = function(event)
+                    logger:info(TAG, "!!!!!!!!!!!Level %s complete!!!!!!!!!!!", event.id)
+                    self:victory({levelId = event.id})
+                end
+                self.gameOptions = options
+                logger:info(TAG, "Just start the game, mode: %s", options.mode)
+                self:startGame(options)
+                self.gameMode = options.mode
+            end
         end
     end
 end
@@ -503,15 +560,7 @@ function scene:destroy( event )
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.
 end
- 
----------------------------------------------------------------------------------
- 
--- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
- 
+
 local function onSystemEvent( event )
     print("onSystemEvent: "..event.type)
 end

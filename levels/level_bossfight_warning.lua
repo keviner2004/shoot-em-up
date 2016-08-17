@@ -3,7 +3,7 @@ local Sublevel = require("Sublevel")
 local GameObject = require("GameObject")
 local sfx = require("sfx")
 
-local sublevel = Sublevel.new("", "", {duration = 4000})
+local sublevel = Sublevel.new("9999999-010", "", "", {duration = 4000})
 function sublevel:show(options)
     local count = 0
     --warnnig text

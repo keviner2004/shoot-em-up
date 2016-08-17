@@ -50,17 +50,26 @@ Level.load = function()
         self.bossCandidates = {}
     end
 
-    function level:init(scene, view, players, stageSpeed, game)
-        self.players = players
-        self.view = view
-        self.scene = scene
-        self.stageSpeed = stageSpeed
-        self.game = game
+    function level:init(options)
+        self.players = options and options.players
+        self.view = options and options.view
+        self.scene = options and options.scene
+        self.stageSpeed = options and options.stageSpeed
+        self.game = options and options.game
     end
 
-    function level:setPlayer(players)
-        self.players = players
-        self.currentSublevel:setPlayer(players)
+    function level:getInitOptions(options)
+        local defaultOptions = {
+            players = self.players,
+            view = self.view,
+            scene = self.scene,
+            stageSpeed = self.stageSpeed,
+            game = self.game,
+        }
+        for k, v in pairs(options) do
+            defaultOptions[k] = v
+        end
+        return defaultOptions
     end
 
     function level:showInfo()
@@ -92,6 +101,15 @@ Level.load = function()
         local idx = levels[r]
         table.remove(levels, r)  
         return idx      
+    end
+
+    function level:startSingleLevel(levelName, options)
+        logger:info(TAG, "startLevel %s", levelName)
+        self.currentSublevel = require("levels."..levelName)
+        self.currentSublevel:init(self:getInitOptions({
+            onComplete = options and options.onComplete
+        }))
+        self.currentSublevel:start()
     end
 
     function level:startLevel()
@@ -131,18 +149,18 @@ Level.load = function()
             return
         end
 
-        self.levels[idx]:init(self.scene, self.view, self.players, self.stageSpeed, self.game, {
+        self.levels[idx]:init(self:getInitOptions({
             onComplete = function()
                 self:startLevel()
             end
-        })
+        }))
         --show the level name
         --boss fight
         if self.levels[idx].isBossFight then
             self.jsutBossFight = true
             sfx:fadeOut(sfx.CHANNEL_BG, 1000)
             local warningLevel = require("levels.level_bossfight_warning")
-            warningLevel:init(self.scene, self.view, self.players, self.stageSpeed, self.game, {
+            warningLevel:init(self:getInitOptions({
                 onComplete = function()
                     logger:debug(TAG, "Boss level %d", idx)
                     self.currentSublevel = self.levels[idx]
@@ -151,7 +169,7 @@ Level.load = function()
                     sfx:play("bgBoss", {loops = -1})
                     self.levels[idx]:start()
                 end
-            })
+            }))
             self.currentSublevel = warningLevel
             warningLevel:start({author = self.levels[idx].author, name = self.levels[idx].name})
         else
@@ -168,10 +186,15 @@ Level.load = function()
     end
 
     function level:pause()
+        logger:info(TAG, "Pause level")
         self.timerUtil:pause()
         if self.currentSublevel then
+            logger:info(TAG, "Pause current sublevel")
             self.currentSublevel:pause()
+        else
+            logger:info(TAG, "no current sublevel need to be paused")
         end
+        self.paused = true
     end
 
     function level:resume()
@@ -179,6 +202,7 @@ Level.load = function()
         if self.currentSublevel then
             self.currentSublevel:resume()
         end 
+        self.paused = false
     end
 
     function level:stop()
@@ -194,18 +218,27 @@ Level.load = function()
     end
 
     function level:start(options)
-        logger:debug(TAG, "level:start")
-        if options and options.delay then
-            self.timerUtil:addTimer(options.delay, 
-                function ()
-                    logger:debug(TAG, "Continue to next level")
+        local delay = (options and options.delay) or 0
+        logger:info(TAG, "level:start with delay: %d", delay)
+        self.timerUtil:addTimer(delay, 
+            function ()
+                if options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
+                    logger:info(TAG, "start single mode")
+                    print("levelName~~~~~~~~~~~", options.levelName)
+                    if not options.levelName then
+                        logger:error(TAG, "Level name must be specified in single level mode")
+                        return
+                    end
+                    self:startSingleLevel(options.levelName, options)
+                else
                     self:startLevel()
                 end
-            )
-        else
-            self:startLevel()
-        end
-        --self:startLevel()
+                if self.currentSublevel and self.paused then
+                    logger:info(TAG, "Pause lossing current sublevel")
+                    self.currentSublevel:pause()
+                end
+            end
+        )
     end
 
     return level

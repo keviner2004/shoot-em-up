@@ -1,8 +1,11 @@
-local GlassCornersPanel = require("ui.GlassCornersPanel")
-local GlassProjectionPanel = require("ui.GlassProjectionPanel")
+local Panel = require("ui.GlassTLCornersPanel")
+--local InsidePanel = require("ui.GlassCornersPanel")
 local composer = require( "composer" )
+local Sprite = require("Sprite")
 local BasicScene = require("scenes.templates.BasicScene")
-local leaderBoardHelper = require("leaderBoardHelper")
+local dbHelper = require("dbHelper")
+local Title = require("ui.Title")
+local logger = require("logger")
 local gameConfig = require("gameConfig")
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
@@ -14,147 +17,240 @@ local gameConfig = require("gameConfig")
 ---------------------------------------------------------------------------------
  
 -- "scene:create()"
+local LevelSelectionScene = require("scenes.templates.LevelSelectionScene")
+local logger = require("logger")
+local TAG = "LeaderBoard"
 
-local scene = BasicScene.new()
+local scene = LevelSelectionScene.new({
+    row = 1,
+    col = 1,
+    numOfLevels = 2,
+    title = "",
+    titleIcon = "UI/Icons/ChampionCup"
+})
 
-function scene:create( event )
+function scene:createRecordBlock(width, height, position, name, score)
+   local block = display.newGroup()
    
-   --print(pathOfThisFile)
-   local sceneGroup = self.view
-   --self.superGroup = display.newGroup()
-   --self.superGroup.x = gameConfig.contentX
-   --self.superGroup.y = gameConfig.contentY
-   self.mainPanel = GlassCornersPanel.new(gameConfig.contentWidth/1.3, gameConfig.contentHeight/1.3)
-   self.marginTop = 180
-   self.marginBottom = 10
-   self.marginLeft = 10
-   self.marginRight = 10
+   --local insidePanel = InsidePanel.new(self.blockWidth*0.95, self.blockHeight*0.8)
+   local posStr = ""
+   if position == 1 then
+      posStr = "st"
+   elseif position == 2 then
+      posStr = "nd"
+   elseif position == 3 then
+      posStr = "rd"
+   else
+      posStr = "th"
+   end
 
-   self.mainPanel.x = gameConfig.contentWidth/2
-   self.mainPanel.y = gameConfig.contentHeight/2
-   titleButton = GlassProjectionPanel.new(gameConfig.contentWidth/2 - 150, 70)
-   titleButton.x = self.mainPanel.x
-   titleButton.y = self.mainPanel.y - self.mainPanel.contentHeight / 2 + 80 
-   titleButton:setText("Local Rank")
-   self.superGroup:insert(self.mainPanel)
-   self.superGroup:insert(titleButton)
+   --local panel = Panel.new(width, height)
+   local gap = 0
+   local numOfCeil = 3
+   local paddingLeft = width * 0.05
+   local paddingRihgt = width * 0.05
 
-   local exitButton = GlassProjectionPanel.new(gameConfig.contentWidth/2 - 180, 70)
-   exitButton.x = self.mainPanel.x
-   exitButton.y = self.mainPanel.y + self.mainPanel.contentHeight/2 - 80
-   exitButton:setText("Exit")
-   self.superGroup:insert(exitButton)
-   sceneGroup:insert(self.superGroup)
+   local ceilWidth = {
+      0.25,
+      0.45,
+      0.3,
+   }
 
-   function exitButton:onTouch(event)
-      --print("custom: "..event.phase.."/"..event.phase)
-      if event.phase == "ended" then
-         composer.gotoScene((event.params and event.params.back or "gamesScene"), {params = {giveup = true}})
+   local availableWidth = width - paddingLeft - paddingRihgt - gap * (#ceilWidth -1)
+
+   local ceilLeft = {
+
+   }
+
+   local left = 0
+
+   for i = 1, #ceilWidth do
+      left = left + (ceilWidth[i-1] or 0) * availableWidth + gap * (i-1)
+      ceilLeft[i] = left - width/2 + paddingLeft
+      print("Left: ", left)
+   end
+
+   local posLabel = display.newText(position..posStr, 0, 0, gameConfig.defaultFont, 40)
+
+   local nameLabel = display.newText(name, 0, 0, gameConfig.defaultFont, 40)
+
+   local scoreLabel = display.newText(score, 0, 0, gameConfig.defaultFont, 40)
+
+   --posLabel.fill = {139/255, 147/255, 158/255}
+   --nameLabel.fill = {139/255, 147/255, 158/255}
+   --scoreLabel.fill = {139/255, 147/255, 158/255}
+
+   posLabel.x = ceilLeft[1] + posLabel.width/2
+   nameLabel.x = ceilLeft[2] + nameLabel.width/2
+   scoreLabel.x = ceilLeft[3] + scoreLabel.width/2
+
+   --block:insert(panel)
+   --block:insert(insidePanel)
+   block:insert(posLabel)
+   block:insert(nameLabel)
+   block:insert(scoreLabel)
+
+   return block
+end
+
+function scene:createLoadingStatus()
+   local status = display.newGroup()
+   local icon = Sprite.new("UI/Icons/rotate")
+   local label = display.newText("Loading", 0, 0, gameConfig.defaultFont, 40)
+   local function rotate()
+      icon.rotation = 0
+      transition.to(icon, {time = 1000, rotation = 360, onComplete = 
+         function()
+            rotate()
+         end})
+   end
+   rotate()
+   status:insert(icon)
+   status:insert(label)
+
+   local height = icon.height + label.height
+
+   icon.y = -height/2 + icon.height/2
+   label.y = icon.y + icon.height/2 + label.height/2
+   return status
+end
+
+function scene:createRecordList(options)
+   --self.params.levelId
+   local list = display.newGroup()
+   local num = (options and options.num) or 10
+   local stype = (options and options.type) or "local"
+   local levelId = (options and options.levelId) or gameConfig.ID_LEVEL_INFINITE
+   local records = dbHelper:getRecords(stype, levelId, num)
+   local maxRecords = 10
+   local recordHeight = self.listHeight / maxRecords
+   local top = - self.listHeight * 0.5
+   logger:info(TAG, "Num of records is %d", #records)
+   for i = 1, #records do
+      local record = records[i]
+      local block = self:createRecordBlock(self.blockWidth* 0.95, recordHeight, i, record.name, record.score)
+      block.x = 0
+      block.y =  top + recordHeight * (i-1) + recordHeight/2
+      list:insert(block)
+   end
+   if #records == 0 then
+      list:insert(Title.new({
+         text = {
+            value = "No data"
+         }
+      }))
+   end
+   return list
+end
+
+function scene:createLocalRecordList()
+   local page = self:getLevel(1)
+   local list = self:createRecordList({
+      type = "local",
+      levelId = self.params and self.params.levelId
+   })
+   list.x = 0
+   list.y = 0
+   self:updateLocalRecords(list)
+end
+
+function scene:updateLocalRecords(list)
+   self:clearLocalRecords()
+   self.localRecordList:insert(list)
+end
+
+function scene:updateGlobalRecords(list)
+   self:clearGlobalRecords()
+   self.globalRecordList:insert(list)
+end
+
+function scene:clearLocalRecords()
+   self:clearGroup(self.localRecordList)
+end
+
+function scene:clearGlobalRecords()
+   self:clearGroup(self.globalRecordList)
+end
+
+function scene:createGlobalRecordList()
+
+end
+
+function scene:onLevelUnselect(index)
+   local page = self:getLevel(index)
+   if index == 1 then
+      logger:info(TAG, "Unselect local leaderboard")
+      
+   elseif index == 2 then
+      logger:info(TAG, "Unselect global leaderboard")
+      if self.loadingStatus then
+         self.loadingStatus:removeSelf()
+         self.loadingStatus = nil
       end
    end
+end
 
-   function titleButton:onTouch(event)
-      if event.phase == "ended" then
-         print(scene.stype)
-         if scene.stype == "local" then
-            titleButton:setText("Global Rank")
-            scene.stype = "global"
-         elseif scene.stype == "global" then
-            titleButton:setText("Local Rank")
-            scene.stype = "local"
-         end
-         scene:clearScore()
-         scene:showRank()
-      end
+function scene:clearGroup(group)
+   for i = 1, group.numChildren do
+      group[i]:removeSelf()
    end
 end
 
-function scene:showRank()
-   local data = nil
-   local sceneGroup = self.view
-   if self.stype == "local" then
-      local helper = leaderBoardHelper.new()
-      helper:init()
-      data = helper:getData("local", 8)
-   elseif self.stype == "global" then
-
-   end
-   local rowHeight = (self.mainPanel.contentHeight - self.marginTop - self.marginBottom)/ 10 
-   if not data then 
-      return
-   end
-   local len = table.getn(data)
-   self.scores = display.newGroup()
-   for i = 1, len do
-      local name = display.newText(data[i].name, 0, 0, "kenvector_future_thin", 40)
-      local score = display.newText(data[i].score, 0, 0, "kenvector_future_thin", 40)
-      name.x =  self.mainPanel.x - self.mainPanel.x / 4
-      name.y =  self.mainPanel.y + self.marginTop + rowHeight*(i-1) + rowHeight/2 - self.mainPanel.contentHeight/2
-      score.x =  self.mainPanel.x + self.mainPanel.x / 4
-      score.y =  self.mainPanel.y + self.marginTop + rowHeight*(i-1) + rowHeight/2 - self.mainPanel.contentHeight/2
-      self.scores:insert(name)
-      self.scores:insert(score)
-   end
-   self.superGroup:insert(self.scores)
-end
-
-function scene:clearScore()
-   self.scores:removeSelf()
-end
-
--- "scene:show()"
-function scene:show( event )
-   local sceneGroup = self.view
-   local phase = event.phase 
- 
-   if ( phase == "will" ) then
-      -- Called when the scene is still off screen (but is about to come on screen).
-      if event.params and event.params.stype then
-         print("Set stype = "..event.params.stype)
-         self.stype = event.params.stype
-         self:showRank()
-      end
-   elseif ( phase == "did" ) then
-      -- Called when the scene is now on screen.
-      -- Insert code here to make the scene come alive.
-      -- Example: start timers, begin animation, play audio, etc.
+function scene:onLevelSelect(index)
+   local page = self:getLevel(index)
+   if index == 1 then
+      logger:info(TAG, "Select local leaderboard")
+      self:createLocalRecordList()  
+   elseif index == 2 then
+      logger:info(TAG, "Select global leaderboard")
+      self:createGlobalRecordList()
+      self.loadingStatus = self:createLoadingStatus()
+      page:insert(self.loadingStatus)
    end
 end
 
--- "scene:hide()"
-function scene:hide( event )
+function scene:construct(event)
+   self.globalRecordList = display.newGroup()
+   self.localRecordList = display.newGroup()
+   self:getLevel(1):insert(self.localRecordList)
+   self:getLevel(2):insert(self.globalRecordList)
+   self.localRecordList.x = 0
    
-   local sceneGroup = self.view
-   local phase = event.phase
- 
-   if ( phase == "will" ) then
-      -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to "pause" the scene.
-      -- Example: stop timers, stop animation, stop audio, etc.
-   elseif ( phase == "did" ) then
-      -- Called immediately after scene goes off screen.
+   self.globalRecordList.x = 0
 
-   end
+   self.localTitle = Title.new({
+      text = {
+         value = "Local"
+      },
+      icon = {
+         scale = 0.5,
+         name = "UI/Icons/JoyStickRight"
+      }
+   })
+
+   self.globalTitle = Title.new({
+      text = {
+         value = "Global"
+      },
+      icon = {
+         scale = 0.5,
+         name = "UI/Icons/ThreePlayers"
+      }
+   })
+
+   self:getLevel(1):insert(self.localTitle)
+   self:getLevel(2):insert(self.globalTitle)
+   self.listGap = self.blockHeight * 0.03
+   self.localTitle.y = - self.blockHeight * 0.5 + self.listGap + self.localTitle.height * 0.5
+   self.listHeight =  self.blockHeight - self.localTitle.height - self.listGap * 3
+   self.listTop = self.localTitle.y + self.localTitle.height * 0.5 + self.listGap + self.listHeight/2
+   
+   self.globalTitle.y = self.localTitle.y
+
+   self.localRecordList.y = self.listTop
+   self.globalRecordList.y = self.listTop
+
+
 end
- 
--- "scene:destroy()"
-function scene:destroy( event )
- 
-   local sceneGroup = self.view
- 
-   -- Called prior to the removal of scene's view ("sceneGroup").
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
-end
- 
----------------------------------------------------------------------------------
- 
--- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
- 
----------------------------------------------------------------------------------
  
 return scene

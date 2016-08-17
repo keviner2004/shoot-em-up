@@ -1,6 +1,6 @@
 local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local sublevel = Sublevel.new("boss level", "keviner2004", {isBossFight = true})
+local sublevel = Sublevel.new("9999999-008", "boss level", "keviner2004", {isBossFight = true})
 local Boss = require("enemies.Boss")
 local composer = require("composer")
 local util = require("util")

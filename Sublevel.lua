@@ -4,23 +4,23 @@ local Sublevel = {}
 local logger = require("logger")
 
 TAG = "Sublevel"
-Sublevel.new = function (name, author, options)
+Sublevel.new = function (id, name, author, options)
     local sublevel = {}
+    sublevel.id = id
     sublevel.name = name
     sublevel.author = author
     sublevel.duration = options and options.duration
     sublevel.isBossFight = options and options.isBossFight
-    --sublevel.duration = options and options.duration or 30000
-    sublevel.enterFrame = EnterFrameUtil.new({owner = "sublevel"})
 
-    function sublevel:init(scene, view, players, stageSpeed, game, options)
+    function sublevel:init(options)
+        self.enterFrame = EnterFrameUtil.new({owner = "sublevel"})
         self.timerUtil = TimerUtil.new()
         self.onComplete = options and options.onComplete
-        self:setPlayer(players)
-        self.stageSpeed = stageSpeed
-        self.view = view        
-        self.scene = scene
-        self.game = game
+        self:setPlayer(options and options.players)
+        self.stageSpeed = options and options.stageSpeed
+        self.view = options and options.view        
+        self.scene = options and options.scene
+        self.game = options and options.game
         self.stopped = false
         self._finished = false
         self:create()
@@ -67,6 +67,7 @@ Sublevel.new = function (name, author, options)
     end
 
     function sublevel:pause()
+        logger:info(TAG, "Pause sublevel!!!!!!!!!!!!!!!!!")
         self.timerUtil:pause()
     end
 
@@ -118,7 +119,7 @@ Sublevel.new = function (name, author, options)
                 if self.onComplete then
                     logger:verbose(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
                     --print("Call oncomplete")
-                    self.onComplete()
+                    self.onComplete({id = self.id})
                     self:finish()
                 end
             end

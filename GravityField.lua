@@ -1,6 +1,7 @@
 local GameObject = require("GameObject")
 local GravityField = {}
 local move = require("move")
+local util = require("util")
 GravityField.new = function (options)
     local field = GameObject.new(options)
     local radius = (options and options.radius) or 320
@@ -21,6 +22,9 @@ GravityField.new = function (options)
             print("field "..event.other.mass.."/"..self.mass)
             timer.performWithDelay( 10, 
                 function()
+                    if not util.isExists(victim) then
+                        return 
+                    end
                     --local degree = move.angleBetween(self.x, self.y, event.other.x, event.other.y) - 90
                     --print("perform! "..degree)
                     --event.other:setLinearVelocity( 100 * math.cos(math.rad(degree)),  100, math.sin(math.rad(degree)))

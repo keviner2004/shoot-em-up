@@ -1,14 +1,25 @@
 local widget = require("widget")
 local Sprite = require("Sprite")
+local logger = require("logger")
 local sfx = require("sfx")
+local gameConfig = require("gameConfig")
+local TAG = "9-slice"
 --local pathOfThisFile = ...
 --print("Path! "..pathOfThisFile)
 local NineSliceButton = {}
 
-NineSliceButton.new = function(name, w, h, l)
+NineSliceButton.new = function(name, w, h, options)
     local path = string.format("UI/%s/9-slices", name)
     local button = display.newGroup()
-    button.pressSound = "button"
+    button.pressSound = gameConfig.buttonSound
+
+    local _w = math.floor(w)
+    local _h = math.floor(h)
+
+    --logger:info(TAG, "New 9-slice %s with w:%d, h:%d ", name, _w, _h)
+
+    button.disableClickSound = (options and options.disableClickSound) or false
+
     button.createView = function(self, w, h)
         --print("!!!!!!!!!", Sprite.myImageSheet)
         self.w = w
@@ -45,7 +56,7 @@ NineSliceButton.new = function(name, w, h, l)
         self.propagating = true
     end
 
-    button:createView(w, h)
+    button:createView(_w, _h)
 
     function button:setText(text, font, fontSize)
         if not text then
@@ -80,7 +91,9 @@ NineSliceButton.new = function(name, w, h, l)
     --button:addEventListener("touch", self)
     
     function button:playSound()
-        sfx:play(self.pressSound)
+        if not button.disableClickSound then
+            sfx:play(self.pressSound)
+        end
     end
 
     function button:onTouch(func, propagating)

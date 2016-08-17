@@ -11,8 +11,8 @@ local TAG = "MenuScene"
 
 Menu.new = function()
     local scene = BasicScene.new()
-    scene.menuWidth = math.round(gameConfig.contentWidth*0.9)
-    scene.menuHeight = math.round(gameConfig.contentHeight*0.9)
+    scene.menuWidth = math.round(gameConfig.contentWidth)
+    scene.menuHeight = math.round(gameConfig.contentHeight)
     function scene:create( event )
        logger:info(TAG, "scene create")
        --self.superGroup = display.newGroup()
@@ -26,9 +26,9 @@ Menu.new = function()
        local glassPanel = GlassCornersPanel.new(self.menuWidth, self.menuHeight)
        glassPanel.x = gameConfig.contentWidth/2
        glassPanel.y = gameConfig.contentHeight/2
-       local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 40)
+       local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 80)
        titleText.x = glassPanel.x
-       titleText.y = glassPanel.y - glassPanel.contentWidth / 2
+       titleText.y = gameConfig.contentHeight * 0.15
        self.selectedBtnIdx = 1
        self.onClose = event.params and event.params.onClose
        self.buttonGap = 10
@@ -40,7 +40,6 @@ Menu.new = function()
        self.superGroup:insert(self.buttons)
        self.superGroup:insert(glassPanel)
        self.superGroup:insert(titleText)
-       sceneGroup:insert(self.superGroup)
        self:construct()
        self:insertButtons()
        self:resizeButtons()
@@ -65,12 +64,16 @@ Menu.new = function()
     end
 
     function scene:insertButton(btn)
-      if btn.action then
-        function btn:onTouch(event)
-          btn.action(event)
-        end
-      end
       self.buttons:insert(btn)
+      local btnIdx = self.buttons.numChildren
+
+      btn:addEventListener( "touch", 
+        function(event)
+          if event.phase == "ended" then
+            self:onConfirm(btnIdx)
+          end
+        end 
+      )
     end
 
     function scene:indexOf(btn)
@@ -83,9 +86,30 @@ Menu.new = function()
     end
 
     function scene:newResumeButton()
-       local button = self:newButton("Resume")
+      local button = self:newButton("Resume")
+      button.action = function(button, event)
+        logger:info(TAG, "Resume button click")
+        composer.hideOverlay( "fade", 400 )
+        self.parent:toggleGame()
+      end
+      return button
+    end
+
+    function scene:newRestartButton()
+       local button = self:newButton("Restart")
+       logger:info(TAG, "Restart button click")
        button.action = function(button, event)
-          composer.hideOverlay( "fade", 400 )
+          composer.gotoScene("scenes.game", {params = {action = "restart"}})
+       end
+       return button
+    end
+
+    function scene:newGiveupButton()
+       local button = self:newButton("Giveup")
+       logger:info(TAG, "Giveup button click")
+       button.action = function(button, event)
+        logger:info(TAG, "Give up game")
+        composer.gotoScene("scenes.game", {params = {giveup = true}})  
        end
        return button
     end
@@ -101,31 +125,44 @@ Menu.new = function()
           return
        end
 
-       local h = self.buttonGap * (self.buttons.numChildren - 1)
+       local numVisibleChildren = 0
 
        for i = 1, self.buttons.numChildren do
-          h = h + self.buttons[i].contentHeight
+        if self.buttons[i].isVisible then
+          numVisibleChildren = numVisibleChildren + 1
+        end
+       end
+
+       local h = self.buttonGap * (numVisibleChildren - 1)
+
+       for i = 1, self.buttons.numChildren do
+          if self.buttons[i].isVisible then
+            h = h + self.buttons[i].contentHeight
+          end
        end
 
        local top = -h/2
        for i = 1, self.buttons.numChildren do
-          top = top + self.buttons[i].contentHeight/2
-          self.buttons[i].x = 0
-          self.buttons[i].y = top
-          top = top + self.buttons[i].contentHeight/2 + self.buttonGap
+          if self.buttons[i].isVisible then
+            top = top + self.buttons[i].contentHeight/2
+            self.buttons[i].x = 0
+            self.buttons[i].y = top
+            top = top + self.buttons[i].contentHeight/2 + self.buttonGap
+          else
+            print("!!!!!!Skip inVisible button")
+          end
        end
     end
 
     -- "scene:show()"
     function scene:show( event )
-       local sceneGroup = self.view
-       local phase = event.phase 
-      
+      local sceneGroup = self.view
+      local phase = event.phase 
+      self.parent = event.parent 
        if ( phase == "will" ) then
           -- Called when the scene is still off screen (but is about to come on screen).
           logger:info(TAG, "scene will show")
           --Add key listener
-          Runtime:addEventListener( "key", self)
           self:onWillShow(event)
        elseif ( phase == "did" ) then
           -- Called when the scene is now on screen.
@@ -136,27 +173,22 @@ Menu.new = function()
        end
     end
 
-    function scene:key(event)
-      if event.phase == "up" then
-          if event.keyName == gameConfig.keyUp then
-              self:selectButton(-1)
-          elseif event.keyName == gameConfig.keyDown then
-              self:selectButton(1)
-          elseif event.keyName == gameConfig.keyLeft then
-              
-          elseif event.keyName == gameConfig.keyRight then
-              
-          elseif util.equalOrContain(event.keyName, gameConfig.keyConfirm) then
-              self:onConfirm(self.selectedBtnIdx)
-          elseif util.equalOrContain(event.keyName, gameConfig.keyCancel) then
-              
-          end
-      end
+    function scene:onKeyUp()
+      self:selectButton(-1)
+    end
+
+    function scene:onKeyDown()
+      self:selectButton(1)
+    end
+
+    function scene:onKeyConfirm()
+      logger:info(TAG, "onKeyConfirm")
+      self:onConfirm(self.selectedBtnIdx)
     end
 
     function scene:onConfirm(idx)
-      logger:info("TAG", "onConfirm %dth btn", idx)
-      if self.buttons[idx].action then
+      logger:info(TAG, "onConfirm %dth btn", idx)
+      if self.buttons[idx] and self.buttons[idx].action then
         self.buttons[idx].action()
         self.buttons[idx]:playSound()
       end
@@ -165,7 +197,7 @@ Menu.new = function()
     function scene:selectButton(offset)
       --show pointer if need
       if not self.pointer then
-        self.pointer = Sprite.new("UI/Cursors/2")
+        self.pointer = Sprite.new(gameConfig.defaultCursor)
       end
 
       if self.buttons.numChildren > 0 then
@@ -205,7 +237,6 @@ Menu.new = function()
           logger:info(TAG, "scene will hide")
           self:onWillHide(event)
           --Remove key listener
-          Runtime:removeEventListener( "key", self)
           if self.pointer then
             self.pointer:removeSelf()
             self.pointer = nil
@@ -253,15 +284,7 @@ Menu.new = function()
     function scene:onDestroy(event)
 
     end
-    ---------------------------------------------------------------------------------
-     
-    -- Listener setup
-    scene:addEventListener( "create", scene )
-    scene:addEventListener( "show", scene )
-    scene:addEventListener( "hide", scene )
-    scene:addEventListener( "destroy", scene )
-    
-    ---------------------------------------------------------------------------------
+
     return scene
 end
 

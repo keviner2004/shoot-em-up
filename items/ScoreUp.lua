@@ -19,7 +19,7 @@ ScoreUp.new = function(options)
     item:insert(sprite)
     item.level = level
     item.name = "scoreup"
-    item.score = level * 100
+    item.score = level * 10
 
     function item:needKeep(receiver)
         return false

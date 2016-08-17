@@ -2,7 +2,7 @@ local gameConfig = require("gameConfig")
 local move = require("move")
 local Sublevel = require("Sublevel")
 local EnemyPlane = require("enemies.EnemyPlane")
-local sublevel = Sublevel.new("3-st level", "keviner2004", {duration = 10000})
+local sublevel = Sublevel.new("9999999-003", "3-st level", "keviner2004", {duration = 10000})
 local BrownBig1 = require("asteroids.BrownBig1")
 local BrownBig2 = require("asteroids.BrownBig2")
 local BrownBig3 = require("asteroids.BrownBig3")
@@ -35,7 +35,7 @@ function sublevel:addAstroid(astroid, x, y, delay)
         function()
             astroid.x = x
             astroid.y = y
-            print("move "..delay)
+--            print("move "..delay)
             astroid:setLinearVelocity( 0, self.stageSpeed)
             astroid:callWhenInStage(
                 function ()

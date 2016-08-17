@@ -295,8 +295,6 @@ GameObject.new = function (options)
         self.parent:insert(obj)
     end
 
-    object:addTag("gameobject")
-
     function object:enableAutoRotation()
         if self._autoRotation then
             logger:warn(TAG, "auto rotation was already enabled")
@@ -332,6 +330,8 @@ GameObject.new = function (options)
             self._autoRotation = nil    
         end
     end
+
+    object:addTag("gameobject")
 
     return object
 end
