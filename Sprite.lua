@@ -27,10 +27,13 @@ M.addSheet = function(tag, imgName, sheetInfoName)
 
     if not string.find(loweImgName, ".png") then
         local scaleFactor =  gameConfig.contentHeight / gameConfig.basicHeight
+        logger:info(TAG, "!!!!!!!!!!!!! ScaleFactor: %d !!!!!!!!!!!", scaleFactor)
         local suffix = ""
+        local currentScale = 0
         for k, v in pairs(gameConfig.imageSuffix) do
-            if scaleFactor > v then
+            if scaleFactor > v and v > currentScale then
                 suffix = k
+                currentScale = v
             end
         end
         imgName = imgName..suffix..".png"

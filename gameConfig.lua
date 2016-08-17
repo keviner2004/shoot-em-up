@@ -63,12 +63,14 @@ config.seperateLevels = {
     "default.level_5",
 }
 
-config.version = "0.94"
+config.version = "0.941"
 config.dbVersion = "0.22"
-config.basicHeight = 360
+
+config.basicHeight = 640
 
 config.imageSuffix = {
     ["@2x"] = 1.5,
+    ["@3x"] = 2.5,
     ["@4x"] = 3.5
 }
 
