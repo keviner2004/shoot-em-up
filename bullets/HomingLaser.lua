@@ -23,9 +23,9 @@ Laser.new = function(options)
                 self.parent:insert(seg)
                 transition.to(seg, {time = 100, alpha = 0, xScale = 0.1, yScale = 0.1, onComplete = 
                     function()
-                        --if util.isExists(seg) then
+                        if util.isExists(seg) then
                             seg:removeSelf()     
-                        --end
+                        end
                     end
                 })
             end

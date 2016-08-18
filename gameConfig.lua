@@ -63,7 +63,7 @@ config.seperateLevels = {
     "default.level_5",
 }
 
-config.version = "0.941"
+config.version = "0.942"
 config.dbVersion = "0.22"
 
 config.basicHeight = 640
