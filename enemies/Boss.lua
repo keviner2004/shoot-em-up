@@ -194,8 +194,9 @@ Boss.new = function(players, options)
         logger:debug(TAG, "onDead "..self.cloneCount.."."..self.bossId)
         self.hp = 0
         self.isDead = true
-        self:getPlayer().score = self:getPlayer().score + self.maxHp
-
+        if self:getPlayer() then
+            self:getPlayer().score = self:getPlayer().score + self.maxHp
+        end
         if self.cloneCount == 0 then
             self.hpBar:hide(
                 function()
