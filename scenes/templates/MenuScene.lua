@@ -198,6 +198,7 @@ Menu.new = function()
       --show pointer if need
       if not self.pointer then
         self.pointer = Sprite.new(gameConfig.defaultCursor)
+        self.view:insert(self.pointer)
       end
 
       if self.buttons.numChildren > 0 then
