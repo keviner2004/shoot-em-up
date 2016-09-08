@@ -50,7 +50,7 @@ util.addEnterFrameListener = function(obj, func, options)
     end
     --logger:verbose(TAG, "insert enterframe 1")
     table.insert(util.enterFrameContainer[obj], m_enterFrame)
-    obj.__idep = options and options.idep
+    obj.__idep = (options and options.idep) or false
     --logger:debug(TAG, "insert enterframe 2", obj.__idep)
     if obj.__idep then
         Runtime:addEventListener( "enterFrame", m_enterFrame )

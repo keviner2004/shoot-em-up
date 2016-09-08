@@ -2,6 +2,7 @@ local gameConfig = require("gameConfig")
 local composer = require("composer")
 local MenuScene = require("scenes.templates.MenuScene")
 local navigator = require("navigator")
+local sfx = require("sfx")
 local scene = MenuScene.new()
 
 function scene:getTitleText()
@@ -13,7 +14,7 @@ function scene:onWillShow(event)
     local count = 1
     local ticket = 10
     --[[
-    self.scoreTimer = timer.performWithDelay( 1, 
+    self.scoreTimer = timer.performWithDelay( 1,
         function(event)
             if count > score then
                 timer.cancel(event.source)
@@ -43,7 +44,7 @@ function scene:onWillShow(event)
     if event.params and event.params.newRecord then
         self.newIcon.isVisible = true
     else
-        self.newIcon.isVisible = false    
+        self.newIcon.isVisible = false
     end
 
     --self.nextButton.xScale = 0.9
@@ -58,6 +59,7 @@ function scene:insertButtons()
 
     self.homeButton.action = function()
         self.parent:clearGame()
+        sfx:play("title", {loops = -1})
         self:back()
     end
 
@@ -74,7 +76,7 @@ function scene:insertButtons()
     self:insertButton(self.nextButton)
     self:insertButton(self.restartButton)
     self:insertButton(self.homeButton)
-    --self:insertButton(self.rankButton)   
+    --self:insertButton(self.rankButton)
 end
 
 function scene:onDidHide()

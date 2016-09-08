@@ -66,14 +66,18 @@ Menu.new = function()
     function scene:insertButton(btn)
       self.buttons:insert(btn)
       local btnIdx = self.buttons.numChildren
-
-      btn:addEventListener( "touch", 
-        function(event)
-          if event.phase == "ended" then
-            self:onConfirm(btnIdx)
-          end
-        end 
-      )
+      local function extendTouchListener(event)
+        if event.phase == "ended" then
+          self:onConfirm(btnIdx)
+        end
+      end
+      if btn.onTouch then
+        function btn:onTouch(event)
+          extendTouchListener(event)
+        end
+      else
+        btn:addEventListener( "touch", extendTouchListener)
+      end
     end
 
     function scene:indexOf(btn)
@@ -109,7 +113,7 @@ Menu.new = function()
        logger:info(TAG, "Giveup button click")
        button.action = function(button, event)
         logger:info(TAG, "Give up game")
-        composer.gotoScene("scenes.game", {params = {giveup = true}})  
+        composer.gotoScene("scenes.game", {params = {giveup = true}})
        end
        return button
     end
@@ -157,8 +161,8 @@ Menu.new = function()
     -- "scene:show()"
     function scene:show( event )
       local sceneGroup = self.view
-      local phase = event.phase 
-      self.parent = event.parent 
+      local phase = event.phase
+      self.parent = event.parent
        if ( phase == "will" ) then
           -- Called when the scene is still off screen (but is about to come on screen).
           logger:info(TAG, "scene will show")
@@ -212,14 +216,14 @@ Menu.new = function()
             newSelectedIndex = -((-newSelectedIndex) % self.buttons.numChildren)
             if newSelectedIndex ~= 0 then
               newSelectedIndex = newSelectedIndex + self.buttons.numChildren
-            end 
+            end
           else
             newSelectedIndex = newSelectedIndex % self.buttons.numChildren
           end
           self.selectedBtnIdx = newSelectedIndex
           self.selectedBtnIdx = self.selectedBtnIdx + 1
         end
-        
+
         logger:info(TAG, "Select new menu index : %d / %d", self.selectedBtnIdx, self.buttons.numChildren)
       end
       local selectedBtn = self.buttons[self.selectedBtnIdx]
@@ -230,10 +234,10 @@ Menu.new = function()
 
     -- "scene:hide()"
     function scene:hide( event )
-       
+
        local sceneGroup = self.view
        local phase = event.phase
-     
+
        if ( phase == "will" ) then
           logger:info(TAG, "scene will hide")
           self:onWillHide(event)
@@ -254,7 +258,7 @@ Menu.new = function()
           end
        end
     end
-    
+
     -- "scene:destroy()"
     function scene:destroy( event )
        logger:info(TAG, "scene destroy")
@@ -267,19 +271,19 @@ Menu.new = function()
     end
 
     function scene:onWillShow(event)
-      
+
     end
 
     function scene:onDidShow(event)
-      
+
     end
-    
+
     function scene:onWillHide(event)
-      
+
     end
 
     function scene:onDidHide(event)
-      
+
     end
 
     function scene:onDestroy(event)

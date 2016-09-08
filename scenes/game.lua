@@ -32,9 +32,9 @@ system.setIdleTimer( false )
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
 ---------------------------------------------------------------------------------
- 
+
 -- local forward references should go here
- 
+
 ---------------------------------------------------------------------------------
 
 local scene = BasicScene.new()
@@ -44,13 +44,13 @@ function scene:create( event )
     logger:info(TAG, "scene:create")
     local sceneGroup = self.view
     -- Initialize the scene here.
-    -- Example: add display objects to "sceneGroup", add touch listeners, etc.  
+    -- Example: add display objects to "sceneGroup", add touch listeners, etc.
     --enable pyhsic
     physics.start()
     physics.setGravity(0, 0)
     physics.setReportCollisionsInContentCoordinates( true )
     if gameConfig.debugPhysics then
-        physics.setDrawMode( "hybrid" ) 
+        physics.setDrawMode( "hybrid" )
     end
 
     self.first = true
@@ -60,12 +60,12 @@ function scene:create( event )
     self.globalScore = 0
     self.gameOptions = {}
     local backgrounds = Backgrounds.new(self.stageSpeed)
-    backgrounds:startMoveLoop()   
+    backgrounds:startMoveLoop()
     if gameConfig.debugFPS then
         self:fpsMesure()
     end
-    --UI    
-    
+    --UI
+
     self.superGroup.x = gameConfig.contentX
     self.superGroup.y = gameConfig.contentY
     --add to the scene
@@ -108,12 +108,12 @@ function scene:createPlayerLifeUI()
     self.hudGroup:insert(playerLife)
 end
 
-function scene:toggleGame()    
+function scene:toggleGame()
     logger:info(TAG, "toggleGame")
     if self.status == STATUS_STARTED then
         if self.lockToggleGame then
             logger:info(TAG, "Toggle game locked")
-            return 
+            return
         end
         self.lockToggleGame = true
         composer.showOverlay( "scenes.menu", {
@@ -198,7 +198,7 @@ function scene:pauseGame()
     logger:info(TAG, "Pause game")
     if self.status == STATUS_PAUSED then
         print("The game is paused")
-        return 
+        return
     end
     self.level:pause()
     physics.pause()
@@ -324,9 +324,9 @@ function scene:createPlayer(PlaneClass, options)
         if self.totalLifes < 0 then
             self:gameOver()
         else
-            self.playerLifeText.text = self.totalLifes    
+            self.playerLifeText.text = self.totalLifes
         end
-        
+
     end
 
     transition.to(character, {
@@ -382,7 +382,7 @@ function scene:startGame(options)
             controlType = gameConfig.controlType[2]
         })
         self.mainGroup:insert(self.secondCharacter)
-        self.players[#self.players + 1] = self.secondCharacter       
+        self.players[#self.players + 1] = self.secondCharacter
     end
 
     for i = 1, #self.players do
@@ -396,10 +396,10 @@ function scene:startGame(options)
     end
 
     self.level:init({
-        game = self, 
-        view = self.mainGroup, 
-        players = self.players, 
-        stageSpeed = self.stageSpeed, 
+        game = self,
+        view = self.mainGroup,
+        players = self.players,
+        stageSpeed = self.stageSpeed,
         scene = self
     })
     --update ui according the player
@@ -407,7 +407,7 @@ function scene:startGame(options)
     --add to group
     self.superGroup:insert(self.mainGroup)
     self.superGroup:insert(self.hudGroup)
-    timer.performWithDelay(1000 , 
+    timer.performWithDelay(1000 ,
         function()
             self.level:start(options)
         end
@@ -476,7 +476,7 @@ end
 
 -- "scene:show()"
 function scene:show( event )
-    
+
     local sceneGroup = self.view
     local phase = event.phase
 
@@ -491,7 +491,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         if event.params and event.params.giveup then
            self.first = true
-        end 
+        end
         if self.first then
             self:hideHUD()
             print("Game start first, show start Screen")
@@ -540,7 +540,7 @@ end
 function scene:hide( event )
     --local sceneGroup = self.mainGroup
     local phase = event.phase
-    
+
     if ( phase == "will" ) then
         print("gamescene:hide() will")
         --self:pauseGame()
@@ -550,7 +550,7 @@ function scene:hide( event )
       -- Called immediately after scene goes off screen.
    end
 end
- 
+
 -- "scene:destroy()"
 function scene:destroy( event )
     print("scene:destroy()")
@@ -568,12 +568,5 @@ end
 Runtime:addEventListener( "system", onSystemEvent )
 
 ---------------------------------------------------------------------------------
- 
+
 return scene
-
-
-
-
-
-
-

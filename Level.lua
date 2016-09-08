@@ -73,7 +73,7 @@ Level.load = function()
     end
 
     function level:showInfo()
-        local levelTitle = display.newGroup() 
+        local levelTitle = display.newGroup()
         local levelNameTxt = display.newText(string.format("%s", self.currentSublevel.name), 0, 0, "kenvector_future_thin", 35)
         local authorTxt = display.newText(string.format("%s", self.currentSublevel.author), 0, 0, "kenvector_future_thin", 35)
         levelNameTxt.x = 0
@@ -87,9 +87,9 @@ Level.load = function()
         self.view:insert(levelTitle)
         levelTitle.alpha = 0
         --Show sublevel's infomation at start
-        transition.to(levelTitle, {time = 500, alpha = 1, onComplete = 
+        transition.to(levelTitle, {time = 500, alpha = 1, onComplete =
             function ()
-                transition.to(levelTitle, {time = 800, alpha = 0, onComplete = 
+                transition.to(levelTitle, {time = 800, alpha = 0, onComplete =
                     function ()
                         levelTitle:removeSelf()
                 end})
@@ -99,21 +99,33 @@ Level.load = function()
     function level:pickupLevel(levels)
         local r = math.random(#levels)
         local idx = levels[r]
-        table.remove(levels, r)  
-        return idx      
+        table.remove(levels, r)
+        return idx
     end
 
-    function level:startSingleLevel(levelName, options)
-        logger:info(TAG, "startLevel %s", levelName)
-        self.currentSublevel = require("levels."..levelName)
+    function level:startLevel(levelObj, options)
+        if type(levelObj) == "string" then
+          logger:info(TAG, "startLevel %s", levelObj)
+          self.currentSublevel = require("levels."..levelObj)
+        else
+          logger:info(TAG, "startLevel %s", levelObj.name)
+          self.currentSublevel = levelObj
+        end
         self.currentSublevel:init(self:getInitOptions({
             onComplete = options and options.onComplete
         }))
+        if not self.currentSublevel.isBossFight then
+          self:showInfo()
+        end
         self.currentSublevel:start()
     end
 
-    function level:startLevel()
-        logger:info(TAG, "startLevel")
+    function level:startSingleLevel(level, options)
+        self:startLevel(level, options)
+    end
+
+    function level:startInfiniteLevel()
+        logger:info(TAG, "startInfiniteLevel")
         --Get a random level from levels
         if #self.levelCandidates == 0  then
             logger:warn(TAG, "Repeat normal level")
@@ -123,7 +135,7 @@ Level.load = function()
         if #self.bossCandidates == 0  then
             self:initBossCandidate()
         end
-        logger:debug(TAG, "#bossCandidates: %d, #levelCandidates: %d", #self.bossCandidates, #self.levelCandidates)
+        logger:info(TAG, "#bossCandidates: %d, #levelCandidates: %d", #self.bossCandidates, #self.levelCandidates)
         if #self.bossCandidates == 0 and #self.levelCandidates == 0 then
             logger:error(TAG, "No levels are found")
             return
@@ -139,9 +151,9 @@ Level.load = function()
             idx = self:pickupLevel(self.bossCandidates)
         elseif #self.levelCandidates > 0 then
             self.count = self.count + 1
-            logger:debug(TAG, "normal levels before pick "..#self.levelCandidates)
+            logger:info(TAG, "normal levels before pick "..#self.levelCandidates)
             idx = self:pickupLevel(self.levelCandidates)
-            logger:debug(TAG, "normal levels after pick "..#self.levelCandidates)
+            logger:info(TAG, "normal levels after pick "..#self.levelCandidates)
         end
 
         if idx == 0 then
@@ -149,40 +161,11 @@ Level.load = function()
             return
         end
 
-        self.levels[idx]:init(self:getInitOptions({
-            onComplete = function()
-                self:startLevel()
-            end
-        }))
-        --show the level name
-        --boss fight
-        if self.levels[idx].isBossFight then
-            self.jsutBossFight = true
-            sfx:fadeOut(sfx.CHANNEL_BG, 1000)
-            local warningLevel = require("levels.level_bossfight_warning")
-            warningLevel:init(self:getInitOptions({
-                onComplete = function()
-                    logger:debug(TAG, "Boss level %d", idx)
-                    self.currentSublevel = self.levels[idx]
-                    logger:debug(TAG, "play boss music")
-                    self.changeSound = true
-                    sfx:play("bgBoss", {loops = -1})
-                    self.levels[idx]:start()
-                end
-            }))
-            self.currentSublevel = warningLevel
-            warningLevel:start({author = self.levels[idx].author, name = self.levels[idx].name})
-        else
-            logger:debug(TAG, "Normal level %d", idx)
-            self.currentSublevel = self.levels[idx]
-            self:showInfo()
-            if self.changeSound then
-                sfx:fadeOut(sfx.CHANNEL_BG, 1000)
-                sfx:play("bg", {loops = -1})
-                self.changeSound = false
-            end
-            self.levels[idx]:start()
-        end
+        self:startLevel(self.levels[idx], {
+          onComplete = function()
+              self:startInfiniteLevel()
+          end
+        })
     end
 
     function level:pause()
@@ -201,7 +184,7 @@ Level.load = function()
         self.timerUtil:resume()
         if self.currentSublevel then
             self.currentSublevel:resume()
-        end 
+        end
         self.paused = false
     end
 
@@ -220,7 +203,7 @@ Level.load = function()
     function level:start(options)
         local delay = (options and options.delay) or 0
         logger:info(TAG, "level:start with delay: %d", delay)
-        self.timerUtil:addTimer(delay, 
+        self.timerUtil:addTimer(delay,
             function ()
                 if options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
                     logger:info(TAG, "start single mode")
@@ -231,7 +214,7 @@ Level.load = function()
                     end
                     self:startSingleLevel(options.levelName, options)
                 else
-                    self:startLevel()
+                    self:startInfiniteLevel()
                 end
                 if self.currentSublevel and self.paused then
                     logger:info(TAG, "Pause lossing current sublevel")
@@ -242,7 +225,15 @@ Level.load = function()
     end
 
     return level
+end
 
+Level.goto = function(levelName, options)
+    logger:info(TAG, "startLevel %s", levelName)
+    self.currentSublevel = require("levels."..levelName)
+    self.currentSublevel:init(self:getInitOptions({
+        onComplete = options and options.onComplete
+    }))
+    self.currentSublevel:start()
 end
 
 return Level

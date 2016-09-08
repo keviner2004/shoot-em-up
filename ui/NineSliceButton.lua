@@ -19,6 +19,11 @@ NineSliceButton.new = function(name, w, h, options)
     --logger:info(TAG, "New 9-slice %s with w:%d, h:%d ", name, _w, _h)
 
     button.disableClickSound = (options and options.disableClickSound) or false
+    --[[
+    local function onEvent(event)
+        button.buttonView:onTouch(event)
+    end
+    --]]
 
     button.createView = function(self, w, h)
         --print("!!!!!!!!!", Sprite.myImageSheet)
@@ -79,25 +84,29 @@ NineSliceButton.new = function(name, w, h, options)
     end
 
     function button.buttonView:touch(event)
-        --print("touch: "..event.phase.."/"..event.phase.." on "..self.id)
+    --function button.buttonView:onTouch(event)
+        --logger:info(TAG, "touch: "..event.phase.."/"..event.phase.." on "..self.id)
         if event.phase == "ended" then
             button:playSound()
-        end        
+            if button.click then
+              button.click(event)
+            end
+        end
         button:onTouch(event)
         --return false treat as background
         return self.propagating --false
     end
-    
+
     --button:addEventListener("touch", self)
-    
+
     function button:playSound()
         if not button.disableClickSound then
             sfx:play(self.pressSound)
         end
     end
 
-    function button:onTouch(func, propagating)
-        
+    function button:onTouch(event)
+      --logger:info(TAG, "button:onTouch")
     end
 
     function button:setWidth(w)
@@ -106,7 +115,7 @@ NineSliceButton.new = function(name, w, h, options)
         if button.buttonView.x then
             button.buttonView:removeSelf()
         end
-        
+
         if w > 0 then
             self:createView(w, self.h)
         end
@@ -126,7 +135,7 @@ NineSliceButton.new = function(name, w, h, options)
         if button.buttonView.x then
             button.buttonView:removeSelf()
         end
-        
+
         if h > 0 then
             self:createView(self.w, h)
         end

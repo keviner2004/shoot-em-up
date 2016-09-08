@@ -1,7 +1,10 @@
+local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
 local EnterFrameUtil = require("EnterFrameUtil")
-local Sublevel = {}
 local logger = require("logger")
+local GameObject = require("GameObject")
+local gameConfig = require("GameConfig")
+local Sublevel = {}
 
 TAG = "Sublevel"
 Sublevel.new = function (id, name, author, options)
@@ -18,7 +21,7 @@ Sublevel.new = function (id, name, author, options)
         self.onComplete = options and options.onComplete
         self:setPlayer(options and options.players)
         self.stageSpeed = options and options.stageSpeed
-        self.view = options and options.view        
+        self.view = options and options.view
         self.scene = options and options.scene
         self.game = options and options.game
         self.stopped = false
@@ -34,7 +37,7 @@ Sublevel.new = function (id, name, author, options)
         self.players = players
         self.player = players[1]
         self.firstPlayer = players[1]
-        self.secondPlayer = players[2]        
+        self.secondPlayer = players[2]
     end
 
     function sublevel:start(options)
@@ -42,7 +45,7 @@ Sublevel.new = function (id, name, author, options)
         logger:info(TAG, "sublevel:start")
         if self.duration then
             --print("Enable timer")
-            self:addTimer(self.duration, 
+            self:addTimer(self.duration,
                 function()
                     --print("set finished")
                     self._finished = true
@@ -68,10 +71,12 @@ Sublevel.new = function (id, name, author, options)
 
     function sublevel:pause()
         logger:info(TAG, "Pause sublevel!!!!!!!!!!!!!!!!!")
+        self.paused = true
         self.timerUtil:pause()
     end
 
     function sublevel:resume()
+        self.paused = false
         self.timerUtil:resume()
     end
 
@@ -80,7 +85,7 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:removeTimer(id)
-       self.timerUtil:removeTimer(id) 
+       self.timerUtil:removeTimer(id)
     end
 
     function sublevel:isFinish()
@@ -92,7 +97,7 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:getEnemies()
-    
+
     end
 
     function sublevel:getEnemy()
@@ -130,7 +135,50 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:finish()
-        
+
+    end
+
+    function sublevel:showWarning(options)
+      sfx:fadeOut(sfx.CHANNEL_BG, 1000)
+      local onComplete = options and options.onComplete
+      local count = 0
+      --warnnig text
+      self.game:showScore(false)
+      local warning = GameObject.new()
+      options.author = self.author
+      options.name = self.name
+      if options.author then
+          local authorText = display.newText(options.author, gameConfig.contentWidth/2, gameConfig.contentHeight/2+120, "kenvector_future_thin", 30)
+          warning:insert(authorText)
+          authorText:setFillColor(1, 204/255, 0)
+      end
+      if options.name then
+          local nameText = display.newText(options.name, gameConfig.contentWidth/2, gameConfig.contentHeight/2+150, "kenvector_future_thin", 30)
+          warning:insert(nameText)
+      end
+      local warnigText1 = display.newText("==========================", gameConfig.contentWidth/2, gameConfig.contentHeight/2-60, "kenvector_future_thin", 80)
+      local warnigText2 = display.newText("Warning!", gameConfig.contentWidth/2, gameConfig.contentHeight/2, "kenvector_future_thin", 80)
+      local warnigText3 = display.newText("==========================", gameConfig.contentWidth/2, gameConfig.contentHeight/2+60, "kenvector_future_thin", 80)
+      warnigText2:setFillColor( 1, 0, 0 )
+      warning:insert(warnigText1)
+      warning:insert(warnigText2)
+      warning:insert(warnigText3)
+      self.warningChannel = sfx:play("warning", {loops = -1})
+      transition.blink(warning, {time = 2000, onRepeat =
+          function (event)
+          -- body
+              count = count + 1
+              if count == 4 then
+                print("warning complete")
+                warning:removeSelf()
+                sfx:stop(self.warningChannel)
+                sfx:play("bgBoss", {loops = -1})
+                if onComplete then
+                  onComplete()
+                end
+              end
+      end})
+      self.view:insert(warning)
     end
 
     setmetatable(sublevel, {
@@ -154,4 +202,4 @@ Sublevel.new = function (id, name, author, options)
 end
 
 
-return Sublevel 
+return Sublevel

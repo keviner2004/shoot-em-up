@@ -107,7 +107,7 @@ Character.new = function (options)
                 if util.isExists(event.other) then
                     self:onItem(event.other)
                 else
-                    
+
                 end
             end)
         end
@@ -190,7 +190,7 @@ Character.new = function (options)
             if self.parent[i].hasTag and self.parent[i]:hasTag("enemy") then
                 return parent[i]
             end
-        end 
+        end
     end
 
     function character:createHomingLaser(x, y, vx, vy)
@@ -234,7 +234,7 @@ Character.new = function (options)
             return
         end
 
-        
+
         local missilePerEnemy = math.floor(#missiles / numOfEnemies)
         local remain = #missiles - missilePerEnemy * numOfEnemies
         --[[
@@ -264,7 +264,7 @@ Character.new = function (options)
     end
 
     function character:shootNormalLaser()
-        sfx:play("laser")        
+        sfx:play("laser")
         if character.power >=3 then
             local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -2000)
             local bullet2 = self:createNormalLaser(self.x, self.y, 0, -2000)
@@ -474,7 +474,7 @@ Character.new = function (options)
         --print("########### blink transition")
         local blinkCount = 0
         local blinkTransition = nil
-        blinkTransition = transition.blink(self, {time = 500, onRepeat  = 
+        blinkTransition = transition.blink(self, {time = 500, onRepeat  =
             function(event)
                 --print("onrepeat!!!!")
                 blinkCount = blinkCount + 1

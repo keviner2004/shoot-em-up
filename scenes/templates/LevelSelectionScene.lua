@@ -29,8 +29,8 @@ LevelSelectionScene.new = function(options)
       self.gap = gameConfig.contentHeight/70
       self.pagePaddingBottom = gameConfig.contentHeight/5
       self.selectedPageIndex = 1
-      self.blockWidth = (self.pageWidth - self.pagePaddingLeft - self.pagePaddingRight - self.gap * (self.numOfCols -1)) / self.numOfCols 
-      self.blockHeight = (self.pageHeight - self.pagePaddingTop - self.pagePaddingBottom - self.gap * (self.numOfRows -1)) / self.numOfRows 
+      self.blockWidth = (self.pageWidth - self.pagePaddingLeft - self.pagePaddingRight - self.gap * (self.numOfCols -1)) / self.numOfCols
+      self.blockHeight = (self.pageHeight - self.pagePaddingTop - self.pagePaddingBottom - self.gap * (self.numOfRows -1)) / self.numOfRows
       self.numOfPages = math.floor(self.numOfLevels / (self.numOfRows * self.numOfCols)) + math.ceil((self.numOfLevels % (self.numOfRows * self.numOfCols)) / (self.numOfRows * self.numOfCols))
       self.pages = {}
       self.levelCandidates = {}
@@ -92,14 +92,14 @@ LevelSelectionScene.new = function(options)
 
       self.dotGap = 10
       self.pageSelectorY = gameConfig.contentHeight * 9/10
-      
+
       if self.numOfPages > 1 then
         local firstDot = Sprite.new("UI/Dots/5")
         self.dotLeft = (gameConfig.contentWidth - self.numOfPages * firstDot.width - self.dotGap * (self.numOfPages - 1) + firstDot.width) / 2
 
         self:setDotAt(firstDot, 1)
         self.superGroup:insert(firstDot)
-        
+
 
         for i = 2, self.numOfPages do
           local dot = Sprite.new("UI/Dots/5")
@@ -107,7 +107,7 @@ LevelSelectionScene.new = function(options)
           self.superGroup:insert(dot)
         end
 
-        --add back button?  
+        --add back button?
 
         self.selectedDot = Sprite.new("UI/Dots/6")
         self.superGroup:insert(self.selectedDot)
@@ -200,7 +200,7 @@ LevelSelectionScene.new = function(options)
     if not disablePointer then
       if not self.pointer then
         self.pointer = Sprite.new(gameConfig.defaultCursor)
-        
+
       end
       selectedLevel.parent:insert(self.pointer)
       self.pointer.x = selectedLevel.x
@@ -231,7 +231,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:show( event )
      local phase = event.phase
-     
+
      if ( phase == "will" ) then
         if self.backPage and not self.backButton then
           self.backButton = self:createBackButton()
@@ -247,7 +247,7 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:onDidHide(event)
-    
+
   end
 
   function scene:onWillShow(event)
@@ -255,7 +255,7 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:onDidShow(event)
-    
+
   end
 
   function scene:setSelectedIndex(index)
@@ -315,14 +315,21 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:applyTouchToBlock(block, index)
-    block:addEventListener( "touch", 
-      function(event)
-        local swipeLength = math.abs(event.x - event.xStart) 
-        if event.phase == "ended" and swipeLength < 30 then
-          self:onLevelConfirm(index)
+    local function extendTouchListener(event)
+      local swipeLength = math.abs(event.x - event.xStart)
+      if event.phase == "ended" and swipeLength < 30 then
+        self:onLevelConfirm(index)
+      end
+    end
+    if block.onTouch then
+        function block:onTouch(event)
+          --print("=====================applyTouchToBlock 1=====================")
+          extendTouchListener(event)
         end
-      end 
-    )
+    else
+        --print("=====================applyTouchToBlock 2=====================")
+        block:addEventListener( "touch", extendTouchListener)
+    end
   end
 
   function scene:selectLeft()
@@ -376,7 +383,7 @@ LevelSelectionScene.new = function(options)
     end
     local page, row, col = self:indexToLevelCoordinate(self.selectedLevelCandidate)
     local leveslUtilCurrentPage = self:numOfLevelsUtilPage(page)
-    
+
     local newCol = col + 1
     local newRow = row
     local newPage = page
@@ -457,7 +464,7 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:getPageSlotXY(slot)
-    local x = gameConfig.contentWidth / 2 + self.pageWidth * (slot - 1) 
+    local x = gameConfig.contentWidth / 2 + self.pageWidth * (slot - 1)
     local y = gameConfig.contentHeight / 2
     return x, y
   end
@@ -476,7 +483,7 @@ LevelSelectionScene.new = function(options)
       logger:info(TAG, "Selection is locked, you can't select pages")
       return
     end
-    
+
     self.newSelectedPageIndex = self:getSelectIndex(self.selectedPageIndex, offset)
 
     if self.newSelectedPageIndex == self.selectedPageIndex then
@@ -503,7 +510,7 @@ LevelSelectionScene.new = function(options)
       self:transitionNewSelectedPage(newSelectedPage, 1)
       self:transitionOldSelectedPage(selectedPage, 2)
     end
-    --selectedPage.x = 
+    --selectedPage.x =
   end
 
   function scene:selectLevelComplete()
@@ -516,7 +523,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:transitionNewSelectedPage(page, slot)
     self.newSelectedPageTransed = false
-    self:transitionPageToSlot(page, slot, {onComplete = 
+    self:transitionPageToSlot(page, slot, {onComplete =
       function ()
         self.newSelectedPageTransed = true
         self:selectLevelComplete()
@@ -526,7 +533,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:transitionOldSelectedPage(page, slot)
     self.oldSelectedPageTransed = false
-    self:transitionPageToSlot(page, slot, {onComplete = 
+    self:transitionPageToSlot(page, slot, {onComplete =
       function ()
         self.oldSelectedPageTransed = true
         self:selectLevelComplete()
@@ -537,7 +544,7 @@ LevelSelectionScene.new = function(options)
   -- "scene:hide()"
   function scene:hide( event )
      local phase = event.phase
-   
+
      if ( phase == "will" ) then
       if self.backButton then
         self.backButton:removeSelf()
@@ -547,9 +554,9 @@ LevelSelectionScene.new = function(options)
 
      end
   end
-   
+
   -- "scene:destroy()"
-  function scene:destroy( event ) 
+  function scene:destroy( event )
      -- Called prior to the removal of scene's view ("sceneGroup").
      -- Insert code here to clean up the scene.
      -- Example: remove display objects, save state, etc.
@@ -560,4 +567,3 @@ LevelSelectionScene.new = function(options)
 end
 
 return LevelSelectionScene
-

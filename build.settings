@@ -1,23 +1,32 @@
 settings =
 {
+    plugins =
+    {
+        ["plugin.facebook.v4"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+    },
+    orientation =
+    {
+        default = "portrait",
+        supported = { "portrait", "portraitUpsideDown" }
+    },
     android =
     {
         usesPermissions =
         {
          "android.permission.INTERNET",
         },
-        orientation =
-        {
-            default = "portrait",
-            supported = { "portrait", "portraitUpsideDown" }
-        },
+        facebookAppId = "119131358540933",
     },
     window = {
       defaultViewWidth = 640,
-      defaultViewHeight = 960 
+      defaultViewHeight = 960
     },
-    excludeFiles = 
+    excludeFiles =
      {
         all = { "doc"},
      },
+
 }

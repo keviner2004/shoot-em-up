@@ -23,7 +23,7 @@ BasicScene.new = function ()
 
     function scene:show( event )
         local sceneGroup = self.view
-        local phase = event.phase 
+        local phase = event.phase
         if ( phase == "will" ) then
           logger:info(TAG, "scene will show")
         elseif ( phase == "did" ) then
@@ -33,10 +33,10 @@ BasicScene.new = function ()
 
     -- "scene:hide()"
     function scene:hide( event )
-       
+
        local sceneGroup = self.view
        local phase = event.phase
-     
+
        if ( phase == "will" ) then
           -- Called when the scene is on screen (but is about to go off screen).
           -- Insert code here to "pause" the scene.
@@ -46,33 +46,33 @@ BasicScene.new = function ()
 
        end
     end
-     
+
     -- "scene:destroy()"
     function scene:destroy( event )
-     
+
        local sceneGroup = self.view
-     
+
        -- Called prior to the removal of scene's view ("sceneGroup").
        -- Insert code here to clean up the scene.
        -- Example: remove display objects, save state, etc.
     end
-    
+
     ---------------------------------------------------------------------------------
-    
+
     function scene:onKeyUp(event)
-        
+
     end
 
     function scene:onKeyDown(event)
-        
+
     end
 
     function scene:onKeyLeft(event)
-        
+
     end
 
     function scene:onKeyRight(event)
-        
+
     end
 
     function scene:onKeyConfirm(event)
@@ -80,7 +80,7 @@ BasicScene.new = function ()
     end
 
     function scene:onKeyCancel(event)
-        
+
     end
 
     function scene:addSwipeSupport()
@@ -90,9 +90,9 @@ BasicScene.new = function ()
       swipeLayer.x = gameConfig.contentWidth/2
       swipeLayer.y = gameConfig.contentHeight/2
       self.superGroup:insert(swipeLayer)
-      
+
       self.startDrag = function(event)
-        local swipeLength = math.abs(event.x - event.xStart) 
+        local swipeLength = math.abs(event.x - event.xStart)
         --logger:info(TAG, "Swipe touch detail event.phase: %s, swipeLength: %d, ", event.phase, swipeLength)
         local t = event.target
         local phase = event.phase
@@ -100,11 +100,11 @@ BasicScene.new = function ()
           return true
         elseif "moved" == phase then
         elseif "ended" == phase or "cancelled" == phase then
-          if event.xStart > event.x and swipeLength > 50 then 
+          if event.xStart > event.x and swipeLength > 50 then
               self:swipRightToLeft()
-          elseif event.xStart < event.x and swipeLength > 50 then 
+          elseif event.xStart < event.x and swipeLength > 50 then
               self:swipLeftToRight()
-          end 
+          end
         end
       end
       swipeLayer:addEventListener("touch", self.startDrag)
@@ -147,13 +147,14 @@ BasicScene.new = function ()
         end
     end
 
-  function scene:back()
+  function scene:back(options)
      if navigator:peek() then
         local backPage = navigator:pop()
         composer.showOverlay( backPage, {
           isModal = true,
           effect = "fromLeft",
           time = 400,
+          params = options and options.params,
         })
      end
   end
@@ -185,7 +186,7 @@ BasicScene.new = function ()
     end
 
     function proxy:show( event )
-      local phase = event.phase 
+      local phase = event.phase
       if ( phase == "will" ) then
         scene.params = event.params
         self.listenerRemoved = false
@@ -197,7 +198,7 @@ BasicScene.new = function ()
 
     function proxy:hide( event )
         local phase = event.phase
-     
+
         if ( phase == "will" ) then
 
         elseif (phase == "did") then
@@ -206,14 +207,12 @@ BasicScene.new = function ()
           Runtime:removeEventListener( "key", scene)
         end
 
-        scene:hide(event) 
+        scene:hide(event)
     end
-     
+
     function proxy:destroy( event )
         scene:destroy(event)
     end
-
-
 
     -- Listener setup
     scene:addEventListener( "create", proxy )

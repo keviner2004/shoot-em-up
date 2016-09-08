@@ -7,7 +7,18 @@ local sfx = require("sfx")
 local TAG = "START MENU"
 local navigator = require("navigator")
 local dbHelper = require("dbHelper")
+local facebook = require("facebook")
+
+local Title = require("ui.Title")
 local scene = MenuScene.new()
+local INDEX_START_1P = 1
+local INDEX_START_2P = 2
+local INDEX_LEADERBOARD = 3
+local INDEX_WHO_ARE_YOU = 4
+local INDEX_LOGIN = 5
+
+local TEXT_LOGIN = "Sign in"
+local TEXT_LOGOUT = "Logout"
 
 function scene:init()
     logger:info(TAG, "~~~~~~~~~~Init start scene~~~~~~~~~~")
@@ -35,7 +46,7 @@ function scene:insertButtons()
         else
             alpha = 1
         end
-        transition.to(btn, {time = 300, alpha = alpha, onComplete = 
+        transition.to(btn, {time = 300, alpha = alpha, onComplete =
             function()
                 blink(btn, not show)
             end
@@ -60,10 +71,13 @@ function scene:insertButtons()
 
     local userButton = self:createUserButton()
     local leaderBoardButton = self:createLeaderBoardButton()
+    local loginButton = self:createLoginButton()
     self:insertButton(leaderBoardButton)
     self:insertButton(userButton)
+    self:insertButton(loginButton)
     self.userButton = userButton
     self.leaderBoardButton = leaderBoardButton
+    self.loginButton = loginButton
     --[[
     function startButton:onTouch(event)
         --print("!!!!!!!!!!!!")
@@ -114,6 +128,22 @@ function scene:createUserButton()
     button:setUserName("Who are you?")
 
     return button
+end
+
+function scene:createLoginButton()
+  local button = display.newGroup()
+  local title = Title.new({
+    text = {
+        font = native.systemFont,
+        fontSize = 40,
+        value = TEXT_LOGIN
+    }
+  })
+  --local text = display.newText("ddddddd", 0, 0, gameConfig.defaultFont, 40)
+  button:insert(title)
+  --button:insert(text)
+  self.loginTitle = title
+  return button
 end
 
 function scene:createLeaderBoardButton()
@@ -170,10 +200,38 @@ function scene:onWillShow( event )
 
     self.leaderBoardButton.y = self.leaderBoardButton.y + gameConfig.contentHeight * 0.05
     self.userButton.y = self.leaderBoardButton.y + (self.leaderBoardButton.height + self.userButton.height)/2 + gameConfig.contentHeight * 0.05
+    self.loginButton.y = self.userButton.y + (self.userButton.height + self.loginButton.height)/2 + gameConfig.contentHeight * 0.05
+end
+
+function scene:updateLoginStatus()
+  if facebook.getCurrentAccessToken() then
+    self.loginTitle:setText(TEXT_LOGOUT)
+  else
+    self.loginTitle:setText(TEXT_LOGIN)
+  end
+end
+
+function scene:onDidShow( event )
+  --auto login
+  local autoLogin = dbHelper:getAutoSignIn()
+  if autoLogin and event.params and event.params.action ~= "disableLogin" then
+    logger:info(TAG, "login with facebook")
+    facebook.login(function(status)
+      logger:info(TAG, "login with status %s", status)
+        if status == facebook.STATUS_LOGIN then
+          self:updateLoginStatus()
+          facebook.getUserInfo(function(info)
+
+          end)
+      end
+    end)
+  else
+    self:updateLoginStatus()
+  end
 end
 
 function scene:onWillHide( event )
-    
+
 end
 
 function scene:onConfirm(buttonSelectedIndex)
@@ -187,19 +245,35 @@ function scene:onConfirm(buttonSelectedIndex)
         return
     end
 
-    if buttonSelectedIndex == 4 then
+    if buttonSelectedIndex == INDEX_LOGIN then
+        --LOGIN OR LOGOUT
+        if facebook.getCurrentAccessToken() then
+            --logout
+            facebook.logout(function(status)
+              dbHelper:enableAutoSignIn(false)
+              self:updateLoginStatus()
+            end)
+        else
+          self:go("scenes.start", "scenes.login", {
+              text = userName
+          })
+        end
+        return
+    end
+
+    if buttonSelectedIndex == INDEX_WHO_ARE_YOU then
         self:go("scenes.start", "scenes.whoAreYou", {
             text = userName
         })
-        return 
+        return
     end
-    if buttonSelectedIndex == 3 then
+    if buttonSelectedIndex == INDEX_LEADERBOARD then
         self:go("scenes.start", "scenes.leaderBoardSelection")
-        return 
+        return
     end
-    if buttonSelectedIndex == 2 then
+    if buttonSelectedIndex == INDEX_START_2P then
         gameConfig.numOfPlayers = 2
-    elseif buttonSelectedIndex == 1 then
+    elseif buttonSelectedIndex == INDEX_START_1P then
         gameConfig.numOfPlayers = 1
     end
     self:selectLevel()

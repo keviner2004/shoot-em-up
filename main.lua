@@ -17,6 +17,7 @@ composer.gotoScene( "scenes.game")
 --composer.gotoScene( "scenes.leaderBoard")
 --composer.gotoScene( "scenes.levelSelection")
 --composer.gotoScene( "scenes.chapterSelection")
+--composer.gotoScene( "scenes.login")
 --[[
 --composer.showOverlay( "scenes.chapterSelection", {
 composer.showOverlay( "scenes.start", {

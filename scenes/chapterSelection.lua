@@ -17,7 +17,7 @@ local navigator = require("navigator")
 local scene = LevelSelectionScene.new({
     row = 1,
     col = 1,
-    numOfLevels = 2, 
+    numOfLevels = 2,
     title = "Select Chapter"
   })
 

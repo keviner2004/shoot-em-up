@@ -45,18 +45,18 @@ Boss.new = function(players, options)
     --boss:collideWith(PHYSIC_CATEGORY_ENEMY)
     boss:collideWith(PHYSIC_CATEGORY_WALL)
     --timer.performWithDelay(1, function()
-    
+
     --end)
     boss:setDefaultBullet("bullets.BossBullet")
 
 
     boss.preCollision = function(self, event)
         --print("boss before hit by "..event.other.name)
-        if event.other.name == "bullet" then 
+        if event.other.name == "bullet" then
             if event.contact then
                 event.contact.isEnabled = false
             end
-        elseif event.other.name == "wall" and self.ignoreWall then 
+        elseif event.other.name == "wall" and self.ignoreWall then
             if event.contact then
                 event.contact.isEnabled = false
             end
@@ -67,7 +67,7 @@ Boss.new = function(players, options)
             end
         end
     end
-    
+
     boss:setBody({type = "dynamic", bounce = 1, isSensor = false, radius = boss.width * boss.xScale / 2})
     boss:enablePhysics()
 
@@ -78,7 +78,7 @@ Boss.new = function(players, options)
             end
         end
     end
-    
+
     function boss:initHPBar()
         print("initHPBar")
         local hpBar = display.newGroup()
@@ -94,7 +94,7 @@ Boss.new = function(players, options)
         glassPanel.y = 0
         hpBar.type = "hpBar"
         hpBar.name = "hpBar"
-        
+
         hpBar:insert(base)
         hpBar:insert(hpValue)
         hpBar:insert(hpValue2)
@@ -112,7 +112,7 @@ Boss.new = function(players, options)
         hpBar.nameText.y = 0
         hpBar:insert(hpBar.hpText)
         hpBar:insert(hpBar.nameText)
-        
+
         function hpBar:update(cur, max)
             --print("Update HP Bar: "..cur.."/"..max)
             local ratio = cur/max
@@ -123,7 +123,7 @@ Boss.new = function(players, options)
             while megnitude >= 0 and count <= #self.lifes do
                 --print("megnitude: "..megnitude)
                 local remain = megnitude - base.width
-                
+
                 if remain > 0 then
                     --print("set h w", count, base.width)
                     self.lifes[count]:setWidth(base.width)
@@ -136,8 +136,8 @@ Boss.new = function(players, options)
                 self.lifes[count].y = 0
                 megnitude = remain
                 --print("hp remain ", remain)
-                if remain >= 0 then 
-                    count = count + 1 
+                if remain >= 0 then
+                    count = count + 1
                 end
                 --count = count + 1
             end
@@ -266,7 +266,7 @@ Boss.new = function(players, options)
         boss.defaultX = self.x
         boss.defaultY = self.y
         print("mode 1_2 start")
-        
+
         if self:isStage1()then
             self:rotateBullet(function()
                 self:bashToCharacter(function()
@@ -279,7 +279,7 @@ Boss.new = function(players, options)
             if onComplete then
                 onComplete()
             end
-        end 
+        end
     end
 
     function boss:createUfo(x1, y1, x2, y2)
@@ -287,12 +287,12 @@ Boss.new = function(players, options)
         self.parent:insert(ufo)
         ufo.x = x1
         ufo.y = y1
-        transition.to(ufo, {time = 1200, x = x2, y = y2, onComplete = 
+        transition.to(ufo, {time = 1200, x = x2, y = y2, onComplete =
             function ()
                 ufo:beam(3000)
                 self:addTimer(3100 ,function()
                     print("retreat ufo")
-                    transition.to(ufo, {time = 500, y = -ufo.height, onComplete = 
+                    transition.to(ufo, {time = 500, y = -ufo.height, onComplete =
                         function()
                             ufo:removeSelf()
                         end
@@ -335,7 +335,7 @@ Boss.new = function(players, options)
                 missile:enableAutoDestroy()
                 print(self.x)
                 self.parent:insert(missile)
-                move.rotatAround(missile, {target = self, speed = 3, distance = 150, startDegree = startDegree + 360 / num * (i-1)})
+                move.rotateAround(missile, {target = self, speed = 3, distance = 150, startDegree = startDegree + 360 / num * (i-1)})
                 --print("Prepare missile: "..missile.x.."x"..missile.y)
                 self:addTimer(2000, function()
                     if missile.x == nil then
@@ -354,7 +354,7 @@ Boss.new = function(players, options)
             if self.x == nil then
                 return
             end
-            
+
             boss:bash({
                 delay = 0,
                 back = false,
@@ -374,7 +374,7 @@ Boss.new = function(players, options)
             self:createUfo(gap*2, -100, gap * 2, 100)
             self:createUfo(gap*3, -100, gap * 3, 100)
             self:createUfo(0, gameConfig.contentHeight, gap * 4, 100)
-            
+
             if not count then
                 count = 2
             else
@@ -401,7 +401,7 @@ Boss.new = function(players, options)
             end)
 
         end)
-        
+
     end
 
     --[[
@@ -409,7 +409,7 @@ Boss.new = function(players, options)
     --]]
     function boss:stage3()
         function boss:showDestroyEffect()
-            
+
         end
         self:removePhysics()
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
@@ -472,9 +472,9 @@ Boss.new = function(players, options)
     function boss:bash(options)
         self.ignoreWall = true
         --bash to player
-        transition.to(self, { 
-            time = options.time or 1000, 
-            delay = options.delay or 0, y = gameConfig.contentHeight + self.height, 
+        transition.to(self, {
+            time = options.time or 1000,
+            delay = options.delay or 0, y = gameConfig.contentHeight + self.height,
             onComplete = function()
                 --print("mode 1 complete")
                 if not util.isExists(self) then
@@ -508,9 +508,9 @@ Boss.new = function(players, options)
         self.ignoreWall = true
 
         move.toward(self, {
-            radius = math.atan2(self:getPlayer().y - self.y, self:getPlayer().x - self.x), 
+            radius = math.atan2(self:getPlayer().y - self.y, self:getPlayer().x - self.x),
             offsetX = 15,
-            offsetY = 15, 
+            offsetY = 15,
             back = true,
             autoRotation = false,
             onComplete = function()
@@ -525,30 +525,30 @@ Boss.new = function(players, options)
         --rotated and bullet
         local startDegree = 0
         local devision = 15
-        local count = math.floor(360 / devision) 
+        local count = math.floor(360 / devision)
         local once = 5
         transition.to(self, {
             x = gameConfig.contentWidth / 2,
             y = gameConfig.contentHeight / 2,
-            time = 1000, 
+            time = 1000,
             onComplete = function()
-                local i = self:addTimer(200, 
+                local i = self:addTimer(200,
                     function ()
                         self:shoot({degree = startDegree})
                         startDegree = startDegree + devision
-                    end, 
+                    end,
                 count)
-                self:addTimer(200*count, 
+                self:addTimer(200*count,
                     function ()
-                    self:addTimer(200, 
+                    self:addTimer(200,
                         function ()
                             self:shoot({degree = startDegree})
                             startDegree = startDegree - devision
-                        end, 
+                        end,
                     count)
                 end)
 
-                self:addTimer(400*count, 
+                self:addTimer(400*count,
                     function()
                         if onComplete then
                             onComplete()
@@ -566,7 +566,7 @@ Boss.new = function(players, options)
         self:addTimer(1000, function(event)
             if self.isDead or self.x == nil then
                 timer.cancel(event.source)
-                return 
+                return
             end
             --shoot bullet
             for i = 0, num - 1 do
@@ -579,7 +579,7 @@ Boss.new = function(players, options)
                 move.toward(bullet, {degree = 360 / ( num ) * i})
             end
             local vx, vy = self:getLinearVelocity()
-            if vy == 0 then 
+            if vy == 0 then
                 self:setLinearVelocity(vx, 300)
             end
         end, -1)

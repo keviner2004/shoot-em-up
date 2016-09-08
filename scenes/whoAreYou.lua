@@ -17,11 +17,11 @@ local scene = BasicScene.new()
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
 ---------------------------------------------------------------------------------
- 
+
 -- local forward references should go here
- 
+
 ---------------------------------------------------------------------------------
- 
+
 function scene:disableSelect(disable)
    self._disableSelect = disable
    if disable then
@@ -33,20 +33,14 @@ end
 
 -- "scene:create()"
 function scene:create( event )
-   local sceneGroup = self.view
    self.window = display.newGroup()
    --self.superGroup = display.newGroup()
    --self.superGroup.x = gameConfig.contentX
    --self.superGroup.y = gameConfig.contentY
-   self.window.x = gameConfig.contentWidth * 0.5
-   self.window.y = gameConfig.contentWidth * 0.3
    local glassPanel = GlassCornersPanel.new(gameConfig.contentWidth * 0.9, gameConfig.contentWidth * 0.4)
-   glassPanel.x = 0
-   glassPanel.y = 0
+
    self.cursor = Sprite.new(gameConfig.defaultCursor)
    local nameText = display.newText("Who Are You?", 0, 0, gameConfig.defaultFont, 50)
-   nameText.x = glassPanel.x
-   nameText.y = glassPanel.y - glassPanel.contentHeight/4
    nameText.fill = {40/255, 73/255, 95/255}
    self.lenOfName = 10
    self.gapInName = 0
@@ -58,7 +52,7 @@ function scene:create( event )
       local ch = display.newText("_", 0, 0, gameConfig.defaultFont, 60)
       self.nameTextField:insert(ch)
    end
-   
+
    self.nameTextField.maxSize = self.lenOfName
 
    function self.nameTextField:getSize(text)
@@ -133,10 +127,6 @@ function scene:create( event )
    self.nameTextField:blink()
    self.nameTextField:resize()
 
-   self.superGroup:insert(self.window)
-   self.window:insert(glassPanel)
-   self.window:insert(nameText)
-   
    local okButton = GlassProjectionPanel.new(gameConfig.contentWidth*0.25, gameConfig.contentWidth*0.12)
 
    okButton:setText("OK")
@@ -145,24 +135,11 @@ function scene:create( event )
 
    cancelButton:setText("Cancel")
 
-   local buttonsGap = gameConfig.contentWidth*0.05
-   local buttonsWidth = okButton.width + cancelButton.width + buttonsGap
-   local buttons = display.newGroup()
-   buttons:insert(okButton)
-   buttons:insert(cancelButton)
-   buttons:insert(self.cursor)
-   okButton.x = (okButton.width - buttonsWidth)/2
-   cancelButton.x = okButton.x + buttonsGap + (cancelButton.width + okButton.width)/2
-   buttons.x = 0
-   self:disableSelect(true)
-   --buttons.y = self.nameTextField.y + self.nameTextField.height/2 + gameConfig.contentWidth * 0.1
-   buttons.y = gameConfig.contentHeight * 0.75
 
+   local buttons = display.newGroup()
+   self:disableSelect(true)
    self.buttonArray[1] = okButton
    self.buttonArray[2] = cancelButton
-
-   self.superGroup:insert(buttons)
-   self.window:insert(self.nameTextField)
    self.params = event.params
 
    function okButton:onTouch(event)
@@ -178,18 +155,48 @@ function scene:create( event )
    end
 
    local keyboard = Keyboard.new(gameConfig.contentWidth, gameConfig.contentHeight/2)
-   keyboard:disable()
-   keyboard.x = gameConfig.contentWidth * 0.5
-   keyboard.y = self.window.y + (self.window.height + keyboard.height)/2 + gameConfig.contentHeight*0.03
-   self.superGroup:insert(keyboard)
-
    self.keyboard = keyboard
+   keyboard:disable()
+
+   --insert to group
+   self.window:insert(glassPanel)
+   self.window:insert(nameText)
+   self.window:insert(self.nameTextField)
+   self.window:insert(keyboard)
+   buttons:insert(okButton)
+   buttons:insert(cancelButton)
+   buttons:insert(self.cursor)
+   self.superGroup:insert(self.window)
+   self.superGroup:insert(keyboard)
+   self.superGroup:insert(buttons)
+
+   --position
+   local buttonsGap = gameConfig.contentWidth*0.05
+   local gap = gameConfig.contentWidth*0.05
+   local buttonsWidth = okButton.width + cancelButton.width + buttonsGap
+   local top = gameConfig.contentHeight/2 - (gap*2 + self.window.height + keyboard.height + buttons.height)/2
+
+   glassPanel.x = 0
+   glassPanel.y = 0
+
+   nameText.x = glassPanel.x
+   nameText.y = glassPanel.y - glassPanel.contentHeight/4
+
+   okButton.x = (okButton.width - buttonsWidth)/2
+   cancelButton.x = okButton.x + buttonsGap + (cancelButton.width + okButton.width)/2
+
+   print("~~~~~~~~~~~~~~~~~~~~",self.window.height, keyboard.height, buttons.height)
+
+   self.window.x = gameConfig.contentWidth * 0.5
+   self.window.y = top + self.window.height/2
+
+   keyboard.x = gameConfig.contentWidth * 0.5
+   keyboard.y = top + self.window.height + gap + keyboard.height/2
+
+   buttons.x = gameConfig.contentWidth * 0.5
+   buttons.y = top + self.window.height + gap + keyboard.height + gap + buttons.height/2
 
    --local red = display.newCircle( self.superGroup, gameConfig.contentWidth*0.5, gameConfig.contentHeight*0.5, 8 )
-
-   buttons.y = keyboard.y + (keyboard.height + buttons.height)/2 + gameConfig.contentHeight*0.03
-   buttons.x = gameConfig.contentWidth/2
-
    function keyboard:onKeyPressd(value)
       --logger:info(TAG, "User type %s", value)
       local currentText = scene.nameTextField:getText()
@@ -201,8 +208,8 @@ function scene:create( event )
          if size > 0 then
             local result = string.sub(currentText, 1, size - 1)
             scene.nameTextField:setText(result)
-         end  
-      else        
+         end
+      else
          if(size < scene.nameTextField.maxSize)then
             --logger:info(TAG, "max")
             scene.nameTextField:setText(currentText..value)
@@ -282,9 +289,9 @@ function scene:onKeyConfirm()
    if self._disableSelect then
       return
    end
-   
+
    if self.selectedButton then
-      print("Confirm at button ", self.buttonIdx)   
+      print("Confirm at button ", self.buttonIdx)
       self.selectedButton:playSound()
    end
    if self.buttonIdx == 1 then
@@ -299,9 +306,8 @@ function scene:show( event )
    if self.nameTextField then
       self.nameTextField.isVisible = true
    end
-   local sceneGroup = self.view
-   local phase = event.phase 
- 
+   local phase = event.phase
+
    if ( phase == "will" ) then
       if self.params and self.params.text then
          self.nameTextField:setText(self.params.text)
@@ -314,9 +320,8 @@ end
 -- "scene:hide()"
 function scene:hide( event )
    self.nameTextField.isVisible = false
-   local sceneGroup = self.view
    local phase = event.phase
- 
+
    if ( phase == "will" ) then
       self.keyboard:disable()
    elseif ( phase == "did" ) then
@@ -331,5 +336,5 @@ end
 function scene:destroy( event )
 
 end
- 
+
 return scene

@@ -62,12 +62,31 @@ function helper:getInfo(name)
     local result = self:exec(
         [[
             SELECT value FROM info WHERE name = ?;
-        ]], 
+        ]],
         {
             name
         }
     )
     return (result[1] and result[1].value) or ""
+end
+
+function helper:getAutoSignIn()
+  local enable = self:getInfo("autoSignIn")
+  if enable == "true" then
+    enable = true
+  else
+    enable = false
+  end
+  return enable
+end
+
+function helper:enableAutoSignIn(enable)
+  if enable == nil or enable == true then
+    enable = "true"
+  else
+    enable = "false"
+  end
+  return self:updateInfo("autoSignIn", "false")
 end
 
 function helper:updateInfo(name, value)
@@ -81,26 +100,101 @@ end
 function helper:dropAll()
     self:exec("DROP TABLE rank;")
     self:exec("DROP TABLE info;")
+    self:exec("DROP TABLE like;")
+    self:exec("DROP TABLE playLog;")
 end
 
 function helper:init()
+    --INIT TABLES
+    --Table rank
     self:exec([[
       CREATE TABLE IF NOT EXISTS rank (id INTEGER PRIMARY KEY, name TEXT, type TEXT, levelId TEXT, score INTEGER, date DATETIME DEFAULT CURRENT_TIMESTAMP);
     ]])
+    --Table info
     self:exec([[
       CREATE TABLE IF NOT EXISTS info (name TEXT PRIMARY KEY, value TEXT);
     ]])
+    --Table like
+    self:exec([[
+      CREATE TABLE IF NOT EXISTS like (levelId TEXT, userId TEXT, status INTEGER, date DATETIME CURRENT_TIMESTAMP, synced BOOLEAN, PRIMARY KEY (levelId, userId));
+    ]])
+    --[[
+      Level workflow
+      create playId -> play -> gameover -> update play log
+    --]]
+    --Table playLog
+    self:exec([[
+      CREATE TABLE IF NOT EXISTS playLog (id INTEGER PRIMARY KEY, levelId TEXT, nickName TEXT, userId TEXT, loginType TEXT, score INTEGER, duration INTEGER, cleared BOOLEAN, date DATETIME CURRENT_TIMESTAMP, synced BOOLEAN);
+    ]])
+
+    if self:getInfo("userId") == "" then
+      self:updateInfo("userId", "anonymous")
+    end
+
+    if self:getInfo("loginType") == "" then
+      self:updateInfo("loginType", "none")
+    end
+
     logger:info(TAG, "inited")
+
+
+end
+
+function helper:getPlayLog(playId)
+  local result = self:exec([[
+    SELECT * FROM playLog WHERE id = ?
+  ]], {
+    playId
+  })
+  if #result == 0 then
+    return nil
+  else
+    return result[1]
+  end
+end
+
+function helper:addPlayLog(levelId, nickName, userId)
+  self:exec([[
+      INSERT INTO playLog (levelId, nickName, userId, score, duration, cleared, synced) values (?, ?, ?, ?, ?, ?, ?);
+  ]], {
+    levelId, nickName, userId, 0, 0, 0, 0
+  })
+end
+
+function helper:getUpdateQuery(tableName, options)
+  local queryString = string.format("UPDATE %s SET ", tablename)
+  local seperator = ", "
+  params = {}
+  for k,v in pairs(options) do
+    queryString = queryString..k.."= ?"
+    queryString = queryString..seperator
+    params[#params+1] = v
+  end
+  queryString = string.sub(queryString, 1, -3)
+  return queryString, params
+end
+
+function helper:updatePlayLog(playId, options)
+  local playLog = self:getPlayLog(playId)
+  if not playLog then
+    logger:error(TAG, "No log can be update")
+    return
+  end
+  options.date = os.date('%Y-%m-%d %H:%M:%S', os.time())
+  local queryStr, params = self:getUpdateQuery("playLog", options)
+  queryStr = queryStr.." WHERE id = ?;"
+  params[#params+1]=playId
+  self:exec(queryStr, params)
 end
 
 function helper:getRecords(stype, levelId, n)
     local result = self:exec(
         [[SELECT * FROM rank WHERE type = ? and levelId = ? ORDER BY score DESC LIMIT ?;]], {
-            stype, 
+            stype,
             levelId,
             n
         }
-    ) 
+    )
     return result
 end
 
@@ -118,7 +212,7 @@ function helper:updateRecord(name, levelId, score)
 end
 
 function helper:addRecord(name, score, type, levelId)
-    self:exec([[INSERT INTO rank (name, score, levelId, type) VALUES (?, ?, ?, ?);]], 
+    self:exec([[INSERT INTO rank (name, score, levelId, type) VALUES (?, ?, ?, ?);]],
     {
         name,
         score,
@@ -165,8 +259,6 @@ function helper:syncHighScore(levelId)
     local localHighScore = self:getHighScore(levelId, "local")
     local globalHighScore = self:getHighScore(levelId, "global")
 
-    print("HAHAHAHA", localHighScore, globalHighScore)
-
     if localHighScore >= globalHighScore then
         self:updateGlobalData()
         globalHighScore = self:getHighScore(levelId, "global")
@@ -188,7 +280,7 @@ function helper:delLastRecords(max, type, levelId)
     )
 
     local count = result[1].c
-    
+
     logger:info(TAG, "current count %d", count)
 
     if count <= max then
@@ -216,5 +308,3 @@ function helper:close()
 end
 
 return helper
-
-

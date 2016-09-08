@@ -1,5 +1,5 @@
 local MenuScene = require("scenes.templates.MenuScene")
-local scene = MenuScene.new() 
+local scene = MenuScene.new()
 local composer = require("composer")
 local logger = require("logger")
 local TAG = "MENU"

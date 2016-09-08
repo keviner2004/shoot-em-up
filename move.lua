@@ -235,7 +235,7 @@ function M.toward(obj, options)
     )
 end
 
-function M.rotatAround(obj, options)
+function M.rotateAround(obj, options)
     local angle = options.startDegree or 0
     local function rotation()
         obj.rotation = 360 - ((angle + 90 - obj.dir )%360)
@@ -247,7 +247,10 @@ function M.rotatAround(obj, options)
     util.addEnterFrameListener(obj, 
         function()
             if options.target.x == nil or obj.x == nil then
-                print("rotatAround failed because of object disapear")
+                print("rotateAround failed because of object disapear")
+                if options and options.onMissTarget then
+                    options.onMissTarget(angle)
+                end
                 return true
             end
             rotation()
