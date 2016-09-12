@@ -41,7 +41,7 @@ LevelSelectionScene.new = function(options)
       self.title = Title.new({
         text = {
           value = (options and options.title) or "Level Selection",
-          fontSize = 35
+          fontSize = 17
         },
         icon = {
           name = (options and options.titleIcon)

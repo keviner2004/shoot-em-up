@@ -9,7 +9,7 @@ local FBLoginButton = {}
 
 FBLoginButton.new = function(width, height)
   local fbLoginBtn = Button.new()
-  local fbIcon = Sprite.new("UI/Icons/1")
+  local fbIcon = Sprite.new("UI/Icons/FB/1")
   local background = display.newRect( 0, 0, width, height )
   background.fill = {51/255, 137/255, 205/255}
   local paddingLeft = 10
@@ -47,12 +47,17 @@ FBLoginButton.new = function(width, height)
   fbLoginBtn.click = function(event)
     logger:info(TAG, "fb login request")
     facebook.login(function(status)
-      logger:info(TAG, "login result")
+      logger:info(TAG, "login result "..status)
       if status == facebook.STATUS_LOGIN then
         dbHelper:enableAutoSignIn()
         if fbLoginBtn.onLogined then
           fbLoginBtn.onLogined()
         end
+        logger:info(TAG, "try to get fb info")
+        facebook.getUserInfo(function(info)
+          dbHelper:setLoginType("FB")
+          dbHelper:setUser(info.id or "")
+        end)
       end
     end)
   end

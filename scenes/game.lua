@@ -14,6 +14,7 @@ local dbHelper = require("dbHelper")
 local composer = require( "composer" )
 local Score = require("ui.Score")
 local widget = require("widget")
+local Character = require("Character")
 local logger = require("logger")
 local gameConfig = require("gameConfig")
 local util = require("util")
@@ -309,16 +310,17 @@ function scene:createPlayer(PlaneClass, options)
     character.y = (options.pos and options.pos.y) or gameConfig.contentHeight + character.height / 2
     character:startControl()
     character:autoShoot()
-
-    character.onScoreChanged = function(obj, score, offset)
+    --[[character.onScoreChanged = function(obj, score, offset)
         --print("Set score "..score)
         self:setScore()
-    end
+    end--]]
 
+    --[[
     character.getLifes = function (obj)
         return self.totalLifes
     end
-
+    --]]
+    --[[
     character.onLoseLifes = function (obj)
         self.totalLifes = self.totalLifes - 1
         if self.totalLifes < 0 then
@@ -326,9 +328,8 @@ function scene:createPlayer(PlaneClass, options)
         else
             self.playerLifeText.text = self.totalLifes
         end
-
     end
-
+    --]]
     transition.to(character, {
         x = (options.to and options.to.x) or character.x,
         y = (options.to and options.to.y) or gameConfig.contentHeight / 5 * 4
@@ -338,12 +339,12 @@ function scene:createPlayer(PlaneClass, options)
 end
 
 function scene:startGame(options)
-    logger:info(TAG, "Start game")
+    logger:info(TAG, "Start game, players: "..gameConfig.numOfPlayers)
     self.globalScore = 0
     local sceneGroup = self.view
     self.hudGroup = display.newGroup()
     self.mainGroup = display.newGroup()
-    self.totalLifes = gameConfig.playerLifes
+    Character.totalLifes = gameConfig.playerLifes
     self.score = Score.new()
     self.score.x = gameConfig.contentWidth/2
     self.score.y = 50
@@ -403,7 +404,20 @@ function scene:startGame(options)
         scene = self
     })
     --update ui according the player
-    self.playerLifeText.text = self.totalLifes
+    --associate character event
+    Character.onScoreChanged = function(event)
+        self:setScore()
+    end
+
+    Character.onLoseLifes = function (event)
+        if Character.totalLifes < 0  then
+          self.playerLifeText.text = 0
+        else
+          self.playerLifeText.text = Character.totalLifes
+        end
+    end
+
+    self.playerLifeText.text = Character.totalLifes
     --add to group
     self.superGroup:insert(self.mainGroup)
     self.superGroup:insert(self.hudGroup)
@@ -524,8 +538,12 @@ function scene:show( event )
                     options.levelName = self.levels[self.currentLevelIdx]
                 end
                 options.onComplete = function(event)
-                    logger:info(TAG, "!!!!!!!!!!!Level %s complete!!!!!!!!!!!", event.id)
+                    logger:info(TAG, "!!!!!!!!!!!Level %s completed!!!!!!!!!!!", event.id)
                     self:victory({levelId = event.id})
+                end
+                options.onFail = function(event)
+                    logger:info(TAG, "!!!!!!!!!!!Level %s failed!!!!!!!!!!!", event.id)
+                    self:gameOver({levelId = event.id})
                 end
                 self.gameOptions = options
                 logger:info(TAG, "Just start the game, mode: %s", options.mode)

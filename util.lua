@@ -40,7 +40,7 @@ function util.indexOf(table, value)
     end
     for i = 1, #table do
         if table[i] == value then
-            return i    
+            return i
         end
     end
     return -1
@@ -58,6 +58,10 @@ function util.getRotateIndex(index, total)
         index = total - index
     end
     return index
+end
+
+function util.getCurrentDate()
+  return os.date("%Y-%m-%d %H:%M:%S", os.time(os.date("!*t")))
 end
 
 util.isExist = util.isExists

@@ -1,7 +1,11 @@
 local config = {}
 local Logging = require("Logging")
-config.stageSpeed = 200
+--adjust below params if you want to publish
+config.production = true
+config.version = "0.96"
+config.dbVersion = "0.35"
 config.soundOn = true
+
 config.fightBeforeEncounterBoss = 10
 config.playerUnstoppable = false
 config.debugFPS = true
@@ -9,8 +13,6 @@ config.logLevel = Logging.INFO
 config.debugPhysics = false
 config.playerLifes = 2
 config.controlType = {"follow", "key"} --both follow
---config.rankServerUrl = "http://163.18.2.162"
-config.rankServerUrl = "http://127.0.0.1"
 config.keyUp = "up"
 config.keyDown = "down"
 config.keyLeft = "left"
@@ -42,6 +44,7 @@ config.MODE_MULTIPLE_LEVEL = "multiplemode"
 config.defaultFont = "kenvector_future_thin"
 config.defaultCursor = "UI/Cursors/1"
 config.ID_LEVEL_INFINITE = "98163718173"
+config.MAX_PLAY_LOGS = 50
 config.gameLevels = {
     "default.level_boss_1",
     "default.level_1",
@@ -70,9 +73,6 @@ config.seperateLevels = {
     "default.level_5",
 }
 
-config.version = "0.95"
-config.dbVersion = "0.24"
-
 config.basicHeight = 640
 
 config.imageSuffix = {
@@ -81,4 +81,14 @@ config.imageSuffix = {
     ["@4x"] = 3.5
 }
 config.scaleFactor =  config.contentHeight / config.basicHeight
+config.stageSpeed = 100 * config.scaleFactor
+if config.production then
+  --config.rankServerUrl = "http://163.18.2.162"
+  config.rankServerUrl = "http://106.186.123.208:8000"
+  config.fbskip = false
+else
+  config.rankServerUrl = "http://127.0.0.1:8000"
+  config.fbskip = true
+end
+
 return config

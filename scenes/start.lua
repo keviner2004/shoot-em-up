@@ -135,7 +135,7 @@ function scene:createLoginButton()
   local title = Title.new({
     text = {
         font = native.systemFont,
-        fontSize = 40,
+        fontSize = 20,
         value = TEXT_LOGIN
     }
   })
@@ -214,14 +214,16 @@ end
 function scene:onDidShow( event )
   --auto login
   local autoLogin = dbHelper:getAutoSignIn()
-  if autoLogin and event.params and event.params.action ~= "disableLogin" then
+  logger:info(TAG, "check need login to facebook, autoLogin: %s, disable: %s", tostring(autoLogin), tostring((event.params and event.params.action == "disableLogin") or 0))
+  if autoLogin and not (event.params and event.params.action == "disableLogin") then
     logger:info(TAG, "login with facebook")
     facebook.login(function(status)
       logger:info(TAG, "login with status %s", status)
         if status == facebook.STATUS_LOGIN then
           self:updateLoginStatus()
           facebook.getUserInfo(function(info)
-
+            dbHelper:setLoginType("FB")
+            dbHelper:setUser(info.id or "")
           end)
       end
     end)

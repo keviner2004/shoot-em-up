@@ -20,9 +20,18 @@ local CircleExplosion = require("effects.CircleExplosion")
 
 local TAG = "Character"
 
+Character.enableShareLifes = true
+Character.totalLifes = 3
+Character.backpack = Backpack.new()
+Character.onScoreChanged = function(event) end
+Character.onLifeChanged = function(event) end
+Character.getScore = function()
+
+end
+
 Character.new = function (options)
     local character = GameObject.new()
-
+    Character.backpack:add2(character)
     function character:init(options)
         self.power = (options and options.power) or 1
         self.defaultPower = self.power
@@ -435,20 +444,45 @@ Character.new = function (options)
         if score == 0 then
             return
         end
+
         self.score = self.score + score
-        self:onScoreChanged(self.score, score)
+        local event = {
+          offset = score,
+          score = self.score,
+        }
+        self:onScoreChanged(event)
+        Character.onScoreChanged(event)
     end
 
     function character:closeShield()
         self.shield:close()
     end
 
-    function character:onLoseLifes()
-        self.lifes = self.lifes - 1
+    function character:onLoseLifes(lifes)
+
     end
 
+    function character:loseLifes()
+        if Character.totalLifes <= -gameConfig.numOfPlayers then
+            return
+        end
+        local event = {}
+        if Character.enableShareLifes then
+            Character.totalLifes = Character.totalLifes - 1
+            event.lifes = self.totalLifes
+        else
+            self.lifes = self.lifes - 1
+            event.lifes = self.lifes
+        end
+        self:onLoseLifes(event)
+        Character.onLoseLifes(event)
+    end
     function character:getLifes()
-        return self.lifes
+        if Character.enableShareLifes then
+          return Character.totalLifes
+        else
+          return self.lifes
+        end
     end
 
     function character:onDead()
@@ -470,7 +504,7 @@ Character.new = function (options)
         effect.x = self.x
         effect.y = self.y
         self.parent:insert(effect)
-        self:onLoseLifes()
+        self:loseLifes()
         --print("########### blink transition")
         local blinkCount = 0
         local blinkTransition = nil
@@ -501,6 +535,11 @@ Character.new = function (options)
 
     function character:onGameOver()
 
+    end
+
+    function character:onClear()
+      logger:info(TAG, "remove character from backpack")
+      Enemy.backpack:remove2(self)
     end
 
     function character:reStartAutoShoot()

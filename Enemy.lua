@@ -51,10 +51,10 @@ Enemy.new = function(options)
 
     enemy.preCollision = function(self, event)
         --print("enemy before hit by "..event.other.name)
-        --if event.other.name == "bullet" then 
+        --if event.other.name == "bullet" then
             if event.contact then
                 event.contact.isEnabled = false
-            else 
+            else
                 print("WTF")
             end
         --end
@@ -69,7 +69,7 @@ Enemy.new = function(options)
             self:hurt(event.other.damage, event.other.owner)
         end
     end
-    
+
     function enemy:addItem(class, ...)
         --print("Add item "..class.." to enemy")
         local item = {}
@@ -124,7 +124,7 @@ Enemy.new = function(options)
             end
 
             blend(self)
-            timer.performWithDelay(100, 
+            timer.performWithDelay(100,
                 function()
                     self:showUnHurtEffect()
                     self.processHurtEffect = false
@@ -147,7 +147,7 @@ Enemy.new = function(options)
     end
 
     function enemy:playDeadSound()
-       sfx:play(self.deadSound) 
+       sfx:play(self.deadSound)
     end
 
     function enemy:showUnHurtEffect()
@@ -163,7 +163,7 @@ Enemy.new = function(options)
                 end
             end
         end
-        blend(self) 
+        blend(self)
     end
 
     function enemy:hurt(damage, crime)
@@ -174,7 +174,7 @@ Enemy.new = function(options)
             --self:unHurtEffect()
             if self.hp <= 0 then
                 self:playDeadSound()
-                timer.performWithDelay(1, 
+                timer.performWithDelay(1,
                     function(event)
                         self:showDestroyEffect()
                         self:onDead(crime)
@@ -202,9 +202,9 @@ Enemy.new = function(options)
     function enemy:onDead(crime)
         --print("Enemy onDead")
         physics.removeBody(self)
-        transition.to(self, {time = 0, alpha = 0, onComplete = 
+        transition.to(self, {time = 0, alpha = 0, onComplete =
             function ( ... )
-                self:clear()    
+                self:clear()
         end})
     end
 

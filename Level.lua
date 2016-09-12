@@ -1,9 +1,12 @@
 local logger = require("logger")
+local dbHelper = require("dbHelper")
 local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
 local TAG = "Level"
 local Level = {}
 local gameConfig = require("gameConfig")
+
+Level.currentLevelId = -1
 
 Level.load = function()
     local level = {}
@@ -112,7 +115,8 @@ Level.load = function()
           self.currentSublevel = levelObj
         end
         self.currentSublevel:init(self:getInitOptions({
-            onComplete = options and options.onComplete
+            onComplete = options and options.onComplete,
+            onFail = options and options.onFail
         }))
         if not self.currentSublevel.isBossFight then
           self:showInfo()
@@ -121,11 +125,58 @@ Level.load = function()
     end
 
     function level:startSingleLevel(level, options)
-        self:startLevel(level, options)
+        self:startLevel(level, {
+            onComplete = function(event)
+              if options and options.onComplete then
+                self:updatePlayLog(self.game.globalScore, 1)
+                options.onComplete(event)
+              end
+            end,
+            onFail = function(event)
+              if options and options.onFail then
+                self:updatePlayLog(self.game.globalScore, 0)
+                options.onFail(event)
+              end
+            end
+        })
+        self:addPlayLog()
     end
 
-    function level:startInfiniteLevel()
-        logger:info(TAG, "startInfiniteLevel")
+    function level:startInfiniteLevel(options)
+        self:addPlayLog(gameConfig.ID_LEVEL_INFINITE)
+        self:_startInfiniteLevel({
+            onComplete = options and options.onComplete,
+            onFail = function(event)
+              if options and options.onFail then
+                self:updatePlayLog(self.game.globalScore, 0)
+                options.onFail(event)
+              end
+            end
+        })
+    end
+
+    function level:addPlayLog(levelId)
+        levelId = levelId or self.currentSublevel.id
+        self.levelStartTime = os.time(os.date("!*t"))
+        self.playId = dbHelper:addPlayLog(levelId)
+        Level.currentLevelId = levelId
+    end
+
+    function level:updatePlayLog(score, cleared)
+        --print("~~~~~~~~~~~~~~~~")
+        self.levelEndTime = os.time(os.date("!*t"))
+        self.levelPlayDuration = self.levelEndTime - self.levelStartTime
+        dbHelper:updatePlayLog(self.playId, {
+            duration = self.levelPlayDuration,
+            startTime = os.date('%Y-%m-%d %H:%M:%S', self.levelStartTime),
+            score = score,
+            cleared = cleared
+        })
+        dbHelper:syncPlayLogs()
+    end
+
+    function level:_startInfiniteLevel(options)
+        logger:info(TAG, "_startInfiniteLevel")
         --Get a random level from levels
         if #self.levelCandidates == 0  then
             logger:warn(TAG, "Repeat normal level")
@@ -163,8 +214,9 @@ Level.load = function()
 
         self:startLevel(self.levels[idx], {
           onComplete = function()
-              self:startInfiniteLevel()
-          end
+              self:_startInfiniteLevel(options)
+          end,
+          onFail = options and options.onFail
         })
     end
 
@@ -214,7 +266,7 @@ Level.load = function()
                     end
                     self:startSingleLevel(options.levelName, options)
                 else
-                    self:startInfiniteLevel()
+                    self:startInfiniteLevel(options)
                 end
                 if self.currentSublevel and self.paused then
                     logger:info(TAG, "Pause lossing current sublevel")

@@ -3,7 +3,8 @@ local TimerUtil = require("TimerUtil")
 local EnterFrameUtil = require("EnterFrameUtil")
 local logger = require("logger")
 local GameObject = require("GameObject")
-local gameConfig = require("GameConfig")
+local gameConfig = require("gameConfig")
+local Character = require("Character")
 local Sublevel = {}
 
 TAG = "Sublevel"
@@ -19,6 +20,7 @@ Sublevel.new = function (id, name, author, options)
         self.enterFrame = EnterFrameUtil.new({owner = "sublevel"})
         self.timerUtil = TimerUtil.new()
         self.onComplete = options and options.onComplete
+        self.onFail = options and options.onFail
         self:setPlayer(options and options.players)
         self.stageSpeed = options and options.stageSpeed
         self.view = options and options.view
@@ -90,10 +92,16 @@ Sublevel.new = function (id, name, author, options)
 
     function sublevel:isFinish()
         --print("finished? ",self._finished)
-        if self._finished then
-            return true
-        end
-        return false
+        return self._finished
+    end
+
+    function sublevel:isFail()
+      --print("1234", Character.totalLifes, gameConfig.numOfPlayers)
+      if Character.totalLifes <= -gameConfig.numOfPlayers then
+        logger:info(TAG, "isFail")
+        return true
+      end
+      return false
     end
 
     function sublevel:getEnemies()
@@ -119,14 +127,20 @@ Sublevel.new = function (id, name, author, options)
                 return
             end
             if self:isFinish() then
-                print("Sublevel is complete!!!!!")
+                logger:info(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
+
                 if self.onComplete then
-                    logger:verbose(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
-                    --print("Call oncomplete")
                     self.onComplete({id = self.id})
-                    self:finish()
                 end
+                self:finish()
+            elseif self:isFail() then
+                logger:info(TAG, "==========Sublevel fail: %d", self.enterFrame.numOfItems)
+                self.enterFrame:cancel(_check)
+                if self.onFail then
+                    self.onFail({id = self.id})
+                end
+                self:fail()
             end
         end
         --print("****************** Assign check task 1 *****************", self.enterFrame.numOfItems)
@@ -135,6 +149,10 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:finish()
+
+    end
+
+    function sublevel:fail()
 
     end
 

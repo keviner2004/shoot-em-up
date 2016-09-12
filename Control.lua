@@ -5,15 +5,15 @@ local gameConfig = require("gameConfig")
 local Control = {}
 local SIN, COS = {}, {}
 
-for i = -360, 360 do 
-   SIN[i] = math.sin( math.pi / 180 * i ) 
+for i = -360, 360 do
+   SIN[i] = math.sin( math.pi / 180 * i )
    COS[i] = math.cos( math.pi / 180 * i )
 end
 
 Control.new = function(target, controlType, fingerSize, options)
     local control = {}
     control.controlType = controlType
-    control.fingerSize = fingerSize
+    control.fingerSize = fingerSize * gameConfig.scaleFactor
     control.target = target
     control.offsetX = 0
     control.offsetY = 0
@@ -61,20 +61,20 @@ Control.new = function(target, controlType, fingerSize, options)
 
     function control:key( event )
         --if event.keyName == "right" or event.keyName == "left" or event.keyName == "up" or event.keyName == "down" then
-        if event.phase == "down" then 
+        if event.phase == "down" then
             self.pressKey[event.keyName] = true
             self.enableKeyMove = true
             if event.keyName == gameConfig.keyRight then
-                self.offsetX = 10
+                self.offsetX = 5 * gameConfig.scaleFactor
             end
             if event.keyName == gameConfig.keyLeft then
-                self.offsetX = -10
+                self.offsetX = -5 * gameConfig.scaleFactor
             end
             if event.keyName == gameConfig.keyUp then
-                self.offsetY = -10
+                self.offsetY = -5 * gameConfig.scaleFactor
             end
             if event.keyName == gameConfig.keyDown then
-                self.offsetY = 10
+                self.offsetY = 5 * gameConfig.scaleFactor
             end
             print("enable move with key "..self.offsetX)
         elseif event.phase == "up" then
@@ -121,7 +121,7 @@ Control.new = function(target, controlType, fingerSize, options)
         if self.target.paused then
             return
         end
-        
+
         if self.enableFollowControl and self.enableFollowMove then
             if not self.touchPos then
                 return
@@ -131,14 +131,14 @@ Control.new = function(target, controlType, fingerSize, options)
             local touchY = self.touchPos.y - self.fingerSize - gameConfig.contentY
             self.tmpTouchPos.x = touchX
             self.tmpTouchPos.y = touchY
-            local targetX = self.target.x 
+            local targetX = self.target.x
             local targetY = self.target.y
 
             --self:getMoveAngle(self.target, self.touchPos)
             self:getMoveAngle(self.target, self.tmpTouchPos)
-            
-            local offsetY = 30 * SIN[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
-            local offsetX = 30 * COS[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
+
+            local offsetY = 15 * gameConfig.scaleFactor * SIN[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
+            local offsetX = 15 * gameConfig.scaleFactor * COS[math.floor(self.moveAngle)] * (1 + (self.target.moveSpeed or 0))
             --local offsetX = 0
             --local offsetY = 0
 
@@ -154,15 +154,15 @@ Control.new = function(target, controlType, fingerSize, options)
                     self.target.x = self.target.x + offsetX
                 end
             end
-            
+
             if targetY ~= touchY then
                 if targetY < touchY and targetY + offsetY > touchY then
                     self.target.y = touchY
                 elseif targetY > touchY and targetY + offsetY < touchY then
                     self.target.y = touchY
                 else
-                    self.target.y = self.target.y + offsetY    
-                end 
+                    self.target.y = self.target.y + offsetY
+                end
             end
             ----]]
         end
@@ -189,7 +189,7 @@ Control.new = function(target, controlType, fingerSize, options)
 
     function control:start()
         if self.status == "started" then
-           return 
+           return
         end
         if self.enableFollowControl then
             Runtime:addEventListener("touch", self)
@@ -197,7 +197,7 @@ Control.new = function(target, controlType, fingerSize, options)
         if self.enableKeyControl then
             Runtime:addEventListener( "key", self)
         end
-        enterFrame:each(self, "control")        
+        enterFrame:each(self, "control")
         self.status = "started"
     end
 

@@ -1,5 +1,6 @@
 local Title = {}
 local Sprite = require("Sprite")
+local ScaleText = require("ui.ScaleText")
 local gameConfig = require("gameConfig")
 
 Title.new = function(options)
@@ -12,8 +13,17 @@ Title.new = function(options)
     if textOptions then
         local textValue = textOptions.value or ""
         local font = textOptions.font or gameConfig.defaultFont
-        local fontSize = textOptions.fontSize or 40
-        local text = display.newText(textValue, 0, 0, font, fontSize)
+        local fontSize = textOptions.fontSize or 20
+        local options = {
+          text = textValue,
+          x = 0,
+          y = 0,
+          font = font,
+          fontSize = fontSize,
+          width = textOptions and textOptions.width,
+          align = "center"
+        }
+        local text = ScaleText.new(options)
         width = width + text.contentWidth
         title:insert(text)
         title.text = text

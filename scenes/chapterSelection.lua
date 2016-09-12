@@ -13,7 +13,7 @@ local Number = require("ui.Number")
 local CHAPTER_INFINITE_MODE_INDEX = 1
 local CHAPTER_LEVEL_MODE_INDEX = 2
 local navigator = require("navigator")
-
+local ScaleText = require("ui.ScaleText")
 local scene = LevelSelectionScene.new({
     row = 1,
     col = 1,
@@ -42,8 +42,20 @@ function scene:createChapter(options)
     local bar = Bar.new(self.blockWidth, self.blockHeight * 0.16)
     local base = MetalPanel.new(self.blockWidth, self.blockHeight)
     local info = MetalPanelPlate.new(self.blockWidth * 0.92, self.blockHeight/4)
-    local chapterName = display.newText((options and options.title) or "Classic", 0, 0, "kenvector_future_thin", 35)
-    local scoreLabel = display.newText("Score", 0, 0, "kenvector_future_thin", 60)
+    local chapterName = ScaleText.new({
+      text = (options and options.title) or "Classic",
+      x = 0,
+      y = 0,
+      font = gameConfig.defaultFont,
+      fontSize = 17
+    })
+    local scoreLabel = ScaleText.new({
+      text = "Score",
+      x = 0,
+      y = 0,
+      font = gameConfig.defaultFont,
+      fontSize = 30
+    })
     local preview = (options and options.preview) or Sprite.new("Planet/5")
     preview.y = -self.blockHeight*0.08
     scoreLabel.fill = {139/255, 147/255, 158/255}

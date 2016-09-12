@@ -1,6 +1,8 @@
 local sqlite3 = require( "sqlite3" )
 local logger = require("logger")
 local gameConfig = require("gameConfig")
+local apiHelper = require("apiHelper")
+local util = require("util")
 local TAG = "Helper"
 local path = system.pathForFile( "spaceshooter.db", system.DocumentsDirectory )
 logger:info(TAG, "DB store in %s", path)
@@ -86,7 +88,24 @@ function helper:enableAutoSignIn(enable)
   else
     enable = "false"
   end
-  return self:updateInfo("autoSignIn", "false")
+  return self:updateInfo("autoSignIn", enable)
+end
+
+
+function helper:setLoginType(value)
+  self:updateInfo("loginType", value)
+end
+
+function helper:getLoginType()
+  return self:getInfo("loginType")
+end
+
+function helper:setUserId(value)
+  self:updateInfo("userId", value)
+end
+
+function helper:getUserId()
+  return self:getInfo("userId")
 end
 
 function helper:updateInfo(name, value)
@@ -101,6 +120,7 @@ function helper:dropAll()
     self:exec("DROP TABLE rank;")
     self:exec("DROP TABLE info;")
     self:exec("DROP TABLE like;")
+    self:exec("DROP TABLE likeRequest;")
     self:exec("DROP TABLE playLog;")
 end
 
@@ -108,23 +128,30 @@ function helper:init()
     --INIT TABLES
     --Table rank
     self:exec([[
-      CREATE TABLE IF NOT EXISTS rank (id INTEGER PRIMARY KEY, name TEXT, type TEXT, levelId TEXT, score INTEGER, date DATETIME DEFAULT CURRENT_TIMESTAMP);
+      CREATE TABLE IF NOT EXISTS rank (id INTEGER PRIMARY KEY, name TEXT, type TEXT, levelId TEXT, score INTEGER, cdate DATETIME DEFAULT CURRENT_TIMESTAMP, mdate DATETIME DEFAULT CURRENT_TIMESTAMP, sdate DATETIME DEFAULT CURRENT_TIMESTAMP);
     ]])
     --Table info
     self:exec([[
       CREATE TABLE IF NOT EXISTS info (name TEXT PRIMARY KEY, value TEXT);
     ]])
+
     --Table like
     self:exec([[
-      CREATE TABLE IF NOT EXISTS like (levelId TEXT, userId TEXT, status INTEGER, date DATETIME CURRENT_TIMESTAMP, synced BOOLEAN, PRIMARY KEY (levelId, userId));
+      CREATE TABLE IF NOT EXISTS like (levelId TEXT PRIMARY KEY, num INTEGER, cdate DATETIME DEFAULT CURRENT_TIMESTAMP, mdate DATETIME DEFAULT CURRENT_TIMESTAMP, sdate DATETIME DEFAULT CURRENT_TIMESTAMP);
     ]])
+
+    --Table like request
+    self:exec([[
+      CREATE TABLE IF NOT EXISTS likeRequest (levelId TEXT, userId TEXT, loginType TEXT, status INTEGER, synced BOOLEAN, cdate DATETIME DEFAULT CURRENT_TIMESTAMP, mdate DATETIME DEFAULT CURRENT_TIMESTAMP, sdate DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (levelId, userId, loginType));
+    ]])
+
     --[[
       Level workflow
       create playId -> play -> gameover -> update play log
     --]]
     --Table playLog
     self:exec([[
-      CREATE TABLE IF NOT EXISTS playLog (id INTEGER PRIMARY KEY, levelId TEXT, nickName TEXT, userId TEXT, loginType TEXT, score INTEGER, duration INTEGER, cleared BOOLEAN, date DATETIME CURRENT_TIMESTAMP, synced BOOLEAN);
+      CREATE TABLE IF NOT EXISTS playLog (id INTEGER PRIMARY KEY, levelId TEXT, userName TEXT, userId TEXT, loginType TEXT, score INTEGER, startTime DATETIME DEFAULT CURRENT_TIMESTAMP, duration INTEGER, cleared BOOLEAN, cdate DATETIME DEFAULT CURRENT_TIMESTAMP, mdate DATETIME DEFAULT CURRENT_TIMESTAMP, sdate DATETIME DEFAULT CURRENT_TIMESTAMP, synced BOOLEAN);
     ]])
 
     if self:getInfo("userId") == "" then
@@ -140,6 +167,91 @@ function helper:init()
 
 end
 
+function helper:getLike(levelId)
+  local result = self:exec([[
+    SELECT * FROM like WHERE levelId = ?
+  ]],
+  {levelId})
+  return result[1]
+end
+
+function helper:getNumOfLikes(levelId)
+  local like = self:getLike(levelId)
+  if like then
+    return like.num
+  end
+  return 0
+end
+
+function helper:changeNumOfLikes(levelId, offset)
+  local num = self:getNumOfLikes(levelId)
+  num = num + offset
+  if num < 0 then
+    num = 0
+  end
+  self:updateLike(levelId, num)
+end
+
+function helper:updateLike(levelId, num)
+  local date = util.getCurrentDate()
+  self:exec([[
+    INSERT OR REPLACE INTO like (levelId, num, mdate) values (?, ?, ?);
+  ]], {
+    levelId, num, date
+  })
+end
+
+function helper:isLike(levelId)
+  local likeRequest = self:getLikeRequest(levelId)
+  if likeRequest and likeRequest.status > 0 then
+    return true
+  else
+    return false
+  end
+end
+
+function helper:like(levelId)
+  self:updateLikeRequest(levelId, 1)
+end
+
+function helper:disLike(levelId)
+  self:updateLikeRequest(levelId, 0)
+end
+
+function helper:getLikeRequest(levelId, options)
+  local userId = (options and options.userId) or self:getUserId()
+  local loginType = (options and options.loginType) or self:getLoginType()
+  local result = self:exec([[
+    SELECT * FROM likeRequest WHERE levelId = ? AND userId = ? AND loginType = ?
+  ]], {
+    levelId, userId, loginType
+  })
+  if #result > 0 then
+    return result[1]
+  else
+    return nil
+  end
+end
+
+function helper:updateLikeRequest(levelId, liked)
+  local userId = self:getUserId()
+  local loginType = self:getLoginType()
+  local date = util.getCurrentDate()
+  self:exec([[
+    INSERT OR REPLACE INTO likeRequest (levelId, userId, loginType, status, synced, mdate) values (?, ?, ?, ?, ?, ?);
+  ]], {
+    levelId, userId, loginType, liked, 0, date
+  })
+end
+
+function helper:markLikeRequest(levelId, userId, loginType)
+  local result = self:exec([[
+    UPDATE likeRequest SET synced = ?, sdate = ? WHERE levelId = ? AND userId = ? AND loginType = ?;
+  ]], {
+    1, util.getCurrentDate(), levelId, userId, loginType
+  })
+end
+
 function helper:getPlayLog(playId)
   local result = self:exec([[
     SELECT * FROM playLog WHERE id = ?
@@ -153,16 +265,93 @@ function helper:getPlayLog(playId)
   end
 end
 
-function helper:addPlayLog(levelId, nickName, userId)
+function helper:getLastPlayLogId(playId)
+  local result = self:exec([[
+    SELECT * FROM playLog WHERE id = (SELECT MAX(id) FROM playLog);
+  ]])
+  if #result == 0 then
+    return nil
+  else
+    return result[1].id
+  end
+end
+
+function helper:addPlayLog(levelId)
+  local userName = self:getInfo("userName")
+  local userId = self:getInfo("userId")
+  local loginType = self:getInfo("loginType")
   self:exec([[
-      INSERT INTO playLog (levelId, nickName, userId, score, duration, cleared, synced) values (?, ?, ?, ?, ?, ?, ?);
+      INSERT INTO playLog (levelId, userName, userId, loginType, score, duration, cleared, synced) values (?, ?, ?, ?, ?, ?, ?, ?);
   ]], {
-    levelId, nickName, userId, 0, 0, 0, 0
+    levelId, userName, userId, loginType, 0, 0, 0, 0
+  })
+  local playId = self:getLastPlayLogId()
+  if not playId then
+    logger:error(TAG, "Play id not found")
+  end
+  return playId
+end
+
+function helper:syncPlayLogs()
+  local result = self:exec([[
+    SELECT * FROM playLog WHERE synced = 0 AND duration > 0;
+  ]])
+  for i = 1, #result do
+    local id = result[i].id
+    apiHelper:addPlayLog({
+      levelId = result[i].levelId,
+      loginType = result[i].loginType,
+      userId = result[i].userId,
+      userName = result[i].userName,
+      score = result[i].score,
+      cleared = result[i].cleared,
+      startTime = result[i].startTime,
+      duration = result[i].duration,
+      onComplete = function(event)
+        if event.success then
+          self:updatePlayLog(id, {
+            synced = 1
+          })
+        end
+      end
+    })
+  end
+end
+
+function helper:syncLikeRequest()
+  local result = self:exec([[
+    SELECT * FROM likeRequest WHERE synced = 0;
+  ]])
+  for i = 1, #result do
+    apiHelper:syncLike({
+      levelId = result[i].levelId,
+      userId = result[i].userId,
+      loginType = result[i].loginType,
+      status = result[i].status,
+      startTime = result[i].mdate,
+      onComplete = function(event)
+        if event.success then
+          self:markLikeRequest(result[i].levelId, result[i].userId, result[i].loginType)
+          self:syncLikeNum(result[i].levelId)
+        end
+      end
+    })
+  end
+end
+
+function helper:syncLikeNum(levelId)
+  apiHelper:getLikeNum({
+    levelId = levelId,
+    onComplete = function(event)
+      if event.success and event.response.count then
+        self:updateLike(event.response.count)
+      end
+    end
   })
 end
 
 function helper:getUpdateQuery(tableName, options)
-  local queryString = string.format("UPDATE %s SET ", tablename)
+  local queryString = string.format("UPDATE %s SET ", tableName)
   local seperator = ", "
   params = {}
   for k,v in pairs(options) do
@@ -180,7 +369,6 @@ function helper:updatePlayLog(playId, options)
     logger:error(TAG, "No log can be update")
     return
   end
-  options.date = os.date('%Y-%m-%d %H:%M:%S', os.time())
   local queryStr, params = self:getUpdateQuery("playLog", options)
   queryStr = queryStr.." WHERE id = ?;"
   params[#params+1]=playId
@@ -199,16 +387,15 @@ function helper:getRecords(stype, levelId, n)
 end
 
 function helper:updateRecord(name, levelId, score)
-    local isGothighScore = false
+    local newRecord = false
     local localHighScore = self:getHighScore(levelId, "local")
-    print("~~~~~~~~~~", score, localHighScore)
     if score > localHighScore then
-        isGothighScore = true
+        newRecord = true
     end
     self:addRecord(name, score, "local", levelId)
     self:delLastRecords(10, "local", levelId)
     self:syncHighScore(levelId)
-    return isGothighScore
+    return newRecord
 end
 
 function helper:addRecord(name, score, type, levelId)
@@ -244,31 +431,35 @@ function helper:getHighScore(levelId, type)
     return result[1].M
 end
 
-function helper:updateGlobalData(levelId)
+function helper:updateGlobalData(levelId, options)
     logger:info(TAG, "UpdateGlobalData, it will update the global database")
     --sync score from server
-
-
-
-    --self:delLastRecords(10, "global", levelId)
-
+    apiHelper:getLeaderboard({
+      levelId = levelId,
+      onComplete = function(event)
+        if event.success then
+          local records = event.response.result
+          self:exec("DELETE FROM rank WHERE type = ? AND levelId = ?",{
+            "global", levelId
+          })
+          for i = 1, #records do
+            self:addRecord(records[i].name, records[i].score, "global", levelId)
+          end
+        end
+        if options and options.onComplete then
+          options.onComplete(event)
+        end
+      end
+    })
     return 0
 end
 
 function helper:syncHighScore(levelId)
     local localHighScore = self:getHighScore(levelId, "local")
     local globalHighScore = self:getHighScore(levelId, "global")
-
     if localHighScore >= globalHighScore then
-        self:updateGlobalData()
-        globalHighScore = self:getHighScore(levelId, "global")
+        self:updateGlobalData(levelId)
     end
-
-    if localHighScore > globalHighScore then
-        --send to server
-    end
-
-    return localHighScore
 end
 
 function helper:delLastRecords(max, type, levelId)

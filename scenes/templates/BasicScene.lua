@@ -188,6 +188,7 @@ BasicScene.new = function ()
     function proxy:show( event )
       local phase = event.phase
       if ( phase == "will" ) then
+        scene.destroyed = false
         scene.params = event.params
         self.listenerRemoved = false
       elseif (phase == "did") then
@@ -211,6 +212,7 @@ BasicScene.new = function ()
     end
 
     function proxy:destroy( event )
+        scene.destroyed = true
         scene:destroy(event)
     end
 

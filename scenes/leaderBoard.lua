@@ -11,11 +11,11 @@ local gameConfig = require("gameConfig")
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
 ---------------------------------------------------------------------------------
- 
+
 -- local forward references should go here
- 
+
 ---------------------------------------------------------------------------------
- 
+
 -- "scene:create()"
 local LevelSelectionScene = require("scenes.templates.LevelSelectionScene")
 local logger = require("logger")
@@ -31,7 +31,7 @@ local scene = LevelSelectionScene.new({
 
 function scene:createRecordBlock(width, height, position, name, score)
    local block = display.newGroup()
-   
+
    --local insidePanel = InsidePanel.new(self.blockWidth*0.95, self.blockHeight*0.8)
    local posStr = ""
    if position == 1 then
@@ -99,7 +99,7 @@ function scene:createLoadingStatus()
    local label = display.newText("Loading", 0, 0, gameConfig.defaultFont, 40)
    local function rotate()
       icon.rotation = 0
-      transition.to(icon, {time = 1000, rotation = 360, onComplete = 
+      transition.to(icon, {time = 1000, rotation = 360, onComplete =
          function()
             rotate()
          end})
@@ -128,6 +128,7 @@ function scene:createRecordList(options)
    logger:info(TAG, "Num of records is %d", #records)
    for i = 1, #records do
       local record = records[i]
+      logger:info(TAG, "Record %d: name:%s, score: %s", i, record.name, record.score)
       local block = self:createRecordBlock(self.blockWidth* 0.95, recordHeight, i, record.name, record.score)
       block.x = 0
       block.y =  top + recordHeight * (i-1) + recordHeight/2
@@ -143,8 +144,29 @@ function scene:createRecordList(options)
    return list
 end
 
+function scene:createGlobalRecordList()
+  --local page = self:getLevel(1)
+  dbHelper:updateGlobalData((self.params and self.params.levelId) or gameConfig.ID_LEVEL_INFINITE, {
+    onComplete = function()
+      if self.destroyed then
+        return
+      end
+      self:stopLoading()
+      --local page = self:getLevel(1)
+      local list = self:createRecordList({
+         type = "global",
+         levelId = self.params and self.params.levelId
+      })
+      list.x = 0
+      list.y = 0
+      self:updateGlobalRecords(list)
+    end
+  })
+
+end
+
 function scene:createLocalRecordList()
-   local page = self:getLevel(1)
+   --local page = self:getLevel(1)
    local list = self:createRecordList({
       type = "local",
       levelId = self.params and self.params.levelId
@@ -172,22 +194,22 @@ function scene:clearGlobalRecords()
    self:clearGroup(self.globalRecordList)
 end
 
-function scene:createGlobalRecordList()
-
-end
-
 function scene:onLevelUnselect(index)
    local page = self:getLevel(index)
    if index == 1 then
       logger:info(TAG, "Unselect local leaderboard")
-      
+
    elseif index == 2 then
       logger:info(TAG, "Unselect global leaderboard")
-      if self.loadingStatus then
-         self.loadingStatus:removeSelf()
-         self.loadingStatus = nil
-      end
+      self:stopLoading()
    end
+end
+
+function scene:stopLoading()
+  if self.loadingStatus then
+     self.loadingStatus:removeSelf()
+     self.loadingStatus = nil
+  end
 end
 
 function scene:clearGroup(group)
@@ -200,7 +222,7 @@ function scene:onLevelSelect(index)
    local page = self:getLevel(index)
    if index == 1 then
       logger:info(TAG, "Select local leaderboard")
-      self:createLocalRecordList()  
+      self:createLocalRecordList()
    elseif index == 2 then
       logger:info(TAG, "Select global leaderboard")
       self:createGlobalRecordList()
@@ -215,7 +237,7 @@ function scene:construct(event)
    self:getLevel(1):insert(self.localRecordList)
    self:getLevel(2):insert(self.globalRecordList)
    self.localRecordList.x = 0
-   
+
    self.globalRecordList.x = 0
 
    self.localTitle = Title.new({
@@ -244,7 +266,7 @@ function scene:construct(event)
    self.localTitle.y = - self.blockHeight * 0.5 + self.listGap + self.localTitle.height * 0.5
    self.listHeight =  self.blockHeight - self.localTitle.height - self.listGap * 3
    self.listTop = self.localTitle.y + self.localTitle.height * 0.5 + self.listGap + self.listHeight/2
-   
+
    self.globalTitle.y = self.localTitle.y
 
    self.localRecordList.y = self.listTop
@@ -252,5 +274,5 @@ function scene:construct(event)
 
 
 end
- 
+
 return scene

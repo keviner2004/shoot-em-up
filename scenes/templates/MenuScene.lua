@@ -2,13 +2,14 @@ local composer = require( "composer" )
 local BasicScene = require("scenes.templates.BasicScene")
 local GlassCornersPanel = require("ui.GlassCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
-local Menu = {}
 local logger = require("logger")
 local gameConfig = require("gameConfig")
 local Sprite = require("Sprite")
 local util = require("util")
+local sfx = require("sfx")
 local TAG = "MenuScene"
 
+local Menu = {}
 Menu.new = function()
     local scene = BasicScene.new()
     scene.menuWidth = math.round(gameConfig.contentWidth)
@@ -37,8 +38,8 @@ Menu.new = function()
        self.buttons.x = gameConfig.contentWidth / 2
        self.buttons.y = gameConfig.contentHeight / 2
        self.glassPanel = glassPanel
-       self.superGroup:insert(self.buttons)
        self.superGroup:insert(glassPanel)
+       self.superGroup:insert(self.buttons)
        self.superGroup:insert(titleText)
        self:construct()
        self:insertButtons()
@@ -194,6 +195,11 @@ Menu.new = function()
       logger:info(TAG, "onConfirm %dth btn", idx)
       if self.buttons[idx] and self.buttons[idx].action then
         self.buttons[idx].action()
+        if not self.buttons[idx].playSound then
+          self.buttons[idx].playSound = function()
+            sfx:play(self.buttons[idx].sound or "button")
+          end
+        end
         self.buttons[idx]:playSound()
       end
     end
@@ -209,27 +215,23 @@ Menu.new = function()
         if not self.selectedBtnIdx then
           self.selectedBtnIdx = 1
         else
-          self.selectedBtnIdx = self.selectedBtnIdx - 1
-          local newSelectedIndex = self.selectedBtnIdx + offset
-          if newSelectedIndex < 0 then
-            --logger:info(TAG, "newSelectedIndex = -((-%d) r %d) + %d", newSelectedIndex, self.buttons.numChildren, self.buttons.numChildren)
-            newSelectedIndex = -((-newSelectedIndex) % self.buttons.numChildren)
-            if newSelectedIndex ~= 0 then
-              newSelectedIndex = newSelectedIndex + self.buttons.numChildren
+          for i = 1, self.buttons.numChildren do
+            local newIndex = util.getRotateIndex(self.selectedBtnIdx + offset, self.buttons.numChildren)
+            if self.buttons[newIndex].isVisible then
+              self.selectedBtnIdx = newIndex
+              break
+            else
+              offset = offset + 1
             end
-          else
-            newSelectedIndex = newSelectedIndex % self.buttons.numChildren
           end
-          self.selectedBtnIdx = newSelectedIndex
-          self.selectedBtnIdx = self.selectedBtnIdx + 1
         end
 
         logger:info(TAG, "Select new menu index : %d / %d", self.selectedBtnIdx, self.buttons.numChildren)
       end
       local selectedBtn = self.buttons[self.selectedBtnIdx]
       self.pointer.x, self.pointer.y = selectedBtn:localToContent( 0, 0 )
-      self.pointer.x = self.pointer.x + self.buttons.width/4
-      self.pointer.y = self.pointer.y + self.buttons.height/8
+      self.pointer.x = self.pointer.x + (selectedBtn.pointerOffsetX or self.buttons.width/4)
+      self.pointer.y = self.pointer.y + (selectedBtn.pointerOffestY or self.buttons.height/8)
     end
 
     -- "scene:hide()"

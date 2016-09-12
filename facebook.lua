@@ -1,5 +1,6 @@
 local facebook = require( "plugin.facebook.v4" )
 local logger = require("logger")
+local json = require("json")
 local TAG = "facebook"
 local FB = {}
 
@@ -13,7 +14,7 @@ local requestCallBacks = {}
 
 local function facebookListener(event)
   logger:info(TAG, "=============Receive fb event: ")
-  logger:info(TAG, "Type: %s, phase: %s, response: %s", event.type, event.phase, event.response)
+  logger:info(TAG, "=============Type: %s, phase: %s, response: %s", event.type or "", event.phase or "", event.response or "")
   if ( "session" == event.type ) then
     -- Handle login event
     if event.phase == FB.STATUS_LOGIN then
