@@ -2,7 +2,7 @@ local config = {}
 local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
-config.version = "0.96"
+config.version = "0.961"
 config.dbVersion = "0.35"
 config.soundOn = true
 

@@ -289,7 +289,18 @@ function helper:addPlayLog(levelId)
   if not playId then
     logger:error(TAG, "Play id not found")
   end
+  self:reducePlayLoge()
   return playId
+end
+
+function helper:reducePlayLoge()
+  self:exec(
+    [[
+      DELETE FROM playLog WHERE ROWID IN (SELECT ROWID FROM playLog ORDER BY ROWID DESC LIMIT -1 OFFSET ?)
+    ]]
+  , {
+    gameConfig.MAX_PLAY_LOGS
+  })
 end
 
 function helper:syncPlayLogs()
