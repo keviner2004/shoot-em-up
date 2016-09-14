@@ -23,6 +23,10 @@ local scene = LevelSelectionScene.new({
 
 function scene:onLevelConfirm(index)
     logger:info(TAG, "Select chapter %d", index)
+    if self.blocks[index].locked then
+      self:alert("Comming soon, check it later.")
+      return
+    end
     if index == CHAPTER_LEVEL_MODE_INDEX then
         navigator:push("scenes.chapterSelection")
         composer.showOverlay( "scenes.levelSelection", {
@@ -68,6 +72,7 @@ function scene:createChapter(options)
     scoreLabel.x = 0
     score.y = self.blockHeight * 0.35
     score.x = -score.width * 0.05
+
     chapter:insert(base)
     chapter:insert(info)
     chapter:insert(bar)
@@ -75,6 +80,13 @@ function scene:createChapter(options)
     chapter:insert(scoreLabel)
     chapter:insert(score)
     chapter:insert(preview)
+    if options and options.locked then
+      local lockIcon = Sprite.new("UI/Icons/Lock")
+      lockIcon.x = 0
+      lockIcon.y = 0
+      chapter.locked = options.locked
+      chapter:insert(lockIcon)
+    end
     return chapter
 end
 
@@ -88,8 +100,12 @@ function scene:createLevelBlock(index)
         for i = 1, #gameConfig.seperateLevels do
             highScore = highScore + dbHelper:getHighScore(require("levels."..gameConfig.seperateLevels[i]).id, "local")
         end
+        local locked = false
+        if gameConfig.hiddenSingleLevelChapter then
+          locked = true
+        end
+        block = self:createChapter({title = "NKFU", score = highScore, preview = Sprite.new("Planet/4"), locked = locked})
 
-        block = self:createChapter({title = "NKFU", score = highScore, preview = Sprite.new("Planet/4")})
     end
     return block
 end

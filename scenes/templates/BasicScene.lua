@@ -1,4 +1,5 @@
 local composer = require( "composer" )
+local AlertPanel = require("ui.WhitePanel")
 local gameConfig = require( "gameConfig" )
 local util = require("util")
 local logger = require("logger")
@@ -147,37 +148,60 @@ BasicScene.new = function ()
         end
     end
 
-  function scene:back(options)
-     if navigator:peek() then
-        local backPage = navigator:pop()
-        composer.showOverlay( backPage, {
-          isModal = true,
-          effect = "fromLeft",
-          time = 400,
-          params = options and options.params,
-        })
-     end
-  end
+    function scene:alert(msg)
+      if self.alertPanel then
+        logger:info(TAG, "alert panel is already exist")
+        return
+      end
+      local alertPanel = AlertPanel.new(gameConfig.contentWidth * 0.8, gameConfig.contentHeight * 0.08)
+      alertPanel.x = gameConfig.contentWidth/2
+      alertPanel.y = -alertPanel.height/2
+      alertPanel:setText(msg, "", 17)
+      alertPanel.buttonText.fill = {129/255, 147/255, 158/255}
+      transition.to(alertPanel, { time = 200, y = alertPanel.height/2, onComplete =
+        function()
+          timer.performWithDelay( 1000, function()
+            transition.to(alertPanel, { time = 200, y = -alertPanel.height/2, onComplete = function()
+              alertPanel:removeSelf()
+              self.alertPanel = nil
+            end})
+          end)
+        end
+      })
+      self.alertPanel = alertPanel
+    end
 
-  function scene:go(source, sceneName, params)
-     navigator:push(source)
-     composer.showOverlay( sceneName, {
-       isModal = true,
-       effect = "fromLeft",
-       time = 400,
-       params = params
-     })
-  end
+    function scene:back(options)
+       if navigator:peek() then
+          local backPage = navigator:pop()
+          composer.showOverlay( backPage, {
+            isModal = true,
+            effect = "fromLeft",
+            time = 400,
+            params = options and options.params,
+          })
+       end
+    end
 
-  function scene:popUp(sceneName, params)
-    local options = {
-       effect = "fade",
-       time = 500,
-       isModal = true,
-       params = params
-    }
-    composer.showOverlay(sceneName, options )
-  end
+    function scene:go(source, sceneName, params)
+       navigator:push(source)
+       composer.showOverlay( sceneName, {
+         isModal = true,
+         effect = "fromLeft",
+         time = 400,
+         params = params
+       })
+    end
+
+    function scene:popUp(sceneName, params)
+      local options = {
+         effect = "fade",
+         time = 500,
+         isModal = true,
+         params = params
+      }
+      composer.showOverlay(sceneName, options )
+    end
 
     function proxy:create( event )
         scene.params = event.params

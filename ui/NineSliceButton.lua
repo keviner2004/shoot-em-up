@@ -71,10 +71,11 @@ NineSliceButton.new = function(name, w, h, options)
             font = "kenvector_future_thin"
         end
         if not fontSize then
-            fontSize = 35
+            fontSize = 17
         end
+
         if not self.buttonText then
-            self.buttonText = display.newText(text, 0, 0, font, fontSize)
+            self.buttonText = display.newText(text, 0, 0, font, fontSize * gameConfig.scaleFactor)
             self.buttonText.x = 0
             self.buttonText.y = 0
             button:insert(self.buttonText)

@@ -13,8 +13,8 @@ local LevelSelectionScene = {}
 local Title = require("ui.Title")
 
 LevelSelectionScene.new = function(options)
-
   local scene = BasicScene.new()
+  scene.blocks = {}
 
   function scene:create( event )
       print(pathOfThisFile)
@@ -66,8 +66,10 @@ LevelSelectionScene.new = function(options)
                   if count <= 0 then
                     break
                   end
-                  local block = self:createLevelBlock(self:levelCoordinateToIndex(page, i, j))
-                  self:applyTouchToBlock(block, self:levelCoordinateToIndex(page, i, j))
+                  local blockIdx = self:levelCoordinateToIndex(page, i, j)
+                  local block = self:createLevelBlock(blockIdx)
+                  self:applyTouchToBlock(block, blockIdx)
+                  self.blocks[blockIdx] = block
                   block.x = blockLeft + (j-1) * self.gap + (j-1) * block.width
                   block.y = blockTop + (i-1) * self.gap + (i-1) * block.height
                   --logger:info(TAG, "%d x %d: w %d x h %d", j, i, block.x, block.y)
@@ -318,7 +320,7 @@ LevelSelectionScene.new = function(options)
     local function extendTouchListener(event)
       local swipeLength = math.abs(event.x - event.xStart)
       if event.phase == "ended" and swipeLength < 30 then
-        self:onLevelConfirm(index)
+        self:onLevelConfirm(index, block)
       end
     end
     if block.onTouch then

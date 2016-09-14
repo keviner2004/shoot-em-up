@@ -25,6 +25,19 @@ function scene:init()
     navigator:clear()
     self.menuWidth = math.round(gameConfig.contentWidth*0.8)
     self.menuHeight = math.round(gameConfig.contentHeight*0.5)
+    if gameConfig.singlePlayerOnly then
+      INDEX_START_1P = 1
+      INDEX_START_2P = 999
+      INDEX_LEADERBOARD = 2
+      INDEX_WHO_ARE_YOU = 3
+      INDEX_LOGIN = 4
+    else
+      INDEX_START_1P = 1
+      INDEX_START_2P = 2
+      INDEX_LEADERBOARD = 3
+      INDEX_WHO_ARE_YOU = 4
+      INDEX_LOGIN = 5
+    end
 end
 
 function scene:construct()
@@ -52,23 +65,26 @@ function scene:insertButtons()
             end
         })
     end
-
-    local startButton = self:newButton("~1P~")
+    local startButtonText = "~Start~"
+    if not gameConfig.singlePlayerOnly then
+      startButtonText = "~1P~"
+    end
+    local startButton = self:newButton(startButtonText)
     startButton.buttonView.alpha = 0
     startButton.buttonText.size = 60
     startButton.pressSound = "start"
     startButton.buttonView.isHitTestable = true
     blink(startButton)
     self:insertButton(startButton)
-
-    local secondButton = self:newButton("~2P~")
-    secondButton.buttonView.alpha = 0
-    secondButton.buttonText.size = 60
-    secondButton.pressSound = "start"
-    secondButton.buttonView.isHitTestable = true
-    blink(secondButton)
-    self:insertButton(secondButton)
-
+    if not gameConfig.singlePlayerOnly then
+      local secondButton = self:newButton("~2P~")
+      secondButton.buttonView.alpha = 0
+      secondButton.buttonText.size = 60
+      secondButton.pressSound = "start"
+      secondButton.buttonView.isHitTestable = true
+      blink(secondButton)
+      self:insertButton(secondButton)
+    end
     local userButton = self:createUserButton()
     local leaderBoardButton = self:createLeaderBoardButton()
     local loginButton = self:createLoginButton()
@@ -212,6 +228,7 @@ function scene:updateLoginStatus()
 end
 
 function scene:onDidShow( event )
+  --self:alert("Welcome")
   --auto login
   local autoLogin = dbHelper:getAutoSignIn()
   logger:info(TAG, "check need login to facebook, autoLogin: %s, disable: %s", tostring(autoLogin), tostring((event.params and event.params.action == "disableLogin") or 0))

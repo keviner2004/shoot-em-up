@@ -8,6 +8,7 @@ local LEADERBOARD_URL = gameConfig.rankServerUrl.."/zzrank/api/leaderboard"
 local PLAYLOG_URL = gameConfig.rankServerUrl.."/zzrank/api/playLog"
 local LIKE_URL = gameConfig.rankServerUrl.."/zzrank/api/like"
 local LIKECOUNT_URL = gameConfig.rankServerUrl.."/zzrank/api/like/count"
+local STATICS_API_URL = "http://www.pink-fun.com.tw/edufor4g/"
 --local headers = {}
 --headers["Content-Type"] = "application/x-www-form-urlencoded"
 --headers["Accept-Language"] = "en-US"
@@ -25,7 +26,7 @@ end
 
 function helper:apiHandler(options)
   local function handler(event)
-    print ( "IS ERRPR:"..tostring(event.isError)..", RESPONSE: " .. event.response )
+    --print ( "IS ERRPR:"..tostring(event.isError)..", RESPONSE: " .. event.response )
     if options and options.onComplete then
       local data = {
         status = 0,
@@ -130,6 +131,14 @@ function helper:getLeaderboard(options)
   self:request(LEADERBOARD_URL, "GET", self:apiHandler(options),
   {
     levelId = options and options.levelId or "",
+  })
+end
+
+function helper:sendLaunchStatics()
+  self:request(STATICS_API_URL, "GET", self:apiHandler(options),
+  {
+    school = options and options.school or "",
+    app = options and options.app or "",
   })
 end
 

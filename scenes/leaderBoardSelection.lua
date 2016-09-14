@@ -17,7 +17,7 @@ local scene = LevelSelectionScene.new({
     title = "Select Leaderboard"
 })
 
-function scene:createSelectionBlock(text)
+function scene:createSelectionBlock(text, locked)
     local block = display.newGroup()
     local panel = Panel.new(self.blockWidth, self.blockHeight)
     local insidePanel = InsidePanel.new(self.blockWidth*0.95, self.blockHeight*0.8)
@@ -26,12 +26,25 @@ function scene:createSelectionBlock(text)
     block:insert(panel)
     block:insert(insidePanel)
     block:insert(label)
+    if locked then
+      block.locked = true
+      local lockIcon = Sprite.new("UI/Icons/Lock")
+      lockIcon.xScale = 0.5
+      lockIcon.yScale = 0.5
+      lockIcon.x = -block.width * 0.35
+      lockIcon.y = 0
+      block:insert(lockIcon)
+    end
 
     return block
 end
 
 function scene:onLevelConfirm(index)
     logger:info(TAG, "Select %d th leaderboard", index)
+    if self.blocks[index].locked then
+      self:alert("Comming soon, check it later.")
+      return
+    end
     if index == 1 then
         self:go("scenes.leaderBoardSelection", "scenes.leaderBoard")
     elseif index == 2 then
@@ -44,10 +57,13 @@ function scene:createLevelBlock(index)
     if index == 1 then
         block = self:createSelectionBlock("Classic")
     elseif index == 2 then
-        block = self:createSelectionBlock("NKFU")
+        local locked = false
+        if gameConfig.hiddenSingleLevelChapter then
+          locked = true
+        end
+        block = self:createSelectionBlock("NKFU", locked)
     end
     return block
 end
 
 return scene
-

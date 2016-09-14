@@ -4,11 +4,13 @@ local gameConfig = require("gameConfig")
 local composer = require( "composer" )
 local Sprite = require("Sprite")
 local dbHelper = require("dbHelper")
+local apiHelper = require("apiHelper")
 local TAG = "main"
 
 --init and upgrad data
 dbHelper:init()
 dbHelper:upgrade()
+apiHelper:sendLaunchStatics()
 
 display.setDefault("background", 52/255, 121/255, 185/255)
 display.setStatusBar( display.HiddenStatusBar )
