@@ -1,2 +1,2 @@
 # shoot-em-up
-shoot-em-up template
+Shoot-em-up is a STG (Shoot 'Em Up Game) template.
