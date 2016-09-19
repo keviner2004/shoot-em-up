@@ -8,6 +8,7 @@ local move = require("move")
 function myLevel:show(options)
     local enemy = EnemyPlane.new()
     local rock = Rock.new()
+    rock.hp = 120
     self:insert(enemy)
     self:insert(rock)
     --place the enemy out of the screen
@@ -18,17 +19,17 @@ function myLevel:show(options)
 
     rock:autoDestroyWhenInTheScreen()
 
-    self:addTimer(4000, 
+    self:addTimer(4000,
         function()
-            enemy:clear() 
+            enemy:clear()
         end
     )
 
     move.rotateAround(rock, {
-        target = enemy, 
-        speed = 5, 
-        distance = 150, 
-        startDegree = 30, 
+        target = enemy,
+        speed = 5,
+        distance = 150,
+        startDegree = 30,
         onMissTarget = function(angle)
             local d =  angle + 90
             rock:setLinearVelocity( 300 * math.cos(math.rad(d)) , -300 * math.sin(math.rad(d)) )

@@ -42,7 +42,7 @@ Bullet.new = function(options)
 
     bullet.type = "bullet"
     bullet:setName("bullet")
-    bullet.damage = 20
+    bullet.damage = options and options.damage or 20
     bullet.owner = options and options.owner
     bullet:enableAutoDestroy()
 
@@ -65,7 +65,7 @@ Bullet.new = function(options)
     function bullet:hit(event)
         --print(self.name.." show destroy effect hit 2")
         self:showDestroyEffect()
-        
+
         --print(self.name.."play sound hit 2")
         self:playDestroySound()
 

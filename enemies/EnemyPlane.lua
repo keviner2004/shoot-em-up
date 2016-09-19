@@ -10,11 +10,11 @@ EnemyPlane.new = function(options)
     plane.centerPart = Sprite.new("Ships/Parts/Cockpits/21")
     plane.rightPart = Sprite.new("Ships/Parts/Wings/35")
     plane.leftPart = Sprite.new("Ships/Parts/Wings/35")
-    
+
     plane:insert(plane.centerPart)
     plane:insert(plane.rightPart)
     plane:insert(plane.leftPart)
-    
+
     plane.leftPart.xScale = - plane.leftPart.xScale;
     plane.leftPart.x = -25
     plane.rightPart.x = 25
@@ -23,7 +23,7 @@ EnemyPlane.new = function(options)
     plane.name = "enemyPlane"
     plane.dir = 270
     plane:enablePhysics()
-    plane.hp = 1
+    plane.hp = 40
 
     function plane:onMovePoint(event)
         print("onMovePoint")
@@ -38,7 +38,7 @@ EnemyPlane.new = function(options)
 
         if (degree < 90 and degree > 0) or ( degree > 270 and degree < 360 ) then
             distX = gameConfig.contentWidth
-            distY = bullet.y - (gameConfig.contentWidth - enemy.x) * math.tan(math.rad(degree)) 
+            distY = bullet.y - (gameConfig.contentWidth - enemy.x) * math.tan(math.rad(degree))
         else
             distX = 0
             distY = bullet.y + enemy.x * math.tan(math.rad(degree))
