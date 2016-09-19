@@ -2,13 +2,12 @@ local config = {}
 local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
-config.singlePlayerOnly = false
-config.version = "0.97"
+config.singlePlayerOnly = true
+config.version = "0.98"
 config.dbVersion = "0.35"
 config.soundOn = true
 config.fightBeforeEncounterBoss = 10
 config.playerUnstoppable = false
-config.debugFPS = true
 config.logLevel = Logging.INFO
 config.debugPhysics = false
 config.playerLifes = 2
@@ -87,10 +86,12 @@ if config.production then
   config.rankServerUrl = "http://106.186.123.208:8000"
   config.fbskip = false
   config.hiddenSingleLevelChapter = true
+  config.debugFPS = false
 else
   config.rankServerUrl = "http://127.0.0.1:8000"
   config.fbskip = true
   config.hiddenSingleLevelChapter = false
+  config.debugFPS = true
 end
 
 return config

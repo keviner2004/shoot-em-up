@@ -7,6 +7,7 @@ local dbHelper = require("dbHelper")
 local Title = require("ui.Title")
 local logger = require("logger")
 local gameConfig = require("gameConfig")
+local ScaleText = require("ui.ScaleText")
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
@@ -26,7 +27,9 @@ local scene = LevelSelectionScene.new({
     col = 1,
     numOfLevels = 2,
     title = "",
-    titleIcon = "UI/Icons/ChampionCup"
+    titleIcon = "UI/Icons/ChampionCup",
+    pagePaddingRight = 0,
+    pagePaddingLeft = 0
 })
 
 function scene:createRecordBlock(width, height, position, name, score)
@@ -70,11 +73,29 @@ function scene:createRecordBlock(width, height, position, name, score)
       print("Left: ", left)
    end
 
-   local posLabel = display.newText(position..posStr, 0, 0, gameConfig.defaultFont, 40)
+   local posLabel = ScaleText.new({
+     text = position..posStr,
+     x = 0,
+     y = 0,
+     font = gameConfig.defaultFont,
+     fontSize = 15
+   })
 
-   local nameLabel = display.newText(name, 0, 0, gameConfig.defaultFont, 40)
+   local nameLabel = ScaleText.new({
+     text = name,
+     x = 0,
+     y = 0,
+     font = gameConfig.defaultFont,
+     fontSize = 15
+   })
 
-   local scoreLabel = display.newText(score, 0, 0, gameConfig.defaultFont, 40)
+   local scoreLabel = ScaleText.new({
+     text = score,
+     x = 0,
+     y = 0,
+     font = gameConfig.defaultFont,
+     fontSize = 15
+   })
 
    --posLabel.fill = {139/255, 147/255, 158/255}
    --nameLabel.fill = {139/255, 147/255, 158/255}
