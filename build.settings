@@ -12,6 +12,35 @@ settings =
         default = "portrait",
         supported = { "portrait", "portraitUpsideDown" }
     },
+    iphone =
+    {
+        plist =
+        {
+            -- Icon image files table
+            CFBundleIconFiles = {
+                "Icon.png",
+                "Icon@2x.png",
+                "Icon-60.png",
+                "Icon-60@2x.png",
+                "Icon-60@3x.png",
+                "Icon-72.png",
+                "Icon-72@2x.png",
+                "Icon-76.png",
+                "Icon-76@2x.png",
+                "Icon-167.png",
+                "Icon-Small-40.png",
+                "Icon-Small-40@2x.png",
+                "Icon-Small-50.png",
+                "Icon-Small-50@2x.png",
+                "Icon-Small.png",
+                "Icon-Small@2x.png",
+                "Icon-Small@3x.png"
+            },
+            -- Launch image files table (see section below)
+            UILaunchImages = {
+            },
+        }
+    },
     android =
     {
         usesPermissions =
@@ -20,6 +49,7 @@ settings =
         },
         facebookAppId = "119131358540933",
     },
+
     window = {
       defaultViewWidth = 640,
       defaultViewHeight = 960
