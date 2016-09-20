@@ -97,11 +97,17 @@ Sublevel.new = function (id, name, author, options)
 
     function sublevel:isFail()
       --print("1234", Character.totalLifes, gameConfig.numOfPlayers)
-      if Character.totalLifes <= -gameConfig.numOfPlayers then
-        logger:info(TAG, "isFail")
-        return true
+      --check players lifes
+      for i = 1, #self.players do
+        if self.players[i] and self.players[i].lifes >= 0 then
+          return false
+        end
       end
-      return false
+      --if Character.totalLifes < 0 then
+      --  logger:info(TAG, "isFail")
+      --  return true
+      --end
+      return true
     end
 
     function sublevel:getEnemies()

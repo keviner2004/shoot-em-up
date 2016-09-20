@@ -305,7 +305,7 @@ function scene:setScore()
 end
 
 function scene:createPlayer(PlaneClass, options)
-    local character = PlaneClass.new({lifes = gameConfig.playerLifes, fingerSize = 50, fireRate = 300, controlType = options.controlType or gameConfig.controlType[1]})
+    local character = PlaneClass.new({lifes = 0, fingerSize = 50, fireRate = 300, controlType = options.controlType or gameConfig.controlType[1]})
     character.x = (options.pos and options.pos.x) or gameConfig.contentWidth / 2
     character.y = (options.pos and options.pos.y) or gameConfig.contentHeight + character.height / 2
     character:startControl()

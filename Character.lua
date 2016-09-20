@@ -463,12 +463,20 @@ Character.new = function (options)
     end
 
     function character:loseLifes()
-        if Character.totalLifes <= -gameConfig.numOfPlayers then
-            return
+        --if Character.totalLifes <= -gameConfig.numOfPlayers then
+        --    return
+        --end
+        if self.lifes < 0 then
+          return
         end
         local event = {}
         if Character.enableShareLifes then
-            Character.totalLifes = Character.totalLifes - 1
+            if Character.totalLifes <= 0 then
+              self.lifes = self.lifes - 1
+            else
+              Character.totalLifes = Character.totalLifes - 1
+            end
+            --print("L~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", self.lifes, Character.totalLifes)
             event.lifes = self.totalLifes
         else
             self.lifes = self.lifes - 1
@@ -477,12 +485,14 @@ Character.new = function (options)
         self:onLoseLifes(event)
         Character.onLoseLifes(event)
     end
+
     function character:getLifes()
-        if Character.enableShareLifes then
-          return Character.totalLifes
-        else
-          return self.lifes
-        end
+        --if Character.enableShareLifes then
+        --  return Character.totalLifes
+        --else
+        --print("G~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", self.lifes)
+        return self.lifes
+        --end
     end
 
     function character:onDead()
@@ -519,7 +529,7 @@ Character.new = function (options)
             end
         })
         if self:getLifes() < 0 then
-            print("Character is defeated")
+            logger:info(TAG, "Character is defeated")
             self.isDefeated = true
             self:cancelTimer()
             self:cancelControl()
