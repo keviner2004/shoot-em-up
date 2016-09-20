@@ -50,4 +50,4 @@ composer.showOverlay( "scenes.gameover", {
 capture:startCapture()
 Sprite.addSheet(gameConfig.SHEET_PIXEL_EFFECT, "sprites/pixeleffect.png", "sprites.pixeleffect")
 Sprite.addSheet(gameConfig.SHEET_PIXEL_ITEM, "sprites/pixelitem.png", "sprites.pixelitem")
-logger:info(TAG, "Screen Ratio: %d / %d : %d", display.pixelWidth, display.actualContentWidth, display.contentWidth)
+logger:info(TAG, "Screen Ratio: %d / %d : %d, scaleFactor: %f", display.pixelWidth, display.actualContentWidth, display.contentWidth, gameConfig.scaleFactor)

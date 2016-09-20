@@ -5,6 +5,8 @@ local logger = require("logger")
 local GameObject = require("GameObject")
 local gameConfig = require("gameConfig")
 local Character = require("Character")
+local ScaleText = require("ui.ScaleText")
+local LinearGroup = require("ui.LinearGroup")
 local Sublevel = {}
 
 TAG = "Sublevel"
@@ -169,24 +171,53 @@ Sublevel.new = function (id, name, author, options)
       --warnnig text
       self.game:showScore(false)
       local warning = GameObject.new()
+      local hgroup = LinearGroup.new()
+      local vgroup = LinearGroup.new({
+        layout = LinearGroup.VERTICAL
+      })
+
+      local warnigText1 = ScaleText.new({
+        text = "==========================",
+        font = "kenvector_future_thin",
+        fontSize = 40
+      })
+      local warnigText2 = ScaleText.new({
+        text = "Warning!",
+        font = "kenvector_future_thin",
+        fontSize = 40})
+      local warnigText3 = ScaleText.new({
+        text = "==========================",
+        font = "kenvector_future_thin",
+        fontSize = 40
+      })
+      warnigText2:setFillColor( 1, 0, 0 )
+      vgroup:insert(warnigText1)
+      vgroup:insert(warnigText2)
+      vgroup:insert(warnigText3)
+
       options.author = self.author
       options.name = self.name
       if options.author then
-          local authorText = display.newText(options.author, gameConfig.contentWidth/2, gameConfig.contentHeight/2+120, "kenvector_future_thin", 30)
-          warning:insert(authorText)
+          local authorText = ScaleText.new({
+            text = options.author,
+            font = "kenvector_future_thin",
+            fontSize = 15
+          })
+          vgroup:insert(authorText)
           authorText:setFillColor(1, 204/255, 0)
       end
       if options.name then
-          local nameText = display.newText(options.name, gameConfig.contentWidth/2, gameConfig.contentHeight/2+150, "kenvector_future_thin", 30)
-          warning:insert(nameText)
+          local nameText = ScaleText.new({
+            text = options.name,
+            font = "kenvector_future_thin",
+            fontSize = 15
+          })
+          vgroup:insert(nameText)
       end
-      local warnigText1 = display.newText("==========================", gameConfig.contentWidth/2, gameConfig.contentHeight/2-60, "kenvector_future_thin", 80)
-      local warnigText2 = display.newText("Warning!", gameConfig.contentWidth/2, gameConfig.contentHeight/2, "kenvector_future_thin", 80)
-      local warnigText3 = display.newText("==========================", gameConfig.contentWidth/2, gameConfig.contentHeight/2+60, "kenvector_future_thin", 80)
-      warnigText2:setFillColor( 1, 0, 0 )
-      warning:insert(warnigText1)
-      warning:insert(warnigText2)
-      warning:insert(warnigText3)
+      warning:insert(vgroup)
+      vgroup:resize()
+      warning.x = gameConfig.contentWidth/2
+      warning.y = gameConfig.contentHeight/2
       self.warningChannel = sfx:play("warning", {loops = -1})
       transition.blink(warning, {time = 2000, onRepeat =
           function (event)

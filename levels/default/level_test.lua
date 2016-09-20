@@ -11,7 +11,7 @@ function sublevel:show(options)
     enemy.x = gameConfig.contentCenterX/2
     enemy.y = 0
 
-    enemy:setLinearVelocity( 0, 300 )
+    enemy:setScaleLinearVelocity( 0, 150 )
     enemy:rotateByVelocity()
 
     field.x = gameConfig.contentCenterX

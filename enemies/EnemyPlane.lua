@@ -16,10 +16,10 @@ EnemyPlane.new = function(options)
     plane:insert(plane.leftPart)
 
     plane.leftPart.xScale = - plane.leftPart.xScale;
-    plane.leftPart.x = -25
-    plane.rightPart.x = 25
-    plane.rightPart.y = 8
-    plane.leftPart.y = 8
+    plane.leftPart.x = -plane.centerPart.width * 0.6
+    plane.rightPart.x = plane.centerPart.width * 0.6
+    plane.rightPart.y = plane.centerPart.width * 0.05
+    plane.leftPart.y = plane.centerPart.width * 0.05
     plane.name = "enemyPlane"
     plane.dir = 270
     plane:enablePhysics()

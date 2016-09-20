@@ -13,13 +13,13 @@ function myLevel:show(options)
     enemy.y = 0
 
     local pathPoints = {
-        {x = gameConfig.contentWidth, y = gameConfig.contentHeight/2}, 
+        {x = gameConfig.contentWidth, y = gameConfig.contentHeight/2},
         {x = -enemy.width, y = gameConfig.contentHeight}
     }
 
     --destroy the enemy properly
     move.followN(enemy, pathPoints, {
-        speed = 600,
+        speed = 400*gameConfig.scaleFactor,
         autoRotation = true,
         onComplete = function()
             enemy:clear()

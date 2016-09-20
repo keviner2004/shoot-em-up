@@ -3,7 +3,7 @@ local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
 config.singlePlayerOnly = true
-config.version = "0.983"
+config.version = "0.984"
 config.dbVersion = "0.35"
 config.soundOn = true
 config.fightBeforeEncounterBoss = 10
@@ -61,7 +61,6 @@ config.gameLevels = {
     "myLevel.level_curve",
     "myLevel.level_rotate_around",
     "myLevel.level_sinwav",
-    --"default.level_test",
 }
 
 config.seperateLevels = {
@@ -77,7 +76,7 @@ config.basicHeight = 640
 config.imageSuffix = {
     ["@2x"] = 1.5,
     ["@3x"] = 2.5,
-    ["@4x"] = 3.5
+    ["@4x"] = 3
 }
 config.scaleFactor =  config.contentHeight / config.basicHeight
 config.stageSpeed = 100 * config.scaleFactor

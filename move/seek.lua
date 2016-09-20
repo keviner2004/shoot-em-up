@@ -27,8 +27,9 @@ function M.seek(obj, target, options)
 
     if tvx ==0 and tvy == 0 then
         obj:setLinearVelocity(
-            magnitude * math.sin(math.rad(degree)),
-            - magnitude * math.cos(math.rad(degree)))
+            magnitude * math.cos(math.rad(degree)),
+            - magnitude * math.sin(math.rad(degree)))
+        maxSpeed = magnitude
     else
         maxSpeed = math.pow(tvx * tvx + tvy * tvy, 0.5)
         --print("==================", maxSpeed)

@@ -22,7 +22,7 @@ function myLevel:show(options)
 
     --destroy the enemy properly
     move.followN(enemy, pathPoints, {
-        speed = 600,
+        speed = 300 * gameConfig.scaleFactor,
         autoRotation = true,
         onComplete = function()
             enemy:clear()

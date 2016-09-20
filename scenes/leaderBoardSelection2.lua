@@ -3,6 +3,7 @@ local composer = require( "composer" )
 local LevelSelectionScene = require("scenes.templates.LevelSelectionScene")
 local Sprite = require("Sprite")
 local Panel = require("ui.MetalPanel")
+local ScaleText = require("ui.ScaleText")
 local InsidePanel = require("ui.MetalPanelPlate")
 local logger = require("logger")
 local navigator = require("navigator")
@@ -21,7 +22,7 @@ function scene:createSelectionBlock(text)
     local block = display.newGroup()
     local panel = Panel.new(self.blockWidth, self.blockHeight)
     local insidePanel = InsidePanel.new(self.blockWidth*0.95, self.blockHeight*0.8)
-    local label = display.newText(text, 0, 0, gameConfig.defaultFont, 40)
+    local label = ScaleText.new({text = text, x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 20})
     label.fill = {139/255, 147/255, 158/255}
     block:insert(panel)
     block:insert(insidePanel)
@@ -46,4 +47,3 @@ function scene:createLevelBlock(index)
 end
 
 return scene
-

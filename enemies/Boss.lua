@@ -4,11 +4,12 @@ local Missile = require("bullets.Missile")
 local move = require("move")
 local Enemy = require("Enemy")
 local Square = require("ui.Square")
-local GlassPanel = require("ui.GlassPanelEmpty")
+local GlassPanel = require("ui.GlassPanel")
 local Sprite = require("Sprite")
 local Ufo = require("enemies.AlienUFO")
 local util = require("util")
 local sfx = require("sfx")
+local ScaleText = require("ui.ScaleText")
 local bossId = 0
 local Boss = {}
 local logger = require("logger")
@@ -82,7 +83,7 @@ Boss.new = function(players, options)
     function boss:initHPBar()
         print("initHPBar")
         local hpBar = display.newGroup()
-        local glassPanel = GlassPanel.new(gameConfig.contentWidth*0.88, 80)
+        local glassPanel = GlassPanel.new(gameConfig.contentWidth*0.88, display.contentWidth*0.1)
         local base = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "shadow")
         local hpValue = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "red")
         local hpValue2 = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "yellow")
@@ -95,20 +96,33 @@ Boss.new = function(players, options)
         hpBar.type = "hpBar"
         hpBar.name = "hpBar"
 
+        hpBar:insert(glassPanel)
         hpBar:insert(base)
         hpBar:insert(hpValue)
         hpBar:insert(hpValue2)
         hpBar:insert(hpValue3)
-        hpBar:insert(glassPanel)
+
         hpBar.lifes = {hpValue, hpValue2, hpValue3}
         hpBar.x = gameConfig.contentWidth / 2
-        hpBar.y = 100
+        hpBar.y = hpBar.height * 0.6
         hpBar.lifeCount = #hpBar.lifes
-        hpBar.hpText = display.newText("0/0", gameConfig.contentWidth/2, 100, "kenvector_future_thin", 40)
-        hpBar.nameText = display.newText("Boss", gameConfig.contentWidth/2, 100, "kenvector_future_thin", 40)
+        hpBar.hpText = ScaleText.new({
+          text = "0/0",
+          x = gameConfig.contentWidth/2,
+          y = hpBar.y,
+          font = "kenvector_future_thin",
+          fontSize = 18
+        })
+        hpBar.nameText = ScaleText.new({
+          text = "Boss",
+          x = gameConfig.contentWidth/2,
+          y = hpBar.y,
+          font = "kenvector_future_thin",
+          fontSize = 18
+        })
         hpBar.hpText.x = 0
         hpBar.hpText.y = 0
-        hpBar.nameText.x = - glassPanel.contentWidth / 2 + 100
+        hpBar.nameText.x = -glassPanel.contentWidth * 0.4
         hpBar.nameText.y = 0
         hpBar:insert(hpBar.hpText)
         hpBar:insert(hpBar.nameText)
@@ -335,7 +349,7 @@ Boss.new = function(players, options)
                 missile:enableAutoDestroy()
                 print(self.x)
                 self.parent:insert(missile)
-                move.rotateAround(missile, {target = self, speed = 3, distance = 150, startDegree = startDegree + 360 / num * (i-1)})
+                move.rotateAround(missile, {target = self, speed = 3, distance = 75 * gameConfig.scaleFactor, startDegree = startDegree + 360 / num * (i-1)})
                 --print("Prepare missile: "..missile.x.."x"..missile.y)
                 self:addTimer(2000, function()
                     if missile.x == nil then
@@ -344,7 +358,7 @@ Boss.new = function(players, options)
                     move.stop(missile)
                     --print("Frie! "..missile.rotation)
                     sfx:play("seek")
-                    missile:seek(self:getPlayer(), {degree = 360 - missile.rotation, magnitude = 450})
+                    missile:seek(self:getPlayer(), {degree =  missile.dir - missile.rotation, magnitude = 400 * gameConfig.scaleFactor})
                 end)
                 self.missiles[#self.missiles+1] = missile
             end
@@ -358,7 +372,7 @@ Boss.new = function(players, options)
             boss:bash({
                 delay = 0,
                 back = false,
-                time = 1000
+                time = 500 * gameConfig.scaleFactor
             })
         end)
         --sumon laser plan
@@ -424,8 +438,8 @@ Boss.new = function(players, options)
         local newBoss2 = self:clone()
         boss.parent:insert(newBoss1)
         boss.parent:insert(newBoss2)
-        newBoss1:bounce(290, 290)
-        newBoss2:bounce(-300, 300)
+        newBoss1:bounce(145, 145)
+        newBoss2:bounce(-150, 150)
     end
 
     function boss:getTotalClones()
@@ -561,7 +575,7 @@ Boss.new = function(players, options)
     --bounce and roll mode
     function boss:bounce(vx, vy)
         self.ignoreWall = false
-        self:setLinearVelocity(vx, vy)
+        self:setScaleLinearVelocity(vx, vy)
         local num = 4
         self:addTimer(1000, function(event)
             if self.isDead or self.x == nil then
@@ -580,7 +594,7 @@ Boss.new = function(players, options)
             end
             local vx, vy = self:getLinearVelocity()
             if vy == 0 then
-                self:setLinearVelocity(vx, 300)
+                self:setScaleLinearVelocity(vx/2, 150)
             end
         end, -1)
     end

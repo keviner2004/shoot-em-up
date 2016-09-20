@@ -89,7 +89,6 @@ Character.new = function (options)
     character.preCollision = function(self, event)
         --print("pre")
         if event.contact then
-            --self:setLinearVelocity(0,0)
             event.contact.isEnabled = false
         else
             print("WTF")
@@ -206,7 +205,7 @@ Character.new = function (options)
         local bullet = HomingLaser.new({fireTo = "enemy", owner = self})
         bullet.x = x
         bullet.y = y
-        bullet:setLinearVelocity(vx, vy)
+        bullet:setScaleLinearVelocity(vx, vy)
         self.parent:insert(bullet)
         return bullet
     end
@@ -215,7 +214,7 @@ Character.new = function (options)
         local bullet = Laser.new({fireTo = "enemy", owner = self})
         bullet.x = x
         bullet.y = y
-        bullet:setLinearVelocity(vx, vy)
+        bullet:setScaleLinearVelocity(vx, vy)
         self.parent:insert(bullet)
         return bullet
     end
@@ -225,11 +224,11 @@ Character.new = function (options)
         local missiles = {}
         --shoot homing laser
         if self.power >= 5 then
-            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, 500, -500)
-            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -500, -500)
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, 250, -250)
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -250, -250)
 
         elseif self.power >= 4 then
-            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -500, -500)
+            missiles[#missiles + 1] = self:createHomingLaser(self.x, self.y, -250, -250)
             --search enemy
         end
         local missileIdx = 1
@@ -275,14 +274,14 @@ Character.new = function (options)
     function character:shootNormalLaser()
         sfx:play("laser")
         if character.power >=3 then
-            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -2000)
-            local bullet2 = self:createNormalLaser(self.x, self.y, 0, -2000)
-            local bullet3 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -2000)
+            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -1000)
+            local bullet2 = self:createNormalLaser(self.x, self.y, 0, -1000)
+            local bullet3 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -1000)
         elseif character.power >= 2 then
-            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -2000)
-            local bullet2 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -2000)
+            local bullet = self:createNormalLaser(self.x + self.width/4, self.y, 0, -1000)
+            local bullet2 = self:createNormalLaser(self.x - self.width/4, self.y, 0, -1000)
         else
-            local bullet = self:createNormalLaser(self.x, self.y, 0, -2000)
+            local bullet = self:createNormalLaser(self.x, self.y, 0, -1000)
         end
         self:toFront()
     end

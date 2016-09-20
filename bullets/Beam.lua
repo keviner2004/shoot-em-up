@@ -5,11 +5,12 @@ local move = require("move")
 local Beam = {}
 local Sprite = require("Sprite")
 local sfx = require("sfx")
+local gameConfig = require("gameConfig")
 Beam.new = function (options)
     print("beam")
     --local beam = GameObject.new()
     local beam = Bullet.new({
-        --disablePhysic = true, 
+        --disablePhysic = true,
         fireTo = options and options.fireTo,
     })
     beam.stacking = false
@@ -35,7 +36,7 @@ Beam.new = function (options)
     function beam:onHit(event)
         --do nothing
     end
-    
+
     function beam:stack(offset)
         local beamSeg = BeamSeg.new()
         beamSeg.x = self:last().x
@@ -47,7 +48,7 @@ Beam.new = function (options)
     function beam:getLength()
         if self.segs.numChildren == 0 then
             return 0
-        end 
+        end
         if self.segs.numChildren > 1 then
             --print("")
             return self:last().y -  self.segs[1].y + self.segs[1].height
@@ -61,7 +62,7 @@ Beam.new = function (options)
         end
         local l = self:getLength()
         --print("resize with len "..l)
-        self.x = self.defaultX - (l/2 - self.segs[1].height/2) * math.sin(math.rad(self.rotation)) 
+        self.x = self.defaultX - (l/2 - self.segs[1].height/2) * math.sin(math.rad(self.rotation))
         self.y = self.defaultY + (l/2 - self.segs[1].height/2) * math.cos(math.rad(self.rotation))
         self.myCircle.x = self.x
         self.myCircle.y = self.y
@@ -86,7 +87,7 @@ Beam.new = function (options)
             self:resizeBody()
             --self.x = self.defaultX
             --self.y = self.defaultY
-            
+
         end
     end
 
@@ -208,7 +209,7 @@ Beam.new = function (options)
         Runtime:removeEventListener("enterFrame", self.beamHandler)
 
     end
-    
+
     function beam:rayCast()
         if not self:first() or not self:last() then
             return
@@ -216,7 +217,7 @@ Beam.new = function (options)
         local startX, startY = self:first():localToContent( 0, 0)
         local endX, endY = self:last():localToContent( 0, self:last().height)
         --print("shoot rayCast [", startX, ",", startY, "] => ", "[", endX, ",", endY, "]")
-        local hits = physics.rayCast( 
+        local hits = physics.rayCast(
             startX, startY,
             endX, endY,
             "sorted" )
@@ -245,7 +246,7 @@ Beam.new = function (options)
                 if v.object.type == "wall" then
                     if not self.burst then
                         self.burst = self:newBurst()
-                        
+
                         self.burstChannel = sfx:play("burst", {loops = -1})
                         print("stop burst audio channel", self.burstChannel)
 
@@ -266,7 +267,7 @@ Beam.new = function (options)
                 self.burst = nil
             end
         end
-    end   
+    end
     return beam
 
 end

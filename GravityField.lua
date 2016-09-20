@@ -20,14 +20,11 @@ GravityField.new = function (options)
         local victim = event.other
         if ( event.phase == "began" and not victim.immuneGravityField ) then
             print("field "..event.other.mass.."/"..self.mass)
-            timer.performWithDelay( 10, 
+            timer.performWithDelay( 10,
                 function()
                     if not util.isExists(victim) then
-                        return 
+                        return
                     end
-                    --local degree = move.angleBetween(self.x, self.y, event.other.x, event.other.y) - 90
-                    --print("perform! "..degree)
-                    --event.other:setLinearVelocity( 100 * math.cos(math.rad(degree)),  100, math.sin(math.rad(degree)))
                     victim.touchJoint = physics.newJoint( "touch", victim, victim.x, victim.y )
                     victim.touchJoint.frequency = 0.2
                     victim.touchJoint.dampingRatio = 0.0

@@ -3,12 +3,19 @@ local Sprite = require("Sprite")
 local move = require("move")
 local Victim = {}
 local logger = require("logger")
+local ScaleText = require("ui.ScaleText")
 local TAG = "victim"
+
 Victim.new = function()
     local victim = GameObject.new()
     victim.type = "victim"
     victim.name = "victim"
-    victim.helpText = display.newText("", 0, 0, "kenvector_future_thin", 35)
+    victim.helpText = ScaleText.new({
+      text = "",
+      x = 0, y = 0,
+      font = "kenvector_future_thin",
+      fontSize = 18
+    })
     victim:insert(victim.helpText)
     victim.sprite = Sprite.new({
         "Aliens/Green/hurt"
@@ -42,9 +49,9 @@ Victim.new = function()
     end
 
     function victim:float(d, time)
-        transition.to(self, {time = time, y = self.y + d, onComplete = 
+        transition.to(self, {time = time, y = self.y + d, onComplete =
             function()
-                transition.to(self, {time = 2*time, y = self.y-2*d, onComplete = 
+                transition.to(self, {time = 2*time, y = self.y-2*d, onComplete =
                     function()
                         self:float(d, time)
                 end})
@@ -63,7 +70,7 @@ Victim.new = function()
         if self._line and self._line.removeSelf then
             --print("clear line")
             self._line:removeSelf()
-        end        
+        end
     end
 
     function victim:drawIndicator(target)
@@ -77,12 +84,12 @@ Victim.new = function()
             local dt = 0
             local temp = system.getTimer()-- Get current game time in ms
             if runtime ~= 0 then
-                dt = temp-runtime   
+                dt = temp-runtime
             end
             runtime = temp  -- Store game time
             return dt
         end
-        
+
         self._drawLine = function(event)
             --remove line if needed
             self:removeLine()
@@ -91,7 +98,7 @@ Victim.new = function()
                 return
             end
             self.remainTime = self.remainTime - deltaTime
-            self:showTime(self.remainTime, 2)            
+            self:showTime(self.remainTime, 2)
             if self.remainTime <= 0 then
                 print("saved")
                 self:clearIndicator()
@@ -104,9 +111,9 @@ Victim.new = function()
                 self.sprite.rotation = -15
 
                 function fireEffect(target)
-                    transition.to(target, {xScale = 0.8, yScale = 0.8, alpha = 0.8, onComplete = 
+                    transition.to(target, {xScale = 0.8, yScale = 0.8, alpha = 0.8, onComplete =
                         function()
-                            transition.to(target, {xScale = 1, yScale = 1, alpha = 1, onComplete = 
+                            transition.to(target, {xScale = 1, yScale = 1, alpha = 1, onComplete =
                                 function()
                                     fireEffect(target)
                                 end
@@ -115,7 +122,7 @@ Victim.new = function()
                     })
                 end
 
-                transition.to(self.sprite, {rotation = 0, onComplete = 
+                transition.to(self.sprite, {rotation = 0, onComplete =
                     function()
                         self.fire = Sprite.new("Effects/Fire/11")
                         self:insert(self.fire)
@@ -147,7 +154,7 @@ Victim.new = function()
     --time:milisecond
     function victim:showTime(time, floats)
         if time < 0 then
-            time = 0 
+            time = 0
         end
         local totalSeconds = time / 1000.0
         self.helpText.text = string.format("%.2f", totalSeconds)

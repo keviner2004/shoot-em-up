@@ -6,6 +6,7 @@ local logger = require("logger")
 local gameConfig = require("gameConfig")
 local Sprite = require("Sprite")
 local util = require("util")
+local ScaleText = require("ui.ScaleText")
 local sfx = require("sfx")
 local TAG = "MenuScene"
 
@@ -27,7 +28,7 @@ Menu.new = function()
        local glassPanel = GlassCornersPanel.new(self.menuWidth, self.menuHeight)
        glassPanel.x = gameConfig.contentWidth/2
        glassPanel.y = gameConfig.contentHeight/2
-       local titleText = display.newText(titleValue, 0, 0, "kenvector_future_thin", 80)
+       local titleText = ScaleText.new({text = titleValue, x = 0, y = 0, font = "kenvector_future_thin", fontSize = 40})
        titleText.x = glassPanel.x
        titleText.y = gameConfig.contentHeight * 0.15
        self.selectedBtnIdx = 1

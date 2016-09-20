@@ -11,7 +11,7 @@ function myLevel:show(options)
     enemy.x = gameConfig.contentWidth/4
     enemy.y = -100
     --move the enemy from the top to bottom with speed 100 pixels/second
-    enemy:setLinearVelocity( 0, 100 )
+    enemy:setScaleLinearVelocity( 0, 50 )
     --destroy the enemy properly
     enemy:autoDestroyWhenInTheScreen()
     self.enemy = enemy

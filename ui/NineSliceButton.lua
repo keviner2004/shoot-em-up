@@ -3,6 +3,7 @@ local Sprite = require("Sprite")
 local logger = require("logger")
 local sfx = require("sfx")
 local gameConfig = require("gameConfig")
+local ScaleText = require("ui.ScaleText")
 local TAG = "9-slice"
 --local pathOfThisFile = ...
 --print("Path! "..pathOfThisFile)
@@ -74,14 +75,20 @@ NineSliceButton.new = function(name, w, h, options)
             fontSize = 17
         end
 
-        if not self.buttonText then
-            self.buttonText = display.newText(text, 0, 0, font, fontSize * gameConfig.scaleFactor)
-            self.buttonText.x = 0
-            self.buttonText.y = 0
-            button:insert(self.buttonText)
-        else
-            self.buttonText.text = text
+        if self.buttonText then
+          self.buttonText:removeSelf()
+          self.buttonText = nil
         end
+        self.buttonText = ScaleText.new({
+          text = text,
+          x = 0,
+          y = 0,
+          font = font,
+          fontSize = fontSize
+        })
+        self.buttonText.x = 0
+        self.buttonText.y = 0
+        button:insert(self.buttonText)
     end
 
     function button.buttonView:touch(event)

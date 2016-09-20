@@ -224,11 +224,11 @@ end
 
 function scene:construct()
     self.buttonGap = gameConfig.contentHeight * 0.015
-    self.score = display.newText("0/0", gameConfig.contentWidth/2, gameConfig.contentHeight*0.28, gameConfig.defaultFont, 60)
+    self.score = ScaleText.new({text = "0/0", x = gameConfig.contentWidth/2, y = gameConfig.contentHeight*0.28, font = gameConfig.defaultFont, fontSize = 30})
     self.superGroup:insert(self.score)
     --self.buttons.y = gameConfig.contentHeight * 0.65
 
-    self.newIcon = display.newText("New High Score!", gameConfig.contentWidth/2, gameConfig.contentHeight*0.22, gameConfig.defaultFont, 40)
+    self.newIcon = ScaleText.new({text = "New High Score!", x = gameConfig.contentWidth/2, y = gameConfig.contentHeight*0.22, font = gameConfig.defaultFont, fontSize = 10})
     transition.blink( self.newIcon, {time = 1500} )
     self.superGroup:insert(self.newIcon)
 end

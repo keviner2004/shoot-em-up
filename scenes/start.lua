@@ -8,7 +8,7 @@ local TAG = "START MENU"
 local navigator = require("navigator")
 local dbHelper = require("dbHelper")
 local facebook = require("facebook")
-
+local ScaleText = require("ui.ScaleText")
 local Title = require("ui.Title")
 local scene = MenuScene.new()
 local INDEX_START_1P = 1
@@ -42,7 +42,10 @@ end
 
 function scene:construct()
     local logo = Sprite.new("Logo")
-    local versionTxt = display.newText("Ver."..gameConfig.version, 0, 0, gameConfig.defaultFont, 32)
+    local versionTxt = ScaleText.new({
+      text = "Ver."..gameConfig.version,
+      x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 17
+    })
     self.superGroup:insert(logo)
     self.superGroup:insert(versionTxt)
     self.logo = logo
@@ -71,7 +74,7 @@ function scene:insertButtons()
     end
     local startButton = self:newButton(startButtonText)
     startButton.buttonView.alpha = 0
-    startButton.buttonText.size = 60
+    startButton.buttonText.size = 30  * gameConfig.scaleFactor
     startButton.pressSound = "start"
     startButton.buttonView.isHitTestable = true
     blink(startButton)
@@ -79,7 +82,7 @@ function scene:insertButtons()
     if not gameConfig.singlePlayerOnly then
       local secondButton = self:newButton("~2P~")
       secondButton.buttonView.alpha = 0
-      secondButton.buttonText.size = 60
+      secondButton.buttonText.size = 30 * gameConfig.scaleFactor
       secondButton.pressSound = "start"
       secondButton.buttonView.isHitTestable = true
       blink(secondButton)
@@ -123,7 +126,13 @@ function scene:createUserButton()
     --add user icon
     local userIcon = Sprite.new("UI/Icons/oneUser")
     --add user name
-    local userText = display.newText("", 0, 0, gameConfig.defaultFont, 35)
+    local userText = ScaleText.new({
+      text = "",
+      x = 0,
+      y = 0,
+      font = gameConfig.defaultFont,
+      fontSize = 17
+    })
     local gap = 15
     userIcon.xScale = 0.5
     userIcon.yScale = 0.5
@@ -155,7 +164,7 @@ function scene:createLoginButton()
         value = TEXT_LOGIN
     }
   })
-  --local text = display.newText("ddddddd", 0, 0, gameConfig.defaultFont, 40)
+
   button:insert(title)
   --button:insert(text)
   self.loginTitle = title
@@ -167,7 +176,7 @@ function scene:createLeaderBoardButton()
     --add user icon
     local icon = Sprite.new("UI/Icons/leaderBoard")
     --add user name
-    local text = display.newText("", 0, 0, gameConfig.defaultFont, 40)
+    local text = ScaleText.new({text = "", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 20})
     local gap = 15
 
     button:insert(text)

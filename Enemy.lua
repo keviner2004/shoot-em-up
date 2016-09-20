@@ -95,13 +95,13 @@ Enemy.new = function(options)
         local x = options.x or self.x
         local y = options.y or self.y
         local degree = options.degree or 0
-        local speed = options.speed or 300
+        local speed = options.speed or 150
         local BulletClass = require(self.defaultBullet.class)
         local bullet = BulletClass.new(self.defaultBullet.options)
         bullet.x = x
         bullet.y = y
         --print("Shoot dir "..degree)
-        bullet:setLinearVelocity( speed * math.cos(math.rad(degree)), - speed * math.sin(math.rad(degree)))
+        bullet:setScaleLinearVelocity( speed * math.cos(math.rad(degree)), - speed * math.sin(math.rad(degree)))
         self.parent:insert(bullet)
         self:toFront()
     end

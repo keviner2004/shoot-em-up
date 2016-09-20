@@ -7,14 +7,14 @@ local myLevel = Sublevel.new("9999999-013", "level name", "author name")
 
 function myLevel:show(options)
     local enemy = EnemyPlane.new()
-    local field = GravityField.new()
+    local field = GravityField.new({radius = 160 * gameConfig.scaleFactor})
 
     enemy.x = gameConfig.contentCenterX/2 * 3
     enemy.y = 0
 
     enemy.immuneGravityField = false
 
-    enemy:setLinearVelocity( -300, 300 )
+    enemy:setScaleLinearVelocity( -250, 250 )
     enemy:rotateByVelocity()
     enemy:autoDestroyWhenInTheScreen()
 

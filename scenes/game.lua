@@ -8,6 +8,7 @@ local move = require("move")
 local Level = require("Level")
 local Wall = require("Wall")
 local GlassPanel = require("ui.GlassPanel")
+local ScaleText = require("ui.ScaleText")
 local Square = require("ui.Square")
 local Sprite = require("Sprite")
 local dbHelper = require("dbHelper")
@@ -20,6 +21,7 @@ local gameConfig = require("gameConfig")
 local util = require("util")
 local BasicScene = require("scenes.templates.BasicScene")
 local Pool = require("Pool")
+local LinearGroup = require("ui.LinearGroup")
 local PooledItemExplosion = require("effects.PooledItemExplosion")
 local PooledStarExplosion = require("effects.PooledStarExplosion")
 local STATUS_STOPPED = "stopped"
@@ -95,17 +97,27 @@ function scene:createPauseBtn()
 end
 
 function scene:createPlayerLifeUI()
-    local playerLife = display.newGroup()
-    playerLife.x = 65
-    playerLife.y = gameConfig.contentHeight - 35
+    local playerLife = LinearGroup.new({
+      gap = display.contentWidth*0.01
+    })
     local lifeIcon = Sprite.new("UI/Player-lifes/2")
-    self.playerLifeText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
-    local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
-    lifeIcon.x = - totalL/2 + lifeIcon.width/2
-    lifeIcon.y = 0
-    self.playerLifeText.x = totalL/2 - self.playerLifeText.width/2
-    playerLife:insert(self.playerLifeText)
+    self.playerLifeText = ScaleText.new({
+      text = 0,
+      x = 0,
+      y = 0,
+      font = "kenvector_future_thin",
+      fontSize = 20
+    })
+    --local totalL = lifeIcon.width/2 + 50 + self.playerLifeText.width/2
+    --lifeIcon.x = - totalL/2 + lifeIcon.width/2
+    --lifeIcon.y = 0
+    --self.playerLifeText.x = totalL/2 - self.playerLifeText.width/2
+
     playerLife:insert(lifeIcon)
+    playerLife:insert(self.playerLifeText)
+    playerLife:resize()
+    playerLife.x = playerLife.width/2
+    playerLife.y = gameConfig.contentHeight - playerLife.height/2
     self.hudGroup:insert(playerLife)
 end
 
@@ -156,13 +168,28 @@ function scene:onKeyCancel(event)
 end
 
 function scene:fpsMesure()
+    self.debugBar = LinearGroup.new({gap = gameConfig.contentWidth * 0.03})
     local runtime = 0
-    self.fpsText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
-    self.numOfObjectsText = display.newText(0, 0, 0, "kenvector_future_thin", 40)
-    self.fpsText.x = 50
-    self.fpsText.y = 50
-    self.numOfObjectsText.x = 150
-    self.numOfObjectsText.y = 50
+    self.fpsText = ScaleText.new({
+      text = 0,
+      x = 0,
+      y = 0,
+      font = "kenvector_future_thin",
+      fontSize = 20
+    })
+    self.numOfObjectsText = ScaleText.new({
+      text = 0,
+      x = 0,
+      y = 0,
+      font = "kenvector_future_thin",
+      fontSize = 20
+    })
+    self.debugBar:insert(self.fpsText)
+    self.debugBar:insert(self.numOfObjectsText)
+    self.debugBar:resize()
+    self.debugBar.x = self.debugBar.width * 0.8
+    self.debugBar.y = self.debugBar.height/2
+
     local count = 0
 
     local function getFPS()
@@ -347,7 +374,7 @@ function scene:startGame(options)
     Character.totalLifes = gameConfig.playerLifes
     self.score = Score.new()
     self.score.x = gameConfig.contentWidth/2
-    self.score.y = 50
+    self.score.y = self.score.height * 1.1
     --main character
     self.players = {}
     local p1x = gameConfig.contentWidth / 2

@@ -3,6 +3,7 @@ local widget = require( "widget" )
 local GlassTLCornersPanel = require("ui.GlassTLCornersPanel")
 local GlassProjectionPanel = require("ui.GlassProjectionPanel")
 local composer = require( "composer" )
+local ScaleText = require( "ui.ScaleText" )
 local BasicScene = require("scenes.templates.BasicScene")
 --local scene = composer.newScene()
 local scene = BasicScene.new()
@@ -10,14 +11,14 @@ local scene = BasicScene.new()
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
 ---------------------------------------------------------------------------------
- 
+
 -- local forward references should go here
- 
+
 ---------------------------------------------------------------------------------
- 
+
 -- "scene:create()"
 function scene:create( event )
-   
+
    local sceneGroup = self.view
    --self.superGroup = display.newGroup()
    --self.superGroup.x = gameConfig.contentX
@@ -26,17 +27,17 @@ function scene:create( event )
 
    glassPanel.x = gameConfig.contentWidth/2
    glassPanel.y = gameConfig.contentHeight/2
-   local title = display.newText("New Record!", 0, 0, "kenvector_future_thin", 40)
+   local title = ScaleText.new({text = "New Record!", x = 0, y = 0, font = "kenvector_future_thin", fontSize = 20})
    title.x = glassPanel.x
-   title.y = glassPanel.y - glassPanel.contentHeight / 2 + 70 
+   title.y = glassPanel.y - glassPanel.contentHeight / 2 + 70
 
    local score = (event.params and event.params.score) or 0
-   local scoreText = display.newText(score, 0, 0, "kenvector_future_thin", 40)
-   
+   local scoreText = ScaleText.new({text = score, x = 0, y = 0, font = "kenvector_future_thin", fontSize = 40})
+
    scoreText.x = glassPanel.x
    scoreText.y = title.y + 80
 
-   local nameText = display.newText("Your Name", 0, 0, "kenvector_future_thin", 40)
+   local nameText = ScaleText.new({text = "Your Name", x = 0, y = 0, font = "kenvector_future_thin", fontSize = 40})
    nameText.x = glassPanel.x
    nameText.y = scoreText.y + 80
 
@@ -46,7 +47,7 @@ function scene:create( event )
    self.superGroup:insert(title)
    self.superGroup:insert(scoreText)
    self.superGroup:insert(nameText)
-   
+
    function self.nameTextField:userInput( event )
       if ( event.phase == "began" ) then
          -- user begins editing textField
@@ -56,8 +57,8 @@ function scene:create( event )
          print( "Final Text: ", event.target.text )
          native.setKeyboardFocus( nil )
       elseif ( event.phase == "editing" ) then
-            local txt = event.text 
-            print("txt: "..txt)           
+            local txt = event.text
+            print("txt: "..txt)
             if(string.len(txt)>10)then
                print("max")
                txt=string.sub(txt, 1, 10)
@@ -69,7 +70,7 @@ function scene:create( event )
    local okButton = GlassProjectionPanel.new(200, 70)
    okButton.x = glassPanel.x
    okButton.y = self.nameTextField.y + 100
-   local okText = display.newText("OK", 0, 0, "kenvector_future_thin", 35)
+   local okText = ScaleText.new(text = "OK", x = 0, y = 0, font = "kenvector_future_thin", fontSize = 35})
    okText.x = okButton.x
    okText.y = okButton.y
 
@@ -79,7 +80,7 @@ function scene:create( event )
    self.superGroup:insert(okButton)
    self.superGroup:insert(okText)
    self.superGroup:insert(self.nameTextField)
-   self.params = event.params 
+   self.params = event.params
 
    function okButton:onTouch(event)
       print("custom: "..event.phase.."/"..event.phase)
@@ -89,15 +90,15 @@ function scene:create( event )
       end
    end
 end
- 
+
 -- "scene:show()"
 function scene:show( event )
    if self.nameTextField then
       self.nameTextField.isVisible = true
    end
    local sceneGroup = self.view
-   local phase = event.phase 
- 
+   local phase = event.phase
+
    if ( phase == "will" ) then
 
    elseif ( phase == "did" ) then
@@ -110,7 +111,7 @@ function scene:hide( event )
    self.nameTextField.isVisible = false
    local sceneGroup = self.view
    local phase = event.phase
- 
+
    if ( phase == "will" ) then
 
    elseif ( phase == "did" ) then
@@ -126,5 +127,5 @@ function scene:destroy( event )
    local sceneGroup = self.view
 
 end
- 
+
 return scene

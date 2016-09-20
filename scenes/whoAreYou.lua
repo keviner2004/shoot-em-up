@@ -7,6 +7,7 @@ local composer = require( "composer" )
 local BasicScene = require("scenes.templates.BasicScene")
 local navigator = require("navigator")
 local Keyboard = require("ui.CustomKeyboard")
+local ScaleText = require("ui.ScaleText")
 local Sprite = require("Sprite")
 local util = require("util")
 local dbHelper = require("dbHelper")
@@ -40,7 +41,7 @@ function scene:create( event )
    local glassPanel = GlassCornersPanel.new(gameConfig.contentWidth * 0.9, gameConfig.contentWidth * 0.4)
 
    self.cursor = Sprite.new(gameConfig.defaultCursor)
-   local nameText = display.newText("Who Are You?", 0, 0, gameConfig.defaultFont, 50)
+   local nameText = ScaleText.new({text = "Who Are You?", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 25})
    nameText.fill = {40/255, 73/255, 95/255}
    self.lenOfName = 10
    self.gapInName = 0
@@ -49,7 +50,7 @@ function scene:create( event )
    self.buttonIdx = 1
    self.buttonArray = {}
    for i = 1, self.lenOfName do
-      local ch = display.newText("_", 0, 0, gameConfig.defaultFont, 60)
+      local ch = ScaleText.new({text = "_", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 30})
       self.nameTextField:insert(ch)
    end
 

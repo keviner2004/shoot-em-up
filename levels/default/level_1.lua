@@ -17,9 +17,9 @@ function sublevel:show(options)
             --Move enemy, get path first
             move.followN(enemy, pathPoints, {
                 showPoints = false,
-                speed = 300,
+                speed = 300 * gameConfig.scaleFactor,
                 autoRotation = true,
-                idep = false, 
+                idep = false,
                 onComplete = function()
                     enemy:clear()
                 end
@@ -37,11 +37,11 @@ function sublevel:show(options)
         self:addTimer(300 * i, function()
             local enemy = EnemyPlane.new()
             enemy.x = pathPoints2[1].x
-            enemy.y = pathPoints2[1].y 
+            enemy.y = pathPoints2[1].y
             --Move enemy, get path first
             move.followN(enemy, pathPoints2, {
                 showPoints = false,
-                speed = 300,
+                speed = 400 * gameConfig.scaleFactor,
                 autoRotation = true,
                 idep = false,
                 onComplete = function()

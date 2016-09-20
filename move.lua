@@ -35,14 +35,14 @@ function M.isOut(obj)
         y < -(obj.height or 0)/2 or
         y > gameConfig.contentHeight + (obj.height or 0)/2 then
         return true
-    end 
+    end
     return false
 end
 
 function M.isOut2(x, y)
     if x < 0 or x > gameConfig.contentWidth or y < 0 or y > gameConfig.contentHeight then
         return true
-    end 
+    end
     return false
 end
 
@@ -72,7 +72,7 @@ end
 function M.stick(obj, target, options)
     local offsetX = (options and options.offsetX) or 0
     local offsetY = (options and options.offsetY) or 0
-    util.addEnterFrameListener(obj, 
+    util.addEnterFrameListener(obj,
         function(event)
             if target.x and target.y then
                 obj.x = target.x + offsetX
@@ -89,7 +89,7 @@ end
 function M.pointTo(obj, target)
     if not target or not target.x or not target.y then
         print("You need to pass a target when you use pointTo")
-        return 
+        return
     end
     if not obj.dir then
         obj.dir = 0
@@ -110,7 +110,7 @@ function M.pointTo(obj, target)
             if target.localToContent then
                 dstX, dstY = target:localToContent(0, 0)
             end
-            
+
             obj.rotation = util.angleBetween( srcX, srcY, dstX, dstY) + obj.dir
             --print(obj.x, obj.y, target.x, target.y, obj.rotation)
         end
@@ -147,11 +147,11 @@ function M.track(obj, pointTo)
         moveTo.y = gameConfig.contentHeight
     end
 
-    transition.to(obj, {tag = obj.moveTag, delay = 1500, time = 500, x = moveTo.x, y = moveTo.y, 
+    transition.to(obj, {tag = obj.moveTag, delay = 1500, time = 500, x = moveTo.x, y = moveTo.y,
         onComplete = function ()
             if obj.moveCanceled then
                 return
-            end 
+            end
             print("move to next point")
             obj:onMovePoint({pointTo = pointTo, rotation = obj.rotation})
             --wait
@@ -166,13 +166,13 @@ end
 
 function M.toward(obj, options)
     --print("M.toward")
-    local dx = (options.offsetX or 5) * math.cos(options.radius or math.rad(options.degree))
-    local dy = (options.offsetY or 5) * math.sin((options.radius or math.rad(options.degree) * -1))
+    local dx = (options.offsetX or 3) * math.cos(options.radius or math.rad(options.degree)) * gameConfig.scaleFactor
+    local dy = (options.offsetY or 3) * math.sin((options.radius or math.rad(options.degree) * -1)) * gameConfig.scaleFactor
     local rRad = math.atan2(-dy, -dx)
     obj.m_defaultX = obj.x
     obj.m_defaultY = obj.y
-    
-    util.addEnterFrameListener(obj, 
+
+    util.addEnterFrameListener(obj,
         function()
             --print("dx: "..dx..", dy: "..dy)
             obj.x = obj.x + dx
@@ -183,8 +183,8 @@ function M.toward(obj, options)
                 print("back mode enabled")
                 local rx = math.cos(rRad)
                 local ry = math.sin(rRad)
-                local rxd = 0 
-                local ryd = 0 
+                local rxd = 0
+                local ryd = 0
                 local startX = 0
                 local startY = 0
                 --print("rDegree "..math.deg(rRad), rx, ry)
@@ -193,7 +193,7 @@ function M.toward(obj, options)
                     rxd = obj.m_defaultX
                 else
                     rxd = gameConfig.contentWidth - obj.m_defaultX
-                end   
+                end
                 if ry < 0 then
                     ryd = obj.m_defaultY
                 else
@@ -218,11 +218,11 @@ function M.toward(obj, options)
                 print("back pos is "..startX, startY)
                 obj.x = startX
                 obj.y = startY
-                transition.to(obj, {x = obj.m_defaultX, y = obj.m_defaultY, time = 1000, onComplete = 
+                transition.to(obj, {x = obj.m_defaultX, y = obj.m_defaultY, time = 1000, onComplete =
                     function()
                         if options.onComplete then
                             options.onComplete()
-                        end                        
+                        end
                     end
                 })
                 print("back pos done")
@@ -244,7 +244,7 @@ function M.rotateAround(obj, options)
     end
     rotation()
     print("start at "..angle)
-    util.addEnterFrameListener(obj, 
+    util.addEnterFrameListener(obj,
         function()
             if options.target.x == nil or obj.x == nil then
                 print("rotateAround failed because of object disapear")
@@ -280,7 +280,7 @@ function M.resume(obj)
     obj.paused = false
     if obj then
         transition.resume(obj)
-    end 
+    end
 end
 
 M.seek = seek.seek

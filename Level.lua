@@ -2,6 +2,7 @@ local logger = require("logger")
 local dbHelper = require("dbHelper")
 local sfx = require("sfx")
 local TimerUtil = require("TimerUtil")
+local ScaleText = require("ui.ScaleText")
 local TAG = "Level"
 local Level = {}
 local gameConfig = require("gameConfig")
@@ -77,12 +78,24 @@ Level.load = function()
 
     function level:showInfo()
         local levelTitle = display.newGroup()
-        local levelNameTxt = display.newText(string.format("%s", self.currentSublevel.name), 0, 0, "kenvector_future_thin", 35)
-        local authorTxt = display.newText(string.format("%s", self.currentSublevel.author), 0, 0, "kenvector_future_thin", 35)
+        local levelNameTxt = ScaleText.new({
+          text = string.format("%s", self.currentSublevel.name),
+          x = 0,
+          y = 0,
+          font = "kenvector_future_thin",
+          fontSize = 17
+        })
+        local authorTxt = ScaleText.new({
+          text = string.format("%s", self.currentSublevel.author),
+          x = 0,
+          y = 0,
+          font = "kenvector_future_thin",
+          fontSize = 17
+        })
         levelNameTxt.x = 0
-        levelNameTxt.y = -30
+        levelNameTxt.y = -levelNameTxt.height/2
         authorTxt.x = 0
-        authorTxt.y = 30
+        authorTxt.y = authorTxt.height / 2
         levelTitle:insert(levelNameTxt)
         levelTitle:insert(authorTxt)
         levelTitle.x = gameConfig.contentWidth/2

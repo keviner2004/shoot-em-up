@@ -2,6 +2,7 @@ local GameObject = {}
 local move = require("move")
 local Sprite = require("Sprite")
 local TimerUtil = require("TimerUtil")
+local gameConfig = require("gameConfig")
 local EnterFrameUtil = require("EnterFrameUtil")
 local util = require("util")
 local logger = require("logger")
@@ -69,7 +70,7 @@ GameObject.new = function (options)
             if not self.x then
                 --print("Game object removed")
                 self.enterFrame:cancel(self._b_enterFrame)
-                return 
+                return
             end
             if self.paused then
                 return
@@ -98,7 +99,7 @@ GameObject.new = function (options)
     end
 
     function object:cancelTimer(id)
-       self.timerUtil:cancel(id) 
+       self.timerUtil:cancel(id)
     end
 
     function object:cancel()
@@ -149,14 +150,14 @@ GameObject.new = function (options)
     end
 
     function object:onClear()
-        
+
     end
 
     function object:callWhenInStage(func)
         local function checkOnStage()
             if not move.isOut(self) then
                 func()
-                self.enterFrame:cancel(checkOnStage)        
+                self.enterFrame:cancel(checkOnStage)
             end
         end
         self.enterFrame:each(checkOnStage)
@@ -261,7 +262,7 @@ GameObject.new = function (options)
     function object:removePhysics()
         if not self.bodyInited then
             logger:warn(TAG, "Physics body is already removed")
-            return 
+            return
         end
         --print("remove physics")
         physics.removeBody(self)
@@ -281,6 +282,10 @@ GameObject.new = function (options)
     function object:reInitPhysics()
         self:enablePhysics(false)
         self:enablePhysics(true)
+    end
+
+    function object:setScaleLinearVelocity(vx, vy)
+      self:setLinearVelocity(vx * gameConfig.scaleFactor, vy * gameConfig.scaleFactor)
     end
 
     function object:insertToParent(obj)
@@ -326,8 +331,8 @@ GameObject.new = function (options)
 
     function object:disableAutoRotation()
         if self._autoRotation then
-            self.enterFrame:cancel(self._autoRotation)     
-            self._autoRotation = nil    
+            self.enterFrame:cancel(self._autoRotation)
+            self._autoRotation = nil
         end
     end
 

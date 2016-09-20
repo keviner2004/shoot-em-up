@@ -15,7 +15,7 @@ function myLevel:show(options)
 
     enemy.x = gameConfig.contentWidth * 0.6
     enemy.y = 0
-    enemy:setLinearVelocity( 0, 300 )
+    enemy:setScaleLinearVelocity( 0, 150 )
 
     rock:autoDestroyWhenInTheScreen()
 
@@ -28,11 +28,11 @@ function myLevel:show(options)
     move.rotateAround(rock, {
         target = enemy,
         speed = 5,
-        distance = 150,
+        distance = 75 * gameConfig.scaleFactor,
         startDegree = 30,
         onMissTarget = function(angle)
             local d =  angle + 90
-            rock:setLinearVelocity( 300 * math.cos(math.rad(d)) , -300 * math.sin(math.rad(d)) )
+            rock:setScaleLinearVelocity( 150 * math.cos(math.rad(d)) , -150 * math.sin(math.rad(d)) )
             print(angle, d)
         end
     })

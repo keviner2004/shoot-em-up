@@ -12,10 +12,10 @@ function myLevel:show(options)
     enemy.x = gameConfig.contentWidth/4
     enemy.y = -100
     --move the enemy from the top to bottom with speed 100 pixels/second
-    
+
     --destroy the enemy properly
     enemy:autoDestroyWhenInTheScreen()
-    enemy:setLinearVelocity( 0, 600 )
+    enemy:setScaleLinearVelocity( 0, 300 )
     move.seek(enemy, self.player, {
         maxForce = 50
     })

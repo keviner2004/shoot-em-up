@@ -42,7 +42,7 @@ Item.new = function(options)
     end
 
     function item:mentalEffect()
-        
+
     end
 
     function item:idleEffect()
@@ -70,18 +70,18 @@ Item.new = function(options)
         self:dropEffect()
         self:onDrop()
     end
-    
+
     function item:dropEffect(receiver)
         local degree = 0
-        local speed = math.random(10, 30)
+        local speed = math.random(5, 15)
         for i = 0, math.floor(speed / 10) do
             degree = math.random(1, 360)
         end
-        local vx = math.cos(math.rad(degree))*speed
-        local vy = math.cos(math.rad(degree))*speed
+        local vx = math.cos(math.rad(degree))* speed
+        local vy = math.cos(math.rad(degree))* speed
         logger:info(TAG, "random move items %d %d", vx, vy)
-        
-        self:setLinearVelocity(vx , vy)
+
+        self:setScaleLinearVelocity(vx , vy)
         --self:enableAutoDestroy()
         if self.apearDuration > 0 then
             self.timerId = item:addTimer(self.apearDuration, function()
@@ -95,17 +95,17 @@ Item.new = function(options)
                     end
                 })
             end)
-        end        
+        end
     end
 
     function item:onDrop(receiver)
-        
+
     end
 
     function item:needKeep(receiver)
         local result = receiver:testUpdateAttr(self)
         if result.change then
-            return true         
+            return true
         end
         return false
     end
