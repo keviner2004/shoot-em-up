@@ -3,7 +3,7 @@ local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
 config.singlePlayerOnly = true
-config.version = "0.984"
+config.version = "0.9841"
 config.dbVersion = "0.35"
 config.soundOn = true
 config.fightBeforeEncounterBoss = 10

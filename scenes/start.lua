@@ -64,7 +64,7 @@ function scene:insertButtons()
         end
         transition.to(btn, {time = 300, alpha = alpha, onComplete =
             function()
-                blink(btn, not show)
+                return blink(btn, not show)
             end
         })
     end
