@@ -70,7 +70,7 @@ function scene:create( event )
    local okButton = GlassProjectionPanel.new(200, 70)
    okButton.x = glassPanel.x
    okButton.y = self.nameTextField.y + 100
-   local okText = ScaleText.new(text = "OK", x = 0, y = 0, font = "kenvector_future_thin", fontSize = 35})
+   local okText = ScaleText.new({text = "OK", x = 0, y = 0, font = "kenvector_future_thin", fontSize = 35})
    okText.x = okButton.x
    okText.y = okButton.y
 

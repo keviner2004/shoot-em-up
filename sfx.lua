@@ -89,19 +89,19 @@ sfx.fallingLaser = {
 }
 
 sfx.burst = {
-  handle = audio.loadSound("sounds/sfx_sounds_impact9.mp3"), 
+  handle = audio.loadSound("sounds/sfx_sounds_impact9.mp3"),
 }
 
 sfx.explosion2 = {
-  handle = audio.loadSound("sounds/sfx_exp_short_soft9.mp3"), 
+  handle = audio.loadSound("sounds/sfx_exp_short_soft9.mp3"),
 }
 
 sfx.click = {
-  handle = audio.loadSound("sounds/click.mp3"),  
+  handle = audio.loadSound("sounds/click.mp3"),
 }
 
 function sfx:initVolumn()
-  --local masterVolume = audio.getVolume()  
+  --local masterVolume = audio.getVolume()
   --print( "volume "..masterVolume )
   audio.setVolume( 0.7, { channel = self.CHANNEL_BG } )  --music track
   audio.setVolume( 0.8, { channel = self.CHANNEL_UI } )  --ui
@@ -141,15 +141,11 @@ function sfx:play(name, options)
 
 
     return audio.play(self[name].handle, options)
-    
+
 end
 
 function sfx:fadeOut(channel, time)
   audio.fadeOut(channel, time)
-end
-
-function sfx:pause(channel)
-    audio.pause(channel)
 end
 
 function sfx:stop(channel)
