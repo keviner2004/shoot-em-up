@@ -24,7 +24,7 @@ Turret.new = function(options)
     turret.shootInterval = options.shootInterval or 1000
 
     function turret:startShootLoop()
-        print("shootDelay "..self.shootDelay)
+        --print("shootDelay "..self.shootDelay)
         self:addTimer(self.shootDelay,
             function()
                 self:shoot({degree = self.gun.dir - self.gun.rotation})

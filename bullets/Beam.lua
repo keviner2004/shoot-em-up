@@ -7,7 +7,7 @@ local Sprite = require("Sprite")
 local sfx = require("sfx")
 local gameConfig = require("gameConfig")
 Beam.new = function (options)
-    print("beam")
+    --print("beam")
     --local beam = GameObject.new()
     local beam = Bullet.new({
         --disablePhysic = true,
@@ -27,7 +27,7 @@ Beam.new = function (options)
     beam.damage = 999999
     beam.name = "beam"
 
-    print("beam fireTo "..beam.fireTo)
+    --print("beam fireTo "..beam.fireTo)
 
     function beam:afterHit(event)
         --do nothing
@@ -103,7 +103,7 @@ Beam.new = function (options)
 
     function beam:shoot()
         sfx:play("fallingLaser")
-        print("shoot")
+        --print("shoot")
         local max =  self.rotation + self.range
         local min =  self.rotation - self.range
         self.defaultX = self.x
@@ -203,7 +203,7 @@ Beam.new = function (options)
     function beam:stop()
         --print("beam is stopped")
         if self.burstChannel then
-            print("stop burst audio channel", self.burstChannel)
+            --print("stop burst audio channel", self.burstChannel)
             sfx:stop(self.burstChannel)
         end
         Runtime:removeEventListener("enterFrame", self.beamHandler)
@@ -248,7 +248,7 @@ Beam.new = function (options)
                         self.burst = self:newBurst()
 
                         self.burstChannel = sfx:play("burst", {loops = -1})
-                        print("stop burst audio channel", self.burstChannel)
+                        --print("stop burst audio channel", self.burstChannel)
 
                         self:insert(self.burst)
                     end
@@ -261,7 +261,7 @@ Beam.new = function (options)
             end
         elseif not hit or not hitWall then
             if self.burst then
-                print("not hit wall")
+                --print("not hit wall")
                 self.burst:removeSelf()
                 --self.burst.isVisible = false
                 self.burst = nil

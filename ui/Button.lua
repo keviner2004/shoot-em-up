@@ -6,7 +6,7 @@ Button.new = function()
   local button = display.newGroup()
 
   button.click = function(event)
-    logger:info(TAG, "Button was clicked")
+    logger:debug(TAG, "Button was clicked")
   end
 
   function button:touch(event)

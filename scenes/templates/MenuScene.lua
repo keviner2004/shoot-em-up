@@ -16,7 +16,7 @@ Menu.new = function()
     scene.menuWidth = math.round(gameConfig.contentWidth)
     scene.menuHeight = math.round(gameConfig.contentHeight)
     function scene:create( event )
-       logger:info(TAG, "scene create")
+       logger:debug(TAG, "scene create")
        --self.superGroup = display.newGroup()
        --self.superGroup.x = gameConfig.contentX
        --self.superGroup.y = gameConfig.contentY
@@ -94,7 +94,7 @@ Menu.new = function()
     function scene:newResumeButton()
       local button = self:newButton("Resume")
       button.action = function(button, event)
-        logger:info(TAG, "Resume button click")
+        logger:debug(TAG, "Resume button click")
         composer.hideOverlay( "fade", 400 )
         self.parent:toggleGame()
       end
@@ -103,7 +103,7 @@ Menu.new = function()
 
     function scene:newRestartButton()
        local button = self:newButton("Restart")
-       logger:info(TAG, "Restart button click")
+       logger:debug(TAG, "Restart button click")
        button.action = function(button, event)
           composer.gotoScene("scenes.game", {params = {action = "restart"}})
        end
@@ -112,9 +112,9 @@ Menu.new = function()
 
     function scene:newGiveupButton()
        local button = self:newButton("Giveup")
-       logger:info(TAG, "Giveup button click")
+       logger:debug(TAG, "Giveup button click")
        button.action = function(button, event)
-        logger:info(TAG, "Give up game")
+        logger:debug(TAG, "Give up game")
         composer.gotoScene("scenes.game", {params = {giveup = true}})
        end
        return button
@@ -167,14 +167,14 @@ Menu.new = function()
       self.parent = event.parent
        if ( phase == "will" ) then
           -- Called when the scene is still off screen (but is about to come on screen).
-          logger:info(TAG, "scene will show")
+          logger:debug(TAG, "scene will show")
           --Add key listener
           self:onWillShow(event)
        elseif ( phase == "did" ) then
           -- Called when the scene is now on screen.
           -- Insert code here to make the scene come alive.
           -- Example: start timers, begin animation, play audio, etc.
-          logger:info(TAG, "scene did show")
+          logger:debug(TAG, "scene did show")
           self:onDidShow(event)
        end
     end
@@ -188,12 +188,12 @@ Menu.new = function()
     end
 
     function scene:onKeyConfirm()
-      logger:info(TAG, "onKeyConfirm")
+      logger:debug(TAG, "onKeyConfirm")
       self:onConfirm(self.selectedBtnIdx)
     end
 
     function scene:onConfirm(idx)
-      logger:info(TAG, "onConfirm %dth btn", idx)
+      logger:debug(TAG, "onConfirm %dth btn", idx)
       if self.buttons[idx] and self.buttons[idx].action then
         self.buttons[idx].action()
         if not self.buttons[idx].playSound then
@@ -227,7 +227,7 @@ Menu.new = function()
           end
         end
 
-        logger:info(TAG, "Select new menu index : %d / %d", self.selectedBtnIdx, self.buttons.numChildren)
+        logger:debug(TAG, "Select new menu index : %d / %d", self.selectedBtnIdx, self.buttons.numChildren)
       end
       local selectedBtn = self.buttons[self.selectedBtnIdx]
       self.pointer.x, self.pointer.y = selectedBtn:localToContent( 0, 0 )
@@ -242,7 +242,7 @@ Menu.new = function()
        local phase = event.phase
 
        if ( phase == "will" ) then
-          logger:info(TAG, "scene will hide")
+          logger:debug(TAG, "scene will hide")
           self:onWillHide(event)
           --Remove key listener
           if self.pointer then
@@ -253,7 +253,7 @@ Menu.new = function()
           -- Insert code here to "pause" the scene.
           -- Example: stop timers, stop animation, stop audio, etc.
        elseif ( phase == "did" ) then
-          logger:info(TAG, "scene did hide")
+          logger:debug(TAG, "scene did hide")
           self:onDidHide(event)
           -- Called immediately after scene goes off screen.
           if self.onClose then
@@ -264,7 +264,7 @@ Menu.new = function()
 
     -- "scene:destroy()"
     function scene:destroy( event )
-       logger:info(TAG, "scene destroy")
+       logger:debug(TAG, "scene destroy")
        local sceneGroup = self.view
        -- Called prior to the removal of scene's view ("sceneGroup").
        -- Insert code here to clean up the scene.

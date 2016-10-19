@@ -22,7 +22,7 @@ local scene = LevelSelectionScene.new({
   })
 
 function scene:onLevelConfirm(index)
-    logger:info(TAG, "Select chapter %d", index)
+    logger:debug(TAG, "Select chapter %d", index)
     if self.blocks[index].locked then
       self:alert("Comming soon, check it later.")
       return
@@ -67,7 +67,6 @@ function scene:createChapter(options)
     bar.y = (bar.height - base.height)/2
     info.y = self.blockHeight * 0.3
     chapterName.y = bar.y
-    print("Score height "..score.height)
     scoreLabel.y = self.blockHeight * 0.25
     scoreLabel.x = 0
     score.y = self.blockHeight * 0.35

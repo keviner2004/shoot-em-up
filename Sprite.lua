@@ -7,7 +7,7 @@ M.sheetInfos = {}
 M.imageSheets = {}
 
 M.getFrameIndex = function(tag, name)
-    --logger:info(TAG, "Sprite.getFrameIndex %s, %s", tag, name)
+    --logger:debug(TAG, "Sprite.getFrameIndex %s, %s", tag, name)
     if not name then
         name = tag
         tag = "default"
@@ -27,7 +27,7 @@ M.addSheet = function(tag, imgName, sheetInfoName)
 
     if not string.find(loweImgName, ".png") then
         local scaleFactor =  gameConfig.contentHeight / gameConfig.basicHeight
-        logger:info(TAG, "!!!!!!!!!!!!! ScaleFactor: %f !!!!!!!!!!!", scaleFactor)
+        logger:debug(TAG, "!!!!!!!!!!!!! ScaleFactor: %f !!!!!!!!!!!", scaleFactor)
         local suffix = ""
         local currentScale = 0
         for k, v in pairs(gameConfig.imageSuffix) do
@@ -40,11 +40,11 @@ M.addSheet = function(tag, imgName, sheetInfoName)
         sheetInfoName = sheetInfoName..suffix
     end
 
-    logger:info(TAG, "Add sheet: imgName %s, sheetInfoName %s", imgName, sheetInfoName)
+    logger:debug(TAG, "Add sheet: imgName %s, sheetInfoName %s", imgName, sheetInfoName)
 
     M.sheetInfos[tag] = require(sheetInfoName)
     M.imageSheets[tag] = graphics.newImageSheet( imgName, M.sheetInfos[tag]:getSheet())
-    logger:info(TAG, "Add sheet: %s, image name: %s, sheet name: %s", tag, imgName, sheetInfoName)
+    logger:debug(TAG, "Add sheet: %s, image name: %s, sheet name: %s", tag, imgName, sheetInfoName)
     M[tag] = {}
     M[tag].new = function(name, options)
         local frames = {}

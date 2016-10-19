@@ -46,7 +46,7 @@ Sublevel.new = function (id, name, author, options)
 
     function sublevel:start(options)
         self.stopped = false
-        logger:info(TAG, "sublevel:start")
+        logger:debug(TAG, "sublevel:start")
         if self.duration then
             --print("Enable timer")
             self:addTimer(self.duration,
@@ -64,7 +64,7 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:stop()
-        print("sub level stop")
+        --print("sub level stop")
         self.stopped = true
         self.timerUtil:clear()
         --print("****************** cancelAll check task 1 *****************", self.enterFrame.numOfItems)
@@ -74,7 +74,7 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:pause()
-        logger:info(TAG, "Pause sublevel!!!!!!!!!!!!!!!!!")
+        logger:debug(TAG, "Pause sublevel!!!!!!!!!!!!!!!!!")
         self.paused = true
         self.timerUtil:pause()
     end
@@ -106,7 +106,7 @@ Sublevel.new = function (id, name, author, options)
         end
       end
       --if Character.totalLifes < 0 then
-      --  logger:info(TAG, "isFail")
+      --  logger:debug(TAG, "isFail")
       --  return true
       --end
       return true
@@ -135,7 +135,7 @@ Sublevel.new = function (id, name, author, options)
                 return
             end
             if self:isFinish() then
-                logger:info(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
+                logger:debug(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
 
                 if self.onComplete then
@@ -143,7 +143,7 @@ Sublevel.new = function (id, name, author, options)
                 end
                 self:finish()
             elseif self:isFail() then
-                logger:info(TAG, "==========Sublevel fail: %d", self.enterFrame.numOfItems)
+                logger:debug(TAG, "==========Sublevel fail: %d", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
                 if self.onFail then
                     self.onFail({id = self.id})

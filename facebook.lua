@@ -13,8 +13,8 @@ local loginCallBacks = {}
 local requestCallBacks = {}
 
 local function facebookListener(event)
-  logger:info(TAG, "=============Receive fb event: ")
-  logger:info(TAG, "=============Type: %s, phase: %s, response: %s", event.type or "", event.phase or "", event.response or "")
+  logger:debug(TAG, "=============Receive fb event: ")
+  logger:debug(TAG, "=============Type: %s, phase: %s, response: %s", event.type or "", event.phase or "", event.response or "")
   if ( "session" == event.type ) then
     -- Handle login event
     if event.phase == FB.STATUS_LOGIN then
@@ -48,7 +48,7 @@ facebook.setFBConnectListener( facebookListener )
 FB.login = function(onComplete)
   local accessToken = facebook.getCurrentAccessToken()
   if ( accessToken ) then
-    logger:info(TAG, "Facebook user already logged in, User's access token: " .. accessToken.token )
+    logger:debug(TAG, "Facebook user already logged in, User's access token: " .. accessToken.token )
     return onComplete(FB.STATUS_LOGIN)
   end
   if onComplete then

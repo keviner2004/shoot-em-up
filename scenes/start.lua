@@ -21,7 +21,7 @@ local TEXT_LOGIN = "Sign in"
 local TEXT_LOGOUT = "Logout"
 
 function scene:init()
-    logger:info(TAG, "~~~~~~~~~~Init start scene~~~~~~~~~~")
+    logger:debug(TAG, "~~~~~~~~~~Init start scene~~~~~~~~~~")
     navigator:clear()
     self.menuWidth = math.round(gameConfig.contentWidth*0.8)
     self.menuHeight = math.round(gameConfig.contentHeight*0.5)
@@ -199,7 +199,7 @@ function scene:createLeaderBoardButton()
 end
 
 function scene:startGame()
-    logger:info(TAG, "Start the game")
+    logger:debug(TAG, "Start the game")
     composer.gotoScene("scenes.game")
 end
 
@@ -240,11 +240,11 @@ function scene:onDidShow( event )
   --self:alert("Welcome")
   --auto login
   local autoLogin = dbHelper:getAutoSignIn()
-  logger:info(TAG, "check need login to facebook, autoLogin: %s, disable: %s", tostring(autoLogin), tostring((event.params and event.params.action == "disableLogin") or 0))
+  logger:debug(TAG, "check need login to facebook, autoLogin: %s, disable: %s", tostring(autoLogin), tostring((event.params and event.params.action == "disableLogin") or 0))
   if autoLogin and not (event.params and event.params.action == "disableLogin") then
-    logger:info(TAG, "login with facebook")
+    logger:debug(TAG, "login with facebook")
     facebook.login(function(status)
-      logger:info(TAG, "login with status %s", status)
+      logger:debug(TAG, "login with status %s", status)
         if status == facebook.STATUS_LOGIN then
           self:updateLoginStatus()
           facebook.getUserInfo(function(info)
@@ -263,7 +263,7 @@ function scene:onWillHide( event )
 end
 
 function scene:onConfirm(buttonSelectedIndex)
-    logger:info(TAG, "Select mode %d", buttonSelectedIndex)
+    logger:debug(TAG, "Select mode %d", buttonSelectedIndex)
     sfx:play("start")
     --if name is empty, fore user add it
     local userName = dbHelper:getUserName()

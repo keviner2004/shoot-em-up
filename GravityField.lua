@@ -19,7 +19,7 @@ GravityField.new = function (options)
     field.collision = function (self, event)
         local victim = event.other
         if ( event.phase == "began" and not victim.immuneGravityField ) then
-            print("field "..event.other.mass.."/"..self.mass)
+            --print("field "..event.other.mass.."/"..self.mass)
             timer.performWithDelay( 10,
                 function()
                     if not util.isExists(victim) then

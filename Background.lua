@@ -15,7 +15,7 @@ Backgrounds.new = function(speed)
         local backgroundGroup = display.newGroup()
         local left = -math.ceil((tile.width * cols - gameConfig.contentWidth)/2)
         local top = -math.ceil((tile.height * rows - gameConfig.contentHeight)/2)
-        print("Generate background left:", left, "top:", top, backgroundGroup.x, backgroundGroup.y)
+        --print("Generate background left:", left, "top:", top, backgroundGroup.x, backgroundGroup.y)
         for row = 1, rows do
             for col = 1, cols do
                 local background = display.newImage("imgs/backgrounds/purple.png")

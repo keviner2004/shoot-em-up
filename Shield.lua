@@ -14,7 +14,7 @@ Shield.new = function(options)
 
     function shield:open(time)
         if self.opened then
-            print("Shield was already opened")
+            --print("Shield was already opened")
             return
         end
         self.sprite = Sprite.new({
@@ -39,7 +39,7 @@ Shield.new = function(options)
         --print("Close shield")
         self.opened = false
         self:removePhysics()
-        print("Remove shield physics")
+        --print("Remove shield physics")
         transition.to(self.sprite, { alpha = 0, onComplete = 
             function()
                 if self.sprite.removeSelf then

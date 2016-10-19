@@ -36,7 +36,7 @@ function scene:onLevelConfirm(index)
     local params = {
         levelId = sublevel.id
     }
-    logger:info("TAG", "Check level name: %s, id: %s", sublevel.name, sublevel.id)
+    logger:debug("TAG", "Check level name: %s, id: %s", sublevel.name, sublevel.id)
     self:go("scenes.leaderBoardSelection2", "scenes.leaderBoard", params)
 end
 

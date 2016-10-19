@@ -81,7 +81,7 @@ function scene:create( event )
    end
    self.nameTextField.index = 1
    function self.nameTextField:setText(text)
-      logger:info(TAG, "Set text %s", text)
+      logger:debug(TAG, "Set text %s", text)
       local blinked = false
       for i = 1, self.numChildren do
          local ch = string.sub(text, i, i)
@@ -186,7 +186,7 @@ function scene:create( event )
    okButton.x = (okButton.width - buttonsWidth)/2
    cancelButton.x = okButton.x + buttonsGap + (cancelButton.width + okButton.width)/2
 
-   print("~~~~~~~~~~~~~~~~~~~~",self.window.height, keyboard.height, buttons.height)
+   --print("~~~~~~~~~~~~~~~~~~~~",self.window.height, keyboard.height, buttons.height)
 
    self.window.x = gameConfig.contentWidth * 0.5
    self.window.y = top + self.window.height/2
@@ -199,20 +199,20 @@ function scene:create( event )
 
    --local red = display.newCircle( self.superGroup, gameConfig.contentWidth*0.5, gameConfig.contentHeight*0.5, 8 )
    function keyboard:onKeyPressd(value)
-      --logger:info(TAG, "User type %s", value)
+      --logger:debug(TAG, "User type %s", value)
       local currentText = scene.nameTextField:getText()
       local size = scene.nameTextField:getSize()
       if value == "enter" then
 
       elseif value == "del" then
-         --logger:info(TAG, "del %s/%d", currentText, size)
+         --logger:debug(TAG, "del %s/%d", currentText, size)
          if size > 0 then
             local result = string.sub(currentText, 1, size - 1)
             scene.nameTextField:setText(result)
          end
       else
          if(size < scene.nameTextField.maxSize)then
-            --logger:info(TAG, "max")
+            --logger:debug(TAG, "max")
             scene.nameTextField:setText(currentText..value)
             self.text=txt
          end
@@ -326,9 +326,9 @@ function scene:hide( event )
    if ( phase == "will" ) then
       self.keyboard:disable()
    elseif ( phase == "did" ) then
-      print("high score window close")
+      --print("high score window close")
       if self.params and self.params.onOk then
-         print("call onok func")
+         --print("call onok func")
          self.params.onOk(self.nameTextField.text)
       end
    end

@@ -43,7 +43,7 @@ function scene:create( event )
   self.closeButton.x = 0
   self.closeButton.y = top + textBlockHeight + buttonBlockHeight + closeButtonFieldHeight/2
   self.closeButton.click = function()
-    logger:info(TAG, "Close login page")
+    logger:debug(TAG, "Close login page")
     self:back()
   end
   --insert to group

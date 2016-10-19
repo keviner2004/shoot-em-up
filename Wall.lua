@@ -21,7 +21,7 @@ Wall.new = function(x, y, w, h)
     end
 
     wall.collision = function(self, event)
-        print("wall hit "..event.other.name)
+        --print("wall hit "..event.other.name)
     end
 
     wall:enablePhysics()

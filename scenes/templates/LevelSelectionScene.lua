@@ -17,7 +17,6 @@ LevelSelectionScene.new = function(options)
   scene.blocks = {}
 
   function scene:create( event )
-      print(pathOfThisFile)
       self.numOfRows = (options and options.row) or 3
       self.numOfCols = (options and options.col) or 4
       self.numOfLevels = (options and options.numOfLevels) or 40
@@ -56,7 +55,7 @@ LevelSelectionScene.new = function(options)
       self.backPage = navigator:peek()
       local blockLeft = self.pagePaddingLeft - self.pageWidth/2 + self.blockWidth/2
       local blockTop = self.pagePaddingTop - self.pageHeight/2 + self.blockHeight/2
-      logger:info(TAG, "w: %d, h: %d, l: %d, t: %d", self.blockWidth, self.blockHeight, blockLeft, blockTop)
+      logger:debug(TAG, "w: %d, h: %d, l: %d, t: %d", self.blockWidth, self.blockHeight, blockLeft, blockTop)
       if self.blockWidth > 0 and self.blockHeight > 0 then
         local count = self.numOfLevels
         for page = 1, self.numOfPages do
@@ -72,7 +71,7 @@ LevelSelectionScene.new = function(options)
                   self.blocks[blockIdx] = block
                   block.x = blockLeft + (j-1) * self.gap + (j-1) * block.width
                   block.y = blockTop + (i-1) * self.gap + (i-1) * block.height
-                  --logger:info(TAG, "%d x %d: w %d x h %d", j, i, block.x, block.y)
+                  --logger:debug(TAG, "%d x %d: w %d x h %d", j, i, block.x, block.y)
                   count = count - 1
                   pageGroup:insert(block)
                   self.levelCandidates[#self.levelCandidates+1] = block
@@ -173,7 +172,7 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:indexToLevelCoordinate(index)
-    logger:info(TAG, "indexToLevelCoordinate %d", index)
+    logger:debug(TAG, "indexToLevelCoordinate %d", index)
     local numOfLevelsPerPage = self.numOfRows * self.numOfCols
     local page = math.floor(index / numOfLevelsPerPage) + math.ceil((index % numOfLevelsPerPage) / numOfLevelsPerPage)
     local numOfLastPageLevels = index % numOfLevelsPerPage
@@ -194,10 +193,10 @@ LevelSelectionScene.new = function(options)
 
   function scene:selectCandidate(disablePointer)
     if self.isSelectLocked then
-      logger:info(TAG, "Selection is locked, you cannot select level")
+      logger:debug(TAG, "Selection is locked, you cannot select level")
       return
     end
-    logger:info(TAG, "Select level %d", self.selectedLevelCandidate)
+    logger:debug(TAG, "Select level %d", self.selectedLevelCandidate)
     local selectedLevel = self:getSelectedLevel()
     if not disablePointer then
       if not self.pointer then
@@ -289,7 +288,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:onKeyDown(event)
       local page, row, col = self:indexToLevelCoordinate(self.selectedLevelCandidate)
-      logger:info(TAG, "Current cusor %d, %d, %d", page, row, col)
+      logger:debug(TAG, "Current cusor %d, %d, %d", page, row, col)
       local newRow = row + 1
       if newRow > self.numOfRows then
         newRow = 1
@@ -303,7 +302,7 @@ LevelSelectionScene.new = function(options)
 
       self:setSelectedIndex(index)
 
-      logger:info(TAG, "Current selectedLevelCandidate %d", self.selectedLevelCandidate)
+      logger:debug(TAG, "Current selectedLevelCandidate %d", self.selectedLevelCandidate)
       self:selectCandidate()
   end
 
@@ -313,7 +312,7 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:onLevelConfirm(index)
-    logger:info("TAG", "Comfirm level block at index: %d", index)
+    logger:debug("TAG", "Comfirm level block at index: %d", index)
   end
 
   function scene:applyTouchToBlock(block, index)
@@ -336,7 +335,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:selectLeft()
     if self.isSelectLocked then
-      logger:info(TAG, "Selection is locked, you can't select level")
+      logger:debug(TAG, "Selection is locked, you can't select level")
       return
     end
     local page, row, col = self:indexToLevelCoordinate(self.selectedLevelCandidate)
@@ -380,7 +379,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:selectRight()
     if self.isSelectLocked then
-      logger:info(TAG, "Selection is locked, you can't select level")
+      logger:debug(TAG, "Selection is locked, you can't select level")
       return
     end
     local page, row, col = self:indexToLevelCoordinate(self.selectedLevelCandidate)
@@ -414,7 +413,7 @@ LevelSelectionScene.new = function(options)
     end
 
     self:setSelectedIndex(index)
-    print("Select index: ", index)
+    --print("Select index: ", index)
     self:selectCandidate()
     if newPage ~= page then
       self:selectPage(1)
@@ -482,7 +481,7 @@ LevelSelectionScene.new = function(options)
 
   function scene:selectPage(offset, options)
     if self.isSelectLocked then
-      logger:info(TAG, "Selection is locked, you can't select pages")
+      logger:debug(TAG, "Selection is locked, you can't select pages")
       return
     end
 
@@ -496,7 +495,7 @@ LevelSelectionScene.new = function(options)
 
     local newSelectedPage = self.pages[self.newSelectedPageIndex]
     local selectedPage = self.pages[self.selectedPageIndex]
-    logger:info(TAG, "new select page: %d/%d", self.newSelectedPageIndex, #self.pages)
+    logger:debug(TAG, "new select page: %d/%d", self.newSelectedPageIndex, #self.pages)
     --prepare
     if offset > 0 then
       self:movePageToSlot(newSelectedPage, 2)

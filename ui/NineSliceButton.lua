@@ -17,7 +17,7 @@ NineSliceButton.new = function(name, w, h, options)
     local _w = math.floor(w)
     local _h = math.floor(h)
 
-    --logger:info(TAG, "New 9-slice %s with w:%d, h:%d ", name, _w, _h)
+    --logger:debug(TAG, "New 9-slice %s with w:%d, h:%d ", name, _w, _h)
 
     button.disableClickSound = (options and options.disableClickSound) or false
     --[[
@@ -93,7 +93,7 @@ NineSliceButton.new = function(name, w, h, options)
 
     function button.buttonView:touch(event)
     --function button.buttonView:onTouch(event)
-        --logger:info(TAG, "touch: "..event.phase.."/"..event.phase.." on "..self.id)
+        --logger:debug(TAG, "touch: "..event.phase.."/"..event.phase.." on "..self.id)
         if event.phase == "ended" then
             button:playSound()
             if button.click then
@@ -114,7 +114,7 @@ NineSliceButton.new = function(name, w, h, options)
     end
 
     function button:onTouch(event)
-      --logger:info(TAG, "button:onTouch")
+      --logger:debug(TAG, "button:onTouch")
     end
 
     function button:setWidth(w)

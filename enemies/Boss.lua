@@ -81,7 +81,7 @@ Boss.new = function(players, options)
     end
 
     function boss:initHPBar()
-        print("initHPBar")
+        --print("initHPBar")
         local hpBar = display.newGroup()
         local glassPanel = GlassPanel.new(gameConfig.contentWidth*0.88, display.contentWidth*0.1)
         local base = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "shadow")
@@ -256,7 +256,7 @@ Boss.new = function(players, options)
 
     function boss:act()
         self:stage1(function()
-            print("stage 1 complete, start stage2")
+            --print("stage 1 complete, start stage2")
             self:stage2(1, function ()
                 self:stage3()
             end)
@@ -279,17 +279,17 @@ Boss.new = function(players, options)
     function boss:stage1(onComplete)
         boss.defaultX = self.x
         boss.defaultY = self.y
-        print("mode 1_2 start")
+        --print("mode 1_2 start")
 
         if self:isStage1()then
             self:rotateBullet(function()
                 self:bashToCharacter(function()
-                    print("bash complete, is finish?")
+                    --print("bash complete, is finish?")
                     self:stage1(onComplete)
                 end)
             end)
         else
-            print("stage 1 complete")
+            --print("stage 1 complete")
             if onComplete then
                 onComplete()
             end
@@ -305,7 +305,7 @@ Boss.new = function(players, options)
             function ()
                 ufo:beam(3000)
                 self:addTimer(3100 ,function()
-                    print("retreat ufo")
+                    --print("retreat ufo")
                     transition.to(ufo, {time = 500, y = -ufo.height, onComplete =
                         function()
                             ufo:removeSelf()
@@ -337,7 +337,7 @@ Boss.new = function(players, options)
         --prepare rocket
         self:addTimer(missileDelay, function()
             if self.isDead then
-                print("Cancel missile because boss is dead")
+                --print("Cancel missile because boss is dead")
                 return
             end
             --print("New missle")
@@ -347,7 +347,6 @@ Boss.new = function(players, options)
             for i = 1, num do
                 local missile = Missile.new()
                 missile:enableAutoDestroy()
-                print(self.x)
                 self.parent:insert(missile)
                 move.rotateAround(missile, {target = self, speed = 3, distance = 75 * gameConfig.scaleFactor, startDegree = startDegree + 360 / num * (i-1)})
                 --print("Prepare missile: "..missile.x.."x"..missile.y)
@@ -456,7 +455,7 @@ Boss.new = function(players, options)
         if not self.master.cloneHp then
             self.cloneHp = self.hp / total
         end
-        print("Clone boss with hp "..self.cloneHp)
+        --print("Clone boss with hp "..self.cloneHp)
         local newBoss = Boss.new(
             self.players,
             {
@@ -535,7 +534,7 @@ Boss.new = function(players, options)
     end
 
     function boss:rotateBullet(onComplete)
-        print("rotateBullet")
+        --print("rotateBullet")
         --rotated and bullet
         local startDegree = 0
         local devision = 15

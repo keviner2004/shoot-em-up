@@ -41,7 +41,7 @@ function scene:createSelectionBlock(text, locked)
 end
 
 function scene:onLevelConfirm(index)
-    logger:info(TAG, "Select %d th leaderboard", index)
+    logger:debug(TAG, "Select %d th leaderboard", index)
     if self.blocks[index].locked then
       self:alert("Comming soon, check it later.")
       return

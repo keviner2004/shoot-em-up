@@ -8,7 +8,8 @@ local LEADERBOARD_URL = gameConfig.rankServerUrl.."/zzrank/api/leaderboard"
 local PLAYLOG_URL = gameConfig.rankServerUrl.."/zzrank/api/playLog"
 local LIKE_URL = gameConfig.rankServerUrl.."/zzrank/api/like"
 local LIKECOUNT_URL = gameConfig.rankServerUrl.."/zzrank/api/like/count"
-local STATICS_API_URL = "http://www.pink-fun.com.tw/edufor4g/"
+local LAUNCH_LOG_URL = gameConfig.rankServerUrl.."/zzrank/api/log/launch"
+local DEV_LOG_URL = gameConfig.rankServerUrl.."/zzrank/api/log/dev"
 --local headers = {}
 --headers["Content-Type"] = "application/x-www-form-urlencoded"
 --headers["Accept-Language"] = "en-US"
@@ -20,13 +21,13 @@ function helper:getParamString(params)
   if string.len(str) > 3 then
     str = string.sub(str, 1, -2)
   end
-  logger:info(TAG, "Params string: "..str)
+  logger:debug(TAG, "Params string: "..str)
   return str
 end
 
 function helper:apiHandler(options)
   local function handler(event)
-    --print ( "IS ERRPR:"..tostring(event.isError)..", RESPONSE: " .. event.response )
+    logger:debug( TAG, "IS ERRPR:"..tostring(event.isError)..", RESPONSE: " .. event.response )
     if options and options.onComplete then
       local data = {
         status = 0,
@@ -118,13 +119,15 @@ end
 
 
 function helper:request(url, method, handler, params)
-  if method == "GET" then
-    url = url.."?"..self:getParamString(params)
+  if method == "GET"then
+    if  params then
+      url = url.."?"..self:getParamString(params)
+    end
     network.request(url, "GET", handler)
   else
 
   end
-  logger:info(TAG, "Request to %s with method %s", url, method)
+  logger:debug(TAG, "Request to %s with method %s", url, method)
 end
 
 function helper:getLeaderboard(options)
@@ -135,11 +138,18 @@ function helper:getLeaderboard(options)
 end
 
 function helper:sendLaunchStatics()
-  self:request(STATICS_API_URL, "GET", self:apiHandler(options),
-  {
-    school = options and options.school or "",
-    app = options and options.app or "",
-  })
+  self:request(gameConfig.STATICS_API_URL, "GET", self:apiHandler(options))
+end
+
+function helper:luanchLog()
+  network.request(LAUNCH_LOG_URL, "POST",
+    self:apiHandler(options),
+    {
+      body = self:getParamString({
+        devId = gameConfig.devId
+      })
+    }
+  )
 end
 
 return helper

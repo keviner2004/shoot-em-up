@@ -44,7 +44,7 @@ local scene = BasicScene.new()
 
 -- "scene:create()"
 function scene:create( event )
-    logger:info(TAG, "scene:create")
+    logger:debug(TAG, "scene:create")
     local sceneGroup = self.view
     -- Initialize the scene here.
     -- Example: add display objects to "sceneGroup", add touch listeners, etc.
@@ -122,10 +122,10 @@ function scene:createPlayerLifeUI()
 end
 
 function scene:toggleGame()
-    logger:info(TAG, "toggleGame")
+    logger:debug(TAG, "toggleGame")
     if self.status == STATUS_STARTED then
         if self.lockToggleGame then
-            logger:info(TAG, "Toggle game locked")
+            logger:debug(TAG, "Toggle game locked")
             return
         end
         self.lockToggleGame = true
@@ -163,7 +163,7 @@ function scene:onKeyCancel(event)
     if self.status == STATUS_STOPPED then
         return
     end
-    logger:info(TAG, "toggle game status")
+    logger:debug(TAG, "toggle game status")
     self:toggleGame()
 end
 
@@ -223,9 +223,9 @@ end
 
 
 function scene:pauseGame()
-    logger:info(TAG, "Pause game")
+    logger:debug(TAG, "Pause game")
     if self.status == STATUS_PAUSED then
-        print("The game is paused")
+        --print("The game is paused")
         return
     end
     self.level:pause()
@@ -235,7 +235,7 @@ function scene:pauseGame()
         for i = 1, self.mainGroup.numChildren do
             local v = self.mainGroup[i]
             if v.name then
-                print("pause obj: "..v.name)
+                --print("pause obj: "..v.name)
             end
             if v.freeze then
                 v:freeze()
@@ -259,19 +259,19 @@ function scene:showHUD()
 end
 
 function scene:clearGame()
-    logger:info(TAG, "clear pools")
+    logger:debug(TAG, "clear pools")
     Pool.clear()
-    logger:info(TAG, "Clear game objects")
+    logger:debug(TAG, "Clear game objects")
     if self.mainGroup and self.mainGroup.numChildren then
         local i = 1
         while i <= self.mainGroup.numChildren do
             local v = self.mainGroup[i]
             if v.clear then
                 if v.name then
-                    logger:info(TAG, "clear %dth obj: %s", i, v.name)
+                    logger:debug(TAG, "clear %dth obj: %s", i, v.name)
                 end
                 v:clear()
-                logger:info(TAG, "Objects after clear: %d", self.mainGroup.numChildren)
+                logger:debug(TAG, "Objects after clear: %d", self.mainGroup.numChildren)
             else
                 i = i + 1
             end
@@ -279,20 +279,20 @@ function scene:clearGame()
         self.mainGroup:removeSelf()
     end
     if self.hudGroup then
-        logger:info(TAG, "Clear hud")
+        logger:debug(TAG, "Clear hud")
         self.hudGroup:removeSelf()
     end
     sfx:stop()
     self.level:stop()
-    logger:info(TAG, "Clear listeners")
+    logger:debug(TAG, "Clear listeners")
     Runtime:addEventListener("touch", self)
     self.status = STATUS_STOPPED
 end
 
 function scene:resumeGame()
-    logger:info(TAG, "Resume game")
+    logger:debug(TAG, "Resume game")
     if self.status ~= STATUS_PAUSED then
-        print("The game work fine")
+        --print("The game work fine")
     end
     self.level:resume()
     physics.start()
@@ -311,7 +311,7 @@ end
 
 function scene:showScore(show)
     if not self.score then
-        print("Score bar not set")
+        --print("Score bar not set")
         return
     end
     if show then
@@ -366,7 +366,7 @@ function scene:createPlayer(PlaneClass, options)
 end
 
 function scene:startGame(options)
-    logger:info(TAG, "Start game, players: "..gameConfig.numOfPlayers)
+    logger:debug(TAG, "Start game, players: "..gameConfig.numOfPlayers)
     self.globalScore = 0
     local sceneGroup = self.view
     self.hudGroup = display.newGroup()
@@ -464,7 +464,7 @@ function scene:gameOver()
         end
     end
     self:hideHUD()
-    logger:info(TAG, "Gameover")
+    logger:debug(TAG, "Gameover")
     local userName = dbHelper:getUserName()
 
     local levelId = gameConfig.ID_LEVEL_INFINITE
@@ -476,10 +476,10 @@ function scene:gameOver()
         levelId = currentLevel.id
     end
 
-    logger:info(TAG, "~~~~~~~~~~~~!!!!GameOver in Level %s!!!!!!!!!~~~~~~~~~", levelId)
+    logger:debug(TAG, "~~~~~~~~~~~~!!!!GameOver in Level %s!!!!!!!!!~~~~~~~~~", levelId)
 
     local newRecord = dbHelper:updateRecord(userName, levelId, self.globalScore)
-    logger:info(TAG, "Show gamover overlay")
+    logger:debug(TAG, "Show gamover overlay")
     self:popUp("scenes.gameover", {
         score = self.globalScore,
         newRecord = newRecord,
@@ -493,10 +493,10 @@ function scene:victory(options)
         end
     end
     self:hideHUD()
-    logger:info(TAG, "Victory")
+    logger:debug(TAG, "Victory")
     local userName = dbHelper:getUserName()
     local newRecord = dbHelper:updateRecord(userName, (options and options.levelId) or gameConfig.ID_LEVEL_INFINITE, self.globalScore)
-    logger:info(TAG, "Show victory overlay")
+    logger:debug(TAG, "Show victory overlay")
     local showNextLevel = true
     local nextLevelIdx = 1
     if self.currentLevelIdx >= #self.levels then
@@ -522,11 +522,9 @@ function scene:show( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-        print("gamescene:show() will")
         PooledItemExplosion.pooling(10)
         PooledStarExplosion.pooling(10)
     elseif ( phase == "did" ) then
-        print("gamescene:show() did")
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -535,7 +533,6 @@ function scene:show( event )
         end
         if self.first then
             self:hideHUD()
-            print("Game start first, show start Screen")
             local options = {
                effect = "fade",
                time = 500,
@@ -554,7 +551,7 @@ function scene:show( event )
             self:resumeGame()
             sfx:play("bg", {loops = -1})
             if event.params and event.params.action == "restart" then
-                logger:info(TAG, "Restart the game with previous game options")
+                logger:debug(TAG, "Restart the game with previous game options")
                 self:startGame(self.gameOptions)
             else
                 local options = {}
@@ -565,15 +562,15 @@ function scene:show( event )
                     options.levelName = self.levels[self.currentLevelIdx]
                 end
                 options.onComplete = function(event)
-                    logger:info(TAG, "!!!!!!!!!!!Level %s completed!!!!!!!!!!!", event.id)
+                    logger:debug(TAG, "!!!!!!!!!!!Level %s completed!!!!!!!!!!!", event.id)
                     self:victory({levelId = event.id})
                 end
                 options.onFail = function(event)
-                    logger:info(TAG, "!!!!!!!!!!!Level %s failed!!!!!!!!!!!", event.id)
+                    logger:debug(TAG, "!!!!!!!!!!!Level %s failed!!!!!!!!!!!", event.id)
                     self:gameOver({levelId = event.id})
                 end
                 self.gameOptions = options
-                logger:info(TAG, "Just start the game, mode: %s", options.mode)
+                logger:debug(TAG, "Just start the game, mode: %s", options.mode)
                 self:startGame(options)
                 self.gameMode = options.mode
             end
@@ -587,7 +584,7 @@ function scene:hide( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-        print("gamescene:hide() will")
+        --print("gamescene:hide() will")
         --self:pauseGame()
         self:clearGame()
         --self:resumeGame()
@@ -598,7 +595,6 @@ end
 
 -- "scene:destroy()"
 function scene:destroy( event )
-    print("scene:destroy()")
    local sceneGroup = self.view
    self.superGroup:removeSelf()
    -- Called prior to the removal of scene's view ("sceneGroup").
@@ -607,7 +603,7 @@ function scene:destroy( event )
 end
 
 local function onSystemEvent( event )
-    print("onSystemEvent: "..event.type)
+
 end
 
 Runtime:addEventListener( "system", onSystemEvent )

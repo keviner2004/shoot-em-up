@@ -3,8 +3,9 @@ local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
 config.singlePlayerOnly = true
-config.version = "0.9841"
+config.version = "0.9842"
 config.dbVersion = "0.35"
+config.devId = "1003945780"
 config.soundOn = true
 config.fightBeforeEncounterBoss = 10
 config.playerUnstoppable = false
@@ -82,7 +83,7 @@ config.scaleFactor =  config.contentHeight / config.basicHeight
 config.stageSpeed = 100 * config.scaleFactor
 if config.production then
   --config.rankServerUrl = "http://163.18.2.162"
-  config.rankServerUrl = "http://106.186.123.208:8000"
+  config.rankServerUrl = "http://163.18.2.162:8000"
   config.fbskip = false
   config.hiddenSingleLevelChapter = true
   config.debugFPS = false
@@ -92,5 +93,7 @@ else
   config.hiddenSingleLevelChapter = false
   config.debugFPS = true
 end
+
+config.STATICS_API_URL = "http://140.115.197.16/?school=NKFUST&app=shooting"
 
 return config

@@ -215,7 +215,7 @@ function scene:newLikeButton()
       dbHelper:changeNumOfLikes(Level.currentLevelId, -1)
       transition.to(self.starIcon, {time = 100, xScale = 0.1, yScale = 0.1, alpha = 0})
     end
-    logger:info(TAG, "syncLikeRequest")
+    logger:debug(TAG, "syncLikeRequest")
     dbHelper:syncLikeRequest()
   end
 

@@ -91,16 +91,16 @@ Character.new = function (options)
         if event.contact then
             event.contact.isEnabled = false
         else
-            print("WTF")
+            --print("WTF")
         end
     end
 
     character.collision = function(self, event)
-        print("hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
+        --print("hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
         if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy"then
-            print("hit2 by "..event.other.name..":"..self.hp)
+            --print("hit2 by "..event.other.name..":"..self.hp)
             if self.shield and self.shield.opened then
-                print("shield is open, ignore")
+                --print("shield is open, ignore")
                 return
             end
             timer.performWithDelay( 1,
@@ -122,7 +122,7 @@ Character.new = function (options)
     end
 
     function character:onHurt(damage)
-        print("onHurt, ch damage "..damage)
+        --print("onHurt, ch damage "..damage)
         self.hp = self.hp - damage
         if self.hp < 0 then
             --self.isDead = true
@@ -131,11 +131,11 @@ Character.new = function (options)
     end
 
     function character:onLifeChanged(lifes)
-        print("remain "..lifes.." lifes")
+        --print("remain "..lifes.." lifes")
     end
 
     function character:onScoreChanged(score)
-        print("score update to "..self.score)
+        --print("score update to "..self.score)
     end
 
     function character:onRespawn(x, y)
@@ -290,7 +290,7 @@ Character.new = function (options)
 
     function character:shoot()
         if not util.isExists(self) then
-            print("Don't shoot!")
+            --print("Don't shoot!")
             return
         end
         shootCount = shootCount + 1
@@ -302,12 +302,12 @@ Character.new = function (options)
     end
 
     function character:dropItems()
-        logger:info(TAG, "character dropItems:")
+        logger:debug(TAG, "character dropItems:")
         for i, v in pairs(self.backpack:getItems()) do
             --local ItemClass = require(v.class)
             --local item = ItemClass.new(unpack(v.params))
             if v.name then
-                logger:info(TAG, "character dropItem:", v.name)
+                logger:debug(TAG, "character dropItem:", v.name)
             end
             if not util.isExists(v) then
                 logger:error(TAG, "!!!!!!!!!!!!!!!drop unExist item!!!!!!!!!!!!!!")
@@ -367,7 +367,7 @@ Character.new = function (options)
         self:limitAttr(result)
 
         result.change = self:doesAttrChange(result)
-        print("change!!!!!!!!!!!!!!!", result.change)
+        --print("change!!!!!!!!!!!!!!!", result.change)
         return result
     end
 
@@ -379,16 +379,16 @@ Character.new = function (options)
         self.power = self.defaultPower
         self.shootSpeed = self.defaultShootSpeed
         for i, v in pairs(self.backpack:getItems()) do
-            print("attr: "..self.power..", "..self.shootSpeed)
+            --print("attr: "..self.power..", "..self.shootSpeed)
             self.power = self.power + v.power
             self.shootSpeed = self.shootSpeed + v.shootSpeed
-            logger:info(TAG, "Update attr by item: %s, power: %d, shootSpeed: %d", v.name, v.power, v.shootSpeed)
+            logger:debug(TAG, "Update attr by item: %s, power: %d, shootSpeed: %d", v.name, v.power, v.shootSpeed)
         end
         self:limitAttr()
     end
 
     function character:eatItem(item)
-        logger:info(TAG, "Eat item "..item.name)
+        logger:debug(TAG, "Eat item "..item.name)
         item:undoDrop()
         item.enabled = false
         transition.cancel(item)
@@ -397,13 +397,13 @@ Character.new = function (options)
             self:applyItem(item)
             self:putItem(item)
         else
-            --logger:info(TAG, "Apply~~ "..item.name)
+            --logger:debug(TAG, "Apply~~ "..item.name)
             self:applyItem(item)
-            --logger:info(TAG, "Clear~~ "..item.name)
+            --logger:debug(TAG, "Clear~~ "..item.name)
             item:clear()
-            --logger:info(TAG, "Clear done~~ "..item.name)
+            --logger:debug(TAG, "Clear done~~ "..item.name)
         end
-        --logger:info(TAG, "Yammy~~ "..item.name)
+        --logger:debug(TAG, "Yammy~~ "..item.name)
     end
 
     function character:putItem(item)
@@ -499,7 +499,7 @@ Character.new = function (options)
             logger:error( TAG, "Character dead but can not found the body")
             return
         end
-        print("Character dead "..self.id)
+        --print("Character dead "..self.id)
         self:dropItems()
         self.isDead = true
         --emit partical
@@ -528,7 +528,7 @@ Character.new = function (options)
             end
         })
         if self:getLifes() < 0 then
-            logger:info(TAG, "Character is defeated")
+            logger:debug(TAG, "Character is defeated")
             self.isDefeated = true
             self:cancelTimer()
             self:cancelControl()
@@ -547,7 +547,7 @@ Character.new = function (options)
     end
 
     function character:onClear()
-      logger:info(TAG, "remove character from backpack")
+      logger:debug(TAG, "remove character from backpack")
       Enemy.backpack:remove2(self)
     end
 
@@ -575,7 +575,7 @@ Character.new = function (options)
                     end
                     self:shoot()
                 end, -1)
-            logger:info(TAG, "Shooting timer id: %d ", self.tid)
+            logger:debug(TAG, "Shooting timer id: %d ", self.tid)
         else
             logger:debug(TAG, "disable auto shoot")
             if self.tid then

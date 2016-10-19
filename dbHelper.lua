@@ -5,7 +5,7 @@ local apiHelper = require("apiHelper")
 local util = require("util")
 local TAG = "Helper"
 local path = system.pathForFile( "spaceshooter.db", system.DocumentsDirectory )
-logger:info(TAG, "DB store in %s", path)
+logger:debug(TAG, "DB store in %s", path)
 
 local helper = {}
 
@@ -14,7 +14,7 @@ function helper:open()
 end
 
 function helper:exec(sql, params)
-    logger:info(TAG, "exec sql %s", sql)
+    logger:debug(TAG, "exec sql %s", sql)
     local errorFlag = false
     local result = {}
     self:open()
@@ -27,7 +27,7 @@ function helper:exec(sql, params)
         if params then
             for i = 1, #params do
                 stmt:bind(i, params[i])
-                logger:info(TAG, "bind %d: %s", i, params[i])
+                logger:debug(TAG, "bind %d: %s", i, params[i])
             end
         end
         for row in stmt:nrows() do
@@ -48,14 +48,14 @@ end
 function helper:upgrade()
     --force upgrade
     local currentVersion = self:getCurrentVersion()
-    logger:info(TAG, "Current version is %s", currentVersion)
+    logger:debug(TAG, "Current db version is %s", currentVersion)
     if currentVersion ~= gameConfig.dbVersion then
-        logger:info(TAG, "Version not match, reconstruct db")
+        logger:debug(TAG, "Version not match, reconstruct db")
         self:dropAll()
         self:init()
         self:updateInfo("dbVersion", gameConfig.dbVersion)
     else
-        logger:info(TAG, "Version match! Skip upgrade")
+        logger:debug(TAG, "Version match! Skip upgrade")
         return
     end
 end
@@ -162,7 +162,7 @@ function helper:init()
       self:updateInfo("loginType", "none")
     end
 
-    logger:info(TAG, "inited")
+    logger:debug(TAG, "db inited")
 
 
 end
@@ -443,7 +443,7 @@ function helper:getHighScore(levelId, type)
 end
 
 function helper:updateGlobalData(levelId, options)
-    logger:info(TAG, "UpdateGlobalData, it will update the global database")
+    logger:debug(TAG, "UpdateGlobalData, it will update the global database")
     --sync score from server
     apiHelper:getLeaderboard({
       levelId = levelId,
@@ -483,7 +483,7 @@ function helper:delLastRecords(max, type, levelId)
 
     local count = result[1].c
 
-    logger:info(TAG, "current count %d", count)
+    logger:debug(TAG, "current count %d", count)
 
     if count <= max then
         return

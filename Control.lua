@@ -76,7 +76,7 @@ Control.new = function(target, controlType, fingerSize, options)
             if event.keyName == gameConfig.keyDown then
                 self.offsetY = 5 * gameConfig.scaleFactor
             end
-            print("enable move with key "..self.offsetX)
+            --print("enable move with key "..self.offsetX)
         elseif event.phase == "up" then
             self.pressKey[event.keyName] = false
             --local stopped = false
@@ -114,7 +114,7 @@ Control.new = function(target, controlType, fingerSize, options)
         --print("enterframe")
         if not util.isExists(self.target) then
             --character is removed
-            print(self.target.name.." is removed, detected by control")
+            --print(self.target.name.." is removed, detected by control")
             self:cancel()
             return
         end
@@ -202,7 +202,7 @@ Control.new = function(target, controlType, fingerSize, options)
     end
 
     function control:cancel()
-        print("cancel control")
+        --print("cancel control")
         if self.enableFollowControl then
             Runtime:removeEventListener("touch", self)
             ---Runtime:removeEventListener("mouse", self)

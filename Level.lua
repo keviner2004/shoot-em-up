@@ -21,8 +21,8 @@ Level.load = function()
     --Reqire all level module
     for i, v in ipairs(gameConfig.gameLevels) do
         local subLevel = require("levels."..v)
-        print("Author: "..subLevel.author)
-        print("Sub level name: "..subLevel.name)
+        logger:debug(TAG, "Author: "..subLevel.author)
+        logger:debug(TAG, "Sub level name: "..subLevel.name)
         level.levels[#level.levels+1] = subLevel
     end
 
@@ -121,10 +121,10 @@ Level.load = function()
 
     function level:startLevel(levelObj, options)
         if type(levelObj) == "string" then
-          logger:info(TAG, "startLevel %s", levelObj)
+          logger:debug(TAG, "startLevel %s", levelObj)
           self.currentSublevel = require("levels."..levelObj)
         else
-          logger:info(TAG, "startLevel %s", levelObj.name)
+          logger:debug(TAG, "startLevel %s", levelObj.name)
           self.currentSublevel = levelObj
         end
         self.currentSublevel:init(self:getInitOptions({
@@ -189,7 +189,7 @@ Level.load = function()
     end
 
     function level:_startInfiniteLevel(options)
-        logger:info(TAG, "_startInfiniteLevel")
+        logger:debug(TAG, "_startInfiniteLevel")
         --Get a random level from levels
         if #self.levelCandidates == 0  then
             logger:warn(TAG, "Repeat normal level")
@@ -199,7 +199,7 @@ Level.load = function()
         if #self.bossCandidates == 0  then
             self:initBossCandidate()
         end
-        logger:info(TAG, "#bossCandidates: %d, #levelCandidates: %d", #self.bossCandidates, #self.levelCandidates)
+        logger:debug(TAG, "#bossCandidates: %d, #levelCandidates: %d", #self.bossCandidates, #self.levelCandidates)
         if #self.bossCandidates == 0 and #self.levelCandidates == 0 then
             logger:error(TAG, "No levels are found")
             return
@@ -215,9 +215,9 @@ Level.load = function()
             idx = self:pickupLevel(self.bossCandidates)
         elseif #self.levelCandidates > 0 then
             self.count = self.count + 1
-            logger:info(TAG, "normal levels before pick "..#self.levelCandidates)
+            logger:debug(TAG, "normal levels before pick "..#self.levelCandidates)
             idx = self:pickupLevel(self.levelCandidates)
-            logger:info(TAG, "normal levels after pick "..#self.levelCandidates)
+            logger:debug(TAG, "normal levels after pick "..#self.levelCandidates)
         end
 
         if idx == 0 then
@@ -234,13 +234,13 @@ Level.load = function()
     end
 
     function level:pause()
-        logger:info(TAG, "Pause level")
+        logger:debug(TAG, "Pause level")
         self.timerUtil:pause()
         if self.currentSublevel then
-            logger:info(TAG, "Pause current sublevel")
+            logger:debug(TAG, "Pause current sublevel")
             self.currentSublevel:pause()
         else
-            logger:info(TAG, "no current sublevel need to be paused")
+            logger:debug(TAG, "no current sublevel need to be paused")
         end
         self.paused = true
     end
@@ -254,7 +254,7 @@ Level.load = function()
     end
 
     function level:stop()
-        logger:info(TAG, "level:stop()")
+        logger:debug(TAG, "level:stop()")
         self.timerUtil:clear()
         self:clearLevelCandidate()
         self:clearBossCandidate()
@@ -267,11 +267,11 @@ Level.load = function()
 
     function level:start(options)
         local delay = (options and options.delay) or 0
-        logger:info(TAG, "level:start with delay: %d", delay)
+        logger:debug(TAG, "level:start with delay: %d", delay)
         self.timerUtil:addTimer(delay,
             function ()
                 if options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
-                    logger:info(TAG, "start single mode")
+                    logger:debug(TAG, "start single mode")
                     print("levelName~~~~~~~~~~~", options.levelName)
                     if not options.levelName then
                         logger:error(TAG, "Level name must be specified in single level mode")
@@ -282,7 +282,7 @@ Level.load = function()
                     self:startInfiniteLevel(options)
                 end
                 if self.currentSublevel and self.paused then
-                    logger:info(TAG, "Pause lossing current sublevel")
+                    logger:debug(TAG, "Pause lossing current sublevel")
                     self.currentSublevel:pause()
                 end
             end
@@ -293,7 +293,7 @@ Level.load = function()
 end
 
 Level.goto = function(levelName, options)
-    logger:info(TAG, "startLevel %s", levelName)
+    logger:debug(TAG, "startLevel %s", levelName)
     self.currentSublevel = require("levels."..levelName)
     self.currentSublevel:init(self:getInitOptions({
         onComplete = options and options.onComplete

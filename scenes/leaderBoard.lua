@@ -70,7 +70,7 @@ function scene:createRecordBlock(width, height, position, name, score)
    for i = 1, #ceilWidth do
       left = left + (ceilWidth[i-1] or 0) * availableWidth + gap * (i-1)
       ceilLeft[i] = left - width/2 + paddingLeft
-      print("Left: ", left)
+      --print("Left: ", left)
    end
 
    local posLabel = ScaleText.new({
@@ -146,10 +146,10 @@ function scene:createRecordList(options)
    local maxRecords = 10
    local recordHeight = self.listHeight / maxRecords
    local top = - self.listHeight * 0.5
-   logger:info(TAG, "Num of records is %d", #records)
+   logger:debug(TAG, "Num of records is %d", #records)
    for i = 1, #records do
       local record = records[i]
-      logger:info(TAG, "Record %d: name:%s, score: %s", i, record.name, record.score)
+      logger:debug(TAG, "Record %d: name:%s, score: %s", i, record.name, record.score)
       local block = self:createRecordBlock(self.blockWidth* 0.95, recordHeight, i, record.name, record.score)
       block.x = 0
       block.y =  top + recordHeight * (i-1) + recordHeight/2
@@ -218,10 +218,10 @@ end
 function scene:onLevelUnselect(index)
    local page = self:getLevel(index)
    if index == 1 then
-      logger:info(TAG, "Unselect local leaderboard")
+      logger:debug(TAG, "Unselect local leaderboard")
 
    elseif index == 2 then
-      logger:info(TAG, "Unselect global leaderboard")
+      logger:debug(TAG, "Unselect global leaderboard")
       self:stopLoading()
    end
 end
@@ -242,10 +242,10 @@ end
 function scene:onLevelSelect(index)
    local page = self:getLevel(index)
    if index == 1 then
-      logger:info(TAG, "Select local leaderboard")
+      logger:debug(TAG, "Select local leaderboard")
       self:createLocalRecordList()
    elseif index == 2 then
-      logger:info(TAG, "Select global leaderboard")
+      logger:debug(TAG, "Select global leaderboard")
       self:createGlobalRecordList()
       self.loadingStatus = self:createLoadingStatus()
       page:insert(self.loadingStatus)

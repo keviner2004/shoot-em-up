@@ -27,7 +27,6 @@ Victim.new = function()
     --physics
     victim:belongTo(PHYSIC_CATEGORY_VICTIM)
     victim:collideWith(PHYSIC_CATEGORY_CHARACTER)
-    print("physic ", victim.maskBits, victim.categoryBits)
     victim:setBody({
         type = "dynamic",
         isSensor = true,
@@ -39,10 +38,10 @@ Victim.new = function()
     victim.collision = function(self, event)
         --print("collision at "..event.phase..":"..event.x.."x"..event.y)
         if event.phase == "began" then
-            print(self.name.." capture "..event.other.name)
+            --print(self.name.." capture "..event.other.name)
             self:drawIndicator(event.other)
         elseif event.phase == "ended" then
-            print(self.name.." is abandoned by "..event.other.name)
+            --print(self.name.." is abandoned by "..event.other.name)
             self:removeLine()
             self:clearIndicator()
         end
@@ -61,7 +60,7 @@ Victim.new = function()
     --print("Y", victim.y)
 
     function victim:clearIndicator()
-        print("clearIndicator")
+        --print("clearIndicator")
         self.enterFrame:cancel(self._drawLine)
         self._drawLine = nil
     end
@@ -74,7 +73,7 @@ Victim.new = function()
     end
 
     function victim:drawIndicator(target)
-        print("drawIndicator")
+        --print("drawIndicator")
         if self._drawLine then
             return
         end
@@ -100,7 +99,7 @@ Victim.new = function()
             self.remainTime = self.remainTime - deltaTime
             self:showTime(self.remainTime, 2)
             if self.remainTime <= 0 then
-                print("saved")
+                --print("saved")
                 self:clearIndicator()
                 self:thanks()
                 self:removePhysics()
@@ -129,7 +128,7 @@ Victim.new = function()
                         self.fire.y = (self.sprite.height + self.fire.height)/2 * 0.8
                         transition.cancel(self)
                         fireEffect(self.fire)
-                        print("Check point")
+                        --print("Check point")
                         --self:enableAutoDestroy()
                         move.toward(self, {degree = 90})
                     end
@@ -142,7 +141,7 @@ Victim.new = function()
                 self._line = display.newLine( self.parent, self.x, self.y, target.x, target.y)
             else
                 logger:error(TAG, "Target or victim disapeared")
-                print("Debug victim ",self.parent , target.x, target.y, self.x, self.y)
+                --print("Debug victim ",self.parent , target.x, target.y, self.x, self.y)
                 return
             end
             --self._line:setStrokeColor( 1, 0, 0, 1 )

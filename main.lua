@@ -11,7 +11,7 @@ local TAG = "main"
 dbHelper:init()
 dbHelper:upgrade()
 apiHelper:sendLaunchStatics()
-
+apiHelper:luanchLog()
 display.setDefault("background", 52/255, 121/255, 185/255)
 display.setStatusBar( display.HiddenStatusBar )
 --composer.gotoScene( "scenes.whoAreYou")
@@ -50,4 +50,4 @@ composer.showOverlay( "scenes.gameover", {
 capture:startCapture()
 Sprite.addSheet(gameConfig.SHEET_PIXEL_EFFECT, "sprites/pixeleffect.png", "sprites.pixeleffect")
 Sprite.addSheet(gameConfig.SHEET_PIXEL_ITEM, "sprites/pixelitem.png", "sprites.pixelitem")
-logger:info(TAG, "Screen Ratio: %d / %d : %d, scaleFactor: %f", display.pixelWidth, display.actualContentWidth, display.contentWidth, gameConfig.scaleFactor)
+logger:debug(TAG, "Screen Ratio: %d / %d : %d, scaleFactor: %f", display.pixelWidth, display.actualContentWidth, display.contentWidth, gameConfig.scaleFactor)

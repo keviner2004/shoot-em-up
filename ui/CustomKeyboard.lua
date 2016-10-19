@@ -289,7 +289,7 @@ CustomKeyBoard.new = function(w, h)
 
     function keyboard:centerIt(line, lineGroup)
         local width = 0
-        logger:info(TAG, "Num of keys in row is %d",#line)
+        logger:debug(TAG, "Num of keys in row is %d",#line)
         for i = 1, #line do
             width = width + line[i].buttonView.width
             --width = width + line[i].width
@@ -303,7 +303,7 @@ CustomKeyBoard.new = function(w, h)
 
     function keyboard:key(event)
         if event.phase == "up" then
-            logger:info(TAG, "event.keyName "..event.keyName )
+            logger:debug(TAG, "event.keyName "..event.keyName )
             if event.keyName == gameConfig.keyUp then
               self:onKeyUp(event)
             elseif event.keyName == gameConfig.keyDown then
@@ -313,10 +313,10 @@ CustomKeyBoard.new = function(w, h)
             elseif event.keyName == gameConfig.keyRight then
               self:onKeyRight(event)
             elseif util.equalOrContain(event.keyName, gameConfig.keyConfirm) then
-              --logger:info(TAG, "event.keyName Confirm"..event.keyName )
+              --logger:debug(TAG, "event.keyName Confirm"..event.keyName )
               self:onKeyConfirm(event)
             elseif util.equalOrContain(event.keyName, gameConfig.keyCancel) then
-              --logger:info(TAG, "~~~~~~~~~~~~~onKeyCancel")
+              --logger:debug(TAG, "~~~~~~~~~~~~~onKeyCancel")
               --self:onKeyCancel(event)
             end
         end
@@ -375,7 +375,7 @@ CustomKeyBoard.new = function(w, h)
             end
         end
 
-        logger:info(TAG, "New index: %d, %d", self.posX, self.posY)
+        logger:debug(TAG, "New index: %d, %d", self.posX, self.posY)
     end
 
     function keyboard:onKeyUp()
@@ -436,7 +436,7 @@ CustomKeyBoard.new = function(w, h)
     end
 
     function keyboard:onKeyPressd(value)
-        logger:info(TAG, "Key %s pressed.", value)
+        logger:debug(TAG, "Key %s pressed.", value)
     end
 
     function keyboard:disable()

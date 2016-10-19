@@ -27,7 +27,7 @@ local scene = LevelSelectionScene.new({
 
 
 function scene:onLevelConfirm(index)
-    logger:info(TAG, "Start single level %d", index)
+    logger:debug(TAG, "Start single level %d", index)
     --go to game
     navigator:push("scenes.levelSelection")
     composer.gotoScene("scenes.game", {

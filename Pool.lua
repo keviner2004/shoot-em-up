@@ -42,7 +42,7 @@ end
 
 Pool.clear = function()
     for poolName, _pool in pairs(pools) do
-        logger:info(TAG, "clear pool %s", poolName)
+        logger:debug(TAG, "clear pool %s", poolName)
         for i = 1, #_pool do
             Pool.markAsFree(_pool[i])
             _pool[i]:destroy()

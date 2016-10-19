@@ -1,10 +1,6 @@
 local w, h = display.pixelWidth, display.pixelHeight
 local w1, h1 = display.actualContentWidth, display.actualContentHeight
 local w2, h2 = display.viewableContentWidth, display.viewableContentHeight
-print("Detect w h", w,h)
-print("Detect w1 h1", w1,h1)
-print("Detect w2 h2", w2,h2)
-print("display.topStatusBarContentHeight",  display.topStatusBarContentHeight)
 application =
 {
     content =

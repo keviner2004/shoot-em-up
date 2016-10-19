@@ -26,7 +26,7 @@ Item.new = function(options)
         self:visualEffect()
         self:playGotSound()
         self:mentalEffect()
-        print("Item effect the receiver")
+        --print("Item effect the receiver")
     end
 
     function item:playGotSound()
@@ -54,7 +54,7 @@ Item.new = function(options)
     end
 
     function item:undoDrop()
-        logger:info(TAG, "undoDrop")
+        logger:debug(TAG, "undoDrop")
         self.isDropped = false
         self:setLinearVelocity(0 ,0)
         if self.timerId then
@@ -79,7 +79,7 @@ Item.new = function(options)
         end
         local vx = math.cos(math.rad(degree))* speed
         local vy = math.cos(math.rad(degree))* speed
-        logger:info(TAG, "random move items %d %d", vx, vy)
+        logger:debug(TAG, "random move items %d %d", vx, vy)
 
         self:setScaleLinearVelocity(vx , vy)
         --self:enableAutoDestroy()

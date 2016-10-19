@@ -11,7 +11,7 @@ BasicScene.new = function ()
     local TAG = "BasicScene"
     id = id + 1
     TAG = "BasicScene "..id
-    logger:info(TAG, "create basic scene %d", id)
+    logger:debug(TAG, "create basic scene %d", id)
     local scene = composer.newScene()
     local proxy = {}
     scene.superGroup = display.newGroup()
@@ -26,9 +26,9 @@ BasicScene.new = function ()
         local sceneGroup = self.view
         local phase = event.phase
         if ( phase == "will" ) then
-          logger:info(TAG, "scene will show")
+          logger:debug(TAG, "scene will show")
         elseif ( phase == "did" ) then
-          logger:info(TAG, "scene did show")
+          logger:debug(TAG, "scene did show")
         end
     end
 
@@ -77,7 +77,7 @@ BasicScene.new = function ()
     end
 
     function scene:onKeyConfirm(event)
-        logger:info(TAG, "default onKeyConfirm")
+        logger:debug(TAG, "default onKeyConfirm")
     end
 
     function scene:onKeyCancel(event)
@@ -94,7 +94,7 @@ BasicScene.new = function ()
 
       self.startDrag = function(event)
         local swipeLength = math.abs(event.x - event.xStart)
-        --logger:info(TAG, "Swipe touch detail event.phase: %s, swipeLength: %d, ", event.phase, swipeLength)
+        --logger:debug(TAG, "Swipe touch detail event.phase: %s, swipeLength: %d, ", event.phase, swipeLength)
         local t = event.target
         local phase = event.phase
         if "began" == phase then
@@ -112,11 +112,11 @@ BasicScene.new = function ()
     end
 
     function scene:swipLeftToRight()
-      logger:info(TAG, "swipLeftToRight")
+      logger:debug(TAG, "swipLeftToRight")
     end
 
     function scene:swipRightToLeft()
-      logger:info(TAG, "swipRightToLeft")
+      logger:debug(TAG, "swipRightToLeft")
     end
 
     function scene:key(event)
@@ -125,11 +125,11 @@ BasicScene.new = function ()
           return
         end
         if self.ignoreKeyEvent then
-          logger:info(TAG, "Key ignore")
+          logger:debug(TAG, "Key ignore")
           return
         end
         if event.phase == "up" then
-            logger:info(TAG, "event.keyName "..event.keyName )
+            logger:debug(TAG, "event.keyName "..event.keyName )
             if event.keyName == gameConfig.keyUp then
               self:onKeyUp(event)
             elseif event.keyName == gameConfig.keyDown then
@@ -139,10 +139,10 @@ BasicScene.new = function ()
             elseif event.keyName == gameConfig.keyRight then
               self:onKeyRight(event)
             elseif util.equalOrContain(event.keyName, gameConfig.keyConfirm) then
-              --logger:info(TAG, "event.keyName Confirm"..event.keyName )
+              --logger:debug(TAG, "event.keyName Confirm"..event.keyName )
               self:onKeyConfirm(event)
             elseif util.equalOrContain(event.keyName, gameConfig.keyCancel) then
-              --logger:info(TAG, "~~~~~~~~~~~~~onKeyCancel")
+              --logger:debug(TAG, "~~~~~~~~~~~~~onKeyCancel")
               self:onKeyCancel(event)
             end
         end
@@ -150,7 +150,7 @@ BasicScene.new = function ()
 
     function scene:alert(msg)
       if self.alertPanel then
-        logger:info(TAG, "alert panel is already exist")
+        logger:debug(TAG, "alert panel is already exist")
         return
       end
       local alertPanel = AlertPanel.new(gameConfig.contentWidth * 0.8, gameConfig.contentHeight * 0.08)
@@ -227,7 +227,7 @@ BasicScene.new = function ()
         if ( phase == "will" ) then
 
         elseif (phase == "did") then
-          logger:info(TAG, "Remove key event listener")
+          logger:debug(TAG, "Remove key event listener")
           self.listenerRemoved = true
           Runtime:removeEventListener( "key", scene)
         end
