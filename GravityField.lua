@@ -22,7 +22,7 @@ GravityField.new = function (options)
             --print("field "..event.other.mass.."/"..self.mass)
             timer.performWithDelay( 10,
                 function()
-                    if not util.isExists(victim) then
+                    if not util.isExists(victim) or not victim.setLinearVelocity  then
                         return
                     end
                     victim.touchJoint = physics.newJoint( "touch", victim, victim.x, victim.y )

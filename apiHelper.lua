@@ -152,4 +152,17 @@ function helper:luanchLog()
   )
 end
 
+function helper:devLog(tag, message)
+  network.request(DEV_LOG_URL, "POST",
+    self:apiHandler(options),
+    {
+      body = self:getParamString({
+        devId = gameConfig.devId,
+        tag = tag,
+        message = message
+      })
+    }
+  )
+end
+
 return helper
