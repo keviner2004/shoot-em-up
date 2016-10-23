@@ -5,8 +5,8 @@ Shoot-em-up is a Corona SDK STG (Shoot 'Em Up Game) template.
 
 This code is MIT licensed
 
-# Video
-[linkname](https://youtu.be/eyVKpGKyC0o)
+# Demo
+[Youtube Video](https://youtu.be/eyVKpGKyC0o)
 
 # Screenshots
 
