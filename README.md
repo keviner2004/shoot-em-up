@@ -1,9 +1,22 @@
 # shoot-em-up
-Shoot-em-up is a Corona SDK STG (Shoot 'Em Up Game) template.
+Shoot-em-up is a Corona SDK STG (Shoot 'Em Up Game) template. It was designed for the Game Developing Training Courses. The idea of the template is to create a "easy" interface for beginner game developers to finish an amazing STG together.
+
+The template provides:
+
+* Library for creating game objects in STG like enemy, bullet, and items.
+* Library for advanced moving like seeking and curved transition.
+* Library for using sprite easily.
+* The log server stored players' scores and behavior.
+* Modularized level design. Each level is defined in the separated file.
+* CC0 Game Arts from Kenny Assets.
+* Complete implementation of the user interface: start menu, level selection, leader board, etc.
 
 # License
 
 This code is MIT licensed
+
+# Demo
+[Youtube Video](https://youtu.be/eyVKpGKyC0o)
 
 # Screenshots
 
