@@ -1,6 +1,8 @@
 local Shield = {}
 local Sprite = require("Sprite")
 local GameObject = require("GameObject")
+local logger = require("logger")
+local TAG = "Shield"
 
 Shield.new = function(options)
     local shield = GameObject.new()
@@ -14,7 +16,7 @@ Shield.new = function(options)
 
     function shield:open(time)
         if self.opened then
-            --print("Shield was already opened")
+            --logger:debug(TAG, "Shield was already opened")
             return
         end
         self.sprite = Sprite.new({
@@ -32,6 +34,7 @@ Shield.new = function(options)
                self:close() 
             end)
         end
+        logger:debug(TAG, "Shield was opened")
         self.opened = true
     end
 

@@ -27,7 +27,6 @@ end
 
 function helper:apiHandler(options)
   local function handler(event)
-    logger:debug( TAG, "IS ERRPR:"..tostring(event.isError)..", RESPONSE: " .. event.response )
     if options and options.onComplete then
       local data = {
         status = 0,

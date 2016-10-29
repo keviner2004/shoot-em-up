@@ -96,13 +96,9 @@ Character.new = function (options)
     end
 
     character.collision = function(self, event)
-        --print("hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
+        logger:debug(TAG, "hit! by "..event.other.name.."/"..event.other.type..":"..self.hp)
         if (event.other.type == "bullet" and event.other.fireTo == "character") or event.other.type == "enemy"then
-            --print("hit2 by "..event.other.name..":"..self.hp)
-            if self.shield and self.shield.opened then
-                --print("shield is open, ignore")
-                return
-            end
+            logger:debug(TAG, "hit2 by "..event.other.name..":"..self.hp)
             timer.performWithDelay( 1,
                 function(e)
                     if not self.isDead then
@@ -122,11 +118,17 @@ Character.new = function (options)
     end
 
     function character:onHurt(damage)
-        --print("onHurt, ch damage "..damage)
-        self.hp = self.hp - damage
-        if self.hp < 0 then
-            --self.isDead = true
-            self:onDead()
+        logger:debug(TAG, "Test if onHurt, ch damage "..damage)
+        if self.shield and self.shield.opened then
+            logger:debug(TAG, "Shield is open, ignore")
+            return
+        end
+        if self.hp > 0 then
+            logger:debug(TAG, "Really onHurt, ch damage "..damage)
+            self.hp = self.hp - damage
+            if self.hp <= 0 then
+                self:onDead()
+            end
         end
     end
 
@@ -437,6 +439,7 @@ Character.new = function (options)
             move.stick(self.shield, self)
         end
         self.shield:open(duration)
+        logger:debug(TAG, "Open shield %s", tostring(self.shield.opened))
     end
 
     function character:addScore(score)
@@ -499,7 +502,7 @@ Character.new = function (options)
             logger:error( TAG, "Character dead but can not found the body")
             return
         end
-        --print("Character dead "..self.id)
+        logger:debug(TAG, "Character is dead : "..self.id)
         self:dropItems()
         self.isDead = true
         --emit partical

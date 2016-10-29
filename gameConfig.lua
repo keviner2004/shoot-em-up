@@ -3,7 +3,7 @@ local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
 config.singlePlayerOnly = true
-config.version = "0.9843"
+config.version = "0.9844"
 config.dbVersion = "0.35"
 config.devId = "1003945780"
 config.remoteLogging = false

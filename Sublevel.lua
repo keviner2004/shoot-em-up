@@ -8,8 +8,8 @@ local Character = require("Character")
 local ScaleText = require("ui.ScaleText")
 local LinearGroup = require("ui.LinearGroup")
 local Sublevel = {}
+local TAG = "Sublevel"
 
-TAG = "Sublevel"
 Sublevel.new = function (id, name, author, options)
     local sublevel = {}
     sublevel.id = id
