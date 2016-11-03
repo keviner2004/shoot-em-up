@@ -11,7 +11,6 @@ Square.new = function(w, h, color)
     }
 
     local value = (color and colorTable[color]) or "squareWhite"
-    print(value.."squard")
 
     local square = NineBtn.new(colorTable[color], w, h)
     return square

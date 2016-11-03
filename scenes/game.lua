@@ -78,9 +78,9 @@ end
 
 function scene:createPauseBtn()
     self.pauseButton = widget.newButton({
-        sheet = Sprite.myImageSheet,
-        defaultFrame = Sprite.getFrameIndex("UI/Icons/pause"),
-        overFrame = Sprite.getFrameIndex("UI/Icons/pause"),
+        sheet = Sprite["expansion-9"].getSheet(),
+        defaultFrame = Sprite["expansion-9"].getFrameIndex("UI/Icons/pause"),
+        overFrame = Sprite["expansion-9"].getFrameIndex("UI/Icons/pause"),
         label = "",
         onEvent = function ( event )
             if ( "ended" == event.phase ) then
@@ -100,7 +100,7 @@ function scene:createPlayerLifeUI()
     local playerLife = LinearGroup.new({
       gap = display.contentWidth*0.01
     })
-    local lifeIcon = Sprite.new("UI/Player-lifes/2")
+    local lifeIcon = Sprite["expansion-9"].new("UI/Player-lifes/2")
     self.playerLifeText = ScaleText.new({
       text = 0,
       x = 0,

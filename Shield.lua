@@ -19,7 +19,7 @@ Shield.new = function(options)
             --logger:debug(TAG, "Shield was already opened")
             return
         end
-        self.sprite = Sprite.new({
+        self.sprite = Sprite["expansion-8"].new({
                 "Effects/Shield/3",
                 "Effects/Shield/2",
                 "Effects/Shield/1",

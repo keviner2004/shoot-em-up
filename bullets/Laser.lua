@@ -1,10 +1,11 @@
 local Bullet = require("Bullet")
+local Sprite = require("Sprite")
 local Laser = {}
 
 Laser.new = function(options)
-    options.frames = "Lasers/1"
     local laser = Bullet.new(options)
-    laser.name = "laser"
+    local bulletFrame = Sprite["expansion-6"].new(options.laserFrame or "Lasers/1")
+    laser:insert(bulletFrame)
     laser:enablePhysics()
     return laser
 end

@@ -116,7 +116,7 @@ end
 
 function scene:createLoadingStatus()
    local status = display.newGroup()
-   local icon = Sprite.new("UI/Icons/rotate")
+   local icon = Sprite["expansion-9"].new("UI/Icons/rotate")
    local label = ScaleText.new({text = "Loading", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 20})
    local function rotate()
       icon.rotation = 0

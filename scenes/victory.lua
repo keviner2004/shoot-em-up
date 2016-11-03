@@ -117,8 +117,8 @@ function scene:newLikeButton()
       width = display.contentWidth
     }
   })
-  local starHoleIcon = Sprite.new("UI/Icons/Stars/2")
-  local starIcon = Sprite.new("UI/Icons/Stars/5")
+  local starHoleIcon = Sprite["expansion-9"].new("UI/Icons/Stars/2")
+  local starIcon = Sprite["expansion-9"].new("UI/Icons/Stars/5")
   local starNumText = ScaleText.new({
     text = button.starNum or 0,
     font = gameConfig.defaultFont,
@@ -167,7 +167,7 @@ function scene:newLikeButton()
   function button:poke()
     if not self.poker then
       self.holeX, self.holeY = self.parent.parent:contentToLocal(self.starHoleIcon:localToContent(0, 0))
-      self.poker = Sprite.new("UI/Cursors/6")
+      self.poker = Sprite["expansion-9"].new("UI/Cursors/6")
       self.pokeDeg = math.rad(-45)
       self.pokeDistance = 40 * gameConfig.scaleFactor
       self.pokeOffset = 20 * gameConfig.scaleFactor

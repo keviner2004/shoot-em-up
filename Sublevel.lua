@@ -224,7 +224,7 @@ Sublevel.new = function (id, name, author, options)
           -- body
               count = count + 1
               if count == 4 then
-                print("warning complete")
+                --print("warning complete")
                 warning:removeSelf()
                 sfx:stop(self.warningChannel)
                 sfx:play("bgBoss", {loops = -1})

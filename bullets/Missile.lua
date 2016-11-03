@@ -18,8 +18,9 @@ Missile.new = function (options)
     local count = 0
 
     function missile:addSmoke()
-        local smoke = GameObject.new({
-                frames = {
+        local smoke = GameObject.new()
+        print("Add smoke!!!")
+        local _smoke = Sprite["expansion-8"].new({
                     "Effects/smoke/9",
                     "Effects/smoke/6",
                     "Effects/smoke/3",
@@ -29,15 +30,19 @@ Missile.new = function (options)
                     "Effects/smoke/7",
                     "Effects/smoke/4",
                     "Effects/smoke/1"
-                }, 
-                time = 1000, 
-                loopCount = 1})
+                },{
+                    time = 1000, 
+                    loopCount = 1
+                })
+
+        smoke:insert(_smoke)
+
         smoke.x = self.x - (self.height + smoke.height)/2 * math.cos(math.rad(self.dir - self.rotation))
         smoke.y = self.y + (self.height + smoke.height)/2 * math.sin(math.rad(self.dir - self.rotation))
         move.toward(smoke, {
             degree = self.dir - self.rotation + 180
         })
-        smoke:play()
+        _smoke:play()
         smoke.alpha = 0
         transition.to(smoke, {alpha = 1})
         smoke:addEventListener("sprite", 

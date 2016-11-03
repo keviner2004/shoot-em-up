@@ -209,7 +209,7 @@ Menu.new = function()
     function scene:selectButton(offset)
       --show pointer if need
       if not self.pointer then
-        self.pointer = Sprite.new(gameConfig.defaultCursor)
+        self.pointer = Sprite["expansion-9"].new(gameConfig.defaultCursor)
         self.view:insert(self.pointer)
       end
 

@@ -4,7 +4,7 @@ local Sprite = require("Sprite")
 local Object = {}
 Object.new = function(options)
     local item = Item.new()
-    local sprite = Sprite.new("Items/28")
+    local sprite = Sprite["expansion-1"].new("Items/28")
     
     item.score = 50
     item:insert(sprite)

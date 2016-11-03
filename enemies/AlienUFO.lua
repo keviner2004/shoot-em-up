@@ -6,7 +6,7 @@ local Ufo = {}
 Ufo.new = function(options)
     local ufo = Enemy.new(options)
     ufo.name = "ufo"
-    ufo.allein = Sprite.new("AlienUFOs/Ships/1")
+    ufo.allein = Sprite["expansion-3"].new("AlienUFOs/Ships/1")
     ufo:insert(ufo.allein)
     --ufo:addPhysic()
 

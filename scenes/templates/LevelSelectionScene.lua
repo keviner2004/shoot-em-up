@@ -95,7 +95,7 @@ LevelSelectionScene.new = function(options)
       self.pageSelectorY = gameConfig.contentHeight * 9/10
 
       if self.numOfPages > 1 then
-        local firstDot = Sprite.new("UI/Dots/5")
+        local firstDot = Sprite["expansion-9"].new("UI/Dots/5")
         self.dotLeft = (gameConfig.contentWidth - self.numOfPages * firstDot.width - self.dotGap * (self.numOfPages - 1) + firstDot.width) / 2
 
         self:setDotAt(firstDot, 1)
@@ -103,14 +103,14 @@ LevelSelectionScene.new = function(options)
 
 
         for i = 2, self.numOfPages do
-          local dot = Sprite.new("UI/Dots/5")
+          local dot = Sprite["expansion-9"].new("UI/Dots/5")
           self:setDotAt(dot, i)
           self.superGroup:insert(dot)
         end
 
         --add back button?
 
-        self.selectedDot = Sprite.new("UI/Dots/6")
+        self.selectedDot = Sprite["expansion-9"].new("UI/Dots/6")
         self.superGroup:insert(self.selectedDot)
         self:setDotAt(self.selectedDot, 1)
         self:construct(event)
@@ -153,9 +153,9 @@ LevelSelectionScene.new = function(options)
 
   function scene:createBackButton()
     local button = widget.newButton({
-      sheet = Sprite.getSheet(),
-      defaultFrame = Sprite.getFrameIndex("UI/Icons/TriangleRight"),
-      overFrame = Sprite.getFrameIndex("UI/Icons/TriangleRight"),
+      sheet = Sprite["expansion-9"].getSheet(),
+      defaultFrame = Sprite["expansion-9"].getFrameIndex("UI/Icons/TriangleRight"),
+      overFrame = Sprite["expansion-9"].getFrameIndex("UI/Icons/TriangleRight"),
       onEvent = function()
         self:backTo()
       end
@@ -200,7 +200,7 @@ LevelSelectionScene.new = function(options)
     local selectedLevel = self:getSelectedLevel()
     if not disablePointer then
       if not self.pointer then
-        self.pointer = Sprite.new(gameConfig.defaultCursor)
+        self.pointer = Sprite["expansion-9"].new(gameConfig.defaultCursor)
 
       end
       selectedLevel.parent:insert(self.pointer)

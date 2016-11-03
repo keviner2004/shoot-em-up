@@ -29,7 +29,7 @@ function scene:createSelectionBlock(text, locked)
     block:insert(label)
     if locked then
       block.locked = true
-      local lockIcon = Sprite.new("UI/Icons/Lock")
+      local lockIcon = Sprite["expansion-9"].new("UI/Icons/Lock")
       lockIcon.xScale = 0.5
       lockIcon.yScale = 0.5
       lockIcon.x = -block.width * 0.35

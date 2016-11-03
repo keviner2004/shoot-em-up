@@ -30,7 +30,7 @@ Title.new = function(options)
     end
 
     if iconOptions and iconOptions.name and iconOptions.name ~= "" then
-        local icon = Sprite.new(iconOptions.name)
+        local icon = Sprite["expansion-9"].new(iconOptions.name)
         icon.xScale = iconOptions.scale or 1
         icon.yScale = iconOptions.scale or 1
         width = width + icon.contentWidth

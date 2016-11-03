@@ -40,7 +40,7 @@ function scene:create( event )
    --self.superGroup.y = gameConfig.contentY
    local glassPanel = GlassCornersPanel.new(gameConfig.contentWidth * 0.9, gameConfig.contentWidth * 0.4)
 
-   self.cursor = Sprite.new(gameConfig.defaultCursor)
+   self.cursor = Sprite["expansion-9"].new(gameConfig.defaultCursor)
    local nameText = ScaleText.new({text = "Who Are You?", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 25})
    nameText.fill = {40/255, 73/255, 95/255}
    self.lenOfName = 10

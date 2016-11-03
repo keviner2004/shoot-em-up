@@ -60,7 +60,7 @@ function scene:createChapter(options)
       font = gameConfig.defaultFont,
       fontSize = 30
     })
-    local preview = (options and options.preview) or Sprite.new("Planet/5")
+    local preview = (options and options.preview) or Sprite["expansion-2"].new("Planet/5")
     preview.y = -self.blockHeight*0.08
     scoreLabel.fill = {139/255, 147/255, 158/255}
     base.y = (self.blockHeight - base.height)/2
@@ -80,7 +80,7 @@ function scene:createChapter(options)
     chapter:insert(score)
     chapter:insert(preview)
     if options and options.locked then
-      local lockIcon = Sprite.new("UI/Icons/Lock")
+      local lockIcon = Sprite["expansion-9"].new("UI/Icons/Lock")
       lockIcon.x = 0
       lockIcon.y = 0
       chapter.locked = options.locked
@@ -93,7 +93,7 @@ function scene:createLevelBlock(index)
     local block = nil
     if index == CHAPTER_INFINITE_MODE_INDEX then
         local highScore = dbHelper:getHighScore(gameConfig.ID_LEVEL_INFINITE, "local")
-        block = self:createChapter({score = highScore, preview = Sprite.new("Planet/7")})
+        block = self:createChapter({score = highScore, preview = Sprite["expansion-2"].new("Planet/7")})
     elseif index == CHAPTER_LEVEL_MODE_INDEX then
         local highScore = 0
         for i = 1, #gameConfig.seperateLevels do
@@ -103,7 +103,7 @@ function scene:createLevelBlock(index)
         if gameConfig.hiddenSingleLevelChapter then
           locked = true
         end
-        block = self:createChapter({title = "NKFU", score = highScore, preview = Sprite.new("Planet/4"), locked = locked})
+        block = self:createChapter({title = "NKFU", score = highScore, preview = Sprite["expansion-2"].new("Planet/4"), locked = locked})
 
     end
     return block

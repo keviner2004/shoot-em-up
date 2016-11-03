@@ -1,14 +1,14 @@
 local Effect = require("Effect")
 local GameObject = require("GameObject")
+local Sprite = require("Sprite")
 local move = require("move")
 local util = require("util")
 local E = {}
 E.new = function(options)
     local effect = Effect.new(options)
 
-    local partical = GameObject.new({
-        frames = {"Particles/18"}
-    })
+    local partical = GameObject.new()
+    partical:insert(Sprite["expansion-8"].new("Particles/18"))
 
     if effect.duration == -1 then
         --print("*************Infinite")

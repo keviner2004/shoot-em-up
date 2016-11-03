@@ -400,7 +400,7 @@ CustomKeyBoard.new = function(w, h)
 
     function keyboard:setPointer()
         if not self.pointer then
-            self.pointer = Sprite.new(gameConfig.defaultCursor)
+            self.pointer = Sprite["expansion-9"].new(gameConfig.defaultCursor)
             self:insert(self.pointer)
         end
         local target = rowArray[self.posY][self.posX]
@@ -416,7 +416,7 @@ CustomKeyBoard.new = function(w, h)
     keyboard:arrangeRow(4)
     local keyButton_del = keyboard:arrangeSingle(special[1], 4, 8.5, 2, 1)
     local keyButton = keyboard:arrangeForce(special[2], 3.5, 10, 1, 2)
-    keyButton:insert(Sprite.new("UI/Icons/enter"))
+    keyButton:insert(Sprite["expansion-9"].new("UI/Icons/enter"))
     --special[2]    
     rowGroup[3]:insert(keyButton)
     rowArray[3][#rowArray[3]+1] = keyButton

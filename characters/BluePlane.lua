@@ -4,7 +4,7 @@ local Plane = {}
 
 Plane.new = function (options)
     local plane = Character.new(options)
-    local sprite = Sprite.new("Ships/7")
+    local sprite = Sprite["expansion-4"].new("Ships/7")
     plane:insert(sprite)
     plane:enablePhysics()
     return plane

@@ -9,7 +9,7 @@ local FBLoginButton = {}
 
 FBLoginButton.new = function(width, height)
   local fbLoginBtn = Button.new()
-  local fbIcon = Sprite.new("UI/Icons/FB/1")
+  local fbIcon = Sprite["expansion-9"].new("UI/Icons/FB/1")
   local background = display.newRect( 0, 0, width, height )
   background.fill = {51/255, 137/255, 205/255}
   local paddingLeft = 10

@@ -20,7 +20,6 @@ end
 
 M.sheetInfos = {}
 M.imageSheets = {}
-M.multPackTags = {}
 
 M.getFrameIndex = function(tag, name)
     --logger:debug(TAG, "Sprite.getFrameIndex %s, %s", tag, name)
@@ -58,31 +57,8 @@ M.addSheet = function(tag, imgName, sheetInfoName)
 
     logger:debug(TAG, "Add sheet: imgName %s, sheetInfoName %s", imgName, sheetInfoName)
 
-    if isModuleAvailable(sheetInfoName) then
-        M.sheetInfos[tag] = require(sheetInfoName)
-        M.imageSheets[tag] = graphics.newImageSheet( imgName, M.sheetInfos[tag]:getSheet())
-    else
-        --multiple pack
-        local mIndex = 1
-        local imagePrefix = string.sub(imgName, 1, -5)
-        M.multPackTags[tag] = {}
-        print("Img prefix is ", imagePrefix)
-        while true do
-            local packSheetInfoName = sheetInfoName.."-"..tostring(mIndex)
-            local packImgName = imgName.."-"..tostring(mIndex)..".png"
-            local packTag = tag.."-"..tostring(mIndex)
-            local isExist = isModuleAvailable(packSheetInfoName)
-            print("Check multi pack existing", packTag, packSheetInfoName, packImgName, isExist)
-            if not isExist then
-                break
-            end
-            M.sheetInfos[packTag] = require(packSheetInfoName)
-            M.imageSheets[packTag] = graphics.newImageSheet( packImgName, M.sheetInfos[tag]:getSheet())
-            mIndex = mIndex + 1
-        end
-        M.multPackTags[tag].num = mIndex - 1
-        --multiple pack end
-    end
+    M.sheetInfos[tag] = require(sheetInfoName)
+    M.imageSheets[tag] = graphics.newImageSheet( imgName, M.sheetInfos[tag]:getSheet())
 
     logger:debug(TAG, "Add sheet: %s, image name: %s, sheet name: %s", tag, imgName, sheetInfoName)
     M[tag] = {}
@@ -93,32 +69,10 @@ M.addSheet = function(tag, imgName, sheetInfoName)
         end
         local _tag = (options and options.tag) or tag
 
-        --multiple pack
-        if M.multPackTags[_tag] then
-            --find tag
-            local i = 0
-            local mTag = _tag.."-"..tostring[i]
-            local targetMTag = nil
-            while M.imageSheets[mTag] do
-                if type(name) == "table" then
-                    testFrame = name[i]
-                else
-                    testFrame = name
-                end
-                if M.getFrameIndex(mTag, testFrame) then
-                    targetMTag = mTag
-                    break
-                end
-            end
-            if targetMTag then
-                _tag = targetMTag
-            end
-        end
-        --multiple pack end
-
         if type(name) == "table" then
             for i, frame in ipairs(name) do
                 frames[i] = M.getFrameIndex(_tag, frame)
+                --print("get from", _tag, frame, frames[i])
             end
         else
             frames={ M.getFrameIndex(_tag, name) }
@@ -142,6 +96,14 @@ M.addSheet = function(tag, imgName, sheetInfoName)
         local sprite = display.newSprite( M.getSheet(_tag) , anims )
         return sprite
     end
+
+    M[tag].getFrameIndex = function(name)
+        return M.getFrameIndex(tag, name)
+    end
+
+    M[tag].getSheet = function()
+        return M.getSheet(tag)
+    end
 end
 
 M.removeSheet = function()
@@ -149,8 +111,8 @@ M.removeSheet = function()
     M.sheetInfos[name] = nil
 end
 
---set default spirte
-M.addSheet("default", "sprites/spaceshooter", "sprites.spaceshooter")
+--set default sprite
+M.addSheet("default", "sprites/default", "sprites.default")
 
 M.sheetInfo = M.sheetInfos.default
 M.myImageSheet = M.imageSheets.default

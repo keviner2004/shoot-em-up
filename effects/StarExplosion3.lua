@@ -1,14 +1,14 @@
 local Effect = require("Effect")
 local GameObject = require("GameObject")
 local move = require("move")
+local Sprite = require("Sprite")
 local E = {}
 E.new = function(options)
     local effect = Effect.new(options)
     
     local function addCenter(x, y, xScale, yScale)
-        local partical = GameObject.new({
-            frames = {"Particles/16"}
-        })
+        local partical = GameObject.new()
+        partical:insert(Sprite["expansion-8"].new("Particles/16"))
         partical.x = x
         partical.y = y
         partical.xScale = xScale * 0.5

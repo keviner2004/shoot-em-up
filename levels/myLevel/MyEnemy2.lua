@@ -48,7 +48,6 @@ MyEnemy.new = function(options)
     part8.y = part1.height/4
     --setup shoot
     myEnemy:setDefaultBullet("levels.myLevel.MyBullet")
-    --myEnemy:setDefaultBullet("bullets.Laser", {frame = "Lasers/2"})
 
     myEnemy:addTimer(1000,
         function()

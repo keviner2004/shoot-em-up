@@ -88,7 +88,7 @@ end
 
 function M.pointTo(obj, target)
     if not target or not target.x or not target.y then
-        print("You need to pass a target when you use pointTo")
+        --print("You need to pass a target when you use pointTo")
         return
     end
     if not obj.dir then
@@ -97,7 +97,7 @@ function M.pointTo(obj, target)
     util.addEnterFrameListener(obj,
         function(event)
             if not target or not target.x or not target.y then
-                print("You need to pass a target when you use pointTo")
+                --print("You need to pass a target when you use pointTo")
                 return true
             end
             local srcX = obj.x
@@ -152,7 +152,7 @@ function M.track(obj, pointTo)
             if obj.moveCanceled then
                 return
             end
-            print("move to next point")
+            --print("move to next point")
             obj:onMovePoint({pointTo = pointTo, rotation = obj.rotation})
             --wait
             obj.stopRotation = true
@@ -180,7 +180,7 @@ function M.toward(obj, options)
             local stopForward = false
             if options.back and M.isOut(obj) then
                 stopForward = true
-                print("back mode enabled")
+                --print("back mode enabled")
                 local rx = math.cos(rRad)
                 local ry = math.sin(rRad)
                 local rxd = 0
@@ -215,7 +215,7 @@ function M.toward(obj, options)
                     startY = 0
                 end
 
-                print("back pos is "..startX, startY)
+                --print("back pos is "..startX, startY)
                 obj.x = startX
                 obj.y = startY
                 transition.to(obj, {x = obj.m_defaultX, y = obj.m_defaultY, time = 1000, onComplete =
@@ -225,10 +225,10 @@ function M.toward(obj, options)
                         end
                     end
                 })
-                print("back pos done")
+                --print("back pos done")
             end
             if stopForward then
-                print("remove because out")
+                --print("remove because out")
                 return true
             end
         end
@@ -243,11 +243,10 @@ function M.rotateAround(obj, options)
         obj.y = options.target.y - options.distance * math.sin(math.rad(angle))
     end
     rotation()
-    print("start at "..angle)
     util.addEnterFrameListener(obj,
         function()
             if options.target.x == nil or obj.x == nil then
-                print("rotateAround failed because of object disapear")
+                --print("rotateAround failed because of object disapear")
                 if options and options.onMissTarget then
                     options.onMissTarget(angle)
                 end

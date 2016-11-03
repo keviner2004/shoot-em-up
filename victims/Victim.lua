@@ -123,7 +123,7 @@ Victim.new = function()
 
                 transition.to(self.sprite, {rotation = 0, onComplete =
                     function()
-                        self.fire = Sprite.new("Effects/Fire/11")
+                        self.fire = Sprite["expansion-8"].new("Effects/Fire/11")
                         self:insert(self.fire)
                         self.fire.y = (self.sprite.height + self.fire.height)/2 * 0.8
                         transition.cancel(self)

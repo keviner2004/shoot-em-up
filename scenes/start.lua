@@ -41,7 +41,7 @@ function scene:init()
 end
 
 function scene:construct()
-    local logo = Sprite.new("Logo")
+    local logo = Sprite["expansion-9"].new("Logo")
     local versionTxt = ScaleText.new({
       text = "Ver."..gameConfig.version,
       x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 17
@@ -124,7 +124,7 @@ end
 function scene:createUserButton()
     local button = display.newGroup()
     --add user icon
-    local userIcon = Sprite.new("UI/Icons/oneUser")
+    local userIcon = Sprite["expansion-9"].new("UI/Icons/oneUser")
     --add user name
     local userText = ScaleText.new({
       text = "",
@@ -174,7 +174,7 @@ end
 function scene:createLeaderBoardButton()
     local button = display.newGroup()
     --add user icon
-    local icon = Sprite.new("UI/Icons/leaderBoard")
+    local icon = Sprite["expansion-9"].new("UI/Icons/leaderBoard")
     --add user name
     local text = ScaleText.new({text = "", x = 0, y = 0, font = gameConfig.defaultFont, fontSize = 20})
     local gap = 15
@@ -264,6 +264,7 @@ end
 
 function scene:onConfirm(buttonSelectedIndex)
     logger:debug(TAG, "Select mode %d", buttonSelectedIndex)
+    sfx:play("start")
     --if name is empty, fore user add it
     local userName = dbHelper:getUserName()
     if not userName or userName == "" then
@@ -273,7 +274,7 @@ function scene:onConfirm(buttonSelectedIndex)
     end
 
     if buttonSelectedIndex == INDEX_LOGIN then
-        sfx:play("start")
+        --sfx:play("start")
         --LOGIN OR LOGOUT
         if facebook.getCurrentAccessToken() then
             --logout
@@ -290,14 +291,14 @@ function scene:onConfirm(buttonSelectedIndex)
     end
 
     if buttonSelectedIndex == INDEX_WHO_ARE_YOU then
-        sfx:play("start")
+        --sfx:play("start")
         self:go("scenes.start", "scenes.whoAreYou", {
             text = userName
         })
         return
     end
     if buttonSelectedIndex == INDEX_LEADERBOARD then
-        sfx:play("start")
+        --sfx:play("start")
         self:go("scenes.start", "scenes.leaderBoardSelection")
         return
     end

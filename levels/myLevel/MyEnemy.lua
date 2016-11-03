@@ -1,5 +1,6 @@
 local Enemy = require("Enemy")
 local Sprite = require("Sprite")
+local gameConfig = require("gameConfig")
 local MyEnemy = {}
 
 MyEnemy.new = function(options)
@@ -46,7 +47,7 @@ MyEnemy.new = function(options)
     part8.x = part1.width/2
     part8.y = part1.height/4
     --setup shoot
-    myEnemy:setDefaultBullet("bullets.Laser", {frame = "Lasers/2"})
+    myEnemy:setDefaultBullet("bullets.Laser", {laserFrame = "Lasers/2"})
 
     myEnemy:addTimer(1000,
         function()

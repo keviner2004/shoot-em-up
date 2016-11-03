@@ -1,6 +1,7 @@
 local Effect = require("Effect")
 local GameObject = require("GameObject")
 local move = require("move")
+local Sprite = require("Sprite")
 local Pool = require("Pool")
 local E = {}
 local POOL_TAG = "StarExplosion2"
@@ -54,18 +55,16 @@ E.create = function(options)
     end
 
     function effect:createCenter(_options)
-        local partical = GameObject.new({
-            frames = (_options and _options.frames)
-        }) 
+        local partical = GameObject.new()
+        partical:insert(Sprite["expansion-8"].new(_options and _options.frames))
         self:insert(partical)
         return partical       
     end
 
     function effect:createStar(_options)
         --print("Create star with ".._options.frames[1])
-        local partical = GameObject.new({
-            frames = (_options and _options.frames) 
-        })
+        local partical = GameObject.new()
+        partical:insert(Sprite["expansion-8"].new(_options and _options.frames))
         self:insert(partical)
         return partical
     end

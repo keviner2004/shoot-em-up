@@ -33,9 +33,7 @@ Boss.new = function(players, options)
     boss.xScale = (options and options.xScale) or 1
     boss.yScale = (options and options.yScale) or 1
     boss.invincible = false
-    boss.head = Sprite.new({
-                    "AlienUFOs/Ships/2"
-                })
+    boss.head = Sprite["expansion-3"].new("AlienUFOs/Ships/2")
 
     --boss.ring = Sprite.new("Boss/ring")
     boss.defaultX = gameConfig.contentWidth / 2

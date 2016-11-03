@@ -20,7 +20,7 @@ Number.new = function(value)
     local width = 0
     while true do
         local lastValue = value % 10
-        local lastNumber = Sprite.new(numberDict[lastValue])
+        local lastNumber = Sprite["expansion-9"].new(numberDict[lastValue])
         value = math.floor(value / 10)
         width = width + lastNumber.width
         number:insert(lastNumber)
