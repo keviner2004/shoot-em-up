@@ -424,11 +424,15 @@ Boss.new = function(players, options)
         function boss:showDestroyEffect()
 
         end
+        
         self:removePhysics()
         transition.to(self, {time = 300, alpha = 0, onComplete = function()
             self:clear()
         end})
-        self:split()
+
+        if self.hp > 0 then
+            self:split()
+        end
     end
 
     function boss:split()
@@ -522,8 +526,8 @@ Boss.new = function(players, options)
 
         move.toward(self, {
             radius = math.atan2(self:getPlayer().y - self.y, self:getPlayer().x - self.x),
-            offsetX = 15,
-            offsetY = 15,
+            offsetX = 9,
+            offsetY = 9,
             back = true,
             autoRotation = false,
             onComplete = function()

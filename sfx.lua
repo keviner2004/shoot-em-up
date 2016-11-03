@@ -8,6 +8,10 @@ sfx.CHANNEL_BG = 1
 sfx.CHANNEL_UI = 2
 sfx.CHANNEL_CH1_LASER = 3
 
+sfx.history = {
+  
+}
+
 sfx.bg = {
   handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Level 1.mp3" ),
   channel = sfx.CHANNEL_BG
@@ -100,7 +104,7 @@ sfx.click = {
   handle = audio.loadSound("sounds/click.mp3"),
 }
 
-function sfx:initVolumn()
+function sfx:initReservedChannelVolumn()
   --local masterVolume = audio.getVolume()
   --print( "volume "..masterVolume )
   audio.setVolume( 0.7, { channel = self.CHANNEL_BG } )  --music track
@@ -111,14 +115,33 @@ end
 
 function sfx:init()
   audio.reserveChannels(3)
-  self:initVolumn()
+  self:initReservedChannelVolumn()
 end
 
 function sfx:play(name, options)
+    --print("play sound!!!")
+    --prevent too close same sounds
+    local plySoundTime = system.getTimer()
+    local skip = false
+    --print("Check!!!! ", sfx.history[name], name)
+    if sfx.history[name] then
+      --print("Check2!!!! ", sfx.history[name], name)
+      local diff = plySoundTime - sfx.history[name]
+      if diff < 10 then
+        skip = true
+      end
+    end
+    --print("Assign!!!! ", plySoundTime, name)
+    sfx.history[name] = plySoundTime
+    if skip then
+      return
+    end
+    --
+
     if not config.soundOn then
       return
     end
-    self:initVolumn()
+    self:initReservedChannelVolumn()
 
     if not options then
       options = {}
@@ -131,15 +154,18 @@ function sfx:play(name, options)
       options.channel = reservedChannel
     else
       local availableChannel = audio.findFreeChannel( 4 )
+      if availableChannel == 0 then
+        logger:warn(TAG, "No available channels")
+        return
+      end
       audio.setVolume( 1, { channel=availableChannel } )
       options.channel = availableChannel
     end
 
     local currentVolumn = audio.getVolume( { channel = options.channel } )
 
-    --logger:debug(TAG, "Play sound %s at channel %d with volume %d", name, options.channel, currentVolumn)
-
-
+    --logger:info(TAG, "Play sound %s at channel %d with volume %f at %d", name, options.channel, currentVolumn, system.getTimer())
+    --logger:info(TAG, "Play sound at bg channel %d with volume %f", self.CHANNEL_BG, audio.getVolume( { channel = self.CHANNEL_BG } ))
     return audio.play(self[name].handle, options)
 
 end

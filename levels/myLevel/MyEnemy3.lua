@@ -45,15 +45,6 @@ MyEnemy.new = function(options)
     part7.y = part1.height/4
     part8.x = part1.width/2
     part8.y = part1.height/4
-    --setup shoot
-    myEnemy:setDefaultBullet("bullets.Laser", {frame = "Lasers/2"})
-
-    myEnemy:addTimer(1000,
-        function()
-            myEnemy:shoot({x = myEnemy.x + part1.width/2 , degree = myEnemy.dir, speed = 500 * gameConfig.scaleFactor})
-            myEnemy:shoot({x = myEnemy.x - part1.width/2 , degree = myEnemy.dir, speed = 500 * gameConfig.scaleFactor})
-        end
-    , -1)
 
     --enable physic
     myEnemy:enablePhysics()

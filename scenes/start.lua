@@ -264,7 +264,6 @@ end
 
 function scene:onConfirm(buttonSelectedIndex)
     logger:debug(TAG, "Select mode %d", buttonSelectedIndex)
-    sfx:play("start")
     --if name is empty, fore user add it
     local userName = dbHelper:getUserName()
     if not userName or userName == "" then
@@ -274,6 +273,7 @@ function scene:onConfirm(buttonSelectedIndex)
     end
 
     if buttonSelectedIndex == INDEX_LOGIN then
+        sfx:play("start")
         --LOGIN OR LOGOUT
         if facebook.getCurrentAccessToken() then
             --logout
@@ -290,12 +290,14 @@ function scene:onConfirm(buttonSelectedIndex)
     end
 
     if buttonSelectedIndex == INDEX_WHO_ARE_YOU then
+        sfx:play("start")
         self:go("scenes.start", "scenes.whoAreYou", {
             text = userName
         })
         return
     end
     if buttonSelectedIndex == INDEX_LEADERBOARD then
+        sfx:play("start")
         self:go("scenes.start", "scenes.leaderBoardSelection")
         return
     end

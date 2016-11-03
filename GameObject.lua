@@ -285,7 +285,9 @@ GameObject.new = function (options)
     end
 
     function object:setScaleLinearVelocity(vx, vy)
-      self:setLinearVelocity(vx * gameConfig.scaleFactor, vy * gameConfig.scaleFactor)
+        if self.setLinearVelocity then
+            self:setLinearVelocity(vx * gameConfig.scaleFactor, vy * gameConfig.scaleFactor)
+        end
     end
 
     function object:insertToParent(obj)

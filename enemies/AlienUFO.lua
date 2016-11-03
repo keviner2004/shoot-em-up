@@ -12,9 +12,6 @@ Ufo.new = function(options)
 
     function ufo:beam(duration)
         local beam = Beam.new({fireTo = "character"})
-        print("compare parent")
-        print(self.parent)
-        print(self.x)
         self.parent:insert(beam)
         self:toFront()
         beam.x = ufo.x

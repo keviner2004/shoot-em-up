@@ -192,7 +192,7 @@ Level.load = function()
         logger:debug(TAG, "_startInfiniteLevel")
         --Get a random level from levels
         if #self.levelCandidates == 0  then
-            logger:warn(TAG, "Repeat normal level")
+            --logger:warn(TAG, "Repeat normal level")
             self:initLevelCandidate()
         end
 

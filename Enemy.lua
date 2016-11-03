@@ -101,7 +101,12 @@ Enemy.new = function(options)
         bullet.x = x
         bullet.y = y
         --print("Shoot dir "..degree)
-        bullet:setScaleLinearVelocity( speed * math.cos(math.rad(degree)), - speed * math.sin(math.rad(degree)))
+        if options and options.onShoot then
+            options.onShoot(bullet)
+        else
+            bullet.rotation = bullet.dir - degree
+            bullet:setScaleLinearVelocity( speed * math.cos(math.rad(degree)), - speed * math.sin(math.rad(degree)))
+        end
         self.parent:insert(bullet)
         self:toFront()
     end

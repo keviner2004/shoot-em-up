@@ -23,9 +23,9 @@ Item.new = function(options)
 
     function item:effect(receiver)
         self:disableAutoDestroy()
-        self:visualEffect()
-        self:playGotSound()
-        self:mentalEffect()
+        self:visualEffect(receiver)
+        self:playGotSound(receiver)
+        self:mentalEffect(receiver)
         --print("Item effect the receiver")
     end
 
@@ -41,7 +41,7 @@ Item.new = function(options)
         effect.y = self.y
     end
 
-    function item:mentalEffect()
+    function item:mentalEffect(receiver)
 
     end
 

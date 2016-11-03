@@ -2,7 +2,7 @@ local Sprite = require("Sprite")
 local Item = require("Item")
 local SpeedUp = {}
 SpeedUp.new = function(options)
-    local sprites = {"Power-ups/bolt_bronze", "Power-ups/bolt_silver", "Power-ups/bolt_gold"}
+    local sprites = {"Power-ups/Bolt/5", "Power-ups/Bolt/6", "Power-ups/Bolt/7"}
     local level = 1
     if options and options.level then
         if options.level < 1 then

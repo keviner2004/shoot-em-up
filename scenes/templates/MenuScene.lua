@@ -198,6 +198,7 @@ Menu.new = function()
         self.buttons[idx].action()
         if not self.buttons[idx].playSound then
           self.buttons[idx].playSound = function()
+            print("###################")
             sfx:play(self.buttons[idx].sound or "button")
           end
         end

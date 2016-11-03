@@ -1,5 +1,6 @@
 local Enemy = require("Enemy")
 local Sprite = require("Sprite")
+local gameConfig = require("gameConfig")
 local MyEnemy = {}
 
 MyEnemy.new = function(options)
@@ -8,9 +9,9 @@ MyEnemy.new = function(options)
     local part1 = Sprite.new("Ships/Parts/Cockpits/Bases/18")
     local part2 = Sprite.new("Ships/Parts/Cockpits/Glass/25")
     --left wing
-    local part3 = Sprite.new("Ships/Parts/Wings/68") 
+    local part3 = Sprite.new("Ships/Parts/Wings/60") 
     --right wing
-    local part4 = Sprite.new("Ships/Parts/Wings/68") 
+    local part4 = Sprite.new("Ships/Parts/Wings/60") 
     local part5 = Sprite.new("Ships/Parts/Engines/6")
     local part6 = Sprite.new("Ships/Parts/Engines/6")
     --left gun
@@ -46,7 +47,8 @@ MyEnemy.new = function(options)
     part8.x = part1.width/2
     part8.y = part1.height/4
     --setup shoot
-    myEnemy:setDefaultBullet("bullets.Laser", {frame = "Lasers/2"})
+    myEnemy:setDefaultBullet("levels.myLevel.MyBullet")
+    --myEnemy:setDefaultBullet("bullets.Laser", {frame = "Lasers/2"})
 
     myEnemy:addTimer(1000,
         function()

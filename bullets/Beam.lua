@@ -1,4 +1,3 @@
-local BeamSeg = require("bullets.BeamSeg")
 local Bullet = require("Bullet")
 local GameObject = require("GameObject")
 local move = require("move")
@@ -6,6 +5,7 @@ local Beam = {}
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local gameConfig = require("gameConfig")
+
 Beam.new = function (options)
     --print("beam")
     --local beam = GameObject.new()
@@ -26,6 +26,9 @@ Beam.new = function (options)
     beam:insert(beam.segs)
     beam.damage = 999999
     beam.name = "beam"
+
+    local BeamSeg = require("bullets.BeamSeg" or (options and options.BeamClass))
+    local Burst = require("bullets.Burst" or (options and options.BurstClass))
 
     --print("beam fireTo "..beam.fireTo)
 
@@ -193,7 +196,7 @@ Beam.new = function (options)
     end
 
     function beam:newBurst()
-        return Sprite.new("Lasers/Burst/1")
+        return Burst.new()
     end
 
     function beam:isOut(beamSeg)
