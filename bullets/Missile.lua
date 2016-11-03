@@ -19,7 +19,7 @@ Missile.new = function (options)
 
     function missile:addSmoke()
         local smoke = GameObject.new()
-        print("Add smoke!!!")
+        --print("Add smoke!!!")
         local _smoke = Sprite["expansion-8"].new({
                     "Effects/smoke/9",
                     "Effects/smoke/6",
