@@ -17,7 +17,7 @@ M.new = function(options)
         options.h or gameConfig.contentWidth*0.1
     )
     
-    local colors = {"green", "yellow", "red"}
+    local colors = {"red", "yellow", "green"}
 
     local base = Square.new(glassPanel.width*0.97, glassPanel.height*0.85, "shadow")
 

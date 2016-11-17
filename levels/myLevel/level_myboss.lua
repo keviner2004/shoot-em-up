@@ -27,7 +27,8 @@ function myLevel:initBoss()
     local hpBar = HpBar.new({
         w = gameConfig.contentWidth*0.88, 
         h = gameConfig.contentWidth*0.1,
-        title = "Boss"
+        numOfLifes = 3,
+        title = "Boss2"
     })
     hpBar.x = gameConfig.contentWidth / 2
     hpBar.y = hpBar.height * 0.6
