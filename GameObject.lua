@@ -102,6 +102,10 @@ GameObject.new = function (options)
        self.timerUtil:cancel(id)
     end
 
+    function object:pauseTimer(id)
+       self.timerUtil:pause(id)
+    end
+
     function object:cancel()
         self.timerUtil:clear()
         self.enterFrame:cancelAll()

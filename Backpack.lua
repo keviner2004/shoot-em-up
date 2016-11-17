@@ -13,7 +13,7 @@ Backpack.new = function(options)
     backpack.keys = {}
 
     function backpack:getItemId() 
-        if self.numOfItems > self.maxItems then
+        if self.numOfItems >= self.maxItems then
             return nil
         end
         if self.counter < self.maxItems then
@@ -26,6 +26,10 @@ Backpack.new = function(options)
                     self.counter = i 
                     break
                 end
+            end
+            if not self.counter then
+                logger:error(TAG, "backpack is full, Q^Q....")
+                self.counter = 0
             end
         end
         return self.counter

@@ -24,6 +24,7 @@ setmetatable(Enemy, {
 
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
+    --print("Add enemy to its backpack")
     Enemy.backpack:add2(enemy)
     enemy:addTag("enemy")
     enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
@@ -35,6 +36,7 @@ Enemy.new = function(options)
     enemy.damage = 10
     enemy.name = "enemy"
     enemy.type = "enemy"
+    enemy.invincible = false
     enemy.hurtSound = (options and options.hurtSound) or "hurt"
     enemy.deadSound = (options and options.deadSound) or "explosion"
     enemy.hp = (options and options.hp) or 50
@@ -139,12 +141,14 @@ Enemy.new = function(options)
     end
 
     function enemy:showDestroyEffect()
-        local effect = Effect.new({time=1000})
-        effect:start()
-        effect.x = self.x
-        effect.y = self.y
-        effect:setLinearVelocity( 0, config.stageSpeed )
-        self.parent:insert(effect)
+        if self.parent then
+            local effect = Effect.new({time=1000})
+            effect:start()
+            effect.x = self.x
+            effect.y = self.y
+            effect:setLinearVelocity( 0, config.stageSpeed )
+            self.parent:insert(effect)
+        end
     end
 
     function enemy:playHurtSound()
@@ -173,7 +177,7 @@ Enemy.new = function(options)
 
     function enemy:hurt(damage, crime)
         logger:debug(TAG, "Hurt enemy: %d / %d", damage, self.hp)
-        if self.hp > 0 then
+        if self.hp > 0 and not self.invincible then
             self:showHurtEffect()
             self:onHurt(damage, crime)
             --self:unHurtEffect()
@@ -200,11 +204,23 @@ Enemy.new = function(options)
         end
     end
 
+    function enemy:dispatchHealthEvent(phase, crime, damage)
+        self:dispatchEvent({
+            name = "health",
+            crime = crime,
+            phase = phase,
+            hp = self.hp,
+            damage = damage
+        })
+    end
+
     function enemy:onHurt(damage, crime)
         self.hp = self.hp - damage
+        self:dispatchHealthEvent("hurt", crime, damage)
     end
 
     function enemy:onDead(crime)
+        self:dispatchHealthEvent("dead", crime, 0)
         --print("Enemy onDead")
         physics.removeBody(self)
         transition.to(self, {time = 0, alpha = 0, onComplete =

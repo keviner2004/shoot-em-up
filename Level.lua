@@ -12,6 +12,7 @@ Level.currentLevelId = -1
 Level.load = function()
     local level = {}
     level.levels = {}
+    level.activeSublevelSet = {}
     level.levelCandidates = {}
     level.bossCandidates = {}
     level.currentSublevel = nil
@@ -127,13 +128,17 @@ Level.load = function()
           logger:debug(TAG, "startLevel %s", levelObj.name)
           self.currentSublevel = levelObj
         end
-        self.currentSublevel:init(self:getInitOptions({
-            onComplete = options and options.onComplete,
-            onFail = options and options.onFail
-        }))
+        if not self.currentSublevel.inited then
+            self.currentSublevel:init(self:getInitOptions({
+                onComplete = options and options.onComplete,
+                onFail = options and options.onFail
+            }))
+        end
+        self.currentSublevel:initEverytime()
         if not self.currentSublevel.isBossFight then
           self:showInfo()
         end
+        self.activeSublevelSet[self.currentSublevel] = true
         self.currentSublevel:start()
     end
 
@@ -176,7 +181,6 @@ Level.load = function()
     end
 
     function level:updatePlayLog(score, cleared)
-        --print("~~~~~~~~~~~~~~~~")
         self.levelEndTime = os.time(os.date("!*t"))
         self.levelPlayDuration = self.levelEndTime - self.levelStartTime
         dbHelper:updatePlayLog(self.playId, {
@@ -227,7 +231,7 @@ Level.load = function()
 
         self:startLevel(self.levels[idx], {
           onComplete = function()
-              self:_startInfiniteLevel(options)
+                self:_startInfiniteLevel(options)
           end,
           onFail = options and options.onFail
         })
@@ -236,19 +240,18 @@ Level.load = function()
     function level:pause()
         logger:debug(TAG, "Pause level")
         self.timerUtil:pause()
-        if self.currentSublevel then
-            logger:debug(TAG, "Pause current sublevel")
-            self.currentSublevel:pause()
-        else
-            logger:debug(TAG, "no current sublevel need to be paused")
+        for k, v in pairs(self.activeSublevelSet) do
+            --logger:error(TAG, "pause level %s in the active level", k.id)
+            k:pause()
         end
         self.paused = true
     end
 
     function level:resume()
         self.timerUtil:resume()
-        if self.currentSublevel then
-            self.currentSublevel:resume()
+        for k, v in pairs(self.activeSublevelSet) do
+            --logger:error(TAG, "resume level %s in the active level", k.id)
+            k:resume()
         end
         self.paused = false
     end
@@ -258,9 +261,11 @@ Level.load = function()
         self.timerUtil:clear()
         self:clearLevelCandidate()
         self:clearBossCandidate()
-        if self.currentSublevel then
-            self.currentSublevel:stop()
+        for k, v in pairs(self.activeSublevelSet) do
+            --logger:error(TAG, "stop level %s in the active level", k.id)
+            k:stop()
         end
+        self.activeSublevelSet = {}
         self.count = 0
         self.stopped = true
     end
@@ -272,7 +277,7 @@ Level.load = function()
             function ()
                 if options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
                     logger:debug(TAG, "start single mode")
-                    print("levelName~~~~~~~~~~~", options.levelName)
+                    --print("levelName~~~~~~~~~~~", options.levelName)
                     if not options.levelName then
                         logger:error(TAG, "Level name must be specified in single level mode")
                         return

@@ -448,7 +448,7 @@ function scene:startGame(options)
     --add to group
     self.superGroup:insert(self.mainGroup)
     self.superGroup:insert(self.hudGroup)
-    timer.performWithDelay(1000 ,
+    self.level.timerUtil:addTimer(0 ,
         function()
             self.level:start(options)
         end
@@ -549,7 +549,7 @@ function scene:show( event )
         else
             self:showHUD()
             self:resumeGame()
-            sfx:play("bg", {loops = -1})
+            --sfx:play("bg", {loops = -1})
             if event.params and event.params.action == "restart" then
                 logger:debug(TAG, "Restart the game with previous game options")
                 self:startGame(self.gameOptions)

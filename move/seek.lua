@@ -58,6 +58,9 @@ function M.seek(obj, target, options)
             isComplete = false
         end
         if not util.isExists(target) then
+            if options and options.onMissTarget then
+                options.onMissTarget()
+            end
             return true
         end
         M.steer(obj, target, maxSpeed, minForce, maxForce)

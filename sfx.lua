@@ -12,8 +12,27 @@ sfx.history = {
   
 }
 
+sfx.channel = {
+  
+}
+
 sfx.bg = {
   handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Level 1.mp3" ),
+  channel = sfx.CHANNEL_BG
+}
+
+sfx.bg2 = {
+  handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Level 2.mp3" ),
+  channel = sfx.CHANNEL_BG
+}
+
+sfx.bg3 = {
+  handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Level 3.mp3" ),
+  channel = sfx.CHANNEL_BG
+}
+
+sfx.bg4 = {
+  handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Ending.mp3" ),
   channel = sfx.CHANNEL_BG
 }
 
@@ -23,11 +42,6 @@ sfx.playerDead = {
 
 sfx.scoreUp = {
   handle = audio.loadSound( "sounds/sfx_coin_single1.mp3" )
-}
-
-sfx.bgBoss = {
-  handle = audio.loadSound( "sounds/Juhani Junkala [Retro Game Music Pack] Level 2.mp3" ),
-  channel = sfx.CHANNEL_BG
 }
 
 sfx.bash ={
@@ -119,7 +133,6 @@ function sfx:init()
 end
 
 function sfx:play(name, options)
-    --print("play sound!!!")
     --prevent too close same sounds
     local plySoundTime = system.getTimer()
     local skip = false
@@ -136,6 +149,7 @@ function sfx:play(name, options)
     if skip then
       return
     end
+
     --
 
     if not config.soundOn then
@@ -166,6 +180,7 @@ function sfx:play(name, options)
 
     --logger:info(TAG, "Play sound %s at channel %d with volume %f at %d", name, options.channel, currentVolumn, system.getTimer())
     --logger:info(TAG, "Play sound at bg channel %d with volume %f", self.CHANNEL_BG, audio.getVolume( { channel = self.CHANNEL_BG } ))
+    sfx.channel[options.channel] = name
     return audio.play(self[name].handle, options)
 
 end

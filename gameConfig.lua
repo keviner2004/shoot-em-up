@@ -2,8 +2,9 @@ local config = {}
 local Logging = require("Logging")
 --adjust below params if you want to publish
 config.production = true
+config.defaultPower = 1
 config.singlePlayerOnly = true
-config.version = "0.9851"
+config.version = "0.9862"
 config.dbVersion = "0.35"
 config.devId = "1003945780"
 config.remoteLogging = false
@@ -63,6 +64,7 @@ config.gameLevels = {
     "myLevel.level_curve",
     "myLevel.level_rotate_around",
     "myLevel.level_sinwav",
+    "myLevel.level_myboss"
 }
 
 config.seperateLevels = {

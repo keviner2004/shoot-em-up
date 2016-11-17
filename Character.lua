@@ -33,7 +33,7 @@ Character.new = function (options)
     local character = GameObject.new()
     Character.backpack:add2(character)
     function character:init(options)
-        self.power = (options and options.power) or 1
+        self.power = (options and options.power) or gameConfig.defaultPower or 1
         self.defaultPower = self.power
         self.shootSpeed = (options and options.shootSpeed) or 0
         self.defaultShootSpeed = self.shootSpeed

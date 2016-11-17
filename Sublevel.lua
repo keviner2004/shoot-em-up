@@ -17,9 +17,20 @@ Sublevel.new = function (id, name, author, options)
     sublevel.author = author
     sublevel.duration = options and options.duration
     sublevel.isBossFight = options and options.isBossFight
+    sublevel.bg = options and options.bg or "bg"
+
+    function sublevel:initEverytime()
+        self.stopped = false
+        self._finished = false
+        self:prepare()
+    end
 
     function sublevel:init(options)
+        if self.inited then
+          return
+        end
         self.enterFrame = EnterFrameUtil.new({owner = "sublevel"})
+        self.managerObject = display.newGroup()
         self.timerUtil = TimerUtil.new()
         self.onComplete = options and options.onComplete
         self.onFail = options and options.onFail
@@ -28,9 +39,12 @@ Sublevel.new = function (id, name, author, options)
         self.view = options and options.view
         self.scene = options and options.scene
         self.game = options and options.game
-        self.stopped = false
-        self._finished = false
+        --logger:error(TAG, "init:new something")
+        self.inited = true
         self:create()
+    end
+
+    function sublevel:prepare()
     end
 
     function sublevel:create()
@@ -44,19 +58,25 @@ Sublevel.new = function (id, name, author, options)
         self.secondPlayer = players[2]
     end
 
+
+
     function sublevel:start(options)
+        --sfx:fadeOut(sfx.CHANNEL_BG, 1000)
+        if sfx.channel[sfx.CHANNEL_BG] ~= self.bg then
+          --print("Play~~~~~", self.bg)
+          sfx:play(self.bg, {loops = -1})
+        end
         self.stopped = false
         logger:debug(TAG, "sublevel:start")
+        self:show(options)
         if self.duration then
-            --print("Enable timer")
             self:addTimer(self.duration,
                 function()
-                    --print("set finished")
                     self._finished = true
-            end)
+                end
+            )
         end
         self:checkComplete()
-        self:show(options)
     end
 
     function sublevel:show(options)
@@ -64,13 +84,17 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:stop()
+        --logger:error(TAG, "delete something")
         --print("sub level stop")
         self.stopped = true
+        self.managerObject:removeSelf()
         self.timerUtil:clear()
         --print("****************** cancelAll check task 1 *****************", self.enterFrame.numOfItems)
         self.enterFrame:cancelAll()
         --print("****************** cancelAll check task 2 *****************", self.enterFrame.numOfItems)
+        self:dispatchFinishEvent()
         self:finish()
+        self.inited = false
     end
 
     function sublevel:pause()
@@ -121,7 +145,11 @@ Sublevel.new = function (id, name, author, options)
     end
 
     function sublevel:insert(obj)
-        self.view:insert(obj)
+        if self.view then
+          self.view:insert(obj)
+        else
+          logger:error(TAG, "You cannot insert game objects when the game is not already started. Maybe you are using a timer to add game objects after the game is finished")
+        end
     end
     function sublevel:checkComplete()
         local function _check()
@@ -130,30 +158,53 @@ Sublevel.new = function (id, name, author, options)
                 --print("Stop checking please 1: ", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
                 --print("Stop checking please 2: ", self.enterFrame.numOfItems)
-                print("sublevel is canceled")
+                self:dispatchFinishEvent()
                 self:finish()
                 return
             end
             if self:isFinish() then
                 logger:debug(TAG, "==========Sublevel complete: %d", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
-
+                self:dispatchFinishEvent()
+                self:finish()
                 if self.onComplete then
                     self.onComplete({id = self.id})
                 end
-                self:finish()
             elseif self:isFail() then
                 logger:debug(TAG, "==========Sublevel fail: %d", self.enterFrame.numOfItems)
                 self.enterFrame:cancel(_check)
+                self:dispatchFailEvent()
+                self:fail()
                 if self.onFail then
                     self.onFail({id = self.id})
                 end
-                self:fail()
             end
         end
         --print("****************** Assign check task 1 *****************", self.enterFrame.numOfItems)
         self.enterFrame:each(_check)
         --print("****************** Assign check task 2 *****************", self.enterFrame.numOfItems)
+    end
+
+    function sublevel:dispatchFinishEvent()
+      self.managerObject:dispatchEvent({
+        name = "level",
+        phase = "finish"
+      })
+    end
+
+    function sublevel:dispatchFailEvent()
+      self.managerObject:dispatchEvent({
+        name = "level",
+        phase = "fail"
+      })
+    end
+
+    function sublevel:addEventListener(eventName, listener)
+      self.managerObject:addEventListener(eventName, listener)
+    end
+
+    function sublevel:removeEventListener(eventName, listener)
+      self.managerObject:removeEventListener(eventName, listener)
     end
 
     function sublevel:finish()
@@ -219,20 +270,20 @@ Sublevel.new = function (id, name, author, options)
       warning.x = gameConfig.contentWidth/2
       warning.y = gameConfig.contentHeight/2
       self.warningChannel = sfx:play("warning", {loops = -1})
-      transition.blink(warning, {time = 2000, onRepeat =
-          function (event)
-          -- body
-              count = count + 1
-              if count == 4 then
-                --print("warning complete")
-                warning:removeSelf()
-                sfx:stop(self.warningChannel)
-                sfx:play("bgBoss", {loops = -1})
-                if onComplete then
-                  onComplete()
-                end
+      local function blink(event)
+            -- body
+            count = count + 1
+            if count == 4 then
+              sfx:stop(self.warningChannel)
+              sfx:play((options and options.bg) or self.bg, {loops = -1})
+              if onComplete then
+                onComplete()
               end
-      end})
+              transition.cancel(warning)
+              warning:clear()
+            end
+        end
+      transition.blink(warning, {time = 2000, onRepeat = blink})
       self.view:insert(warning)
     end
 

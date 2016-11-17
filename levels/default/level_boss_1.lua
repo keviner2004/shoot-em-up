@@ -1,12 +1,12 @@
 local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local sublevel = Sublevel.new("9999999-008", "boss level", "keviner2004", {isBossFight = true})
+local sublevel = Sublevel.new("9999999-008", "boss level", "keviner2004", {isBossFight = true, bg = "bg2"})
 local Boss = require("enemies.Boss")
 local composer = require("composer")
 local util = require("util")
 local sfx = require("sfx")
 
-function sublevel:create()
+function sublevel:prepare()
   self.isDefeated = false
 end
 
@@ -25,7 +25,7 @@ function sublevel:show(options)
       self.boss.onDefeated = function()
           self.isDefeated = true
           self.game:showScore(true)
-          sfx:play("bg", {loops = -1})
+          --sfx:play("bg", {loops = -1})
       end
     end
 

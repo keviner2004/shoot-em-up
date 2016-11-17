@@ -3,7 +3,7 @@ local Sublevel = require("Sublevel")
 local MyEnemy = require("levels.myLevel.MyEnemy2")
 local NoAutoShootEnemy = require("levels.myLevel.MyEnemy3")
 local util = require("util")
-local myLevel = Sublevel.new("9999999-011", "custom bullet", "author name")
+local myLevel = Sublevel.new("9999999-085", "custom bullet", "author name")
 
 function myLevel:show(options)
     local enemy = MyEnemy.new()

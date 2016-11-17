@@ -12,6 +12,7 @@ function myLevel:show(options)
     enemy.y = -enemy.height/2
     local deg = 0
     local offset = gameConfig.contentWidth * 0.35
+
     enemy.enterFrame:each(
         function()
             if enemy.paused then

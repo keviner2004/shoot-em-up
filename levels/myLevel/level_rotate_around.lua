@@ -28,7 +28,7 @@ function myLevel:show(options)
     move.rotateAround(rock, {
         target = enemy,
         speed = 5,
-        distance = 75 * gameConfig.scaleFactor,
+        distance = 75* gameConfig.scaleFactor,
         startDegree = 30,
         onMissTarget = function(angle)
             local d =  angle + 90
