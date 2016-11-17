@@ -19,7 +19,7 @@ function myLevel:prepare()
 end
 
 function myLevel:initBoss()
-    local enemy = MyEnemy.new()
+    local enemy = MyEnemy.new({players = self.players})
     --Set the boss to be invisible at the beginning
     enemy.invincible = true    
     self.bossInited = true

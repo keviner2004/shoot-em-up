@@ -344,7 +344,6 @@ Boss.new = function(players, options)
             self.missiles = {}
             for i = 1, num do
                 local missile = Missile.new()
-                missile:enableAutoDestroy()
                 self.parent:insert(missile)
                 move.rotateAround(missile, {target = self, speed = 3, distance = 75 * gameConfig.scaleFactor, startDegree = startDegree + 360 / num * (i-1)})
                 --print("Prepare missile: "..missile.x.."x"..missile.y)

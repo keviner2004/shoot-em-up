@@ -31,7 +31,7 @@ Missile.new = function (options)
                     "Effects/smoke/4",
                     "Effects/smoke/1"
                 },{
-                    time = 1000, 
+                    time = 400, 
                     loopCount = 1
                 })
 
@@ -45,10 +45,12 @@ Missile.new = function (options)
         _smoke:play()
         smoke.alpha = 0
         transition.to(smoke, {alpha = 1})
-        smoke:addEventListener("sprite", 
+        _smoke:addEventListener("sprite", 
             function(event)
                 if event.phase == "ended" then
-                    smoke:removeSelf()
+                    --print("Smoke clear")
+                    _smoke:removeSelf()
+                    smoke:clear()
                 end
             end
         )
@@ -71,6 +73,7 @@ Missile.new = function (options)
     end
 
     missile:startSmoke()
+    missile:enableAutoDestroy()
     return missile
 end
 

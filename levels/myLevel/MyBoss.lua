@@ -2,6 +2,7 @@ local Enemy = require("Enemy")
 local Sprite = require("Sprite")
 local PhaseManager = require("PhaseManager")
 local logger = require("logger")
+local move = require("move")
 local gameConfig = require("gameConfig")
 local TAG = "MyBoss"
 local MyEnemy = {}
@@ -23,8 +24,9 @@ MyEnemy.new = function(options)
     local part8 = Sprite.new("Ships/Parts/Guns/8")
     --set properties
     myEnemy.dir = 270
-    myEnemy.maxHp = 300
-    myEnemy.hp = 300
+    myEnemy.maxHp = 1000
+    myEnemy.hp = 1000
+    myEnemy.players = options.players
     --insert to enemy
     myEnemy:insert(part7)
     myEnemy:insert(part8)
@@ -83,12 +85,27 @@ MyEnemy.new = function(options)
     end
 
     function myEnemy:stage3()
+        local counter = 0
         logger:info(TAG, "The boss is in stage3, shoot 3 bullet, and a homing missile")
         self:cancelTimer(self.preTimer)
         self.preTimer = self:addTimer(1000,
             function()
+                counter = counter + 1
                 self:shoot({x = self.x + self.width/4 , degree = self.dir, speed = 100 * gameConfig.scaleFactor})
                 self:shoot({x = self.x , degree = self.dir, speed = 100 * gameConfig.scaleFactor})
+                if counter%2 == 1 then
+                    self:shoot({
+                        x = self.x , degree = self.dir, speed = 100 * gameConfig.scaleFactor,
+                        bulletClass = "bullets.Missile",
+                        bulletOptions = {},
+                        onShoot = function(bullet)
+                            bullet:setScaleLinearVelocity(0, 200)
+                            bullet:rotateTo(270)
+                            move.seek(bullet, self.players[1])
+
+                        end
+                    })
+                end
                 self:shoot({x = self.x - self.width/4 , degree = self.dir, speed = 100 * gameConfig.scaleFactor})
             end
         , -1)
@@ -98,7 +115,7 @@ MyEnemy.new = function(options)
         "stage1",
         myEnemy, 
         function()
-            return myEnemy.hp <= 200
+            return myEnemy.hp <= 666
         end,
         function()
             return "stage2"
@@ -109,7 +126,7 @@ MyEnemy.new = function(options)
         "stage2", 
         myEnemy,
         function()
-            return myEnemy.hp <= 100
+            return myEnemy.hp <= 333
         end,
         function()
             return "stage3"

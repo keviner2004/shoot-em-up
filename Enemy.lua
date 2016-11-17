@@ -98,8 +98,8 @@ Enemy.new = function(options)
         local y = options.y or self.y
         local degree = options.degree or 0
         local speed = options.speed or 150
-        local BulletClass = require(self.defaultBullet.class)
-        local bullet = BulletClass.new(self.defaultBullet.options)
+        local BulletClass = require((options and options.bulletClass) or self.defaultBullet.class)
+        local bullet = BulletClass.new((ooptions and ptions.bulletOptions) or self.defaultBullet.options)
         bullet.x = x
         bullet.y = y
         --print("Shoot dir "..degree)
