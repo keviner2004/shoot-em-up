@@ -1,9 +1,11 @@
 local gameConfig = require("gameConfig")
+local Sprite = require("Sprite")
 local Backgrounds = {}
 
 Backgrounds.new = function(speed)
     local backgrounds = display.newGroup()
-    local tile = display.newImage("imgs/backgrounds/purple.png")
+    --local tile = display.newImage("imgs/backgrounds/purple.png")
+    local tile = Sprite["tiles"].new("purple")
     tile.alpha = 0
     backgrounds.speed = speed or 50
     backgrounds.offset = (1000 / display.fps) * (speed / 1000)
@@ -18,7 +20,8 @@ Backgrounds.new = function(speed)
         --print("Generate background left:", left, "top:", top, backgroundGroup.x, backgroundGroup.y)
         for row = 1, rows do
             for col = 1, cols do
-                local background = display.newImage("imgs/backgrounds/purple.png")
+                --local background = display.newImage("imgs/backgrounds/purple.png")
+                local background = Sprite["tiles"].new("purple")
                 background.y = top + math.ceil((row - 0.5) * tile.height)
                 background.x = left + math.ceil((col - 0.5) * tile.width)
                 backgroundGroup:insert(background)

@@ -66,6 +66,7 @@ Sprite.addSheet("expansion-6", "sprites/expansion-6", "sprites.expansion-6")
 Sprite.addSheet("expansion-7", "sprites/expansion-7", "sprites.expansion-7")
 Sprite.addSheet("expansion-8", "sprites/expansion-8", "sprites.expansion-8")
 Sprite.addSheet("expansion-9", "sprites/expansion-9", "sprites.expansion-9")
+Sprite.addSheet("tiles", "sprites/tiles.png", "sprites.tiles")
 logger:debug(TAG, "Screen Ratio: %d / %d : %d, scaleFactor: %f", display.pixelWidth, display.actualContentWidth, display.contentWidth, gameConfig.scaleFactor)
 
 composer.gotoScene( "scenes.game")
