@@ -7,7 +7,7 @@ local myLevel = Sublevel.new("9999999-086", "custom enemy", "author name", {isBo
 
 function myLevel:show(options)
     self:showWarning({
-      bg = "bg3",
+      bg = "bg2",
       onComplete = function()
         self:initBoss()
       end
@@ -21,13 +21,13 @@ end
 function myLevel:initBoss()
     local enemy = MyEnemy.new({players = self.players})
     --Set the boss to be invisible at the beginning
-    enemy.invincible = true    
+    enemy.invincible = true
     self.bossInited = true
     --set up hp bar
     local hpBar = HpBar.new({
-        w = gameConfig.contentWidth*0.88, 
+        w = gameConfig.contentWidth*0.88,
         h = gameConfig.contentWidth*0.1,
-        numOfLifes = 3,
+        numOfLifes = 10,
         title = "Boss2"
     })
     hpBar.x = gameConfig.contentWidth / 2
@@ -53,9 +53,9 @@ function myLevel:initBoss()
     self.game:showScore(false)
 
     enemy:setScaleLinearVelocity(0, 200)
-    enemy:addTimer(1000, function()
+    enemy:addTimer(2000, function()
         enemy:setScaleLinearVelocity(0, 0)
-        --When the enemy is ready, the player can hurt it 
+        --When the enemy is ready, the player can hurt it
         enemy.invincible = false
         enemy:startAction()
     end)

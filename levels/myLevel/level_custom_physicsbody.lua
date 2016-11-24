@@ -1,23 +1,21 @@
 local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local MyEnemy = require("levels.myLevel.MyEnemyWithCustomBullet")
-local NoAutoShootEnemy = require("levels.myLevel.MyEnemy3")
+local MyEnemy = require("levels.myLevel.MyEnemyWithCustomPhysicsBody")
 local util = require("util")
-local myLevel = Sublevel.new("9999999-085", "custom bullet", "author name")
+local myLevel = Sublevel.new("9999999-011", "custom enemy", "author name")
 
 function myLevel:show(options)
     local enemy = MyEnemy.new()
     self:insert(enemy)
     --place the enemy out of the screen
-    enemy.x = gameConfig.contentWidth * 0.75
+    enemy.x = gameConfig.contentWidth/4
     enemy.y = -enemy.height
     --move the enemy from the top to bottom with speed 100 pixels/second
     enemy:setScaleLinearVelocity( 0, 50 )
-    enemy:addItem("items.ShieldUp", {level = 3})
+    enemy:addItem("items.PowerUp", {level = 1})
     --destroy the enemy properly
     enemy:autoDestroyWhenInTheScreen()
     self.enemy = enemy
-
 end
 
 function myLevel:isFinish()

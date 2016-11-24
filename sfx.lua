@@ -195,6 +195,7 @@ function sfx:stop(channel)
     else
       audio.stop(channel)
     end
+    sfx.channel[sfx.CHANNEL_BG] = nil
 end
 
 function sfx:pause(channel)

@@ -2,10 +2,11 @@ local Enemy = {}
 local move = require("move")
 local Item = require("Item")
 local GameObject = require("GameObject")
---local Effect = require("effects.StarExplosion2")
-local Effect = require("effects.PooledStarExplosion")
+local Effect = require("effects.StarExplosion2")
+--local Effect = require("effects.PooledStarExplosion")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
+local ScaleText = require("ui.ScaleText")
 local config = require("gameConfig")
 local Backpack = require("Backpack")
 local logger = require("logger")
@@ -78,6 +79,38 @@ Enemy.new = function(options)
         item.class = class
         item.params = {...}
         self.items[#self.items+1] = item
+    end
+
+    function enemy:showScore()
+        if self.score > 0 then
+            local scoreText = ScaleText.new({
+                text = string.format("%d", self.score),
+                font = config.defaultFont,
+                fontSize = 25
+            })
+            scoreText.x = self.x
+            scoreText.y = self.y
+            scoreText.xScale = 0.1
+            scoreText.yScale = 0.1
+            scoreText.fill = {1, 1, 1}
+            if self.parent then
+                self.parent:insert(scoreText)
+            end
+            transition.to(scoreText, {
+                xScale = 1,
+                yScale = 1,
+                time = 250,
+                onComplete = function ()
+                    transition.to(scoreText, {
+                        time = 250,
+                        alpha = 0,
+                        onComplete = function()
+                            scoreText:removeSelf()
+                        end
+                    })
+                end
+            })
+        end
     end
 
     function enemy:setDefaultBullet(class, options)
@@ -186,6 +219,7 @@ Enemy.new = function(options)
                 timer.performWithDelay(1,
                     function(event)
                         self:showDestroyEffect()
+                        self:showScore()
                         self:onDead(crime)
                         if crime and crime.onKill then
                             crime:onKill(self)

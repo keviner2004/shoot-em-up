@@ -1,4 +1,5 @@
-local Character = {}
+local EventDispatcher = require("EventDispatcher")
+local Character = EventDispatcher()
 local gameConfig = require("gameConfig")
 local Control = require("Control")
 local Laser = require("bullets.Laser")
@@ -32,11 +33,15 @@ end
 Character.new = function (options)
     local character = GameObject.new()
     Character.backpack:add2(character)
+
     function character:init(options)
         self.power = (options and options.power) or gameConfig.defaultPower or 1
         self.defaultPower = self.power
         self.shootSpeed = (options and options.shootSpeed) or 0
         self.defaultShootSpeed = self.shootSpeed
+        if self.reStartAutoShoot then
+            self:reStartAutoShoot()
+        end
     end
 
     character:addTag("character")
@@ -73,7 +78,7 @@ Character.new = function (options)
     character.isDefeated = false
     character.moveSpeed = 0
     character.maxMoveSpeed = 5
-    character.minimumFireRate = 300
+    character.minimumFireRate = 100
     character:init(options)
     --add control
     character.control = options and options.control
@@ -322,6 +327,8 @@ Character.new = function (options)
                 item.x = gameConfig.contentWidth / 2
                 item.y = gameConfig.contentHeight / 2
                 item:dropped(self)
+            else
+                item:clear()
             end
         end
         self.backpack:clear()
@@ -343,6 +350,15 @@ Character.new = function (options)
         if attr.shootSpeed < self.minShootSpeed then
             attr.shootSpeed = self.minShootSpeed
         end
+        if attr.lifes < 0 then
+            attr.lifes = 0
+        end
+        if attr.totalLifes and attr.totalLifes < 0 then
+            attr.totalLifes = 0
+        end
+        if Character.totalLifes < 0 then
+            Character.totalLifes = 0
+        end
     end
 
     function character:needAddItemToBackup()
@@ -350,31 +366,35 @@ Character.new = function (options)
     end
 
     function character:doesAttrChange(attr)
-        if not attr then
-            attr = self
-        end
-        if attr.power == self.power and attr.shootSpeed == self.shootSpeed then
+        if attr.power == self.power and attr.shootSpeed == self.shootSpeed and attr.lifes == self.lifes and attr.totalLifes == Character.totalLifes then
             return false
         end
+
         return true
     end
 
     function character:testUpdateAttr(item)
-        local result = {}
-        result.power = self.power
-        result.shootSpeed = self.shootSpeed
-        result.power = result.power + item.power
-        result.shootSpeed = result.shootSpeed + item.shootSpeed
-
+        local result = self:getUpdatedAttrObject(item)
         self:limitAttr(result)
-
         result.change = self:doesAttrChange(result)
         --print("change!!!!!!!!!!!!!!!", result.change)
         return result
     end
 
-    function character:updateAttr(result)
-
+    function character:getUpdatedAttrObject(item)
+        local result = {}
+        result.power = self.power
+        result.shootSpeed = self.shootSpeed
+        result.lifes = self.lifes
+        result.totalLifes = Character.totalLifes
+        if Character.enableShareLifes then
+            result.totalLifes = result.totalLifes + item.lifes
+        else
+            result.lifes = result.lifes + item.lifes
+        end
+        result.power = result.power + item.power
+        result.shootSpeed = result.shootSpeed + item.shootSpeed
+        return result
     end
 
     function character:reCalculateAttr()
@@ -421,9 +441,24 @@ Character.new = function (options)
         if item.score then
             self:addScore(item.score)
         end
-        self.shootSpeed = self.shootSpeed + item.shootSpeed
-        self.power = self.power + item.power
-        self:limitAttr()
+        --update static attr
+        local result = self:getUpdatedAttrObject(item)
+        self:limitAttr(result)
+        if self.shootSpeed ~= result.shootSpeed then
+            self.shootSpeed = result.shootSpeed
+            self:reStartAutoShoot()
+        end
+        if self.power ~= result.power then
+            self.power = result.power
+        end
+        if self.lifes ~= result.lifes then
+            --print("Set life 1 to ", result.lifes, self.lifes)
+            self:setLife(result.lifes)
+        end
+        if Character.totalLifes ~= result.totalLifes then
+            --print("Set life 2 to ", result.totalLifes)
+            self:setLife(result.totalLifes)
+        end
     end
 
     function character:onItem(item)
@@ -486,6 +521,7 @@ Character.new = function (options)
         end
         self:onLoseLifes(event)
         Character.onLoseLifes(event)
+        self:dispatchLifeEvent()
     end
 
     function character:getLifes()
@@ -545,6 +581,33 @@ Character.new = function (options)
         end
     end
 
+    function character:addLife(offset)
+        if Character.enableShareLifes then
+            Character.totalLifes = Character.totalLifes + offset
+        else 
+            self.life = self.life + offset
+        end
+        self:dispatchLifeEvent()
+    end
+
+    function character:setLife(value)
+        if Character.enableShareLifes then
+            Character.totalLifes = value
+        else
+            self.life = value
+        end
+        self:dispatchLifeEvent()
+    end
+
+    function character:dispatchLifeEvent()
+        Character:dispatchEvent({
+            name = "life",
+            target = self,
+            lifes = Character.totalLifes
+        })
+    end
+
+
     function character:onGameOver()
 
     end
@@ -569,6 +632,7 @@ Character.new = function (options)
             if actualFireRate < self.minimumFireRate then
                 actualFireRate = self.minimumFireRate
             end
+            --print("Shoot with fire rate "..actualFireRate, self.shootSpeed)
             self.tid = self:addTimer(actualFireRate,
                 function(event)
                     if self.x == nil then

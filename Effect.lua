@@ -12,9 +12,9 @@ Effect.new = function(options)
         self:addTimer(self.duration, 
         --timer.performWithDelay( self.duration, 
             function()
-                effect:clear()
+                self:clear()
             end
-        , 1, "effect")
+        , 1)
     end
 
     function effect:show()
@@ -22,10 +22,10 @@ Effect.new = function(options)
     end
 
     function effect:start()
-        self:show()
         if effect.duration > 0 then
             effect:startTimer()
         end
+        self:show()
     end
 
     return effect

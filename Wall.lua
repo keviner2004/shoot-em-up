@@ -4,6 +4,7 @@ local Wall = {}
 Wall.new = function(x, y, w, h)
     local wall = GameObject.new()
     local sprite = display.newRect (0, 0, w, h)
+    sprite.alpha = 0
     wall:insert(sprite)
     wall.type = "wall"
     wall.name = "wall"

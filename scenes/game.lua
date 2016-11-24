@@ -22,8 +22,8 @@ local util = require("util")
 local BasicScene = require("scenes.templates.BasicScene")
 local Pool = require("Pool")
 local LinearGroup = require("ui.LinearGroup")
-local PooledItemExplosion = require("effects.PooledItemExplosion")
-local PooledStarExplosion = require("effects.PooledStarExplosion")
+--local PooledItemExplosion = require("effects.PooledItemExplosion")
+--local PooledStarExplosion = require("effects.PooledStarExplosion")
 local STATUS_STOPPED = "stopped"
 local STATUS_PAUSED = "paused"
 local STATUS_WAIT = "wait"
@@ -259,6 +259,7 @@ function scene:showHUD()
 end
 
 function scene:clearGame()
+    Character:removeEventListener("life", self)
     logger:debug(TAG, "clear pools")
     Pool.clear()
     logger:debug(TAG, "Clear game objects")
@@ -276,10 +277,12 @@ function scene:clearGame()
                 i = i + 1
             end
         end
+        --print("remove main group")
         self.mainGroup:removeSelf()
     end
     if self.hudGroup then
         logger:debug(TAG, "Clear hud")
+        --print("clear hub")
         self.hudGroup:removeSelf()
     end
     sfx:stop()
@@ -366,6 +369,7 @@ function scene:createPlayer(PlaneClass, options)
 end
 
 function scene:startGame(options)
+    Character:addEventListener("life", self)
     logger:debug(TAG, "Start game, players: "..gameConfig.numOfPlayers)
     self.globalScore = 0
     local sceneGroup = self.view
@@ -437,11 +441,13 @@ function scene:startGame(options)
     end
 
     Character.onLoseLifes = function (event)
+        --[[
         if Character.totalLifes < 0  then
           self.playerLifeText.text = 0
         else
           self.playerLifeText.text = Character.totalLifes
         end
+        --]]
     end
 
     self.playerLifeText.text = Character.totalLifes
@@ -455,6 +461,14 @@ function scene:startGame(options)
     )
     self.hudGroup:insert(self.score)
     self.status = STATUS_STARTED
+end
+
+function scene:life(event)
+    if event.lifes < 0  then
+      self.playerLifeText.text = 0
+    else
+      self.playerLifeText.text = event.lifes
+    end
 end
 
 function scene:gameOver()
@@ -522,8 +536,8 @@ function scene:show( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-        PooledItemExplosion.pooling(10)
-        PooledStarExplosion.pooling(10)
+        --PooledItemExplosion.pooling(10)
+        --PooledStarExplosion.pooling(10)
     elseif ( phase == "did" ) then
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
@@ -532,6 +546,7 @@ function scene:show( event )
            self.first = true
         end
         if self.first then
+            --print("start1")
             self:hideHUD()
             local options = {
                effect = "fade",
@@ -547,6 +562,7 @@ function scene:show( event )
             self.status = STATUS_WAIT
             sfx:play("title", {loops = -1})
         else
+            --print("start2")
             self:showHUD()
             self:resumeGame()
             --sfx:play("bg", {loops = -1})
@@ -595,11 +611,12 @@ end
 
 -- "scene:destroy()"
 function scene:destroy( event )
-   local sceneGroup = self.view
-   self.superGroup:removeSelf()
-   -- Called prior to the removal of scene's view ("sceneGroup").
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
+    --print("The Scene is detroyed!")
+    local sceneGroup = self.view
+    self.superGroup:removeSelf()
+    -- Called prior to the removal of scene's view ("sceneGroup").
+    -- Insert code here to clean up the scene.
+    -- Example: remove display objects, save state, etc.
 end
 
 local function onSystemEvent( event )

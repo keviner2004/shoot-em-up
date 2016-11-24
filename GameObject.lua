@@ -229,6 +229,24 @@ GameObject.new = function (options)
             --print("body "..k)
             self.body[k] = v
         end
+
+        local exclusive = {"radius", "box", "chain", "outline", "shape"}
+
+        for i = 1, #exclusive do
+            local key = exclusive[i]
+            if body[key] then
+                --print("found key "..key)
+                for j = 1, #exclusive do
+                    --set others to nil
+                    local conflictKey = exclusive[j]
+                    if conflictKey ~= key then
+                        --print("clear "..conflictKey)
+                        body[conflictKey] = nil
+                    end
+                end
+                break
+            end
+        end
     end
 
     function object:belongTo(what)

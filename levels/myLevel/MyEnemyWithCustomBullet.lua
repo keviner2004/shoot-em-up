@@ -47,8 +47,8 @@ MyEnemy.new = function(options)
     part8.x = part1.width/2
     part8.y = part1.height/4
     --setup shoot
-    myEnemy:setDefaultBullet("levels.myLevel.MyBullet")
-
+    --myEnemy:setDefaultBullet("levels.myLevel.MyBullet")
+    myEnemy:setDefaultBullet("levels.myLevel.MyDestructibleBullet")
     myEnemy:addTimer(1000,
         function()
             myEnemy:shoot({x = myEnemy.x + part1.width/2 , degree = myEnemy.dir, speed = 500 * gameConfig.scaleFactor})

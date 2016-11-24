@@ -1,13 +1,14 @@
-local gameConfig = require("gameConfig")
 local Item = require("Item")
 local Sprite = require("Sprite")
-local Object = {}
-Object.new = function(options)
+local LifeUp = {}
+LifeUp.new = function(options)
     local item = Item.new()
-    local sprite = Sprite["expansion-1"].new("Items/28")
-    
-    item.score = 50
+    local sprite = Sprite["expansion-9"].new("UI/Cursors/6")
+    item.droppbale = false
     item:insert(sprite)
+    item.name = "lifeUp"
+    item.lifes = 1
+    item.score = 20
     item:enablePhysics()
 
     function item:needKeep(receiver)
@@ -16,4 +17,4 @@ Object.new = function(options)
 
     return item
 end
-return Object
+return LifeUp

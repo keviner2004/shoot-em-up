@@ -20,6 +20,7 @@ ShieldUp.new = function(options)
     item.level = level
     item.name = "sheildup"
     item.duration = level * 2000
+    item.score = 20
 
     function item:mentalEffect(receiver)
         receiver:openShield(self.duration)
@@ -28,6 +29,7 @@ ShieldUp.new = function(options)
     function item:needKeep(receiver)
         return false
     end
+
     item:enablePhysics()
     return item
 end

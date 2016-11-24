@@ -1,11 +1,13 @@
 local Item = {}
 local GameObject = require("GameObject")
 local Glory = require("effects.Glory")
---local Explosion = require("effects.StarExplosion3")
-local Explosion = require("effects.PooledItemExplosion")
+local Explosion = require("effects.StarExplosion3")
+--local Explosion = require("effects.PooledItemExplosion")
 local Sprite = require("Sprite")
 local sfx = require("sfx")
 local logger = require("logger")
+local ScaleText = require("ui.ScaleText")
+local gameConfig = require("gameConfig")
 
 Item.new = function(options)
     local TAG = "item"
@@ -16,17 +18,51 @@ Item.new = function(options)
     item.droppable = true
     item.power = 0
     item.shootSpeed = 0
+    item.lifes = 0
     item.score = 0
     item.apearDuration = (options and options.apearDuration) or 5000
     item:belongTo(PHYSIC_CATEGORY_ITEM)
     item:collideWith(PHYSIC_CATEGORY_CHARACTER)
 
     function item:effect(receiver)
+        self:showScore()
         self:disableAutoDestroy()
         self:visualEffect(receiver)
         self:playGotSound(receiver)
         self:mentalEffect(receiver)
         --print("Item effect the receiver")
+    end
+
+    function item:showScore()
+        if self.score > 0 then
+            local scoreText = ScaleText.new({
+                text = string.format("%d", self.score),
+                font = gameConfig.defaultFont,
+                fontSize = 20
+            })
+            scoreText.x = self.x
+            scoreText.y = self.y
+            scoreText.xScale = 0.1
+            scoreText.yScale = 0.1
+            scoreText.fill = {1, 1, 0}
+            if self.parent then
+                self.parent:insert(scoreText)
+            end
+            transition.to(scoreText, {
+                xScale = 1,
+                yScale = 1,
+                time = 250,
+                onComplete = function ()
+                    transition.to(scoreText, {
+                        time = 250,
+                        alpha = 0,
+                        onComplete = function()
+                            scoreText:removeSelf()
+                        end
+                    })
+                end
+            })
+        end
     end
 
     function item:playGotSound()
@@ -86,7 +122,7 @@ Item.new = function(options)
         if self.apearDuration > 0 then
             self.timerId = item:addTimer(self.apearDuration, function()
                 transition.to(item, {
-                    time = 500,
+                    time = 100,
                     alpha = 0,
                     onComplete = function()
                         if self.isDropped then

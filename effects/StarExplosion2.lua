@@ -23,10 +23,8 @@ E.new = function(options)
     end
 
     local function addStar(x, y, deg, xScale, yScale)
-        local partical = GameObject.new({
-            gtype = "sprite", 
-            frames = {"Particles/3"}
-        })
+        local partical = GameObject.new()
+        partical:insert(Sprite["expansion-8"].new("Particles/3"))
         partical.x = x
         partical.y = y
         partical.xScale = xScale
@@ -54,6 +52,7 @@ E.new = function(options)
         --addStar(0, 0, 300, 0.45, 0.45)
         addStar(0, 0, 335 + randomDeg, 0.6, 0.6)
         --addStar(0, 0, 360, 0.6, 0.6)
+        self:enablePhysics()
     end
     
     return effect

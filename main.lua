@@ -16,10 +16,12 @@ apiHelper:luanchLog()
 if gameConfig.remoteLogging then
   local oldPrint = print
   print = function(message, ...)
-    apiHelper:devLog("none", string.format(message, ...))
+    --apiHelper:devLog("none", string.format(message, ...))
+    apiHelper:splunk(string.format(message, ...))
     oldPrint(message, ...)
   end
 end
+
 display.setDefault("background", 52/255, 121/255, 185/255)
 display.setStatusBar( display.HiddenStatusBar )
 --composer.gotoScene( "scenes.whoAreYou")

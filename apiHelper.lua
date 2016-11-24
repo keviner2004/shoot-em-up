@@ -136,11 +136,11 @@ function helper:getLeaderboard(options)
   })
 end
 
-function helper:sendLaunchStatics()
+function helper:sendLaunchStatics(options)
   self:request(gameConfig.STATICS_API_URL, "GET", self:apiHandler(options))
 end
 
-function helper:luanchLog()
+function helper:luanchLog(options)
   network.request(LAUNCH_LOG_URL, "POST",
     self:apiHandler(options),
     {
@@ -151,7 +151,7 @@ function helper:luanchLog()
   )
 end
 
-function helper:devLog(tag, message)
+function helper:devLog(tag, message, options)
   network.request(DEV_LOG_URL, "POST",
     self:apiHandler(options),
     {
@@ -163,5 +163,21 @@ function helper:devLog(tag, message)
     }
   )
 end
+
+function helper:splunk(message, options)
+  --curl -k  https://163.18.26.108:8088/services/collector/event -H "Authorization: Splunk 33D5CAEB-C11B-49CC-8AC9-7E8D910594E9" -d '{"event": "hello world"}'
+  --curl -k  http://163.18.26.108:8088/services/collector/event -H "Authorization: Splunk 33D5CAEB-C11B-49CC-8AC9-7E8D910594E9" -d '{"event": "hello world3"}'
+  network.request("http://163.18.26.108:8088/services/collector/event", "POST",
+    self:apiHandler(options),
+    {
+      body = string.format('{"event": "%s"}', message),
+      headers = {
+        ["Authorization"] = "Splunk 33D5CAEB-C11B-49CC-8AC9-7E8D910594E9"
+      }
+    }
+  )
+end
+
+
 
 return helper

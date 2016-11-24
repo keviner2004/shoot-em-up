@@ -200,7 +200,8 @@ end
 
 function scene:startGame()
     logger:debug(TAG, "Start the game")
-    composer.gotoScene("scenes.game")
+
+    --composer.gotoScene("scenes.game")
 end
 
 function scene:selectLevel()

@@ -21,6 +21,8 @@ SpeedUp.new = function(options)
     item.name = "speedup"
     item.shootSpeed = level
     item:enablePhysics()
+    item.score = 20
+    
     return item
 end
 return SpeedUp

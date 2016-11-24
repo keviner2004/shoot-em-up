@@ -19,6 +19,7 @@ PowerUp.new = function(options)
     item:insert(sprite)
     item.level = level
     item.name = "powerup"
+    item.score = 20
     item.power = level
     item:enablePhysics()
     return item
