@@ -13,10 +13,18 @@ The template provides:
 
 # License
 
+
 This code is MIT licensed
 
 # Demo
 [Youtube Video](https://youtu.be/eyVKpGKyC0o)
+
+# Showcases
+
+## NKFUST
+[Google Play](https://play.google.com/store/apps/details?id=com.nkfust.space_shooter)
+
+[Video](https://youtu.be/eyVKpGKyC0o)
 
 # Screenshots
 
