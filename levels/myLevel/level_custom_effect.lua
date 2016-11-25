@@ -6,12 +6,12 @@ local myLevel = Sublevel.new("9999999-056", "custom effect", "author name", {dur
 
 
 function myLevel:addEffect(x)
-    local effect = MyEffect.new({ time = 500})
+    local effect = MyEffect.new({ time = 1500})
     self:insert(effect)
     --place the effect
     effect.x = x
     effect.y = -effect.height/2
-    effect:show()
+    effect:start()
     effect:enablePhysics()
     --move the effect with the stage speed
     effect:setScaleLinearVelocity( 0, gameConfig.stageSpeed )
