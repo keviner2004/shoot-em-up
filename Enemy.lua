@@ -25,6 +25,7 @@ setmetatable(Enemy, {
 
 Enemy.new = function(options)
     local enemy = GameObject.new(options)
+    enemy.defaultFireTo = "character"
     --print("Add enemy to its backpack")
     Enemy.backpack:add2(enemy)
     enemy:addTag("enemy")
@@ -47,7 +48,7 @@ Enemy.new = function(options)
         class = "bullets.CircleBullet",
         params = {
             {
-                fireTo = "character"
+                fireTo = enemy.defaultFireTo
             }
         }
     }
@@ -118,7 +119,7 @@ Enemy.new = function(options)
             options = {}
         end
         if not options.fireTo then
-            options.fireTo = "character"
+            options.fireTo = self.defaultFireTo
         end
         --print("Add default bullet: "..class.." to enemy")
         self.defaultBullet.class = class
@@ -132,7 +133,14 @@ Enemy.new = function(options)
         local degree = options.degree or 0
         local speed = options.speed or 150
         local BulletClass = require((options and options.bulletClass) or self.defaultBullet.class)
-        local bullet = BulletClass.new((ooptions and ptions.bulletOptions) or self.defaultBullet.options)
+
+        if options and options.bulletOptions then
+            if not options.bulletOptions.fireTo then
+                options.bulletOptions.fireTo = self.defaultFireTo
+            end
+        end
+
+        local bullet = BulletClass.new((options and options.bulletOptions) or self.defaultBullet.options)
         bullet.x = x
         bullet.y = y
         --print("Shoot dir "..degree)

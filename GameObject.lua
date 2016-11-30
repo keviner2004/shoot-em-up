@@ -264,6 +264,10 @@ GameObject.new = function (options)
         end
     end
 
+    function object:resetCollideMask()
+        self.maskBits = 0
+    end
+
     function object:addPhysics()
         if self.bodyInited then
             logger:warn(TAG, "Physics body is already enaled")

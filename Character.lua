@@ -107,7 +107,7 @@ Character.new = function (options)
             timer.performWithDelay( 1,
                 function(e)
                     if not self.isDead then
-                        self:onHurt(event.other.damage)
+                        self:onHurt(event.other, event.other.damage)
                     end
                 end
             )
@@ -122,7 +122,7 @@ Character.new = function (options)
         end
     end
 
-    function character:onHurt(damage)
+    function character:onHurt(crime, damage)
         logger:debug(TAG, "Test if onHurt, ch damage "..damage)
         if self.shield and self.shield.opened then
             logger:debug(TAG, "Shield is open, ignore")
@@ -131,7 +131,9 @@ Character.new = function (options)
         if self.hp > 0 then
             logger:debug(TAG, "Really onHurt, ch damage "..damage)
             self.hp = self.hp - damage
+            self:dispatchHealthEvent("hurt", crime, damage)
             if self.hp <= 0 then
+                self:dispatchHealthEvent("dead", crime, damage)
                 self:onDead()
             end
         end
@@ -189,15 +191,79 @@ Character.new = function (options)
         end
     end
 
-    function character:onKill(victim)
-        logger:debug(TAG, "Kill "..victim.name)
-        self:addScore(victim.score)
-    end
-
     function character:unEquipGear()
         for i = 1, self.gear.numChildren do
             self.gear[i]:removeSelf()
         end
+    end
+
+    character.gears = {}
+
+    function character:addGear(options)
+        local gearClass = options and options.gearClass
+        local gearOptions = options and options.gearOptions
+        local x = options and options.x or 0
+        local y = options and options.y or 0
+
+        if not gearClass then
+            logger:error(TAG, "You must specified the gearClass options to use character:addGear method")
+            return
+        end
+
+        if not gearOptions then
+            gearOptions = {}
+        end
+
+        if not gearOptions.receiver then
+            gearOptions.receiver = self
+        end
+
+        local GearClass = require(gearClass)
+        local gear = GearClass.new(gearOptions)
+
+        if not gear.gearId then
+            logger:error(TAG, "You gear must have the gearId attribute")
+            gear:clear()
+            return 
+        end
+
+        if self.gears[gear.gearId] then
+            logger:warn(TAG, "Aquire the same gear %s, skip", gear.gearId)
+            if gear.clear then
+                gear:clear()
+            end
+            return
+        end
+        self:removeGears()
+        --remove previous gears
+        self.gears[gear.gearId] = gear
+        if self.parent then
+            self.parent:insert(gear)
+        end
+        --animate the gear
+        gear.alpha = 0
+        transition.to(gear, {
+            alpha = 1
+        })
+
+        self.enterFrame:each(function()
+            gear.x = self.x + x
+            gear.y = self.y + y
+        end)
+    end
+
+    function character:removeGears()
+        for k, v in pairs(self.gears) do
+            if v.clear then
+                v:clear()
+            end
+        end
+        self.gears = {}
+    end
+
+    function character:onKill(victim)
+        logger:debug(TAG, "Kill "..victim.name)
+        self:addScore(victim.score)
     end
 
     function character:getFirstEnemy()
@@ -226,6 +292,15 @@ Character.new = function (options)
         return bullet
     end
 
+    function character:dispatchHealthEvent(phase, crime, damage)
+        self:dispatchEvent({
+            name = "health",
+            crime = crime,
+            phase = phase,
+            hp = self.hp,
+            damage = damage
+        })
+    end    
 
     function character:shootHomingLaser()
         local missiles = {}
@@ -540,6 +615,7 @@ Character.new = function (options)
         end
         logger:debug(TAG, "Character is dead : "..self.id)
         self:dropItems()
+        self:removeGears()
         self.isDead = true
         --emit partical
         local effect = CircleExplosion.new({time = 1100})
@@ -606,7 +682,6 @@ Character.new = function (options)
             lifes = Character.totalLifes
         })
     end
-
 
     function character:onGameOver()
 

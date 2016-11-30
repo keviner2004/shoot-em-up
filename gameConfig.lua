@@ -4,7 +4,7 @@ local Logging = require("Logging")
 config.production = true
 config.defaultPower = 1
 config.singlePlayerOnly = true
-config.version = "0.9866"
+config.version = "0.9867"
 config.dbVersion = "0.35"
 config.devId = "1003945780"
 config.remoteLogging = false
@@ -68,6 +68,8 @@ config.gameLevels = {
     "myLevel.level_sinwav",
     "myLevel.level_myboss",
     "myLevel.level_custom_physicsbody",
+    "myLevel.level_multipart_enemy",
+    "myLevel.level_gear_item",
 }
 
 config.seperateLevels = {
