@@ -228,7 +228,7 @@ function scene:construct()
     self.superGroup:insert(self.score)
     --self.buttons.y = gameConfig.contentHeight * 0.65
 
-    self.newIcon = ScaleText.new({text = "New High Score!", x = gameConfig.contentWidth/2, y = gameConfig.contentHeight*0.22, font = gameConfig.defaultFont, fontSize = 10})
+    self.newIcon = ScaleText.new({text = "New High Score!", x = gameConfig.contentWidth/2, y = gameConfig.contentHeight*0.22, font = gameConfig.defaultFont, fontSize = 30})
     transition.blink( self.newIcon, {time = 1500} )
     self.superGroup:insert(self.newIcon)
 end

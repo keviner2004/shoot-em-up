@@ -4,7 +4,7 @@ local Logging = require("Logging")
 config.production = true
 config.defaultPower = 1
 config.singlePlayerOnly = true
-config.version = "0.9867"
+config.version = "0.9868"
 config.dbVersion = "0.35"
 config.devId = "1003945780"
 config.remoteLogging = false
@@ -70,6 +70,7 @@ config.gameLevels = {
     "myLevel.level_custom_physicsbody",
     "myLevel.level_multipart_enemy",
     "myLevel.level_gear_item",
+    "myLevel.level_dynamic",
 }
 
 config.seperateLevels = {
@@ -78,6 +79,7 @@ config.seperateLevels = {
     "default.level_3",
     "default.level_4",
     "default.level_5",
+    "myLevel.level_dynamic",
 }
 
 config.basicHeight = 640
@@ -91,9 +93,9 @@ config.scaleFactor =  config.contentHeight / config.basicHeight
 config.stageSpeed = 100 * config.scaleFactor
 if config.production then
   --config.rankServerUrl = "http://163.18.2.162"
-  config.rankServerUrl = "http://163.18.2.162:8000"
-  config.fbskip = false
-  config.hiddenSingleLevelChapter = true
+  config.rankServerUrl = "http://163.18.2.219:5566"
+  config.fbskip = true
+  config.hiddenSingleLevelChapter = false
   config.debugFPS = false
 else
   config.rankServerUrl = "http://127.0.0.1:8000"

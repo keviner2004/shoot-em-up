@@ -134,6 +134,7 @@ Level.load = function()
                 onFail = options and options.onFail
             }))
         end
+        self.currentSublevel.gameMode = options.gameMode
         self.currentSublevel:initEverytime()
         if not self.currentSublevel.isBossFight then
           self:showInfo()
@@ -142,8 +143,11 @@ Level.load = function()
         self.currentSublevel:start()
     end
 
-    function level:startSingleLevel(level, options)
-        self:startLevel(level, {
+    function level:startSingleLevel(subLevel, options)
+        if not option then
+            option = {}
+        end
+        self:startLevel(subLevel, {
             onComplete = function(event)
               if options and options.onComplete then
                 self:updatePlayLog(self.game.globalScore, 1)
@@ -156,11 +160,15 @@ Level.load = function()
                 options.onFail(event)
               end
             end
+            ,gameMode = gameConfig.MODE_SINGLE_LEVEL
         })
         self:addPlayLog()
     end
 
     function level:startInfiniteLevel(options)
+        if not option then
+            option = {}
+        end
         self:addPlayLog(gameConfig.ID_LEVEL_INFINITE)
         self:_startInfiniteLevel({
             onComplete = options and options.onComplete,
@@ -169,7 +177,7 @@ Level.load = function()
                 self:updatePlayLog(self.game.globalScore, 0)
                 options.onFail(event)
               end
-            end
+            end,
         })
     end
 
@@ -233,7 +241,8 @@ Level.load = function()
           onComplete = function()
                 self:_startInfiniteLevel(options)
           end,
-          onFail = options and options.onFail
+          onFail = options and options.onFail,
+          gameMode = gameConfig.MODE_INFINITE_LEVEL
         })
     end
 
