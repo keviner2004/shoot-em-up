@@ -27,7 +27,11 @@ Enemy.new = function(options)
     local enemy = GameObject.new(options)
     enemy.defaultFireTo = "character"
     --print("Add enemy to its backpack")
-    Enemy.backpack:add2(enemy)
+    if options and options.isFake then
+        
+    else
+        Enemy.backpack:add2(enemy)
+    end
     enemy:addTag("enemy")
     enemy:belongTo(PHYSIC_CATEGORY_ENEMY)
     enemy:collideWith(PHYSIC_CATEGORY_CHARACTER, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_SHIELD, PHYSIC_CATEGORY_FIELD)
