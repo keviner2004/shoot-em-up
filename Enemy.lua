@@ -28,7 +28,7 @@ Enemy.new = function(options)
     enemy.defaultFireTo = "character"
     --print("Add enemy to its backpack")
     if options and options.isFake then
-        
+
     else
         Enemy.backpack:add2(enemy)
     end
@@ -251,13 +251,15 @@ Enemy.new = function(options)
     end
 
     function enemy:dispatchHealthEvent(phase, crime, damage)
-        self:dispatchEvent({
-            name = "health",
-            crime = crime,
-            phase = phase,
-            hp = self.hp,
-            damage = damage
-        })
+        if self.dispatchEvent then
+          self:dispatchEvent({
+              name = "health",
+              crime = crime,
+              phase = phase,
+              hp = self.hp,
+              damage = damage
+          })
+        end
     end
 
     function enemy:onHurt(damage, crime)
