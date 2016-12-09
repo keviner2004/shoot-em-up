@@ -2,6 +2,7 @@ local Shield = {}
 local Sprite = require("Sprite")
 local GameObject = require("GameObject")
 local logger = require("logger")
+local util = require("util")
 local TAG = "Shield"
 
 Shield.new = function(options)
@@ -15,6 +16,10 @@ Shield.new = function(options)
     shield.damage = 20
 
     function shield:open(time)
+        if not util.isExists(self) then
+            logger:error(TAG, "Shield was already destroyed")
+            return 
+        end
         if self.opened then
             --logger:debug(TAG, "Shield was already opened")
             return
