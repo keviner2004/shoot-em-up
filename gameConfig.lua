@@ -4,7 +4,7 @@ local Logging = require("Logging")
 config.production = true
 config.defaultPower = 1
 config.singlePlayerOnly = true
-config.version = "0.9871"
+config.version = "0.988"
 config.dbVersion = "0.35"
 config.devId = "1003945780"
 config.remoteLogging = false
@@ -43,6 +43,7 @@ config.buttonSound = "button"
 config.MODE_SINGLE_LEVEL = "singlemode"
 config.MODE_INFINITE_LEVEL = "infinitemode"
 config.MODE_MULTIPLE_LEVEL = "multiplemode"
+config.MODE_RANDOM_LEVEL = "randommode"
 config.defaultFont = "kenvector_future_thin"
 config.defaultCursor = "UI/Cursors/1"
 config.ID_LEVEL_INFINITE = "98163718173"
@@ -70,7 +71,7 @@ config.gameLevels = {
     "myLevel.level_custom_physicsbody",
     "myLevel.level_multipart_enemy",
     "myLevel.level_gear_item",
-    "myLevel.level_dynamic",
+    --"myLevel.level_dynamic",
 }
 
 config.seperateLevels = {

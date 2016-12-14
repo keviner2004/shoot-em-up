@@ -134,6 +134,7 @@ Level.load = function()
                 onFail = options and options.onFail
             }))
         end
+        Level.gameMode = options.gameMode
         self.currentSublevel.gameMode = options.gameMode
         self.currentSublevel:initEverytime()
         if not self.currentSublevel.isBossFight then
@@ -161,6 +162,30 @@ Level.load = function()
               end
             end
             ,gameMode = gameConfig.MODE_SINGLE_LEVEL
+        })
+        self:addPlayLog()
+    end
+
+    function level:startRandomLevel(subLevel, options)
+        print("Start a random level", subLevel)
+        if not option then
+            option = {}
+        end
+
+        self:startLevel(subLevel, {
+            onComplete = function(event)
+              if options and options.onComplete then
+                self:updatePlayLog(self.game.globalScore, 1)
+                options.onComplete(event)
+              end
+            end,
+            onFail = function(event)
+              if options and options.onFail then
+                self:updatePlayLog(self.game.globalScore, 0)
+                options.onFail(event)
+              end
+            end
+            ,gameMode = gameConfig.MODE_RANDOM_LEVEL
         })
         self:addPlayLog()
     end
@@ -292,6 +317,9 @@ Level.load = function()
                         return
                     end
                     self:startSingleLevel(options.levelName, options)
+                elseif options and options.mode == gameConfig.MODE_RANDOM_LEVEL then
+                    print("start random mode")
+                    self:startRandomLevel(options.levelName, options)
                 else
                     self:startInfiniteLevel(options)
                 end

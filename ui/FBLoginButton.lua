@@ -45,16 +45,17 @@ FBLoginButton.new = function(width, height)
   --facebook.setFBConnectListener( facebookListener )
 
   fbLoginBtn.click = function(event)
-    logger:debug(TAG, "fb login request")
+    logger:info(TAG, "fb login request")
     facebook.login(function(status)
-      logger:debug(TAG, "login result "..status)
+      logger:info(TAG, "login result "..status)
       if status == facebook.STATUS_LOGIN then
         dbHelper:enableAutoSignIn()
         if fbLoginBtn.onLogined then
           fbLoginBtn.onLogined()
         end
-        logger:debug(TAG, "try to get fb info")
+        logger:info(TAG, "try to get fb info")
         facebook.getUserInfo(function(info)
+          logger:info(TAG, "Got user info")
           dbHelper:setLoginType("FB")
           dbHelper:setUser(info.id or "")
         end)

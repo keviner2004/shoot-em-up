@@ -24,6 +24,7 @@ local TAG = "Character"
 Character.enableShareLifes = true
 Character.totalLifes = 3
 Character.backpack = Backpack.new()
+Character.backpack.owner = "Character"
 Character.onScoreChanged = function(event) end
 Character.onLifeChanged = function(event) end
 Character.getScore = function()
@@ -70,6 +71,7 @@ Character.new = function (options)
     character.boundRad = 25
     character.damage = 0
     character.backpack = Backpack.new()
+    character.backpack.owner = "character"
     character:belongTo(PHYSIC_CATEGORY_CHARACTER)
     character:collideWith(PHYSIC_CATEGORY_ENEMY, PHYSIC_CATEGORY_BULLET, PHYSIC_CATEGORY_ITEM, PHYSIC_CATEGORY_MISSILE, PHYSIC_CATEGORY_ASTEROID, PHYSIC_CATEGORY_VICTIM)
     character:setBody({type = "dynamic", isSensor = true, radius = character.boundRad})
@@ -689,7 +691,7 @@ Character.new = function (options)
 
     function character:onClear()
       logger:debug(TAG, "remove character from backpack")
-      Enemy.backpack:remove2(self)
+      Character.backpack:remove2(self)
     end
 
     function character:reStartAutoShoot()

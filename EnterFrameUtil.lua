@@ -9,7 +9,7 @@ Util.new = function (options)
     local cancelMarkList = {}
     local cancelList = {}
 
-    _M.owner = (options and options.owner) or ""
+    _M.owner = (options and options.owner) or "EnterframeUtil"
     local TAG = "EnterFrame.".._M.owner
     function _M:remove(f)
         local idx = nil

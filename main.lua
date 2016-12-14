@@ -72,4 +72,5 @@ Sprite.addSheet("tiles", "sprites/tiles.png", "sprites.tiles")
 logger:debug(TAG, "Screen Ratio: %d / %d : %d, scaleFactor: %f", display.pixelWidth, display.actualContentWidth, display.contentWidth, gameConfig.scaleFactor)
 
 composer.gotoScene( "scenes.game")
-
+--composer.gotoScene( "scenes.victory")
+--composer.gotoScene( "scenes.gameover")

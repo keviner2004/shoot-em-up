@@ -12,7 +12,7 @@ local Backpack = require("Backpack")
 local logger = require("logger")
 local TAG = "Enemy"
 Enemy.backpack = Backpack.new()
-
+Enemy.backpack.owner = "Enemy"
 setmetatable(Enemy, {
     __index = function (table, key)
         if key == "all" then
@@ -110,7 +110,9 @@ Enemy.new = function(options)
                         time = 250,
                         alpha = 0,
                         onComplete = function()
-                            scoreText:removeSelf()
+                            if scoreText.removeSelf then
+                                scoreText:removeSelf()
+                            end
                         end
                     })
                 end
@@ -294,7 +296,7 @@ Enemy.new = function(options)
     end
 
     function enemy:onClear()
-        --print("Catch Clear Event")
+        --print("Catch Enemy Clear Event")
         Enemy.backpack:remove2(self)
     end
 

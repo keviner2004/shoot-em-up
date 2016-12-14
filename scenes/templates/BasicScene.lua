@@ -6,29 +6,25 @@ local logger = require("logger")
 local navigator = require("navigator")
 local id = 0
 BasicScene = {}
-
 BasicScene.new = function ()
     local TAG = "BasicScene"
     id = id + 1
     TAG = "BasicScene "..id
-    logger:debug(TAG, "create basic scene %d", id)
+    --logger:info(TAG, "create basic scene %d", id)
     local scene = composer.newScene()
     local proxy = {}
-    scene.superGroup = display.newGroup()
-    scene.superGroup.x = gameConfig.contentX
-    scene.superGroup.y = gameConfig.contentY
-    scene.name = "BasicScene"
-    function scene:create( event )
 
+    function scene:create( event )
+      --logger:info(TAG, self.name, "scene create")
     end
 
     function scene:show( event )
         local sceneGroup = self.view
         local phase = event.phase
         if ( phase == "will" ) then
-          logger:debug(TAG, "scene will show")
+          --logger:info(TAG, self.name, "scene will show")
         elseif ( phase == "did" ) then
-          logger:debug(TAG, "scene did show")
+          --logger:info(TAG, self.name, "scene did show")
         end
     end
 
@@ -204,8 +200,14 @@ BasicScene.new = function ()
     end
 
     function proxy:create( event )
+        scene.superGroup = display.newGroup()
+        scene.superGroup.x = gameConfig.contentX
+        scene.superGroup.y = gameConfig.contentY
         scene.params = event.params
-        scene.view:insert(scene.superGroup)
+        if scene.superGroup then
+          --print("scene superGroup", scene.name, scene.superGroup)
+          scene.view:insert(scene.superGroup)
+        end
         scene:create(event)
     end
 
@@ -217,6 +219,7 @@ BasicScene.new = function ()
         self.listenerRemoved = false
       elseif (phase == "did") then
         Runtime:addEventListener( "key", scene)
+        scene.showed = true
       end
       scene:show(event)
     end
@@ -230,6 +233,7 @@ BasicScene.new = function ()
           logger:debug(TAG, "Remove key event listener")
           self.listenerRemoved = true
           Runtime:removeEventListener( "key", scene)
+          scene.showed = false
         end
 
         scene:hide(event)

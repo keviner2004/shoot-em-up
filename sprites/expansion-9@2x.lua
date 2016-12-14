@@ -1,7 +1,7 @@
 --
 -- created with TexturePacker (http://www.codeandweb.com/texturepacker)
 --
--- $TexturePacker:SmartUpdate:ef3cd1d32532c672133d871d5def1416:b5023bf3a7d55072e55a1c0d766071b0:b58dea025fe565b4e97b10d376fd591a$
+-- $TexturePacker:SmartUpdate:cf772d06d9f08f5d4a213175c649b80b:bbfff67b8f66805dd07d3982dfaca6bf:b58dea025fe565b4e97b10d376fd591a$
 --
 -- local sheetInfo = require("mysheet")
 -- local myImageSheet = graphics.newImageSheet( "mysheet.png", sheetInfo:getSheet() )
@@ -28,8 +28,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/1/3-slices/1
-            x=726,
-            y=438,
+            x=596,
+            y=466,
             width=6,
             height=18,
 
@@ -40,16 +40,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/1/3-slices/2
-            x=200,
-            y=344,
+            x=800,
+            y=286,
             width=2,
             height=18,
 
         },
         {
             -- UI/Bar-corners/1/3-slices/3
-            x=682,
-            y=210,
+            x=504,
+            y=452,
             width=8,
             height=18,
 
@@ -60,8 +60,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/2/3-slices/1
-            x=732,
-            y=366,
+            x=606,
+            y=466,
             width=6,
             height=18,
 
@@ -72,8 +72,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/2/3-slices/2
-            x=200,
-            y=366,
+            x=800,
+            y=308,
             width=2,
             height=18,
 
@@ -84,8 +84,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/2/3-slices/3
-            x=686,
-            y=292,
+            x=560,
+            y=466,
             width=8,
             height=18,
 
@@ -96,8 +96,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/3/3-slices/1
-            x=732,
-            y=388,
+            x=616,
+            y=466,
             width=6,
             height=18,
 
@@ -108,8 +108,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/3/3-slices/2
-            x=858,
-            y=334,
+            x=636,
+            y=466,
             width=2,
             height=18,
 
@@ -120,8 +120,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/3/3-slices/3
-            x=702,
-            y=438,
+            x=572,
+            y=466,
             width=8,
             height=18,
 
@@ -132,8 +132,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/4/3-slices/1
-            x=732,
-            y=410,
+            x=626,
+            y=466,
             width=6,
             height=18,
 
@@ -144,8 +144,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/4/3-slices/2
-            x=858,
-            y=356,
+            x=642,
+            y=466,
             width=2,
             height=18,
 
@@ -156,8 +156,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bar-corners/4/3-slices/3
-            x=714,
-            y=438,
+            x=584,
+            y=466,
             width=8,
             height=18,
 
@@ -168,16 +168,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/1/9-slices/1
-            x=72,
-            y=472,
+            x=372,
+            y=410,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/1/9-slices/2
-            x=558,
-            y=398,
+            x=684,
+            y=470,
             width=2,
             height=6,
 
@@ -188,16 +188,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/1/9-slices/3
-            x=848,
-            y=334,
+            x=898,
+            y=100,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/1/9-slices/4
-            x=732,
-            y=432,
+            x=162,
+            y=482,
             width=6,
             height=2,
 
@@ -208,16 +208,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/1/9-slices/5
-            x=340,
-            y=352,
+            x=708,
+            y=286,
             width=2,
             height=2,
 
         },
         {
             -- UI/Bars/1/9-slices/6
-            x=726,
-            y=460,
+            x=172,
+            y=482,
             width=6,
             height=2,
 
@@ -228,16 +228,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/1/9-slices/7
-            x=538,
-            y=474,
+            x=682,
+            y=220,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/1/9-slices/8
-            x=252,
-            y=408,
+            x=710,
+            y=456,
             width=2,
             height=6,
 
@@ -248,24 +248,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/1/9-slices/9
-            x=142,
-            y=476,
+            x=340,
+            y=478,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/2/9-slices/1
-            x=152,
-            y=476,
+            x=350,
+            y=478,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/2/9-slices/2
-            x=558,
-            y=474,
+            x=852,
+            y=416,
             width=2,
             height=6,
 
@@ -276,8 +276,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/3
-            x=204,
-            y=476,
+            x=360,
+            y=478,
             width=6,
             height=6,
 
@@ -288,8 +288,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/4
-            x=736,
-            y=462,
+            x=320,
+            y=482,
             width=6,
             height=2,
 
@@ -300,8 +300,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/5
-            x=794,
-            y=450,
+            x=854,
+            y=410,
             width=2,
             height=2,
 
@@ -312,8 +312,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/6
-            x=746,
-            y=462,
+            x=564,
+            y=440,
             width=6,
             height=2,
 
@@ -324,8 +324,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/7
-            x=214,
-            y=476,
+            x=370,
+            y=478,
             width=6,
             height=6,
 
@@ -336,8 +336,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/8
-            x=846,
-            y=410,
+            x=852,
+            y=426,
             width=2,
             height=6,
 
@@ -348,8 +348,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/2/9-slices/9
-            x=224,
-            y=476,
+            x=590,
+            y=456,
             width=6,
             height=6,
 
@@ -360,8 +360,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/3/9-slices/1
-            x=234,
-            y=476,
+            x=600,
+            y=456,
             width=6,
             height=6,
 
@@ -372,75 +372,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/3/9-slices/2
-            x=818,
-            y=426,
-            width=2,
-            height=6,
-
-            sourceX = 0,
-            sourceY = 0,
-            sourceWidth = 1,
-            sourceHeight = 5
-        },
-        {
-            -- UI/Bars/3/9-slices/3
-            x=244,
-            y=476,
-            width=6,
-            height=6,
-
-            sourceX = 0,
-            sourceY = 0,
-            sourceWidth = 6,
-            sourceHeight = 5
-        },
-        {
-            -- UI/Bars/3/9-slices/4
-            x=756,
-            y=462,
-            width=6,
-            height=2,
-
-            sourceX = 0,
-            sourceY = 0,
-            sourceWidth = 6,
-            sourceHeight = 1
-        },
-        {
-            -- UI/Bars/3/9-slices/5
-            x=794,
-            y=472,
-            width=2,
-            height=2,
-
-            sourceX = 0,
-            sourceY = 0,
-            sourceWidth = 2,
-            sourceHeight = 1
-        },
-        {
-            -- UI/Bars/3/9-slices/6
-            x=766,
-            y=462,
-            width=6,
-            height=2,
-
-        },
-        {
-            -- UI/Bars/3/9-slices/7
-            x=254,
-            y=476,
-            width=6,
-            height=6,
-
-            sourceX = 0,
-            sourceY = 0,
-            sourceWidth = 6,
-            sourceHeight = 5
-        },
-        {
-            -- UI/Bars/3/9-slices/8
-            x=818,
+            x=852,
             y=436,
             width=2,
             height=6,
@@ -451,9 +383,77 @@ SheetInfo.sheet =
             sourceHeight = 5
         },
         {
+            -- UI/Bars/3/9-slices/3
+            x=610,
+            y=456,
+            width=6,
+            height=6,
+
+            sourceX = 0,
+            sourceY = 0,
+            sourceWidth = 6,
+            sourceHeight = 5
+        },
+        {
+            -- UI/Bars/3/9-slices/4
+            x=330,
+            y=482,
+            width=6,
+            height=2,
+
+            sourceX = 0,
+            sourceY = 0,
+            sourceWidth = 6,
+            sourceHeight = 1
+        },
+        {
+            -- UI/Bars/3/9-slices/5
+            x=740,
+            y=474,
+            width=2,
+            height=2,
+
+            sourceX = 0,
+            sourceY = 0,
+            sourceWidth = 2,
+            sourceHeight = 1
+        },
+        {
+            -- UI/Bars/3/9-slices/6
+            x=710,
+            y=466,
+            width=6,
+            height=2,
+
+        },
+        {
+            -- UI/Bars/3/9-slices/7
+            x=664,
+            y=446,
+            width=6,
+            height=6,
+
+            sourceX = 0,
+            sourceY = 0,
+            sourceWidth = 6,
+            sourceHeight = 5
+        },
+        {
+            -- UI/Bars/3/9-slices/8
+            x=852,
+            y=446,
+            width=2,
+            height=6,
+
+            sourceX = 0,
+            sourceY = 0,
+            sourceWidth = 1,
+            sourceHeight = 5
+        },
+        {
             -- UI/Bars/3/9-slices/9
-            x=264,
-            y=476,
+            x=664,
+            y=456,
             width=6,
             height=6,
 
@@ -464,8 +464,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/1
-            x=288,
-            y=476,
+            x=674,
+            y=446,
             width=6,
             height=6,
 
@@ -476,8 +476,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/2
-            x=824,
-            y=424,
+            x=852,
+            y=456,
             width=2,
             height=6,
 
@@ -488,8 +488,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/3
-            x=548,
-            y=474,
+            x=674,
+            y=456,
             width=6,
             height=6,
 
@@ -500,8 +500,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/4
-            x=776,
-            y=462,
+            x=720,
+            y=466,
             width=6,
             height=2,
 
@@ -512,8 +512,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/5
-            x=800,
-            y=472,
+            x=746,
+            y=482,
             width=2,
             height=2,
 
@@ -524,8 +524,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/6
-            x=834,
-            y=398,
+            x=730,
+            y=466,
             width=6,
             height=2,
 
@@ -536,16 +536,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/7
-            x=802,
-            y=378,
+            x=668,
+            y=466,
             width=6,
             height=6,
 
         },
         {
             -- UI/Bars/4/9-slices/8
-            x=846,
-            y=420,
+            x=852,
+            y=466,
             width=2,
             height=6,
 
@@ -556,8 +556,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Bars/4/9-slices/9
-            x=812,
-            y=378,
+            x=684,
+            y=446,
             width=6,
             height=6,
 
@@ -568,8 +568,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/1
-            x=742,
-            y=430,
+            x=422,
+            y=480,
             width=6,
             height=4,
 
@@ -580,8 +580,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/2
-            x=736,
-            y=358,
+            x=874,
+            y=158,
             width=2,
             height=4,
 
@@ -592,8 +592,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/3
-            x=702,
-            y=460,
+            x=432,
+            y=480,
             width=6,
             height=4,
 
@@ -604,8 +604,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/4
-            x=742,
-            y=394,
+            x=478,
+            y=452,
             width=6,
             height=14,
 
@@ -616,8 +616,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/5
-            x=686,
-            y=328,
+            x=76,
+            y=468,
             width=2,
             height=14,
 
@@ -628,8 +628,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/6
-            x=742,
-            y=412,
+            x=484,
+            y=470,
             width=6,
             height=14,
 
@@ -640,8 +640,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/7
-            x=802,
-            y=388,
+            x=648,
+            y=480,
             width=6,
             height=4,
 
@@ -652,8 +652,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/8
-            x=804,
-            y=456,
+            x=442,
+            y=480,
             width=2,
             height=4,
 
@@ -664,8 +664,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/1/9-slices/9
-            x=812,
-            y=388,
+            x=658,
+            y=480,
             width=6,
             height=4,
 
@@ -676,8 +676,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/1
-            x=822,
-            y=402,
+            x=678,
+            y=480,
             width=6,
             height=4,
 
@@ -688,8 +688,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/2
-            x=808,
-            y=448,
+            x=876,
+            y=408,
             width=2,
             height=4,
 
@@ -700,8 +700,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/3
-            x=844,
-            y=388,
+            x=688,
+            y=480,
             width=6,
             height=4,
 
@@ -712,8 +712,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/4
-            x=752,
-            y=396,
+            x=488,
+            y=452,
             width=6,
             height=14,
 
@@ -724,8 +724,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/5
-            x=792,
-            y=396,
+            x=498,
+            y=452,
             width=2,
             height=14,
 
@@ -736,8 +736,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/6
-            x=762,
-            y=396,
+            x=494,
+            y=470,
             width=6,
             height=14,
 
@@ -748,8 +748,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/7
-            x=854,
-            y=388,
+            x=700,
+            y=456,
             width=6,
             height=4,
 
@@ -760,8 +760,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/8
-            x=818,
-            y=456,
+            x=878,
+            y=390,
             width=2,
             height=4,
 
@@ -772,8 +772,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/2/9-slices/9
-            x=844,
-            y=396,
+            x=700,
+            y=464,
             width=6,
             height=4,
 
@@ -784,8 +784,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/1
-            x=854,
-            y=396,
+            x=740,
+            y=466,
             width=6,
             height=4,
 
@@ -796,8 +796,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/2
-            x=824,
-            y=456,
+            x=884,
+            y=388,
             width=2,
             height=4,
 
@@ -808,8 +808,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/3
-            x=800,
-            y=410,
+            x=750,
+            y=466,
             width=6,
             height=4,
 
@@ -820,8 +820,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/4
-            x=772,
-            y=396,
+            x=184,
+            y=468,
             width=6,
             height=14,
 
@@ -832,8 +832,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/5
-            x=686,
-            y=328,
+            x=76,
+            y=468,
             width=2,
             height=14,
 
@@ -844,8 +844,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/6
-            x=782,
-            y=396,
+            x=560,
+            y=446,
             width=6,
             height=14,
 
@@ -856,8 +856,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/7
-            x=800,
-            y=418,
+            x=860,
+            y=374,
             width=6,
             height=4,
 
@@ -868,8 +868,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/8
-            x=780,
-            y=468,
+            x=874,
+            y=446,
             width=2,
             height=4,
 
@@ -880,8 +880,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/3/9-slices/9
-            x=810,
-            y=410,
+            x=860,
+            y=382,
             width=6,
             height=4,
 
@@ -892,8 +892,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/1
-            x=800,
-            y=426,
+            x=870,
+            y=374,
             width=6,
             height=4,
 
@@ -904,8 +904,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/2
-            x=822,
-            y=472,
+            x=874,
+            y=454,
             width=2,
             height=4,
 
@@ -916,8 +916,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/3
-            x=810,
-            y=418,
+            x=860,
+            y=390,
             width=6,
             height=4,
 
@@ -928,8 +928,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/4
-            x=302,
-            y=462,
+            x=300,
+            y=468,
             width=6,
             height=14,
 
@@ -940,8 +940,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/5
-            x=686,
-            y=328,
+            x=76,
+            y=468,
             width=2,
             height=14,
 
@@ -952,8 +952,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/6
-            x=736,
-            y=438,
+            x=310,
+            y=468,
             width=6,
             height=14,
 
@@ -964,8 +964,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/7
-            x=820,
-            y=410,
+            x=870,
+            y=382,
             width=6,
             height=4,
 
@@ -976,8 +976,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/8
-            x=826,
-            y=464,
+            x=874,
+            y=462,
             width=2,
             height=4,
 
@@ -988,8 +988,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Buttons/4/9-slices/9
-            x=800,
-            y=434,
+            x=880,
+            y=374,
             width=6,
             height=4,
 
@@ -1000,8 +1000,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/1
-            x=604,
-            y=348,
+            x=340,
+            y=420,
             width=40,
             height=40,
 
@@ -1012,8 +1012,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/2
-            x=648,
-            y=348,
+            x=384,
+            y=410,
             width=40,
             height=40,
 
@@ -1024,8 +1024,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/3
-            x=816,
-            y=2,
+            x=572,
+            y=358,
             width=44,
             height=44,
 
@@ -1036,8 +1036,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/4
-            x=816,
-            y=50,
+            x=620,
+            y=352,
             width=44,
             height=44,
 
@@ -1048,8 +1048,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/5
-            x=564,
-            y=398,
+            x=428,
+            y=408,
             width=40,
             height=40,
 
@@ -1060,8 +1060,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/6
-            x=564,
-            y=442,
+            x=472,
+            y=408,
             width=40,
             height=40,
 
@@ -1072,8 +1072,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/7
-            x=816,
-            y=98,
+            x=668,
+            y=360,
             width=44,
             height=44,
 
@@ -1084,8 +1084,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Crossairs/8
-            x=816,
-            y=146,
+            x=716,
+            y=342,
             width=44,
             height=44,
 
@@ -1096,8 +1096,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/1
-            x=682,
-            y=136,
+            x=280,
+            y=232,
             width=70,
             height=70,
 
@@ -1108,8 +1108,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/2
-            x=650,
-            y=232,
+            x=770,
+            y=160,
             width=48,
             height=56,
 
@@ -1120,8 +1120,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/3
-            x=764,
-            y=202,
+            x=754,
+            y=220,
             width=48,
             height=62,
 
@@ -1132,8 +1132,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/4
-            x=522,
-            y=292,
+            x=806,
+            y=224,
             width=48,
             height=56,
 
@@ -1144,8 +1144,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/5
-            x=470,
-            y=292,
+            x=822,
+            y=158,
             width=48,
             height=62,
 
@@ -1156,8 +1156,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Cursors/6
-            x=206,
-            y=420,
+            x=806,
+            y=284,
             width=48,
             height=52,
 
@@ -1168,8 +1168,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/1
-            x=82,
-            y=458,
+            x=770,
+            y=318,
             width=26,
             height=24,
 
@@ -1180,8 +1180,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/2
-            x=112,
-            y=458,
+            x=762,
+            y=460,
             width=26,
             height=24,
 
@@ -1192,8 +1192,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/3
-            x=314,
-            y=458,
+            x=792,
+            y=460,
             width=26,
             height=24,
 
@@ -1204,8 +1204,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/4
-            x=344,
-            y=458,
+            x=822,
+            y=460,
             width=26,
             height=24,
 
@@ -1216,8 +1216,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/5
-            x=374,
-            y=458,
+            x=82,
+            y=454,
             width=26,
             height=24,
 
@@ -1228,8 +1228,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Dots/6
-            x=404,
-            y=458,
+            x=112,
+            y=454,
             width=26,
             height=24,
 
@@ -1240,8 +1240,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/1
-            x=2,
-            y=472,
+            x=894,
+            y=18,
             width=10,
             height=10,
 
@@ -1252,8 +1252,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/2
-            x=704,
-            y=468,
+            x=504,
+            y=474,
             width=2,
             height=10,
 
@@ -1264,8 +1264,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/3
-            x=200,
-            y=330,
+            x=894,
+            y=32,
             width=10,
             height=10,
 
@@ -1276,8 +1276,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/4
-            x=326,
-            y=352,
+            x=694,
+            y=286,
             width=10,
             height=2,
 
@@ -1288,8 +1288,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -1300,8 +1300,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/6
-            x=540,
-            y=352,
+            x=810,
+            y=416,
             width=10,
             height=2,
 
@@ -1312,8 +1312,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/7
-            x=16,
-            y=472,
+            x=894,
+            y=46,
             width=10,
             height=10,
 
@@ -1324,8 +1324,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/8
-            x=796,
-            y=382,
+            x=510,
+            y=474,
             width=2,
             height=10,
 
@@ -1336,8 +1336,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBL/9-slices/9
-            x=30,
-            y=472,
+            x=894,
+            y=60,
             width=10,
             height=10,
 
@@ -1348,8 +1348,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/1
-            x=44,
-            y=472,
+            x=142,
+            y=468,
             width=10,
             height=10,
 
@@ -1360,8 +1360,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/2
-            x=798,
-            y=396,
+            x=334,
+            y=468,
             width=2,
             height=10,
 
@@ -1372,8 +1372,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/3
-            x=58,
-            y=472,
+            x=156,
+            y=468,
             width=10,
             height=10,
 
@@ -1384,8 +1384,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/4
-            x=148,
-            y=470,
+            x=824,
+            y=416,
             width=10,
             height=2,
 
@@ -1396,8 +1396,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -1408,8 +1408,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/6
-            x=258,
-            y=470,
+            x=838,
+            y=416,
             width=10,
             height=2,
 
@@ -1420,8 +1420,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/7
-            x=686,
-            y=314,
+            x=170,
+            y=468,
             width=10,
             height=10,
 
@@ -1432,8 +1432,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/8
-            x=804,
-            y=396,
+            x=616,
+            y=442,
             width=2,
             height=10,
 
@@ -1444,8 +1444,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerBR/9-slices/9
-            x=754,
-            y=382,
+            x=202,
+            y=472,
             width=10,
             height=10,
 
@@ -1456,8 +1456,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/1
-            x=780,
-            y=414,
+            x=272,
+            y=472,
             width=10,
             height=10,
 
@@ -1468,8 +1468,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/2
-            x=810,
-            y=396,
+            x=662,
+            y=466,
             width=2,
             height=10,
 
@@ -1480,8 +1480,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/3
-            x=288,
-            y=462,
+            x=286,
+            y=472,
             width=10,
             height=10,
 
@@ -1492,8 +1492,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/4
-            x=736,
-            y=456,
+            x=110,
+            y=482,
             width=10,
             height=2,
 
@@ -1504,8 +1504,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -1516,8 +1516,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/6
-            x=750,
-            y=456,
+            x=124,
+            y=482,
             width=10,
             height=2,
 
@@ -1528,8 +1528,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/7
-            x=752,
-            y=428,
+            x=320,
+            y=468,
             width=10,
             height=10,
 
@@ -1540,7 +1540,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/8
-            x=816,
+            x=854,
             y=396,
             width=2,
             height=10,
@@ -1552,8 +1552,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-corners/9-slices/9
-            x=766,
-            y=428,
+            x=340,
+            y=464,
             width=10,
             height=10,
 
@@ -1564,8 +1564,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/1
-            x=768,
-            y=382,
+            x=216,
+            y=472,
             width=10,
             height=10,
 
@@ -1576,8 +1576,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/2
-            x=810,
-            y=396,
+            x=662,
+            y=466,
             width=2,
             height=10,
 
@@ -1588,8 +1588,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/3
-            x=782,
-            y=382,
+            x=230,
+            y=472,
             width=10,
             height=10,
 
@@ -1600,8 +1600,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/4
-            x=298,
-            y=480,
+            x=82,
+            y=482,
             width=10,
             height=2,
 
@@ -1612,8 +1612,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -1624,8 +1624,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/6
-            x=712,
-            y=460,
+            x=96,
+            y=482,
             width=10,
             height=2,
 
@@ -1636,8 +1636,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/7
-            x=752,
-            y=414,
+            x=244,
+            y=472,
             width=10,
             height=10,
 
@@ -1648,7 +1648,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/8
-            x=816,
+            x=854,
             y=396,
             width=2,
             height=10,
@@ -1660,8 +1660,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTL/9-slices/9
-            x=766,
-            y=414,
+            x=258,
+            y=472,
             width=10,
             height=10,
 
@@ -1672,8 +1672,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/1
-            x=798,
-            y=346,
+            x=770,
+            y=286,
             width=26,
             height=28,
 
@@ -1684,8 +1684,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/2
-            x=856,
-            y=270,
+            x=564,
+            y=408,
             width=4,
             height=28,
 
@@ -1696,8 +1696,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/3
-            x=828,
-            y=346,
+            x=874,
+            y=166,
             width=26,
             height=28,
 
@@ -1708,8 +1708,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/4
-            x=258,
-            y=462,
+            x=2,
+            y=468,
             width=26,
             height=4,
 
@@ -1720,8 +1720,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/5
-            x=756,
-            y=202,
+            x=870,
+            y=390,
             width=4,
             height=4,
 
@@ -1732,8 +1732,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/6
-            x=702,
-            y=430,
+            x=2,
+            y=476,
             width=26,
             height=4,
 
@@ -1744,8 +1744,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/7
-            x=702,
-            y=366,
+            x=572,
+            y=406,
             width=26,
             height=28,
 
@@ -1756,8 +1756,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/8
-            x=856,
-            y=302,
+            x=414,
+            y=454,
             width=4,
             height=28,
 
@@ -1768,8 +1768,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-cornerTR/9-slices/9
-            x=702,
-            y=398,
+            x=384,
+            y=454,
             width=26,
             height=28,
 
@@ -1780,8 +1780,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/1
-            x=780,
-            y=428,
+            x=354,
+            y=464,
             width=10,
             height=10,
 
@@ -1792,8 +1792,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/2
-            x=824,
-            y=434,
+            x=852,
+            y=476,
             width=2,
             height=6,
 
@@ -1804,8 +1804,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/3
-            x=752,
-            y=442,
+            x=368,
+            y=464,
             width=10,
             height=10,
 
@@ -1816,8 +1816,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/4
-            x=820,
-            y=418,
+            x=880,
+            y=382,
             width=6,
             height=2,
 
@@ -1828,8 +1828,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/5
-            x=822,
-            y=378,
+            x=668,
+            y=476,
             width=6,
             height=6,
 
@@ -1840,8 +1840,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/6
-            x=800,
-            y=442,
+            x=898,
+            y=374,
             width=6,
             height=2,
 
@@ -1852,8 +1852,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/7
-            x=766,
-            y=442,
+            x=576,
+            y=438,
             width=10,
             height=10,
 
@@ -1864,8 +1864,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/8
-            x=846,
-            y=430,
+            x=876,
+            y=398,
             width=2,
             height=6,
 
@@ -1876,8 +1876,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-empty/9-slices/9
-            x=780,
-            y=442,
+            x=576,
+            y=452,
             width=10,
             height=10,
 
@@ -1888,8 +1888,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/1
-            x=148,
-            y=456,
+            x=602,
+            y=442,
             width=10,
             height=10,
 
@@ -1900,8 +1900,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/2
-            x=822,
-            y=388,
+            x=678,
+            y=466,
             width=2,
             height=10,
 
@@ -1912,8 +1912,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/3
-            x=162,
-            y=456,
+            x=622,
+            y=438,
             width=10,
             height=10,
 
@@ -1924,8 +1924,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/4
-            x=736,
-            y=456,
+            x=110,
+            y=482,
             width=10,
             height=2,
 
@@ -1936,8 +1936,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -1948,8 +1948,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/6
-            x=750,
-            y=456,
+            x=124,
+            y=482,
             width=10,
             height=2,
 
@@ -1960,8 +1960,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/7
-            x=176,
-            y=456,
+            x=622,
+            y=452,
             width=10,
             height=10,
 
@@ -1972,8 +1972,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/8
-            x=828,
-            y=388,
+            x=684,
+            y=456,
             width=2,
             height=10,
 
@@ -1984,8 +1984,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel-projection/9-slices/9
-            x=190,
-            y=456,
+            x=636,
+            y=438,
             width=10,
             height=10,
 
@@ -1996,8 +1996,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/1
-            x=162,
-            y=470,
+            x=636,
+            y=452,
             width=10,
             height=10,
 
@@ -2008,8 +2008,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/2
-            x=798,
-            y=396,
+            x=334,
+            y=468,
             width=2,
             height=10,
 
@@ -2020,8 +2020,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/3
-            x=176,
-            y=470,
+            x=650,
+            y=438,
             width=10,
             height=10,
 
@@ -2032,8 +2032,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/4
-            x=148,
-            y=470,
+            x=824,
+            y=416,
             width=10,
             height=2,
 
@@ -2044,8 +2044,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -2056,8 +2056,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/6
-            x=258,
-            y=470,
+            x=838,
+            y=416,
             width=10,
             height=2,
 
@@ -2068,8 +2068,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/7
-            x=190,
-            y=470,
+            x=650,
+            y=452,
             width=10,
             height=10,
 
@@ -2080,8 +2080,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/8
-            x=804,
-            y=396,
+            x=616,
+            y=442,
             width=2,
             height=10,
 
@@ -2092,8 +2092,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/GlassPanel/9-slices/9
-            x=274,
-            y=470,
+            x=648,
+            y=466,
             width=10,
             height=10,
 
@@ -2104,7 +2104,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/ChampionCup
-            x=376,
+            x=354,
             y=232,
             width=66,
             height=56,
@@ -2116,7 +2116,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/enter
-            x=516,
+            x=494,
             y=232,
             width=64,
             height=56,
@@ -2128,16 +2128,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/FB/1
-            x=736,
-            y=328,
+            x=880,
+            y=84,
             width=14,
             height=26,
 
         },
         {
             -- UI/Icons/Hearts/1
-            x=702,
-            y=276,
+            x=146,
+            y=366,
             width=54,
             height=48,
 
@@ -2148,7 +2148,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Hearts/2
-            x=584,
+            x=562,
             y=232,
             width=62,
             height=56,
@@ -2160,8 +2160,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Hearts/3
-            x=214,
-            y=292,
+            x=628,
+            y=232,
             width=62,
             height=56,
 
@@ -2172,7 +2172,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Hearts/4
-            x=280,
+            x=602,
             y=292,
             width=62,
             height=56,
@@ -2184,8 +2184,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/JoyStickRight
-            x=134,
-            y=314,
+            x=814,
+            y=84,
             width=62,
             height=70,
 
@@ -2196,8 +2196,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/leaderBoard
-            x=302,
-            y=232,
+            x=280,
+            y=306,
             width=70,
             height=56,
 
@@ -2208,8 +2208,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Lock
-            x=682,
-            y=2,
+            x=146,
+            y=232,
             width=130,
             height=130,
 
@@ -2221,7 +2221,7 @@ SheetInfo.sheet =
         {
             -- UI/Icons/oneUser
             x=82,
-            y=390,
+            y=386,
             width=58,
             height=64,
 
@@ -2232,8 +2232,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/pause
-            x=144,
-            y=388,
+            x=354,
+            y=292,
             width=58,
             height=64,
 
@@ -2244,7 +2244,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/rotate
-            x=446,
+            x=424,
             y=232,
             width=66,
             height=56,
@@ -2255,9 +2255,21 @@ SheetInfo.sheet =
             sourceHeight = 56
         },
         {
+            -- UI/Icons/Share
+            x=2,
+            y=232,
+            width=140,
+            height=150,
+
+            sourceX = 0,
+            sourceY = 2,
+            sourceWidth = 139,
+            sourceHeight = 155
+        },
+        {
             -- UI/Icons/Stars/1
-            x=702,
-            y=210,
+            x=416,
+            y=292,
             width=58,
             height=62,
 
@@ -2269,14 +2281,14 @@ SheetInfo.sheet =
         {
             -- UI/Icons/Stars/2
             x=2,
-            y=390,
+            y=386,
             width=76,
             height=78,
 
         },
         {
             -- UI/Icons/Stars/3
-            x=346,
+            x=478,
             y=292,
             width=58,
             height=62,
@@ -2288,23 +2300,23 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Stars/4
-            x=756,
-            y=136,
+            x=694,
+            y=220,
             width=56,
             height=62,
 
         },
         {
             -- UI/Icons/Stars/5
-            x=134,
-            y=232,
+            x=814,
+            y=2,
             width=76,
             height=78,
 
         },
         {
             -- UI/Icons/Stars/6
-            x=408,
+            x=540,
             y=292,
             width=58,
             height=62,
@@ -2316,8 +2328,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Stars/7
-            x=574,
-            y=292,
+            x=714,
+            y=286,
             width=52,
             height=52,
 
@@ -2328,8 +2340,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Stars/8
-            x=630,
-            y=292,
+            x=204,
+            y=366,
             width=52,
             height=52,
 
@@ -2340,8 +2352,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Stars/9
-            x=252,
-            y=352,
+            x=260,
+            y=366,
             width=52,
             height=52,
 
@@ -2352,8 +2364,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/ThreePlayers
-            x=214,
-            y=232,
+            x=682,
+            y=160,
             width=84,
             height=56,
 
@@ -2364,8 +2376,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/TriangleRight
-            x=206,
-            y=352,
+            x=668,
+            y=292,
             width=42,
             height=64,
 
@@ -2376,16 +2388,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Icons/Unlock
-            x=2,
-            y=232,
+            x=682,
+            y=2,
             width=128,
             height=154,
 
         },
         {
             -- UI/Icons/X/1
-            x=258,
-            y=408,
+            x=316,
+            y=366,
             width=52,
             height=50,
 
@@ -2396,8 +2408,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/1
-            x=812,
-            y=480,
+            x=884,
+            y=396,
             width=2,
             height=2,
 
@@ -2408,8 +2420,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/2
-            x=818,
-            y=480,
+            x=902,
+            y=424,
             width=2,
             height=2,
 
@@ -2420,8 +2432,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/3
-            x=812,
-            y=480,
+            x=884,
+            y=396,
             width=2,
             height=2,
 
@@ -2432,8 +2444,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/4
-            x=824,
-            y=480,
+            x=902,
+            y=430,
             width=2,
             height=2,
 
@@ -2444,8 +2456,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/5
-            x=806,
-            y=480,
+            x=752,
+            y=482,
             width=2,
             height=2,
 
@@ -2456,8 +2468,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/6
-            x=824,
-            y=480,
+            x=902,
+            y=430,
             width=2,
             height=2,
 
@@ -2468,8 +2480,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/7
-            x=812,
-            y=480,
+            x=884,
+            y=396,
             width=2,
             height=2,
 
@@ -2480,8 +2492,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/8
-            x=818,
-            y=480,
+            x=902,
+            y=424,
             width=2,
             height=2,
 
@@ -2492,8 +2504,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/KeyPanel/9-slices/9
-            x=812,
-            y=480,
+            x=884,
+            y=396,
             width=2,
             height=2,
 
@@ -2504,8 +2516,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/1
-            x=434,
-            y=458,
+            x=880,
+            y=114,
             width=22,
             height=22,
 
@@ -2516,8 +2528,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/2
-            x=848,
-            y=308,
+            x=900,
+            y=198,
             width=4,
             height=22,
 
@@ -2528,8 +2540,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/3
-            x=460,
-            y=458,
+            x=880,
+            y=140,
             width=22,
             height=22,
 
@@ -2540,8 +2552,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/4
-            x=538,
-            y=458,
+            x=32,
+            y=468,
             width=22,
             height=4,
 
@@ -2552,8 +2564,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/5
-            x=206,
-            y=344,
+            x=890,
+            y=384,
             width=4,
             height=4,
 
@@ -2564,8 +2576,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/6
-            x=538,
-            y=466,
+            x=32,
+            y=476,
             width=22,
             height=4,
 
@@ -2576,8 +2588,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/7
-            x=486,
-            y=458,
+            x=874,
+            y=198,
             width=22,
             height=22,
 
@@ -2588,8 +2600,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/8
-            x=692,
-            y=366,
+            x=898,
+            y=74,
             width=6,
             height=22,
 
@@ -2600,8 +2612,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalBottomPanel/9-slices/9
-            x=512,
-            y=458,
+            x=422,
+            y=454,
             width=22,
             height=22,
 
@@ -2612,8 +2624,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/1
-            x=832,
-            y=378,
+            x=694,
+            y=446,
             width=6,
             height=6,
 
@@ -2624,8 +2636,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/2
-            x=822,
-            y=446,
+            x=874,
+            y=426,
             width=2,
             height=6,
 
@@ -2636,16 +2648,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/3
-            x=842,
-            y=378,
+            x=690,
+            y=456,
             width=6,
             height=6,
 
         },
         {
             -- UI/MetalPanel-plate/9-slices/4
-            x=832,
-            y=404,
+            x=898,
+            y=380,
             width=6,
             height=2,
 
@@ -2656,8 +2668,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/5
-            x=830,
-            y=480,
+            x=896,
+            y=432,
             width=2,
             height=2,
 
@@ -2668,8 +2680,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/6
-            x=842,
-            y=404,
+            x=898,
+            y=386,
             width=6,
             height=2,
 
@@ -2680,8 +2692,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/7
-            x=852,
-            y=378,
+            x=690,
+            y=466,
             width=6,
             height=6,
 
@@ -2692,8 +2704,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/8
-            x=710,
-            y=468,
+            x=874,
+            y=436,
             width=2,
             height=6,
 
@@ -2704,8 +2716,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel-plate/9-slices/9
-            x=834,
-            y=388,
+            x=704,
+            y=446,
             width=6,
             height=6,
 
@@ -2716,8 +2728,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/1
-            x=608,
-            y=468,
+            x=602,
+            y=406,
             width=14,
             height=14,
 
@@ -2728,8 +2740,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/2
-            x=746,
-            y=438,
+            x=570,
+            y=446,
             width=2,
             height=14,
 
@@ -2740,8 +2752,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/3
-            x=626,
-            y=468,
+            x=602,
+            y=424,
             width=14,
             height=14,
 
@@ -2752,8 +2764,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/4
-            x=308,
-            y=352,
+            x=354,
+            y=360,
             width=14,
             height=2,
 
@@ -2764,8 +2776,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/5
-            x=836,
-            y=480,
+            x=902,
+            y=436,
             width=2,
             height=2,
 
@@ -2776,7 +2788,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/6
-            x=522,
+            x=602,
             y=352,
             width=14,
             height=2,
@@ -2788,7 +2800,7 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/7
-            x=644,
+            x=58,
             y=468,
             width=14,
             height=14,
@@ -2800,8 +2812,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/8
-            x=794,
-            y=414,
+            x=590,
+            y=438,
             width=2,
             height=14,
 
@@ -2812,8 +2824,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/MetalPanel/9-slices/9
-            x=662,
-            y=468,
+            x=448,
+            y=452,
             width=14,
             height=14,
 
@@ -2824,47 +2836,47 @@ SheetInfo.sheet =
         },
         {
             -- UI/Numeral/0
-            x=308,
-            y=358,
+            x=858,
+            y=224,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/1
-            x=358,
-            y=358,
+            x=858,
+            y=274,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/2
-            x=314,
-            y=408,
+            x=858,
+            y=324,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/3
-            x=408,
-            y=358,
+            x=372,
+            y=360,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/4
-            x=364,
-            y=408,
+            x=422,
+            y=358,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/5
-            x=458,
+            x=472,
             y=358,
             width=46,
             height=46,
@@ -2872,48 +2884,48 @@ SheetInfo.sheet =
         },
         {
             -- UI/Numeral/6
-            x=414,
-            y=408,
-            width=46,
-            height=46,
-
-        },
-        {
-            -- UI/Numeral/7
-            x=464,
-            y=408,
-            width=46,
-            height=46,
-
-        },
-        {
-            -- UI/Numeral/8
-            x=508,
+            x=522,
             y=358,
             width=46,
             height=46,
 
         },
         {
+            -- UI/Numeral/7
+            x=144,
+            y=418,
+            width=46,
+            height=46,
+
+        },
+        {
+            -- UI/Numeral/8
+            x=194,
+            y=422,
+            width=46,
+            height=46,
+
+        },
+        {
             -- UI/Numeral/9
-            x=514,
-            y=408,
+            x=244,
+            y=422,
             width=46,
             height=46,
 
         },
         {
             -- UI/Numeral/x
-            x=558,
-            y=352,
+            x=294,
+            y=422,
             width=42,
             height=42,
 
         },
         {
             -- UI/Panel-white/9-slices/1
-            x=680,
-            y=468,
+            x=448,
+            y=470,
             width=8,
             height=14,
 
@@ -2924,8 +2936,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/2
-            x=794,
-            y=432,
+            x=596,
+            y=438,
             width=2,
             height=14,
 
@@ -2936,8 +2948,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/3
-            x=692,
-            y=468,
+            x=460,
+            y=470,
             width=8,
             height=14,
 
@@ -2948,8 +2960,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/4
-            x=764,
-            y=456,
+            x=138,
+            y=482,
             width=8,
             height=2,
 
@@ -2960,8 +2972,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/5
-            x=842,
-            y=472,
+            x=896,
+            y=438,
             width=2,
             height=2,
 
@@ -2972,8 +2984,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/6
-            x=776,
-            y=456,
+            x=150,
+            y=482,
             width=8,
             height=2,
 
@@ -2984,8 +2996,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/7
-            x=742,
-            y=358,
+            x=466,
+            y=452,
             width=8,
             height=14,
 
@@ -2996,8 +3008,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/8
-            x=142,
-            y=458,
+            x=854,
+            y=378,
             width=2,
             height=14,
 
@@ -3008,8 +3020,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Panel-white/9-slices/9
-            x=742,
-            y=376,
+            x=472,
+            y=470,
             width=8,
             height=14,
 
@@ -3020,16 +3032,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tab_1
-            x=852,
-            y=414,
+            x=860,
+            y=408,
             width=4,
             height=4,
 
         },
         {
             -- UI/Parts/glassPanel_tab_2
-            x=828,
-            y=472,
+            x=874,
+            y=470,
             width=2,
             height=4,
 
@@ -3040,16 +3052,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tab_3
-            x=800,
-            y=448,
+            x=868,
+            y=408,
             width=4,
             height=4,
 
         },
         {
             -- UI/Parts/glassPanel_tab_4
-            x=694,
-            y=226,
+            x=700,
+            y=472,
             width=4,
             height=2,
 
@@ -3060,8 +3072,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tab_5
-            x=848,
-            y=464,
+            x=902,
+            y=442,
             width=2,
             height=2,
 
@@ -3072,24 +3084,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tab_6
-            x=788,
-            y=456,
+            x=708,
+            y=472,
             width=4,
             height=2,
 
         },
         {
             -- UI/Parts/glassPanel_tab_7
-            x=786,
-            y=462,
+            x=874,
+            y=478,
             width=4,
             height=4,
 
         },
         {
             -- UI/Parts/glassPanel_tab_8
-            x=830,
-            y=456,
+            x=888,
+            y=426,
             width=2,
             height=4,
 
@@ -3100,16 +3112,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tab_9
-            x=796,
-            y=456,
+            x=716,
+            y=472,
             width=4,
             height=4,
 
         },
         {
             -- UI/Parts/glassPanel_tabbar_1
-            x=694,
-            y=210,
+            x=194,
+            y=472,
             width=4,
             height=12,
 
@@ -3120,8 +3132,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tabbar_2
-            x=754,
-            y=328,
+            x=800,
+            y=330,
             width=2,
             height=12,
 
@@ -3132,8 +3144,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Parts/glassPanel_tabbar_3
-            x=200,
-            y=314,
+            x=894,
+            y=2,
             width=10,
             height=12,
 
@@ -3144,8 +3156,8 @@ SheetInfo.sheet =
         },
         {
             -- UI/Player-lifes/1
-            x=656,
-            y=392,
+            x=716,
+            y=428,
             width=42,
             height=34,
 
@@ -3156,16 +3168,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Player-lifes/2
-            x=816,
-            y=232,
+            x=716,
+            y=390,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/3
-            x=804,
-            y=308,
+            x=516,
+            y=446,
             width=40,
             height=34,
 
@@ -3173,7 +3185,7 @@ SheetInfo.sheet =
         {
             -- UI/Player-lifes/4
             x=764,
-            y=268,
+            y=384,
             width=42,
             height=34,
 
@@ -3184,16 +3196,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Player-lifes/5
-            x=608,
-            y=392,
+            x=620,
+            y=400,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/6
-            x=692,
-            y=328,
+            x=764,
+            y=422,
             width=40,
             height=34,
 
@@ -3201,7 +3213,7 @@ SheetInfo.sheet =
         {
             -- UI/Player-lifes/7
             x=810,
-            y=270,
+            y=340,
             width=42,
             height=34,
 
@@ -3212,24 +3224,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Player-lifes/8
-            x=608,
-            y=430,
+            x=668,
+            y=408,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/9
-            x=754,
-            y=344,
+            x=808,
+            y=422,
             width=40,
             height=34,
 
         },
         {
             -- UI/Player-lifes/10
-            x=656,
-            y=430,
+            x=764,
+            y=346,
             width=42,
             height=34,
 
@@ -3240,32 +3252,32 @@ SheetInfo.sheet =
         },
         {
             -- UI/Player-lifes/11
-            x=816,
-            y=194,
+            x=516,
+            y=408,
             width=44,
             height=34,
 
         },
         {
             -- UI/Player-lifes/12
-            x=760,
-            y=306,
+            x=810,
+            y=378,
             width=40,
             height=34,
 
         },
         {
             -- UI/Squares/1/9-slices/1
-            x=852,
-            y=432,
+            x=698,
+            y=480,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/1/9-slices/2
-            x=810,
-            y=456,
+            x=724,
+            y=472,
             width=4,
             height=4,
 
@@ -3276,24 +3288,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/1/9-slices/3
-            x=710,
-            y=478,
+            x=732,
+            y=472,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/1/9-slices/4
-            x=810,
-            y=426,
+            x=860,
+            y=398,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/1/9-slices/5
-            x=810,
-            y=436,
+            x=868,
+            y=398,
             width=4,
             height=6,
 
@@ -3304,24 +3316,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/1/9-slices/6
-            x=830,
-            y=410,
+            x=890,
+            y=374,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/1/9-slices/7
-            x=732,
-            y=468,
+            x=706,
+            y=480,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/1/9-slices/8
-            x=740,
-            y=468,
+            x=714,
+            y=480,
             width=4,
             height=4,
 
@@ -3332,24 +3344,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/1/9-slices/9
-            x=748,
-            y=468,
+            x=722,
+            y=480,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/2/9-slices/1
-            x=756,
-            y=468,
+            x=730,
+            y=480,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/2/9-slices/2
-            x=764,
-            y=468,
+            x=738,
+            y=480,
             width=4,
             height=4,
 
@@ -3360,24 +3372,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/2/9-slices/3
-            x=758,
-            y=476,
+            x=746,
+            y=474,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/2/9-slices/4
-            x=838,
-            y=410,
+            x=858,
+            y=416,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/2/9-slices/5
-            x=852,
-            y=404,
+            x=858,
+            y=426,
             width=4,
             height=6,
 
@@ -3388,24 +3400,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/2/9-slices/6
-            x=830,
-            y=420,
+            x=858,
+            y=436,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/2/9-slices/7
-            x=772,
-            y=468,
+            x=754,
+            y=474,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/2/9-slices/8
-            x=766,
-            y=476,
+            x=890,
+            y=392,
             width=4,
             height=4,
 
@@ -3416,24 +3428,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/2/9-slices/9
-            x=774,
-            y=476,
+            x=898,
+            y=392,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/3/9-slices/1
-            x=786,
-            y=470,
+            x=882,
+            y=402,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/3/9-slices/2
-            x=782,
-            y=478,
+            x=890,
+            y=400,
             width=4,
             height=4,
 
@@ -3444,24 +3456,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/3/9-slices/3
-            x=790,
-            y=478,
+            x=882,
+            y=410,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/3/9-slices/4
-            x=838,
-            y=420,
+            x=858,
+            y=446,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/3/9-slices/5
-            x=830,
-            y=430,
+            x=858,
+            y=456,
             width=4,
             height=6,
 
@@ -3472,24 +3484,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/3/9-slices/6
-            x=838,
-            y=430,
+            x=858,
+            y=466,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/3/9-slices/7
-            x=794,
-            y=464,
+            x=890,
+            y=408,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/3/9-slices/8
-            x=798,
-            y=478,
+            x=898,
+            y=400,
             width=4,
             height=4,
 
@@ -3500,24 +3512,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/3/9-slices/9
-            x=802,
-            y=464,
+            x=882,
+            y=418,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/4/9-slices/1
-            x=810,
-            y=464,
+            x=880,
+            y=426,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/4/9-slices/2
-            x=806,
-            y=472,
+            x=890,
+            y=416,
             width=4,
             height=4,
 
@@ -3528,24 +3540,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/4/9-slices/3
-            x=818,
-            y=464,
+            x=898,
+            y=408,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/4/9-slices/4
-            x=852,
-            y=422,
+            x=858,
+            y=476,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/4/9-slices/5
-            x=814,
-            y=446,
+            x=866,
+            y=416,
             width=4,
             height=6,
 
@@ -3556,24 +3568,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/4/9-slices/6
-            x=716,
-            y=466,
+            x=866,
+            y=426,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/4/9-slices/7
-            x=814,
-            y=472,
+            x=880,
+            y=434,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/4/9-slices/8
-            x=830,
-            y=440,
+            x=898,
+            y=416,
             width=4,
             height=4,
 
@@ -3584,24 +3596,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/4/9-slices/9
-            x=828,
-            y=448,
+            x=880,
+            y=442,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/5/9-slices/1
-            x=838,
-            y=440,
+            x=880,
+            y=450,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/5/9-slices/2
-            x=836,
-            y=448,
+            x=880,
+            y=458,
             width=4,
             height=4,
 
@@ -3612,24 +3624,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/5/9-slices/3
-            x=846,
-            y=440,
+            x=880,
+            y=466,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/5/9-slices/4
-            x=718,
-            y=476,
+            x=866,
+            y=436,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/5/9-slices/5
-            x=724,
-            y=466,
+            x=866,
+            y=446,
             width=4,
             height=6,
 
@@ -3640,24 +3652,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/5/9-slices/6
-            x=726,
-            y=476,
+            x=866,
+            y=456,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/5/9-slices/7
-            x=836,
-            y=456,
+            x=888,
+            y=434,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/5/9-slices/8
-            x=832,
-            y=464,
+            x=888,
+            y=442,
             width=4,
             height=4,
 
@@ -3668,24 +3680,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/5/9-slices/9
-            x=844,
-            y=448,
+            x=888,
+            y=450,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/6/9-slices/1
-            x=834,
-            y=472,
+            x=888,
+            y=458,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/6/9-slices/2
-            x=844,
-            y=456,
+            x=888,
+            y=466,
             width=4,
             height=4,
 
@@ -3696,23 +3708,23 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/6/9-slices/3
-            x=840,
-            y=464,
+            x=894,
+            y=424,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/6/9-slices/4
-            x=734,
-            y=476,
+            x=866,
+            y=466,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/6/9-slices/5
-            x=742,
+            x=866,
             y=476,
             width=4,
             height=6,
@@ -3724,24 +3736,24 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/6/9-slices/6
-            x=750,
-            y=476,
+            x=874,
+            y=416,
             width=4,
             height=6,
 
         },
         {
             -- UI/Squares/6/9-slices/7
-            x=854,
-            y=440,
+            x=882,
+            y=474,
             width=4,
             height=4,
 
         },
         {
             -- UI/Squares/6/9-slices/8
-            x=852,
-            y=448,
+            x=890,
+            y=474,
             width=4,
             height=4,
 
@@ -3752,16 +3764,16 @@ SheetInfo.sheet =
         },
         {
             -- UI/Squares/6/9-slices/9
-            x=852,
-            y=456,
+            x=896,
+            y=448,
             width=4,
             height=4,
 
         },
     },
     
-    sheetContentWidth = 862,
-    sheetContentHeight = 484
+    sheetContentWidth = 906,
+    sheetContentHeight = 486
 }
 
 SheetInfo.frameIndex =
@@ -3957,153 +3969,154 @@ SheetInfo.frameIndex =
     ["UI/Icons/oneUser"] = 188,
     ["UI/Icons/pause"] = 189,
     ["UI/Icons/rotate"] = 190,
-    ["UI/Icons/Stars/1"] = 191,
-    ["UI/Icons/Stars/2"] = 192,
-    ["UI/Icons/Stars/3"] = 193,
-    ["UI/Icons/Stars/4"] = 194,
-    ["UI/Icons/Stars/5"] = 195,
-    ["UI/Icons/Stars/6"] = 196,
-    ["UI/Icons/Stars/7"] = 197,
-    ["UI/Icons/Stars/8"] = 198,
-    ["UI/Icons/Stars/9"] = 199,
-    ["UI/Icons/ThreePlayers"] = 200,
-    ["UI/Icons/TriangleRight"] = 201,
-    ["UI/Icons/Unlock"] = 202,
-    ["UI/Icons/X/1"] = 203,
-    ["UI/KeyPanel/9-slices/1"] = 204,
-    ["UI/KeyPanel/9-slices/2"] = 205,
-    ["UI/KeyPanel/9-slices/3"] = 206,
-    ["UI/KeyPanel/9-slices/4"] = 207,
-    ["UI/KeyPanel/9-slices/5"] = 208,
-    ["UI/KeyPanel/9-slices/6"] = 209,
-    ["UI/KeyPanel/9-slices/7"] = 210,
-    ["UI/KeyPanel/9-slices/8"] = 211,
-    ["UI/KeyPanel/9-slices/9"] = 212,
-    ["UI/MetalBottomPanel/9-slices/1"] = 213,
-    ["UI/MetalBottomPanel/9-slices/2"] = 214,
-    ["UI/MetalBottomPanel/9-slices/3"] = 215,
-    ["UI/MetalBottomPanel/9-slices/4"] = 216,
-    ["UI/MetalBottomPanel/9-slices/5"] = 217,
-    ["UI/MetalBottomPanel/9-slices/6"] = 218,
-    ["UI/MetalBottomPanel/9-slices/7"] = 219,
-    ["UI/MetalBottomPanel/9-slices/8"] = 220,
-    ["UI/MetalBottomPanel/9-slices/9"] = 221,
-    ["UI/MetalPanel-plate/9-slices/1"] = 222,
-    ["UI/MetalPanel-plate/9-slices/2"] = 223,
-    ["UI/MetalPanel-plate/9-slices/3"] = 224,
-    ["UI/MetalPanel-plate/9-slices/4"] = 225,
-    ["UI/MetalPanel-plate/9-slices/5"] = 226,
-    ["UI/MetalPanel-plate/9-slices/6"] = 227,
-    ["UI/MetalPanel-plate/9-slices/7"] = 228,
-    ["UI/MetalPanel-plate/9-slices/8"] = 229,
-    ["UI/MetalPanel-plate/9-slices/9"] = 230,
-    ["UI/MetalPanel/9-slices/1"] = 231,
-    ["UI/MetalPanel/9-slices/2"] = 232,
-    ["UI/MetalPanel/9-slices/3"] = 233,
-    ["UI/MetalPanel/9-slices/4"] = 234,
-    ["UI/MetalPanel/9-slices/5"] = 235,
-    ["UI/MetalPanel/9-slices/6"] = 236,
-    ["UI/MetalPanel/9-slices/7"] = 237,
-    ["UI/MetalPanel/9-slices/8"] = 238,
-    ["UI/MetalPanel/9-slices/9"] = 239,
-    ["UI/Numeral/0"] = 240,
-    ["UI/Numeral/1"] = 241,
-    ["UI/Numeral/2"] = 242,
-    ["UI/Numeral/3"] = 243,
-    ["UI/Numeral/4"] = 244,
-    ["UI/Numeral/5"] = 245,
-    ["UI/Numeral/6"] = 246,
-    ["UI/Numeral/7"] = 247,
-    ["UI/Numeral/8"] = 248,
-    ["UI/Numeral/9"] = 249,
-    ["UI/Numeral/x"] = 250,
-    ["UI/Panel-white/9-slices/1"] = 251,
-    ["UI/Panel-white/9-slices/2"] = 252,
-    ["UI/Panel-white/9-slices/3"] = 253,
-    ["UI/Panel-white/9-slices/4"] = 254,
-    ["UI/Panel-white/9-slices/5"] = 255,
-    ["UI/Panel-white/9-slices/6"] = 256,
-    ["UI/Panel-white/9-slices/7"] = 257,
-    ["UI/Panel-white/9-slices/8"] = 258,
-    ["UI/Panel-white/9-slices/9"] = 259,
-    ["UI/Parts/glassPanel_tab_1"] = 260,
-    ["UI/Parts/glassPanel_tab_2"] = 261,
-    ["UI/Parts/glassPanel_tab_3"] = 262,
-    ["UI/Parts/glassPanel_tab_4"] = 263,
-    ["UI/Parts/glassPanel_tab_5"] = 264,
-    ["UI/Parts/glassPanel_tab_6"] = 265,
-    ["UI/Parts/glassPanel_tab_7"] = 266,
-    ["UI/Parts/glassPanel_tab_8"] = 267,
-    ["UI/Parts/glassPanel_tab_9"] = 268,
-    ["UI/Parts/glassPanel_tabbar_1"] = 269,
-    ["UI/Parts/glassPanel_tabbar_2"] = 270,
-    ["UI/Parts/glassPanel_tabbar_3"] = 271,
-    ["UI/Player-lifes/1"] = 272,
-    ["UI/Player-lifes/2"] = 273,
-    ["UI/Player-lifes/3"] = 274,
-    ["UI/Player-lifes/4"] = 275,
-    ["UI/Player-lifes/5"] = 276,
-    ["UI/Player-lifes/6"] = 277,
-    ["UI/Player-lifes/7"] = 278,
-    ["UI/Player-lifes/8"] = 279,
-    ["UI/Player-lifes/9"] = 280,
-    ["UI/Player-lifes/10"] = 281,
-    ["UI/Player-lifes/11"] = 282,
-    ["UI/Player-lifes/12"] = 283,
-    ["UI/Squares/1/9-slices/1"] = 284,
-    ["UI/Squares/1/9-slices/2"] = 285,
-    ["UI/Squares/1/9-slices/3"] = 286,
-    ["UI/Squares/1/9-slices/4"] = 287,
-    ["UI/Squares/1/9-slices/5"] = 288,
-    ["UI/Squares/1/9-slices/6"] = 289,
-    ["UI/Squares/1/9-slices/7"] = 290,
-    ["UI/Squares/1/9-slices/8"] = 291,
-    ["UI/Squares/1/9-slices/9"] = 292,
-    ["UI/Squares/2/9-slices/1"] = 293,
-    ["UI/Squares/2/9-slices/2"] = 294,
-    ["UI/Squares/2/9-slices/3"] = 295,
-    ["UI/Squares/2/9-slices/4"] = 296,
-    ["UI/Squares/2/9-slices/5"] = 297,
-    ["UI/Squares/2/9-slices/6"] = 298,
-    ["UI/Squares/2/9-slices/7"] = 299,
-    ["UI/Squares/2/9-slices/8"] = 300,
-    ["UI/Squares/2/9-slices/9"] = 301,
-    ["UI/Squares/3/9-slices/1"] = 302,
-    ["UI/Squares/3/9-slices/2"] = 303,
-    ["UI/Squares/3/9-slices/3"] = 304,
-    ["UI/Squares/3/9-slices/4"] = 305,
-    ["UI/Squares/3/9-slices/5"] = 306,
-    ["UI/Squares/3/9-slices/6"] = 307,
-    ["UI/Squares/3/9-slices/7"] = 308,
-    ["UI/Squares/3/9-slices/8"] = 309,
-    ["UI/Squares/3/9-slices/9"] = 310,
-    ["UI/Squares/4/9-slices/1"] = 311,
-    ["UI/Squares/4/9-slices/2"] = 312,
-    ["UI/Squares/4/9-slices/3"] = 313,
-    ["UI/Squares/4/9-slices/4"] = 314,
-    ["UI/Squares/4/9-slices/5"] = 315,
-    ["UI/Squares/4/9-slices/6"] = 316,
-    ["UI/Squares/4/9-slices/7"] = 317,
-    ["UI/Squares/4/9-slices/8"] = 318,
-    ["UI/Squares/4/9-slices/9"] = 319,
-    ["UI/Squares/5/9-slices/1"] = 320,
-    ["UI/Squares/5/9-slices/2"] = 321,
-    ["UI/Squares/5/9-slices/3"] = 322,
-    ["UI/Squares/5/9-slices/4"] = 323,
-    ["UI/Squares/5/9-slices/5"] = 324,
-    ["UI/Squares/5/9-slices/6"] = 325,
-    ["UI/Squares/5/9-slices/7"] = 326,
-    ["UI/Squares/5/9-slices/8"] = 327,
-    ["UI/Squares/5/9-slices/9"] = 328,
-    ["UI/Squares/6/9-slices/1"] = 329,
-    ["UI/Squares/6/9-slices/2"] = 330,
-    ["UI/Squares/6/9-slices/3"] = 331,
-    ["UI/Squares/6/9-slices/4"] = 332,
-    ["UI/Squares/6/9-slices/5"] = 333,
-    ["UI/Squares/6/9-slices/6"] = 334,
-    ["UI/Squares/6/9-slices/7"] = 335,
-    ["UI/Squares/6/9-slices/8"] = 336,
-    ["UI/Squares/6/9-slices/9"] = 337,
+    ["UI/Icons/Share"] = 191,
+    ["UI/Icons/Stars/1"] = 192,
+    ["UI/Icons/Stars/2"] = 193,
+    ["UI/Icons/Stars/3"] = 194,
+    ["UI/Icons/Stars/4"] = 195,
+    ["UI/Icons/Stars/5"] = 196,
+    ["UI/Icons/Stars/6"] = 197,
+    ["UI/Icons/Stars/7"] = 198,
+    ["UI/Icons/Stars/8"] = 199,
+    ["UI/Icons/Stars/9"] = 200,
+    ["UI/Icons/ThreePlayers"] = 201,
+    ["UI/Icons/TriangleRight"] = 202,
+    ["UI/Icons/Unlock"] = 203,
+    ["UI/Icons/X/1"] = 204,
+    ["UI/KeyPanel/9-slices/1"] = 205,
+    ["UI/KeyPanel/9-slices/2"] = 206,
+    ["UI/KeyPanel/9-slices/3"] = 207,
+    ["UI/KeyPanel/9-slices/4"] = 208,
+    ["UI/KeyPanel/9-slices/5"] = 209,
+    ["UI/KeyPanel/9-slices/6"] = 210,
+    ["UI/KeyPanel/9-slices/7"] = 211,
+    ["UI/KeyPanel/9-slices/8"] = 212,
+    ["UI/KeyPanel/9-slices/9"] = 213,
+    ["UI/MetalBottomPanel/9-slices/1"] = 214,
+    ["UI/MetalBottomPanel/9-slices/2"] = 215,
+    ["UI/MetalBottomPanel/9-slices/3"] = 216,
+    ["UI/MetalBottomPanel/9-slices/4"] = 217,
+    ["UI/MetalBottomPanel/9-slices/5"] = 218,
+    ["UI/MetalBottomPanel/9-slices/6"] = 219,
+    ["UI/MetalBottomPanel/9-slices/7"] = 220,
+    ["UI/MetalBottomPanel/9-slices/8"] = 221,
+    ["UI/MetalBottomPanel/9-slices/9"] = 222,
+    ["UI/MetalPanel-plate/9-slices/1"] = 223,
+    ["UI/MetalPanel-plate/9-slices/2"] = 224,
+    ["UI/MetalPanel-plate/9-slices/3"] = 225,
+    ["UI/MetalPanel-plate/9-slices/4"] = 226,
+    ["UI/MetalPanel-plate/9-slices/5"] = 227,
+    ["UI/MetalPanel-plate/9-slices/6"] = 228,
+    ["UI/MetalPanel-plate/9-slices/7"] = 229,
+    ["UI/MetalPanel-plate/9-slices/8"] = 230,
+    ["UI/MetalPanel-plate/9-slices/9"] = 231,
+    ["UI/MetalPanel/9-slices/1"] = 232,
+    ["UI/MetalPanel/9-slices/2"] = 233,
+    ["UI/MetalPanel/9-slices/3"] = 234,
+    ["UI/MetalPanel/9-slices/4"] = 235,
+    ["UI/MetalPanel/9-slices/5"] = 236,
+    ["UI/MetalPanel/9-slices/6"] = 237,
+    ["UI/MetalPanel/9-slices/7"] = 238,
+    ["UI/MetalPanel/9-slices/8"] = 239,
+    ["UI/MetalPanel/9-slices/9"] = 240,
+    ["UI/Numeral/0"] = 241,
+    ["UI/Numeral/1"] = 242,
+    ["UI/Numeral/2"] = 243,
+    ["UI/Numeral/3"] = 244,
+    ["UI/Numeral/4"] = 245,
+    ["UI/Numeral/5"] = 246,
+    ["UI/Numeral/6"] = 247,
+    ["UI/Numeral/7"] = 248,
+    ["UI/Numeral/8"] = 249,
+    ["UI/Numeral/9"] = 250,
+    ["UI/Numeral/x"] = 251,
+    ["UI/Panel-white/9-slices/1"] = 252,
+    ["UI/Panel-white/9-slices/2"] = 253,
+    ["UI/Panel-white/9-slices/3"] = 254,
+    ["UI/Panel-white/9-slices/4"] = 255,
+    ["UI/Panel-white/9-slices/5"] = 256,
+    ["UI/Panel-white/9-slices/6"] = 257,
+    ["UI/Panel-white/9-slices/7"] = 258,
+    ["UI/Panel-white/9-slices/8"] = 259,
+    ["UI/Panel-white/9-slices/9"] = 260,
+    ["UI/Parts/glassPanel_tab_1"] = 261,
+    ["UI/Parts/glassPanel_tab_2"] = 262,
+    ["UI/Parts/glassPanel_tab_3"] = 263,
+    ["UI/Parts/glassPanel_tab_4"] = 264,
+    ["UI/Parts/glassPanel_tab_5"] = 265,
+    ["UI/Parts/glassPanel_tab_6"] = 266,
+    ["UI/Parts/glassPanel_tab_7"] = 267,
+    ["UI/Parts/glassPanel_tab_8"] = 268,
+    ["UI/Parts/glassPanel_tab_9"] = 269,
+    ["UI/Parts/glassPanel_tabbar_1"] = 270,
+    ["UI/Parts/glassPanel_tabbar_2"] = 271,
+    ["UI/Parts/glassPanel_tabbar_3"] = 272,
+    ["UI/Player-lifes/1"] = 273,
+    ["UI/Player-lifes/2"] = 274,
+    ["UI/Player-lifes/3"] = 275,
+    ["UI/Player-lifes/4"] = 276,
+    ["UI/Player-lifes/5"] = 277,
+    ["UI/Player-lifes/6"] = 278,
+    ["UI/Player-lifes/7"] = 279,
+    ["UI/Player-lifes/8"] = 280,
+    ["UI/Player-lifes/9"] = 281,
+    ["UI/Player-lifes/10"] = 282,
+    ["UI/Player-lifes/11"] = 283,
+    ["UI/Player-lifes/12"] = 284,
+    ["UI/Squares/1/9-slices/1"] = 285,
+    ["UI/Squares/1/9-slices/2"] = 286,
+    ["UI/Squares/1/9-slices/3"] = 287,
+    ["UI/Squares/1/9-slices/4"] = 288,
+    ["UI/Squares/1/9-slices/5"] = 289,
+    ["UI/Squares/1/9-slices/6"] = 290,
+    ["UI/Squares/1/9-slices/7"] = 291,
+    ["UI/Squares/1/9-slices/8"] = 292,
+    ["UI/Squares/1/9-slices/9"] = 293,
+    ["UI/Squares/2/9-slices/1"] = 294,
+    ["UI/Squares/2/9-slices/2"] = 295,
+    ["UI/Squares/2/9-slices/3"] = 296,
+    ["UI/Squares/2/9-slices/4"] = 297,
+    ["UI/Squares/2/9-slices/5"] = 298,
+    ["UI/Squares/2/9-slices/6"] = 299,
+    ["UI/Squares/2/9-slices/7"] = 300,
+    ["UI/Squares/2/9-slices/8"] = 301,
+    ["UI/Squares/2/9-slices/9"] = 302,
+    ["UI/Squares/3/9-slices/1"] = 303,
+    ["UI/Squares/3/9-slices/2"] = 304,
+    ["UI/Squares/3/9-slices/3"] = 305,
+    ["UI/Squares/3/9-slices/4"] = 306,
+    ["UI/Squares/3/9-slices/5"] = 307,
+    ["UI/Squares/3/9-slices/6"] = 308,
+    ["UI/Squares/3/9-slices/7"] = 309,
+    ["UI/Squares/3/9-slices/8"] = 310,
+    ["UI/Squares/3/9-slices/9"] = 311,
+    ["UI/Squares/4/9-slices/1"] = 312,
+    ["UI/Squares/4/9-slices/2"] = 313,
+    ["UI/Squares/4/9-slices/3"] = 314,
+    ["UI/Squares/4/9-slices/4"] = 315,
+    ["UI/Squares/4/9-slices/5"] = 316,
+    ["UI/Squares/4/9-slices/6"] = 317,
+    ["UI/Squares/4/9-slices/7"] = 318,
+    ["UI/Squares/4/9-slices/8"] = 319,
+    ["UI/Squares/4/9-slices/9"] = 320,
+    ["UI/Squares/5/9-slices/1"] = 321,
+    ["UI/Squares/5/9-slices/2"] = 322,
+    ["UI/Squares/5/9-slices/3"] = 323,
+    ["UI/Squares/5/9-slices/4"] = 324,
+    ["UI/Squares/5/9-slices/5"] = 325,
+    ["UI/Squares/5/9-slices/6"] = 326,
+    ["UI/Squares/5/9-slices/7"] = 327,
+    ["UI/Squares/5/9-slices/8"] = 328,
+    ["UI/Squares/5/9-slices/9"] = 329,
+    ["UI/Squares/6/9-slices/1"] = 330,
+    ["UI/Squares/6/9-slices/2"] = 331,
+    ["UI/Squares/6/9-slices/3"] = 332,
+    ["UI/Squares/6/9-slices/4"] = 333,
+    ["UI/Squares/6/9-slices/5"] = 334,
+    ["UI/Squares/6/9-slices/6"] = 335,
+    ["UI/Squares/6/9-slices/7"] = 336,
+    ["UI/Squares/6/9-slices/8"] = 337,
+    ["UI/Squares/6/9-slices/9"] = 338,
 }
 
 function SheetInfo:getSheet()

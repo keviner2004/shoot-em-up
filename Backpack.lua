@@ -5,6 +5,7 @@ local TAG = "Backpack"
 
 Backpack.new = function(options)
     local backpack = {}
+    backpack.owner = "unknow"
     backpack.items = {}
     backpack.maxItems = options and options.maxItems or 300
     backpack.counter = 0
@@ -70,7 +71,7 @@ Backpack.new = function(options)
     function backpack:remove2(item)
         local itemIndex = self.indexes[item]
         if not itemIndex then
-            logger:error(TAG, "Item is missing")
+            logger:error(TAG, "Item is missing:"..self.owner)
             return
         end
         if type(item) == "table" then

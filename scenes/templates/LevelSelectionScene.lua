@@ -226,8 +226,10 @@ LevelSelectionScene.new = function(options)
   end
 
   function scene:setDotAt(dot, page)
-    dot.x = self.dotLeft + dot.width * (page-1) + self.dotGap * (page-1)
-    dot.y = self.pageSelectorY
+    if dot.width then
+      dot.x = self.dotLeft + dot.width * (page-1) + self.dotGap * (page-1)
+      dot.y = self.pageSelectorY
+    end
   end
 
   function scene:show( event )

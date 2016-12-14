@@ -44,7 +44,7 @@ local scene = BasicScene.new()
 
 -- "scene:create()"
 function scene:create( event )
-    logger:debug(TAG, "scene:create")
+    --logger:info(TAG, "game scene:create")
     local sceneGroup = self.view
     -- Initialize the scene here.
     -- Example: add display objects to "sceneGroup", add touch listeners, etc.
@@ -160,6 +160,12 @@ function scene:touch(event)
 end
 
 function scene:onKeyCancel(event)
+    local victory = composer.getScene("scenes.victory")
+    local gameover = composer.getScene("scenes.gameover")
+    if (victory and victory.showed) or (gameover and gameover.showed) then
+        logger:info(TAG, "Disable toggle")
+        return
+    end
     if self.status == STATUS_STOPPED then
         return
     end
@@ -513,12 +519,19 @@ function scene:victory(options)
     logger:debug(TAG, "Show victory overlay")
     local showNextLevel = true
     local nextLevelIdx = 1
-    if self.currentLevelIdx >= #self.levels then
-        showNextLevel = false
-        nextLevelIdx = self.currentLevelIdx
-    else
-        nextLevelIdx = self.currentLevelIdx + 1
+
+    if Level.gameMode == gameConfig.MODE_SINGLE_LEVEL then
+        if self.currentLevelIdx >= #self.levels then
+            showNextLevel = false
+            nextLevelIdx = self.currentLevelIdx
+        else
+            nextLevelIdx = self.currentLevelIdx + 1
+        end
+    elseif Level.gameMode == gameConfig.MODE_RANDOM_LEVEL then
+        math.randomseed(os.time())
+        nextLevelIdx = math.random(1, #self.levels)
     end
+
     self:popUp("scenes.victory", {
         score = self.globalScore,
         newRecord = newRecord,

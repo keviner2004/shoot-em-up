@@ -1,7 +1,7 @@
 local gameConfig = require("gameConfig")
 local Sublevel = require("Sublevel")
-local MyEnemy = require("levels.myLevel.MyBoss")
-local HpBar = require("ui.HpBar")
+local MyEnemy = require("levels.myLevel.MyErrBoss")
+local HpBar = require("ui.HPBar")
 local util = require("util")
 local myLevel = Sublevel.new("9999999-086", "custom enemy", "author name", {isBossFight = true, bg = "bg"})
 

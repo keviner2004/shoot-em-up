@@ -13,8 +13,8 @@ local loginCallBacks = {}
 local requestCallBacks = {}
 
 local function facebookListener(event)
-  logger:debug(TAG, "=============Receive fb event: ")
-  logger:debug(TAG, "=============Type: %s, phase: %s, response: %s", event.type or "", event.phase or "", event.response or "")
+  logger:info(TAG, "=============Receive fb event: ")
+  logger:info(TAG, "=============Type: %s, phase: %s, response: %s", event.type or "", event.phase or "", event.response or "")
   if ( "session" == event.type ) then
     -- Handle login event
     if event.phase == FB.STATUS_LOGIN then
@@ -27,15 +27,17 @@ local function facebookListener(event)
       table.remove( loginCallBacks, 1)
       onComplete(event.phase)
     end
-  elseif ( "request" == event.response) then
+  elseif ( "request" == event.type) then
     if #requestCallBacks > 0 then
       local onComplete = requestCallBacks[1]
-      table.remove( requestCallBacks, 1)
       local decoded, pos, msg = json.decode(event.response)
       if not decoded then
         logger:error(TAG, "Decode failed at "..tostring(pos)..": "..tostring(msg) )
       end
       onComplete(deceded)
+      table.remove( requestCallBacks, 1)
+    else
+      logger:info(TAG, "no callback found...")
     end
   elseif ( "dialog" == event.type ) then
       -- Dialog closed
@@ -48,7 +50,7 @@ facebook.setFBConnectListener( facebookListener )
 FB.login = function(onComplete)
   local accessToken = facebook.getCurrentAccessToken()
   if ( accessToken ) then
-    logger:debug(TAG, "Facebook user already logged in, User's access token: " .. accessToken.token )
+    logger:info(TAG, "Facebook user already logged in, User's access token: " .. accessToken.token )
     return onComplete(FB.STATUS_LOGIN)
   end
   if onComplete then
@@ -106,6 +108,20 @@ FB.getCurrentAccessToken = function()
 end
 
 FB.share = function()
+  print("Share fb")
+  --local shareParams = {
+  --    link = "https://play.google.com/store/apps/details?id=com.nkfust.space_shooter",
+  --    title = "SpaceShooter"
+  --}
+  --facebook.showDialog( "link", shareParams )
+  local shareParams = {
+      link = "https://play.google.com/store/apps/details?id=com.nkfust.space_shooter",
+      title = "SpaceShooter",
+      --picture = "https://play.google.com/store/apps/details?id=com.nkfust.space_shooter",
+      description = "Share this game!"
+
+  }
+  facebook.showDialog( "link", shareParams )
 
 end
 

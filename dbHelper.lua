@@ -3,6 +3,7 @@ local logger = require("logger")
 local gameConfig = require("gameConfig")
 local apiHelper = require("apiHelper")
 local util = require("util")
+local json = require("json")
 local TAG = "Helper"
 local path = system.pathForFile( "spaceshooter.db", system.DocumentsDirectory )
 logger:debug(TAG, "DB store in %s", path)
@@ -93,6 +94,7 @@ end
 
 
 function helper:setLoginType(value)
+  print("set login type!", value)
   self:updateInfo("loginType", value)
 end
 
@@ -193,6 +195,7 @@ function helper:changeNumOfLikes(levelId, offset)
 end
 
 function helper:updateLike(levelId, num)
+  --print("!!!!!!!!Update like")
   local date = util.getCurrentDate()
   self:exec([[
     INSERT OR REPLACE INTO like (levelId, num, mdate) values (?, ?, ?);
@@ -354,8 +357,8 @@ function helper:syncLikeNum(levelId)
   apiHelper:getLikeNum({
     levelId = levelId,
     onComplete = function(event)
-      if event.success and event.response.count then
-        self:updateLike(event.response.count)
+      if event.success and event.response.result.count then
+        self:updateLike(levelId, event.response.result.count)
       end
     end
   })

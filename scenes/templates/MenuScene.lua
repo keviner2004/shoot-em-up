@@ -32,6 +32,7 @@ Menu.new = function()
        titleText.x = glassPanel.x
        titleText.y = gameConfig.contentHeight * 0.15
        self.selectedBtnIdx = 1
+       self.secondBtnIdx = 1
        self.onClose = event.params and event.params.onClose
        self.buttonGap = 10
        self.buttons = display.newGroup()
@@ -65,20 +66,37 @@ Menu.new = function()
        return button
     end
 
-    function scene:insertButton(btn)
-      self.buttons:insert(btn)
+    function scene:registerButton(btn, subIdx)
       local btnIdx = self.buttons.numChildren
       local function extendTouchListener(event)
         if event.phase == "ended" then
-          self:onConfirm(btnIdx)
+          self:onConfirm(btnIdx, subIdx)
         end
       end
-      if btn.onTouch then
-        function btn:onTouch(event)
+
+      local targetBtn = btn
+
+      if subIdx > 0 then
+        targetBtn = btn.group[subIdx].instance
+      end
+
+      if targetBtn.onTouch then
+        function targetBtn:onTouch(event)
           extendTouchListener(event)
         end
       else
-        btn:addEventListener( "touch", extendTouchListener)
+        targetBtn:addEventListener( "touch", extendTouchListener)
+      end
+    end
+
+    function scene:insertButton(btn)
+      self.buttons:insert(btn)
+      if btn.group then
+        for i = 1, #btn.group do
+          self:registerButton(btn, i)
+        end
+      else
+        self:registerButton(btn, 0)
       end
     end
 
@@ -187,26 +205,44 @@ Menu.new = function()
       self:selectButton(1)
     end
 
-    function scene:onKeyConfirm()
-      logger:debug(TAG, "onKeyConfirm")
-      self:onConfirm(self.selectedBtnIdx)
+    function scene:onKeyRight()
+      self:selectButton(0, 1)
     end
 
-    function scene:onConfirm(idx)
-      logger:debug(TAG, "onConfirm %dth btn", idx)
-      if self.buttons[idx] and self.buttons[idx].action then
-        self.buttons[idx].action()
-        if not self.buttons[idx].playSound then
-          self.buttons[idx].playSound = function()
-            print("###################")
-            sfx:play(self.buttons[idx].sound or "button")
-          end
-        end
-        self.buttons[idx]:playSound()
+    function scene:onKeyLeft()
+      self:selectButton(0, -1)
+    end
+
+    function scene:onKeyConfirm()
+      logger:debug(TAG, "onKeyConfirm")
+
+      if self.buttons[self.selectedBtnIdx].group then
+        self:onConfirm(self.selectedBtnIdx, self.buttons[self.selectedBtnIdx].groupIdx)
+      else
+        self:onConfirm(self.selectedBtnIdx)
       end
     end
 
-    function scene:selectButton(offset)
+    function scene:onConfirm(idx, subIdx)
+      logger:debug(TAG, "onConfirm %dth btn", idx, subIdx)
+      if subIdx and subIdx > 0 then
+        self.buttons[idx].group[subIdx].action()
+        sfx:play("button")
+      else
+        if self.buttons[idx] and self.buttons[idx].action then
+          self.buttons[idx].action()
+          if not self.buttons[idx].playSound then
+            self.buttons[idx].playSound = function()
+              --print("###################")
+              sfx:play(self.buttons[idx].sound or "button")
+            end
+          end
+          self.buttons[idx]:playSound()
+        end
+      end
+    end
+
+    function scene:selectButton(offset, offset2)
       --show pointer if need
       if not self.pointer then
         self.pointer = Sprite["expansion-9"].new(gameConfig.defaultCursor)
@@ -230,10 +266,20 @@ Menu.new = function()
 
         logger:debug(TAG, "Select new menu index : %d / %d", self.selectedBtnIdx, self.buttons.numChildren)
       end
+
       local selectedBtn = self.buttons[self.selectedBtnIdx]
-      self.pointer.x, self.pointer.y = selectedBtn:localToContent( 0, 0 )
-      self.pointer.x = self.pointer.x + (selectedBtn.pointerOffsetX or self.buttons.width/4)
-      self.pointer.y = self.pointer.y + (selectedBtn.pointerOffestY or self.buttons.height/8)
+      if selectedBtn.group and selectedBtn.groupIdx then
+        local newIndex = util.getRotateIndex(selectedBtn.groupIdx + (offset2 or 0), #selectedBtn.group)
+        selectedBtn.groupIdx = newIndex
+        local subBtn = selectedBtn.group[selectedBtn.groupIdx].instance
+        self.pointer.x, self.pointer.y = subBtn:localToContent( 0, 0 )
+        self.pointer.x = self.pointer.x + (subBtn.pointerOffsetX or subBtn.width/4)
+        self.pointer.y = self.pointer.y + (subBtn.pointerOffestY or subBtn.height/8)
+      else
+        self.pointer.x, self.pointer.y = selectedBtn:localToContent( 0, 0 )
+        self.pointer.x = self.pointer.x + (selectedBtn.pointerOffsetX or self.buttons.width/4)
+        self.pointer.y = self.pointer.y + (selectedBtn.pointerOffestY or self.buttons.height/8)
+      end
     end
 
     -- "scene:hide()"

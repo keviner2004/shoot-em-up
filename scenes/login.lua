@@ -7,6 +7,8 @@ local PanelButton = require("ui.GlassProjectionPanel")
 local logger = require("logger")
 local dbHelper = require("dbHelper")
 local TAG = "login"
+local SharePointer = require("ui.SharePointer")
+local util = require("util")
 local scene = BasicScene.new()
 
 function scene:create( event )
@@ -52,7 +54,17 @@ function scene:create( event )
   self.window:insert(self.closeButton)
   self.window:insert(self.fbLoginBtn)
   self.superGroup:insert(self.window)
-
+  self.groupIdx = 1
+  self.group = {
+    {
+      instance = self.fbLoginBtn,
+      action = self.fbLoginBtn.click
+    }, 
+    {
+      instance = self.closeButton,
+      action = self.closeButton.click
+    }
+  }
   self.fbLoginBtn.onLogined = function()
     self:back({
       params = {
@@ -66,7 +78,9 @@ end
 function scene:show( event )
     local phase = event.phase
     if ( phase == "will" ) then
-
+      self.pointer = SharePointer.new()
+      self.pointer.x = 9999
+      self.view:insert(self.pointer)
     elseif ( phase == "did" ) then
 
     end
@@ -79,9 +93,9 @@ function scene:hide( event )
       -- Called when the scene is on screen (but is about to go off screen).
       -- Insert code here to "pause" the scene.
       -- Example: stop timers, stop animation, stop audio, etc.
+      self.pointer:removeSelf()
    elseif ( phase == "did" ) then
       -- Called immediately after scene goes off screen.
-
    end
 end
 
@@ -94,12 +108,19 @@ end
 
 ---------------------------------------------------------------------------------
 
-function scene:onKeyUp(event)
+function scene:select(offset)
+  self.groupIdx = util.getRotateIndex(self.groupIdx + offset, #self.group)
+  self.pointer.x, self.pointer.y = self.group[self.groupIdx].instance:localToContent( 0, 0 )
+  self.pointer.x = self.pointer.x + self.group[self.groupIdx].instance.height/2
+  self.pointer.y = self.pointer.y + self.group[self.groupIdx].instance.height/2
+end
 
+function scene:onKeyUp(event)
+  self:select(-1)
 end
 
 function scene:onKeyDown(event)
-
+  self:select(1)
 end
 
 function scene:onKeyLeft(event)
@@ -111,10 +132,10 @@ function scene:onKeyRight(event)
 end
 
 function scene:onKeyConfirm(event)
-
+  self.group[self.groupIdx].action()
 end
 
 function scene:onKeyCancel(event)
-
+  self:back()
 end
 return scene

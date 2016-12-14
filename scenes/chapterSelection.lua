@@ -10,14 +10,15 @@ local MetalPanelPlate = require("ui.MetalPanelPlate")
 local logger = require("logger")
 local TAG = "ChapterSelection"
 local Number = require("ui.Number")
-local CHAPTER_INFINITE_MODE_INDEX = 1
-local CHAPTER_LEVEL_MODE_INDEX = 2
+local CHAPTER_RANDOM_MODE_INDEX = 1
+local CHAPTER_INFINITE_MODE_INDEX = 2
+local CHAPTER_LEVEL_MODE_INDEX = 3
 local navigator = require("navigator")
 local ScaleText = require("ui.ScaleText")
 local scene = LevelSelectionScene.new({
     row = 1,
     col = 1,
-    numOfLevels = 2,
+    numOfLevels = 3,
     title = "Select Chapter"
   })
 
@@ -37,6 +38,17 @@ function scene:onLevelConfirm(index)
     elseif index == CHAPTER_INFINITE_MODE_INDEX then
         --go to game
         composer.gotoScene("scenes.game")
+    elseif index == CHAPTER_RANDOM_MODE_INDEX then
+        print("Random chapter selected")
+        math.randomseed(os.time())
+        local levelIdx = math.random(1, #gameConfig.seperateLevels)
+        composer.gotoScene("scenes.game", {
+            params = {
+              mode = gameConfig.MODE_RANDOM_LEVEL,
+              levels = gameConfig.seperateLevels,
+              levelIdx = levelIdx
+            }
+        })
     end
 end
 
@@ -47,7 +59,7 @@ function scene:createChapter(options)
     local base = MetalPanel.new(self.blockWidth, self.blockHeight)
     local info = MetalPanelPlate.new(self.blockWidth * 0.92, self.blockHeight/4)
     local chapterName = ScaleText.new({
-      text = (options and options.title) or "Classic",
+      text = (options and options.title) or "INFINITE",
       x = 0,
       y = 0,
       font = gameConfig.defaultFont,
@@ -103,8 +115,13 @@ function scene:createLevelBlock(index)
         if gameConfig.hiddenSingleLevelChapter then
           locked = true
         end
-        block = self:createChapter({title = "NKFU", score = highScore, preview = Sprite["expansion-2"].new("Planet/4"), locked = locked})
-
+        block = self:createChapter({title = "SINGLE", score = highScore, preview = Sprite["expansion-2"].new("Planet/4"), locked = locked})
+    elseif index == CHAPTER_RANDOM_MODE_INDEX then
+        local highScore = 0
+        for i = 1, #gameConfig.seperateLevels do
+            highScore = highScore + dbHelper:getHighScore(require("levels."..gameConfig.seperateLevels[i]).id, "local")
+        end
+        block = self:createChapter({title = "RANDOM", score = highScore, preview = Sprite["expansion-2"].new("Planet/3"), locked = false})
     end
     return block
 end

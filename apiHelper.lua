@@ -46,6 +46,7 @@ function helper:apiHandler(options)
       else
         data.success = false
       end
+      --print("http response", json.prettify(data.response))
       options.onComplete(data)
     end
   end
@@ -102,6 +103,7 @@ function helper:getLikeNum(options)
 end
 
 function helper:syncLike(options)
+  --print("syncLike: ", options and options.levelId or "", options and options.userId or "", options and options.loginType or "")
   network.request(LIKE_URL, "POST",
     self:apiHandler(options),
     {
@@ -118,6 +120,7 @@ end
 
 
 function helper:request(url, method, handler, params)
+  --print("request: ", url, method, json.prettify({params}))
   if method == "GET"then
     if  params then
       url = url.."?"..self:getParamString(params)

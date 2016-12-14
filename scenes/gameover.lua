@@ -2,7 +2,11 @@ local composer = require("composer")
 local MenuScene = require("scenes.templates.MenuScene")
 local scene = MenuScene.new()
 local gameConfig = require("gameConfig")
+local LikeButton = require("ui.LikeButton")
+local ShareIcon = require("ui.ShareIcon")
+local Level = require("Level")
 local ScaleText = require("ui.ScaleText")
+
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
 -- unless "composer.removeScene()" is called.
@@ -40,6 +44,38 @@ function scene:onWillShow(event)
     else
         self.newIcon.isVisible = false
     end
+    if Level.gameMode == gameConfig.MODE_INFINITE_LEVEL then
+      self.shareIcon = ShareIcon.new({
+        auth = function()
+          self:go("scenes.victory", "scenes.login")
+        end
+      })
+      self:insertButton(self.shareIcon)
+      self:resizeButtons()
+      self.shareIcon.y = self.shareIcon.y + gameConfig.contentHeight * 0.1
+    else
+      self.likeButton = LikeButton.new({
+        auth = function()
+          self:go("scenes.victory", "scenes.login")
+        end
+      })
+      self:insertButton(self.likeButton)
+      self:resizeButtons()
+      self.likeButton.y = self.likeButton.y + gameConfig.contentHeight * 0.1
+    end
+    
+
+end
+
+function scene:onWillHide(event)
+  if self.likeButton then
+    self.likeButton:removeSelf()
+    self.likeButton = nil
+  end
+  if self.shareIcon then
+    self.shareIcon:removeSelf()
+    self.shareIcon = nil
+  end
 end
 
 function scene:getTitleText()
@@ -47,13 +83,16 @@ function scene:getTitleText()
 end
 
 function scene:insertButtons()
-   --local rankButton = self:newButton("Rank")
-   local restartButton = self:newRestartButton()
-   local giveupButton = self:newGiveupButton()
+  --local rankButton = self:newButton("Rank")
+  local restartButton = self:newRestartButton()
+  local giveupButton = self:newGiveupButton()
 
-   --self:insertButton(rankButton)
-   self:insertButton(restartButton)
-   self:insertButton(giveupButton)
+
+
+  --self:insertButton(rankButton)
+  self:insertButton(restartButton)
+  self:insertButton(giveupButton)
+
 end
 
 return scene
