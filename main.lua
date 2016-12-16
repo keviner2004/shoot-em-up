@@ -17,7 +17,7 @@ if gameConfig.remoteLogging then
   local oldPrint = print
   print = function(message, ...)
     --apiHelper:devLog("none", string.format(message, ...))
-    apiHelper:splunk(string.format(message, ...))
+    apiHelper:splunk(string.format(gameConfig.devId..", "..message, ...))
     oldPrint(message, ...)
   end
 end
