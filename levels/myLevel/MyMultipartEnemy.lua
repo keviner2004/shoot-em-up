@@ -1,7 +1,7 @@
 local util = require("util")
 local GameObject = require("GameObject")
 local MyEnemy = require("levels.myLevel.MyEnemy")
-local Effect = require("effects.pixelEffect1")
+local Effect = require("effects.PixelEffect1")
 local Enemy = {}
 
 Enemy.new = function(parent, options)
