@@ -234,7 +234,6 @@ Enemy.new = function(options)
                     function(event)
                         self:showDestroyEffect()
                         self:showScore()
-                        self:onDead(crime)
                         if crime and crime.onKill then
                             crime:onKill(self)
                         end
@@ -244,6 +243,7 @@ Enemy.new = function(options)
                             --print("drop items")
                             self:dropItems()
                         end
+                        self:onDead(crime)
                     end
                 )
             else
