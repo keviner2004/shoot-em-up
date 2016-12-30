@@ -519,17 +519,17 @@ function scene:victory(options)
     logger:debug(TAG, "Show victory overlay")
     local showNextLevel = true
     local nextLevelIdx = 1
-
-    if Level.gameMode == gameConfig.MODE_SINGLE_LEVEL then
+    --print("~~~~~~~~~", Level._isRandom)
+    if Level._isRandom then
+        math.randomseed(os.time())
+        nextLevelIdx = math.random(1, #self.levels)
+    elseif Level.gameMode == gameConfig.MODE_SINGLE_LEVEL then
         if self.currentLevelIdx >= #self.levels then
             showNextLevel = false
             nextLevelIdx = self.currentLevelIdx
         else
             nextLevelIdx = self.currentLevelIdx + 1
         end
-    elseif Level.gameMode == gameConfig.MODE_RANDOM_LEVEL then
-        math.randomseed(os.time())
-        nextLevelIdx = math.random(1, #self.levels)
     end
 
     self:popUp("scenes.victory", {
@@ -585,6 +585,8 @@ function scene:show( event )
             else
                 local options = {}
                 options.mode = (event.params and event.params.mode) or gameConfig.MODE_INFINITE_LEVEL
+                options._isRandom = (event.params and event.params._isRandom)
+                --print("options._isRandom ", options._isRandom)
                 self.currentLevelIdx = (event.params and event.params.levelIdx) or 1
                 self.levels = (event.params and event.params.levels) or gameConfig.gameLevels
                 if self.levels and self.currentLevelIdx then

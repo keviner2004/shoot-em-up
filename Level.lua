@@ -135,7 +135,9 @@ Level.load = function()
             }))
         end
         Level.gameMode = options.gameMode
+        Level._isRandom = options._isRandom
         self.currentSublevel.gameMode = options.gameMode
+        self.currentSublevel._isRandom = options._isRandom
         self.currentSublevel:initEverytime()
         if not self.currentSublevel.isBossFight then
           self:showInfo()
@@ -167,7 +169,7 @@ Level.load = function()
     end
 
     function level:startRandomLevel(subLevel, options)
-        print("Start a random level", subLevel)
+        --print("Start a random level", subLevel)
         if not option then
             option = {}
         end
@@ -184,8 +186,9 @@ Level.load = function()
                 self:updatePlayLog(self.game.globalScore, 0)
                 options.onFail(event)
               end
-            end
-            ,gameMode = gameConfig.MODE_RANDOM_LEVEL
+            end,
+            gameMode = gameConfig.MODE_SINGLE_LEVEL,
+            _isRandom = true
         })
         self:addPlayLog()
     end
@@ -267,7 +270,8 @@ Level.load = function()
                 self:_startInfiniteLevel(options)
           end,
           onFail = options and options.onFail,
-          gameMode = gameConfig.MODE_INFINITE_LEVEL
+          gameMode = gameConfig.MODE_INFINITE_LEVEL,
+          _isRandom = options and options._isRandom,
         })
     end
 
@@ -309,17 +313,17 @@ Level.load = function()
         logger:debug(TAG, "level:start with delay: %d", delay)
         self.timerUtil:addTimer(delay,
             function ()
-                if options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
-                    logger:debug(TAG, "start single mode")
+                if options and options._isRandom then
+                    --print("start random mode")
+                    self:startRandomLevel(options.levelName, options)
+                elseif options and options.mode == gameConfig.MODE_SINGLE_LEVEL then
+                    --print("start single mode")
                     --print("levelName~~~~~~~~~~~", options.levelName)
                     if not options.levelName then
                         logger:error(TAG, "Level name must be specified in single level mode")
                         return
                     end
                     self:startSingleLevel(options.levelName, options)
-                elseif options and options.mode == gameConfig.MODE_RANDOM_LEVEL then
-                    print("start random mode")
-                    self:startRandomLevel(options.levelName, options)
                 else
                     self:startInfiniteLevel(options)
                 end

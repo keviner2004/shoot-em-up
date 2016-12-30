@@ -10,15 +10,15 @@ local MetalPanelPlate = require("ui.MetalPanelPlate")
 local logger = require("logger")
 local TAG = "ChapterSelection"
 local Number = require("ui.Number")
-local CHAPTER_RANDOM_MODE_INDEX = 3
-local CHAPTER_INFINITE_MODE_INDEX = 1
-local CHAPTER_LEVEL_MODE_INDEX = 2
+local CHAPTER_RANDOM_MODE_INDEX = 1
+local CHAPTER_INFINITE_MODE_INDEX = 2
+local CHAPTER_LEVEL_MODE_INDEX = 3
 local navigator = require("navigator")
 local ScaleText = require("ui.ScaleText")
 local scene = LevelSelectionScene.new({
     row = 1,
     col = 1,
-    numOfLevels = 2,
+    numOfLevels = 3,
     title = "Select Chapter"
   })
 
@@ -44,7 +44,8 @@ function scene:onLevelConfirm(index)
         local levelIdx = math.random(1, #gameConfig.seperateLevels)
         composer.gotoScene("scenes.game", {
             params = {
-              mode = gameConfig.MODE_RANDOM_LEVEL,
+              mode = gameConfig.MODE_SINGLE_LEVEL,
+              _isRandom = true,
               levels = gameConfig.seperateLevels,
               levelIdx = levelIdx
             }

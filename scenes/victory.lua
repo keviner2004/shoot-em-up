@@ -86,6 +86,7 @@ function scene:insertButtons()
         composer.gotoScene("scenes.game", {
             params = {
                 mode = gameConfig.MODE_SINGLE_LEVEL,
+                _isRandom = Level._isRandom,
                 levels = self.params.levels,
                 levelIdx = self.params.nextLevelIdx
             }
